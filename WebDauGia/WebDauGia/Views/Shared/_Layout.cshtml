@@ -74,9 +74,9 @@
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Danh mục pla pla
+                        Danh mục
                     </div>
-                    @*@Html.Action("List", "Category")*@
+                    @Html.Action("List", "Category")
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -92,31 +92,9 @@
             <div class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        @*@RenderSection("view_title")*@
+                        @RenderSection("view_title")
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="thumbnail">
-                                    <img src="..." alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="thumbnail">
-                                    <img src="..." alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         @RenderBody()
                     </div>
                 </div>

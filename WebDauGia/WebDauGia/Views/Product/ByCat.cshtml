@@ -1,0 +1,87 @@
+﻿@using WebDauGia.Models
+@model List<Product>
+
+@section view_title{
+    Danh sách sản phẩm: @ViewBag.CatName
+}
+
+@if (Model.Count == 0)
+{
+    <text>Không có sản phẩm.</text>
+}
+else
+{
+    <div class="row">
+        @foreach (var p in Model)
+        {
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img src="~/Imgs/sp/@p.ProID/main.jpg" title="@p.ProName" />
+                    <div class="caption">
+                        <h4 style="overflow:hidden;text-overflow:ellipsis;height:45px">@p.ProName</h4>
+                        <h3>Giá: @string.Format("{0:N0}", p.Price)</h3>
+                        <h4>Tồn: @p.Quantity</h4>
+                        <p style="overflow:hidden;text-overflow:ellipsis; white-space:nowrap">@p.TinyDes</p>
+                        <p>
+                            <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="btn btn-default" role="button">
+                                Chi tiết
+                            </a>
+                            <a href="#" class="btn btn-success" role="button">
+                                <i class="fa fa-cart-plus"></i>
+                                Đặt mua
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            @if (@ViewBag.curPage == 1)
+            {
+                <li class="disabled">
+                    <a aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="?page=@(ViewBag.curPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= @ViewBag.Pages; i++)
+            {
+                if (i == ViewBag.curPage)
+                {
+                    <li class="active"><a href="?page=@i">@i</a></li>
+                }
+                else
+                {
+                    <li><a href="?page=@i">@i</a></li>
+                }
+            }
+            @if (@ViewBag.curPage == @ViewBag.Pages)
+            {
+                <li class="disabled">
+                    <a aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="?page=@(ViewBag.curPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
