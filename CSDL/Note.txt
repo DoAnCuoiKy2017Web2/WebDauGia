@@ -1,0 +1,3 @@
+﻿Chú ý khi chạy Script: nhớ thay đổi đường dẫn lưu trong file script.sql
+
+Nếu Database đã có QuanLyDauGia thì Drop Database QuanLyDauGia và chạy script script.sql.
