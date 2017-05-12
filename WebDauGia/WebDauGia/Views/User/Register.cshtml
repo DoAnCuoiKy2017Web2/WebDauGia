@@ -1,0 +1,212 @@
+﻿@using BotDetect.Web.Mvc
+@using WebDauGia.Models
+
+@model RegisterVM
+
+@{
+    ViewBag.Title = "Register";
+}
+
+@section view_title{
+    Đăng ký thành viên
+}
+
+@section css{
+    <style type="text/css">
+        label {
+            font-weight: normal !important;
+        }
+    </style>
+    <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+}
+@section js{
+    <script src="~/Content/DatePicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'd/mm/yyyy',
+            autoclose: true,
+        });
+        $("#form_register").validate({
+            rules: {
+                Username: {
+                    required: true,
+                },
+                Password: {
+                    required: true,
+                    minlength: 6,
+                },
+                CPasswword: {
+                    required: true,
+                    equalTo: "#txtPassWord",
+                },
+                Name: {
+                    required: true,
+                },
+                Email: {
+                    required: true,
+                    email: true,
+                },
+                DateOfBirth: {
+                    required: true,
+                },
+                code: {
+                    required: true,
+                },
+            },
+            messages: {
+                Username: {
+                    required: "Chỗ này không được để trống.",
+                },
+                Password: {
+                    required: "Chỗ này không được để trống.",
+                    minlength: "Mật khẩu ít nhất 6 ký tự",
+                },
+                CPasswword: {
+                    required: "Chỗ này không được để trống.",
+                    equalTo: "Mật khẩu không khớp"
+                },
+                Name: {
+                    required: "Chỗ này không được để trống.",
+                },
+                Email: {
+                    required: "Chỗ này không được để trống.",
+                    email: "vui lòng nhập 1 email"
+                },
+                DateOfBirth: {
+                    required: "Chỗ này không được để trống.",
+                },
+                code: {
+                    required: "Chỗ này không được để trống.",
+                },
+            },
+            errorelement: 'span',
+            errorClass: 'help-block',
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass);
+                $(element).closest('.form-group')
+                  .addClass('has-error');
+            },
+            //unhighlight: function (element, errorClass, validClass) {
+            //    $(element).removeClass(errorClass).addClass(validClass);
+            //    $(element).closest('.form-group')
+            //      .removeClass('has-error');
+            //},
+            success: function (label) {
+                $(label).closest('.form-group')
+                  .removeClass('has-error').addClass('has-success');
+                label.remove;
+            }
+
+        });
+    </script>
+}
+
+
+@if (ViewBag.Error == true)
+{
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Fail!</strong> Mã CAPTCHA không đúng.
+    </div>
+}
+@if (ViewBag.Error == false)
+{
+    <div class="alert alert-success" role="alert">Đăng ký thành công</div>
+}
+<form class="form-horizontal" method="post" action="" id="form_register">
+    <div class="form-group">
+        <label for="txtUsername" class="col-sm-3 control-label">Tên đăng nhập</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtUsername" name="Username" placeholder="Tên đăng nhập" value="@Model.Username" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtPassWord" class="col-sm-3 control-label">Mật khẩu</label>
+        <div class="col-sm-9">
+            <input type="password" class="form-control" id="txtPassWord" name="Password" placeholder="Nhập mật khẩu" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtCPassWord" class="col-sm-3 control-label">Nhập lại mật khẩu</label>
+        <div class="col-sm-9">
+            <input type="password" class="form-control" id="txtCPassWord" name="CPasswword" placeholder="Nhập lại mật khẩu" />
+            <span id="re_password_error"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtName" class="col-sm-3 control-label">Họ tên</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtName" name="Name" placeholder="họ và tên" value="@Model.Name" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="@Model.Gender" class="col-sm-3 control-label">Giới tính</label>
+        <div class="col-sm-9">
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.Gender, "Nam", true) Nam
+                @Html.RadioButtonFor(model => model.Gender, "Nữ", false) Nữ
+                @Html.RadioButtonFor(model => model.Gender, "Khác", false) Khác
+                @Html.ValidationMessageFor(model => model.Gender)<br />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtEmail" name="Email" placeholder="Email" value="@Model.Email" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDateOfBirth" class="col-sm-3 control-label">Ngày sinh</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control datepicker" id="txtDateOfBirth" name="DateOfBirth" placeholder="chọn" readonly value="@Model.DateOfBirth" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtAddress" class="col-sm-3 control-label">Địa chỉ</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtAddress" name="Address" placeholder="địa chỉ" value="@Model.Address" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtPhone" class="col-sm-3 control-label">Điện thoại</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtPhone" name="Phone" placeholder="số điện thoại" value="@Model.Phone" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtCap" class="col-sm-3 control-label">CAPTCHA</label>
+        <div class="col-sm-9">
+            @{
+                MvcCaptcha exampleCaptcha = new MvcCaptcha("ExampleCaptcha");
+                exampleCaptcha.Reset();
+            }
+            @Html.Captcha(exampleCaptcha)
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtCode" class="col-sm-3 control-label">Nhập lại mã.</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="txtCode" name="code" placeholder="captcha" />
+        </div>
+    </div>
+    @*<div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+            </div>
+        </div>
+    </div>*@
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <button type="submit" class="btn btn-success" name="register" id="register">
+                <i class="fa fa-check"></i>
+                Đăng ký
+            </button>
+        </div>
+    </div>
+</form>

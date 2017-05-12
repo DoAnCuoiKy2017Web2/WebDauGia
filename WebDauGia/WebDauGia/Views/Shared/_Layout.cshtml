@@ -10,6 +10,7 @@
     <link href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Content/jquery-3.2.0.min.js"></script>
+    @RenderSection("css", false)
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -117,5 +118,8 @@
     <footer>
         <p>&copy; @DateTime.Now.Year - Our ASP.NET Web</p>
     </footer>
+    <script src="~/Content/jquery-3.2.0.min.js"></script>
+    <script src="~/Content/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    @RenderSection("js", false)
 </body>
 </html>

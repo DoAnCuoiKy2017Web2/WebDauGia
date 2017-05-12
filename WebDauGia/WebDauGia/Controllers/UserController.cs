@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BotDetect.Web.Mvc;
+using WebDauGia.Helper;
 using WebDauGia.Models;
 
 namespace WebDauGia.Controllers
@@ -13,6 +15,72 @@ namespace WebDauGia.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        // GET: User/Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+        // GET: User/Register
+        public ActionResult Register()
+        {
+            RegisterVM model = new RegisterVM()
+            {
+                Username = "",
+                Password = "",
+                Name = "",
+                Gender = "",
+                DateOfBirth = DateTime.Now.ToShortDateString(),
+                Email = "",
+                Phone = "",
+                Address = "",
+            };
+            return View(model);
+        }
+        //POST: User/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [CaptchaValidation("Code", "ExampleCaptcha", "Incorrect CAPTCHA code!")]
+        public ActionResult Register(RegisterVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // TODO: Captcha validation failed, show error message
+                @ViewBag.Error = true;
+            }
+            else
+            {
+                // TODO: Captcha validation passed, proceed with protected action
+                User u = new User();
+                u.UserName = model.Username;
+                u.Password = StringUtils.MD5(model.Password);
+                u.Name = model.Name;
+                u.Gender = model.Gender;
+                u.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
+                u.Email = model.Email;
+                u.Phone = model.Phone;
+                u.Address = model.Address;
+                u.DateCreate = DateTime.Now;
+                u.AllowAuction = false;
+                u.AllowSales = false;
+                u.Reliability = "10/10";
+                try
+                {
+                    using (QuanLyDauGiaEntities ctx = new QuanLyDauGiaEntities())
+                    {
+                        u.DateCreate = DateTime.Now;
+                        ctx.Users.Add(u);
+                        ctx.SaveChanges();
+                    }
+                    @ViewBag.Error = false;
+                }
+                catch (Exception)
+                {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Username đã tồn tại.')</script>");
+                }
+            }
+            return View(model);
         }
 
         //Get : User/Add

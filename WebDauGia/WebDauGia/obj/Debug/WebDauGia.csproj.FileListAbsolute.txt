@@ -20,3 +20,5 @@ D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFrame
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.SqlServer.dll
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.xml
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.SqlServer.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\bin\BotDetect.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\bin\BotDetect.Web.Mvc.dll
