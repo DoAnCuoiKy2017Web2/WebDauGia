@@ -51,15 +51,12 @@ namespace WebDauGia.Controllers
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
 
-                Product sp = dt.Products
-                    .Where(p => p.ProID == ID)
+                Category cat = dt.Categories
+                    .Where(p => p.CatID == ID)
                     .FirstOrDefault();
-                if (sp != null)
+                if (cat != null)
                 {
-                    Category danhmuc = dt.Categories
-                    .Where(p => p.CatID == sp.CatID)
-                    .FirstOrDefault();
-                    return View(sp);
+                    return View(cat);
                 }
                 return RedirectToAction("Index", "Category");
             }
@@ -89,10 +86,10 @@ namespace WebDauGia.Controllers
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
 
-                Category sp = dt.Categories
+                Category cat = dt.Categories
                     .Where(p => p.CatID == ID)
                     .FirstOrDefault();
-                return View(sp);
+                return View(cat);
             }
         }
 
@@ -102,13 +99,13 @@ namespace WebDauGia.Controllers
         {
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                Category sp = ctx.Categories
+                Category cat = ctx.Categories
                     .Where(p => p.CatID == ID)
                     .FirstOrDefault();
-                ctx.Entry(sp).State = System.Data.Entity.EntityState.Deleted;
+                ctx.Entry(cat).State = System.Data.Entity.EntityState.Deleted;
                 ctx.SaveChanges();
             }
-            return RedirectToAction("Index", "Produc");
+            return RedirectToAction("Index", "Category");
         }
     }
 }
