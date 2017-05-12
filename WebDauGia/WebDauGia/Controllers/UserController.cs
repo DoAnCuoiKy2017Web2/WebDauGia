@@ -36,9 +36,9 @@ namespace WebDauGia.Controllers
         }
 
         //Get : User/Edit
-        public ActionResult Edit(string? ID)
+        public ActionResult Edit(string ID)
         {
-            if (ID.HasValue == false)
+            if (ID == "")
             {
                 return RedirectToAction("Index", "User");
             }
@@ -71,9 +71,9 @@ namespace WebDauGia.Controllers
         }
 
         //Get : User/Delete
-        public ActionResult Delete(string? ID)
+        public ActionResult Delete(string ID)
         {
-            if (ID.HasValue == false)
+            if (ID == "")
             {
                 return RedirectToAction("Index", "User");
             }
@@ -101,6 +101,5 @@ namespace WebDauGia.Controllers
             }
             return RedirectToAction("Index", "User");
         }
-
     }
 }
