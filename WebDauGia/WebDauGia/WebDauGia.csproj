@@ -469,6 +469,7 @@
     <Content Include="Views\Category\ListPartial.cshtml" />
     <Content Include="Views\Product\ByCat.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Shared\_LayoutRegisterLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
