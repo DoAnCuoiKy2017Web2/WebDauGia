@@ -1,7 +1,7 @@
 ﻿@using WebDauGia.Models;
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Add Product";
     Layout = "~/Views/Shared/_LayoutRegisterLogin.cshtml";
 }
 @section view_title{
@@ -13,9 +13,9 @@
     <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 }
 @section js{
-    <script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
+    @*<script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>*@
     <script src="~/Content/DatePicker/js/bootstrap-datepicker.min.js"></script>
-    @*<script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>*@
+    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
     <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
     <script>
         CKEDITOR.replace('FullDes', {

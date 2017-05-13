@@ -47,7 +47,7 @@
           <Property Name="StartTime" Type="datetime" Nullable="false" />
           <Property Name="EndTime" Type="datetime" Nullable="false" />
           <Property Name="StepPrice" Type="int" Nullable="false" />
-          <Property Name="AucPrice" Type="float" Nullable="false" />
+          <Property Name="AucPrice" Type="float" />
           <Property Name="Owner" Type="nvarchar" MaxLength="50" />
           <Property Name="OwnerPrice" Type="float" />
         </EntityType>
@@ -147,7 +147,7 @@
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StepPrice" Type="Int32" Nullable="false" />
-          <Property Name="AucPrice" Type="Double" Nullable="false" />
+          <Property Name="AucPrice" Type="Double" />
           <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OwnerPrice" Type="Double" />
         </EntityType>

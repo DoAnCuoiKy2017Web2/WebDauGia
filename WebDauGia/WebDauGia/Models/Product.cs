@@ -25,7 +25,7 @@ namespace WebDauGia.Models
         public System.DateTime StartTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public int StepPrice { get; set; }
-        public double AucPrice { get; set; }
+        public Nullable<double> AucPrice { get; set; }
         public string Owner { get; set; }
         public Nullable<double> OwnerPrice { get; set; }
     }

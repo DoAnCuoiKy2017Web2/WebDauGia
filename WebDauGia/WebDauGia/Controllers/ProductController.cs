@@ -76,9 +76,9 @@ namespace WebDauGia.Controllers
             }
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                //model.AucPrice = 0;
-                //model.OwnerPrice = 100;
-                //model.Owner = "admin";
+                model.AucPrice = 0;
+                model.OwnerPrice = 100;
+                model.Owner = "admin";
 
                 model.ProName = pro.ProName;
                 model.CatID = int.Parse(pro.CatId);
