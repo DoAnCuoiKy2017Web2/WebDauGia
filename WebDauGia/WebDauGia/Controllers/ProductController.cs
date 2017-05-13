@@ -52,19 +52,48 @@ namespace WebDauGia.Controllers
         //Get : Produc/Add
         public ActionResult Add()
         {
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<Category> list = ctx.Categories.ToList();
+                @ViewBag.DanhSachDanhMuc = list;
+            }
             return View();
         }
 
         //Post : Produc/Add
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(Product model)
+        public ActionResult Add(ProductVM pro)
         {
+            Product model = new Product();
+            if (model.Salesman == null)
+                model.Salesman = "Admin"; // Sau này đăng nhập sẽ làm lại dòng này.
+            
+            if (model.StepPrice == 0)
+            {
+                int price =(int)(double.Parse(pro.Price));
+                model.StepPrice = price / 100 * 10; // 10% giá gốc
+            }
             using (var ctx = new QuanLyDauGiaEntities())
             {
+                //model.AucPrice = 0;
+                //model.OwnerPrice = 100;
+                //model.Owner = "admin";
+
+                model.ProName = pro.ProName;
+                model.CatID = int.Parse(pro.CatId);
+                model.Quantity = int.Parse(pro.Quantity);
+                model.Price = double.Parse(pro.Price);
+                model.TinyDes = pro.TinyDes;
+                model.FullDes = pro.FullDes;
+                model.StartTime = DateTime.ParseExact(pro.StartTime, "d/M/yyyy", null);
+                model.EndTime = DateTime.ParseExact(pro.EndTime, "d/M/yyyy", null);
+
                 ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
                 ctx.SaveChanges();
                 @ViewBag.Message = "Đã thêm thành công.";
+                List<Category> list = ctx.Categories.ToList();
+                @ViewBag.DanhSachDanhMuc = list;
             }
             return View();
         }
