@@ -834,6 +834,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginVM.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -875,6 +876,7 @@
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutRegisterLogin.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -20,7 +20,32 @@ namespace WebDauGia.Controllers
         // GET: User/Login
         public ActionResult Login()
         {
-            return View();
+            LoginVM model = new LoginVM();
+            model.UserName = "";
+            return View(model);
+        }
+        // Post: User/Login
+        [HttpPost]
+        public ActionResult Login(LoginVM model)
+        {
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                string pass = StringUtils.MD5(model.PassWord);
+                User us = dt.Users
+                    .Where(p => p.UserName == model.UserName && p.Password == pass)
+                    .FirstOrDefault();
+                if (us != null)
+                {
+                    if(model.Remember != null)
+                    {
+                        //Cái này xử lí nếu người dùng check Ghi nhớ đăng nhập
+                    }
+                    //Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
+                    return RedirectToAction("Index", "Home");
+                }
+                Response.Write("<script LANGUAGE='JavaScript' >alert('Tên đăng nhập hoặc mật khẩu không đúng')</script>");
+                return View(model);
+            }
         }
         // GET: User/Register
         public ActionResult Register()
@@ -81,26 +106,6 @@ namespace WebDauGia.Controllers
                 }
             }
             return View(model);
-        }
-
-        //Get : User/Add
-        public ActionResult Add()
-        {
-            return View();
-        }
-
-        //Post : User/Add
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Add(User model)
-        {
-            using (var ctx = new QuanLyDauGiaEntities())
-            {
-                ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
-                ctx.SaveChanges();
-                @ViewBag.Message = "Đã thêm thành công.";
-            }
-            return View();
         }
 
         //Get : User/Edit
@@ -168,6 +173,18 @@ namespace WebDauGia.Controllers
                 ctx.SaveChanges();
             }
             return RedirectToAction("Index", "User");
+        }
+
+        //Get : user/manageuser
+
+        public ActionResult ManageUser()
+        {
+            List<User> listUser = null;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                listUser = ctx.Users.ToList();
+            }
+            return View(listUser);
         }
     }
 }
