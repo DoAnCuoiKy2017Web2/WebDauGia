@@ -1,0 +1,196 @@
+﻿@using WebDauGia.Models
+
+@model User
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section view_title{
+    Thông tin người dùng
+}
+@section css{
+    <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+}
+@section js{
+    <script src="~/Content/DatePicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+        });
+        $("#form_register").validate({
+            rules: {
+                Username: {
+                    required: true,
+                },
+                Password: {
+                    minlength: 6,
+                },
+                NewPassword: {
+                    minlength: 6,
+                },
+                CPasswword: {
+                    equalTo: "#txtNewPassWord",
+                },
+                Name: {
+                    required: true,
+                },
+                Email: {
+                    required: true,
+                    email: true,
+                },
+                DateOfBirth: {
+                    required: true,
+                },
+            },
+            messages: {
+                Username: {
+                    required: "Chỗ này không được để trống.",
+                },
+                Password: {
+                    minlength: "Mật khẩu ít nhất 6 ký tự",
+                },
+                NewPassword: {
+                    minlength: "Mật khẩu ít nhất 6 ký tự",
+                },
+                CPasswword: {
+                    equalTo: "Mật khẩu không khớp"
+                },
+                Name: {
+                    required: "Chỗ này không được để trống.",
+                },
+                Email: {
+                    required: "Chỗ này không được để trống.",
+                    email: "vui lòng nhập 1 email"
+                },
+                DateOfBirth: {
+                    required: "Chỗ này không được để trống.",
+                },
+            },
+            errorelement: 'span',
+            errorClass: 'help-block',
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass);
+                $(element).closest('.form-group')
+                  .addClass('has-error');
+            },
+            //unhighlight: function (element, errorClass, validClass) {
+            //    $(element).removeClass(errorClass).addClass(validClass);
+            //    $(element).closest('.form-group')
+            //      .removeClass('has-error');
+            //},
+            success: function (label) {
+                $(label).closest('.form-group')
+                  .removeClass('has-error').addClass('has-success');
+                label.remove;
+            }
+
+        });
+    </script>
+}
+<form class="form-horizontal" method="post" action="" id="form_register">
+    <div class="form-group">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="txtUsername" class="col-sm-3 control-label">Tên đăng nhập</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtUsername" name="Username"
+                           placeholder="Tên đăng nhập" value="@Model.UserName" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtPassWord" class="col-sm-3 control-label">Mật khẩu cũ</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="txtPassWord" name="Password" placeholder="Mật khẩu cũ" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtNewPassWord" class="col-sm-3 control-label">Mật khẩu mới</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="txtNewPassWord" name="NewPassword" placeholder="Mật khẩu mới" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtCPassWord" class="col-sm-3 control-label">Xác nhận mật khẩu</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="txtCPassWord" name="CPasswword" placeholder="Xác nhận mật khẩu" />
+                    <span id="re_password_error"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtName" class="col-sm-3 control-label">Họ tên</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtName" name="Name" placeholder="họ và tên" value="@Model.Name" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img src="~/images/user/duynguyen"/>
+            <div class="form-group">
+                <label for="exampleInputFile">Ảnh cá nhân</label>
+                <input type="file" id="exampleInputFile">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="@Model.Gender" class="col-sm-2 control-label">Giới tính</label>
+        <div class="col-sm-10">
+            <div class="editor-field">
+                @Html.RadioButtonFor(model => model.Gender, "Nam", true) Nam
+                @Html.RadioButtonFor(model => model.Gender, "Nữ", false) Nữ
+                @Html.RadioButtonFor(model => model.Gender, "Khác", false) Khác
+                @Html.ValidationMessageFor(model => model.Gender)<br />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtEmail" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEmail" name="Email" placeholder="Email" value="@Model.Email" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDateOfBirth" class="col-sm-2 control-label">Ngày sinh</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control datepicker" id="txtDateOfBirth" name="DateOfBirth" placeholder="chọn" readonly value="@Model.DateOfBirth.ToShortDateString()" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtAddress" class="col-sm-2 control-label">Địa chỉ</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtAddress" name="Address" placeholder="địa chỉ" value="@Model.Address" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtPhone" class="col-sm-2 control-label">Điện thoại</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtPhone" name="Phone" placeholder="số điện thoại" value="@Model.Phone" />
+        </div>
+    </div>
+    @*<div class="form-group">
+        <label for="txtCode" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtCode" name="code" placeholder="captcha" />
+        </div>
+    </div>*@
+    @*<div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+            </div>
+        </div>*@
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success" name="register" id="register">
+                <i class="fa fa-check"></i>
+                Cập nhật
+            </button>
+        </div>
+    </div>
+</form>

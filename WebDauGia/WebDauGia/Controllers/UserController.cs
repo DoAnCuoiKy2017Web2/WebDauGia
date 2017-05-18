@@ -118,14 +118,14 @@ namespace WebDauGia.Controllers
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
 
-                User sp = dt.Users
+                User us = dt.Users
                     .Where(p => p.UserName == ID.ToString())
                     .FirstOrDefault();
-                if (sp != null)
+                if (us != null)
                 {
-                    return View(sp);
+                    return View(us);
                 }
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Index", "Home");
             }
         }
 

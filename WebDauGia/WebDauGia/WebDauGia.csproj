@@ -877,6 +877,7 @@
     <Content Include="Views\Shared\_LayoutRegisterLogin.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
