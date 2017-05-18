@@ -28,5 +28,6 @@ namespace WebDauGia.Models
         public Nullable<double> AucPrice { get; set; }
         public string Owner { get; set; }
         public Nullable<double> OwnerPrice { get; set; }
+        public Nullable<bool> Status { get; set; }
     }
 }

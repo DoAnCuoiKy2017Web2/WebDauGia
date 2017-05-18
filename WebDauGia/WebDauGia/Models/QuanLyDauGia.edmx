@@ -21,6 +21,7 @@
           </Key>
           <Property Name="CatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CatName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -50,6 +51,7 @@
           <Property Name="AucPrice" Type="float" />
           <Property Name="Owner" Type="nvarchar" MaxLength="50" />
           <Property Name="OwnerPrice" Type="float" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -131,6 +133,7 @@
           </Key>
           <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -150,6 +153,7 @@
           <Property Name="AucPrice" Type="Double" />
           <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OwnerPrice" Type="Double" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -201,6 +205,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="QuanLyDauGiaModel.Category">
               <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CatName" ColumnName="CatName" />
                 <ScalarProperty Name="CatID" ColumnName="CatID" />
               </MappingFragment>
@@ -209,6 +214,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
                 <ScalarProperty Name="AucPrice" ColumnName="AucPrice" />
