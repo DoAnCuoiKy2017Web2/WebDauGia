@@ -730,6 +730,7 @@
     <Content Include="Images\Home\5.jpg" />
     <Content Include="Images\Home\icon.png" />
     <Content Include="Images\Home\logo.png" />
+    <Content Include="Images\Home\Untitled.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
