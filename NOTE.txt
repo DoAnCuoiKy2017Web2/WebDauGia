@@ -1,3 +1,0 @@
-﻿Clone xuống nếu bị lỗi thì vào thư mục (nơi trên máy tính để lưu) chọn propeties --> thẻ security --> add thêm user: Authenticated Users --> Check Full Control --> Apply --> OK.
-Lưu ý chỉ clone được 1 lần thành công.
-Good luck.

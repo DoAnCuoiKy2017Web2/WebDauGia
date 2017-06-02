@@ -731,6 +731,8 @@
     <Content Include="Images\Home\icon.png" />
     <Content Include="Images\Home\logo.png" />
     <Content Include="Images\Home\Untitled.png" />
+    <Content Include="Images\sp\2\main.jpg" />
+    <Content Include="Images\sp\2\main_thumbs.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
@@ -886,6 +888,7 @@
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

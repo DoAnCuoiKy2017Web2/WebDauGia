@@ -19,7 +19,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="~/Images/Home/icon.png"/>
+    <link rel="shortcut icon" href="~/Images/Home/icon.png" />
     <title>@ViewBag.Title - Sky Market</title>
     @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -47,20 +47,20 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 @*<ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>*@
+                        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>*@
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
@@ -72,15 +72,15 @@
                     <li><a href="@Url.Action("Register", "User")">Đăng ký</a></li>
                     <li><a href="@Url.Action("Login", "User")">Đăng Nhập</a></li>
                     @*<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>*@
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>*@
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -131,9 +131,9 @@
     <div class="container-fluid">
         <div class="row">
             @*<div class="col-md-12">
-                <img src="~/Images/Home/1.jpg" />
-                <h2 style="vertical-align:central">Hiện thông tin HOT</h2>
-            </div>*@
+                    <img src="~/Images/Home/1.jpg" />
+                    <h2 style="vertical-align:central">Hiện thông tin HOT</h2>
+                </div>*@
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -142,15 +142,15 @@
                     @Html.Action("List", "Category")
                 </div>
                 @*<div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Hãng sản xuất
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        Panel content
-                    </div>
-                </div>*@
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Hãng sản xuất
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            Panel content
+                        </div>
+                    </div>*@
             </div>
             <div class="col-md-9">
                 <div class="panel panel-default">
@@ -168,12 +168,16 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-6 footerleft ">
+                <div class="col-md-3 col-sm-6 paddingtop-bottom ">
                     <div class="logofooter">
                         <img src="~/Images/Home/logo.png" />
                     </div>
-                    <p><i class="fa fa-map-pin"></i>Thành phố Hồ Chí Minh, Việt Nam</p>
+                </div>
+                <div class="col-md-3 col-sm-6 footerleft ">
+                    <p><i class="fa fa-map-pin"></i> Thành phố Hồ Chí Minh, Việt Nam</p>
                     <p><i class="fa fa-phone"></i> Phone (VN) : 0123456789</p>
+                </div>
+                <div class="col-md-3 col-sm-6 footerleft ">
                     <p><i class="fa fa-envelope"></i> E-mail : doanwebdaugia@gmail.com</p>
                     <p>&copy; @DateTime.Now.Year - Our ASP.NET Web</p>
                 </div>
