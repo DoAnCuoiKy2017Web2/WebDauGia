@@ -40,6 +40,8 @@ namespace WebDauGia.Controllers
                     {
                         //Cái này xử lí nếu người dùng check Ghi nhớ đăng nhập
                     }
+                    Session["isLogin"] = 1;
+
                     //Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
                     return RedirectToAction("Index", "Home");
                 }

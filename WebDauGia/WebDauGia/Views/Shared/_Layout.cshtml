@@ -1,4 +1,6 @@
-﻿@section css{
+﻿@using WebDauGia.Helper
+
+@section css{
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -69,18 +71,32 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     @*<li><a href="#">Link</a></li>*@
-                    <li><a href="@Url.Action("Register", "User")">Đăng ký</a></li>
-                    <li><a href="@Url.Action("Login", "User")">Đăng Nhập</a></li>
-                    @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    @if (CurrentContext.IsLogged() == false)
+                    {
+                        <li><a href="@Url.Action("Register", "User")">Đăng ký</a></li>
+                        <li><a href="@Url.Action("Login", "User")">Đăng Nhập</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Index","Cart")">
+                            <i class="fa fa-shopping-cart"></i>
+                            Giỏ hàng có @*@CurrentContext.GetCart().SumQ() sản phẩm*@
+                            </a>
+                    </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                @CurrentContext.GetCurUser().Phone
+                                <span class="caret"></span>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>
+                                @*<li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>*@
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
                             </ul>
-                        </li>*@
+                        </li>
+                    }
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
