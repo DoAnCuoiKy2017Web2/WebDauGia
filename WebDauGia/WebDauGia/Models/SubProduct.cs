@@ -9,7 +9,7 @@ namespace WebDauGia.Models
     {
         public int ProID { get; set; }
         public string ProName { get; set; }
-        // public string CatId { get; set; }
+        public string CatId { get; set; }
         // public string Quantity { get; set; }
         public double Price { get; set; }
         public double PurchasePriceNow { get; set; }

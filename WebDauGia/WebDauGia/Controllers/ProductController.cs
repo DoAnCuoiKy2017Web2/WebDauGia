@@ -68,7 +68,7 @@ namespace WebDauGia.Controllers
                 return PartialView("Top5Price", list);
             }
         }
-        //GET: Product/ByCat
+        //GET: Product/ByCat//chinh sua ngày 4/6/2017
         public ActionResult ByCat(int? id, int page = 1)
         {
             if (id.HasValue == false)
@@ -92,13 +92,20 @@ namespace WebDauGia.Controllers
 
                 @ViewBag.Pages = nPages;
 
-                List<Product> list = ctx.Products
+                List<SubProduct> list = ctx.Products
                     .Where(p => p.CatID == id)
-                    .OrderBy(p => p.ProID)
-                    .Skip((page - 1) * recordsPerPage)
+                    .OrderBy(p => p.ProID).Select(l => new SubProduct
+                    {
+                        ProID = l.ProID,
+                        ProName = l.ProName,
+                        Price = l.Price,
+                        Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                        StartTime = l.StartTime,
+                        EndTime = l.EndTime,
+                        NumOfAuction = l.NumOfAuction
+                    }).Skip((page - 1) * recordsPerPage)
                     .Take(recordsPerPage)
                     .ToList();
-
                 return View(list);
             }
         }

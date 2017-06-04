@@ -1,5 +1,5 @@
 ﻿@using WebDauGia.Models
-@model List<Product>
+@model List<SubProduct>
 @{
     ViewBag.Title = @ViewBag.CatName;
 }
@@ -20,10 +20,12 @@ else
                 <div class="thumbnail">
                     <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
                     <div class="caption">
-                        <h4 style="overflow:hidden;text-overflow:ellipsis;height:45px">@p.ProName</h4>
-                        <h3>Giá: @string.Format("{0:N0}", p.Price)</h3>
-                        <h4>Tồn: @p.Quantity</h4>
-                        <p style="overflow:hidden;text-overflow:ellipsis; white-space:nowrap">@p.TinyDes</p>
+                        <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
+                        <p>Lượt đấu: (@p.NumOfAuction)</p>
+                        <p>Người mua: @p.Buyer</p>
+                        <p style="color:navy">Giá: @string.Format("{0:N0}", p.Price) VNĐ</p>
+                        <p style="color:red">Còn: @Function.DateTimeToString(p.EndTime)</p>
+                        <p style="overflow:hidden;text-overflow:ellipsis; white-space:nowrap"></p>
                         <p>
                             <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="btn btn-default" role="button">
                                 Chi tiết
