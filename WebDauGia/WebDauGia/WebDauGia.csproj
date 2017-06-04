@@ -733,6 +733,16 @@
     <Content Include="Images\Home\Untitled.png" />
     <Content Include="Images\sp\2\main.jpg" />
     <Content Include="Images\sp\2\main_thumbs.jpg" />
+    <Content Include="Models\QuanLyDauGia.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
+      <LastGenOutput>QuanLyDauGia.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\QuanLyDauGia.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
+      <LastGenOutput>QuanLyDauGia.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
@@ -782,23 +792,6 @@
     <Content Include="Content\font-awesome-4.7.0\scss\_variables.scss" />
     <Content Include="Content\LightBox\js\lightbox-plus-jquery.min.map" />
     <Content Include="Content\LightBox\js\lightbox.min.map" />
-    <EntityDeploy Include="Models\QuanLyDauGia.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QuanLyDauGia.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\QuanLyDauGia.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
-      <LastGenOutput>QuanLyDauGia.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\QuanLyDauGia.edmx.diagram">
-      <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\QuanLyDauGia.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
-      <LastGenOutput>QuanLyDauGia.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\CHANGES.md" />
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\LICENSE.md" />
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\plugins\scayt\CHANGELOG.md" />
@@ -816,11 +809,20 @@
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\skins\moono-lisa\readme.md" />
+    <EntityDeploy Include="Models\QuanLyDauGia.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuanLyDauGia.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QuanLyDauGia.edmx.diagram">
+      <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -845,6 +847,7 @@
     <Compile Include="Models\Comment.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Function.cs" />
     <Compile Include="Models\LoginVM.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
@@ -868,6 +871,10 @@
     <Compile Include="Models\RegisterVM.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\SubProduct.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -890,6 +897,9 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\Top5Price.cshtml" />
+    <Content Include="Views\Product\Top5NumAuction.cshtml" />
+    <Content Include="Views\Product\Top5MinTime.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

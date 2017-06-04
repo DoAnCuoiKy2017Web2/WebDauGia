@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="QuanLyDauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QuanLyDauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuctionHistorys">
           <Key>
             <PropertyRef Name="AucID" />
@@ -52,6 +52,17 @@
           <Property Name="Owner" Type="nvarchar" MaxLength="50" />
           <Property Name="OwnerPrice" Type="float" />
           <Property Name="Status" Type="bit" />
+          <Property Name="NumOfAuction" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -76,9 +87,11 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -92,6 +105,14 @@
           <Property Name="AucPrice" Type="Double" Nullable="false" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CmtID" />
@@ -101,6 +122,37 @@
           <Property Name="ProID" Type="Int32" Nullable="false" />
           <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProID" />
+          </Key>
+          <Property Name="ProID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CatID" Type="Int32" Nullable="false" />
+          <Property Name="FullDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TinyDes" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Salesman" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StepPrice" Type="Int32" Nullable="false" />
+          <Property Name="AucPrice" Type="Double" />
+          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerPrice" Type="Double" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="NumOfAuction" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -122,39 +174,12 @@
         </EntityType>
         <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistory" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Categories" EntityType="QuanLyDauGiaModel.Category" />
-          <EntitySet Name="Products" EntityType="QuanLyDauGiaModel.Product" />
         </EntityContainer>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="CatID" />
-          </Key>
-          <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ProID" />
-          </Key>
-          <Property Name="ProID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CatID" Type="Int32" Nullable="false" />
-          <Property Name="FullDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TinyDes" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="Salesman" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="StepPrice" Type="Int32" Nullable="false" />
-          <Property Name="AucPrice" Type="Double" />
-          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OwnerPrice" Type="Double" />
-          <Property Name="Status" Type="Boolean" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -172,6 +197,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="CatName" ColumnName="CatName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="QuanLyDauGiaModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
@@ -180,6 +214,39 @@
                 <ScalarProperty Name="ProID" ColumnName="ProID" />
                 <ScalarProperty Name="Comment1" ColumnName="Comment" />
                 <ScalarProperty Name="TimeCmt" ColumnName="TimeCmt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProID" ColumnName="ProID" />
+                <ScalarProperty Name="ProName" ColumnName="ProName" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="FullDes" ColumnName="FullDes" />
+                <ScalarProperty Name="TinyDes" ColumnName="TinyDes" />
+                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StepPrice" ColumnName="StepPrice" />
+                <ScalarProperty Name="AucPrice" ColumnName="AucPrice" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NumOfAuction" ColumnName="NumOfAuction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QuanLyDauGiaModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -199,36 +266,6 @@
                 <ScalarProperty Name="AllowAuction" ColumnName="AllowAuction" />
                 <ScalarProperty Name="AllowSales" ColumnName="AllowSales" />
                 <ScalarProperty Name="Reliability" ColumnName="Reliability" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Category">
-              <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CatName" ColumnName="CatName" />
-                <ScalarProperty Name="CatID" ColumnName="CatID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="AucPrice" ColumnName="AucPrice" />
-                <ScalarProperty Name="StepPrice" ColumnName="StepPrice" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
-                <ScalarProperty Name="TinyDes" ColumnName="TinyDes" />
-                <ScalarProperty Name="FullDes" ColumnName="FullDes" />
-                <ScalarProperty Name="CatID" ColumnName="CatID" />
-                <ScalarProperty Name="ProName" ColumnName="ProName" />
-                <ScalarProperty Name="ProID" ColumnName="ProID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

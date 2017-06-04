@@ -29,5 +29,6 @@ namespace WebDauGia.Models
         public string Owner { get; set; }
         public Nullable<double> OwnerPrice { get; set; }
         public Nullable<bool> Status { get; set; }
+        public int NumOfAuction { get; set; }
     }
 }

@@ -10,6 +10,14 @@
     <Property Name="AucPrice" Type="Double" Nullable="false" />
     <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CatID" />
+    </Key>
+    <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="CmtID" />
@@ -19,6 +27,37 @@
     <Property Name="ProID" Type="Int32" Nullable="false" />
     <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProID" />
+    </Key>
+    <Property Name="ProID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CatID" Type="Int32" Nullable="false" />
+    <Property Name="FullDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TinyDes" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Salesman" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StepPrice" Type="Int32" Nullable="false" />
+    <Property Name="AucPrice" Type="Double" />
+    <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OwnerPrice" Type="Double" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="NumOfAuction" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -40,35 +79,10 @@
   </EntityType>
   <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistory" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
-    <EntitySet Name="Categories" EntityType="QuanLyDauGiaModel.Category" />
-    <EntitySet Name="Products" EntityType="QuanLyDauGiaModel.Product" />
   </EntityContainer>
-  <EntityType Name="Category">
-    <Key>
-      <PropertyRef Name="CatID" />
-    </Key>
-    <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Product">
-    <Key>
-      <PropertyRef Name="ProID" />
-    </Key>
-    <Property Name="ProID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CatID" Type="Int32" Nullable="false" />
-    <Property Name="FullDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TinyDes" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-    <Property Name="Salesman" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Price" Type="Double" Nullable="false" />
-    <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="StepPrice" Type="Int32" Nullable="false" />
-    <Property Name="AucPrice" Type="Double" />
-    <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="OwnerPrice" Type="Double" />
-  </EntityType>
 </Schema>

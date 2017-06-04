@@ -14,6 +14,60 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        //Top 5 Theo Gia
+        public ActionResult Top5Price()
+        {
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<SubProduct> list = ctx.Products.OrderByDescending(l => l.Price).Where(l => l.EndTime > DateTime.Now).Select(l => new SubProduct
+                {
+                    ProID = l.ProID,
+                    ProName = l.ProName,
+                    Price = l.Price,
+                    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                    StartTime = l.StartTime,
+                    EndTime = l.EndTime,
+                    NumOfAuction = l.NumOfAuction
+                }).Take(5).ToList();
+                return PartialView("Top5Price", list);
+            }
+        }
+        //top 5 theo luot mua
+        public ActionResult Top5NumAuction()
+        {
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<SubProduct> list = ctx.Products.OrderByDescending(l => l.NumOfAuction).Where(l => l.EndTime > DateTime.Now).Select(l => new SubProduct
+                {
+                    ProID = l.ProID,
+                    ProName = l.ProName,
+                    Price = l.Price,
+                    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                    StartTime = l.StartTime,
+                    EndTime = l.EndTime,
+                    NumOfAuction = l.NumOfAuction
+                }).Take(5).ToList();
+                return PartialView("Top5Price", list);
+            }
+        }
+        //top 5 gan ket thuc
+        public ActionResult Top5MinTime()
+        {
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<SubProduct> list = ctx.Products.OrderBy(l => l.EndTime).Where(l => l.EndTime > DateTime.Now).Select(l => new SubProduct
+                {
+                    ProID = l.ProID,
+                    ProName = l.ProName,
+                    Price = l.Price,
+                    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                    StartTime = l.StartTime,
+                    EndTime = l.EndTime,
+                    NumOfAuction = l.NumOfAuction
+                }).Take(5).ToList();
+                return PartialView("Top5Price", list);
+            }
+        }
         //GET: Product/ByCat
         public ActionResult ByCat(int? id, int page = 1)
         {

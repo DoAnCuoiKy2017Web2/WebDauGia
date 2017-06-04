@@ -12,6 +12,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Comment">
         <MappingFragment StoreEntitySet="Comments">
@@ -20,6 +29,39 @@
           <ScalarProperty Name="ProID" ColumnName="ProID" />
           <ScalarProperty Name="Comment1" ColumnName="Comment" />
           <ScalarProperty Name="TimeCmt" ColumnName="TimeCmt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ProID" ColumnName="ProID" />
+          <ScalarProperty Name="ProName" ColumnName="ProName" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="FullDes" ColumnName="FullDes" />
+          <ScalarProperty Name="TinyDes" ColumnName="TinyDes" />
+          <ScalarProperty Name="Salesman" ColumnName="Salesman" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StepPrice" ColumnName="StepPrice" />
+          <ScalarProperty Name="AucPrice" ColumnName="AucPrice" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="NumOfAuction" ColumnName="NumOfAuction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -39,34 +81,6 @@
           <ScalarProperty Name="AllowAuction" ColumnName="AllowAuction" />
           <ScalarProperty Name="AllowSales" ColumnName="AllowSales" />
           <ScalarProperty Name="Reliability" ColumnName="Reliability" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Category">
-        <MappingFragment StoreEntitySet="Categories">
-          <ScalarProperty Name="CatName" ColumnName="CatName" />
-          <ScalarProperty Name="CatID" ColumnName="CatID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
-        <MappingFragment StoreEntitySet="Products">
-          <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
-          <ScalarProperty Name="Owner" ColumnName="Owner" />
-          <ScalarProperty Name="AucPrice" ColumnName="AucPrice" />
-          <ScalarProperty Name="StepPrice" ColumnName="StepPrice" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Salesman" ColumnName="Salesman" />
-          <ScalarProperty Name="TinyDes" ColumnName="TinyDes" />
-          <ScalarProperty Name="FullDes" ColumnName="FullDes" />
-          <ScalarProperty Name="CatID" ColumnName="CatID" />
-          <ScalarProperty Name="ProName" ColumnName="ProName" />
-          <ScalarProperty Name="ProID" ColumnName="ProID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

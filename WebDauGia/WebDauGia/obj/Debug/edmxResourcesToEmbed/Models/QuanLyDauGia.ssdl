@@ -16,6 +16,7 @@
     </Key>
     <Property Name="CatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CatName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityType Name="Comments">
     <Key>
@@ -45,6 +46,18 @@
     <Property Name="AucPrice" Type="float" />
     <Property Name="Owner" Type="nvarchar" MaxLength="50" />
     <Property Name="OwnerPrice" Type="float" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="NumOfAuction" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -69,6 +82,7 @@
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>
