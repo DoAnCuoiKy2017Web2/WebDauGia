@@ -47,7 +47,7 @@ namespace WebDauGia.Controllers
                     EndTime = l.EndTime,
                     NumOfAuction = l.NumOfAuction
                 }).Take(5).ToList();
-                return PartialView("Top5Price", list);
+                return PartialView("Top5NumAuction", list);
             }
         }
         //top 5 gan ket thuc
@@ -65,7 +65,7 @@ namespace WebDauGia.Controllers
                     EndTime = l.EndTime,
                     NumOfAuction = l.NumOfAuction
                 }).Take(5).ToList();
-                return PartialView("Top5Price", list);
+                return PartialView("Top5MinTime", list);
             }
         }
         //GET: Product/ByCat//chinh sua ngày 4/6/2017
