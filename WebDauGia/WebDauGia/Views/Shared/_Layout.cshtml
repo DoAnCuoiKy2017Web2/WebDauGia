@@ -102,7 +102,7 @@
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-
+        <form id="frmLogout" method="post" action="@Url.Action("Logout","User")"></form>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -216,6 +216,13 @@
     </footer>
     <script src="~/Content/jquery-3.2.0.min.js"></script>
     <script src="~/Content/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $('#logoutLink').on('click', function () {
+            $('#frmLogout').submit();
+        })
+    </script>
+
     @RenderSection("js", false)
 </body>
 </html>
