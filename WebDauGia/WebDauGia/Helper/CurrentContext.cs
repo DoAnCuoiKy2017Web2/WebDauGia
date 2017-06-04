@@ -35,7 +35,7 @@ namespace WebDauGia.Helper
 
         public static User GetCurUser()
         {
-            return (User)HttpContext.Current.Session["user"];
+            return (Models.User)HttpContext.Current.Session["user"];
         }
 
         public static void Destroy()

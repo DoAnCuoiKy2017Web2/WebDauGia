@@ -41,7 +41,7 @@ namespace WebDauGia.Controllers
                         //Cái này xử lí nếu người dùng check Ghi nhớ đăng nhập
                     }
                     Session["isLogin"] = 1;
-
+                    Session["user"] = us;
                     //Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
                     return RedirectToAction("Index", "Home");
                 }
@@ -113,9 +113,14 @@ namespace WebDauGia.Controllers
         //Get : User/Edit
         public ActionResult Edit(string ID)
         {
-            if (ID == "")
+            if (ID == "" || ID == null)
             {
-                return RedirectToAction("Index", "User");
+                if (CurrentContext.IsLogged() == false)
+                    return RedirectToAction("Index", "User");
+                else
+                {
+                    ID = CurrentContext.GetCurUser().UserName;
+                }
             }
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
