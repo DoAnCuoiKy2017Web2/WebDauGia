@@ -17,7 +17,6 @@ else
     <div class="row">
         @foreach (var p in Model)
         {
-
             <div class="col-md-2">
                 <div class="thumbnail">
                     <a href="@Url.Action("Detail", "Product", new { id = p.ProID})"><img src="~/Imgs/sp/@p.ProID/main.jpg" title="" /></a>

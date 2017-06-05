@@ -42,7 +42,7 @@ namespace WebDauGia.Helper
         {
             HttpContext.Current.Session["isLogin"] = 0;
             HttpContext.Current.Session["user"] = null;
-            HttpContext.Current.Session["cart"] = null;
+            //HttpContext.Current.Session["cart"] = null;
 
             HttpContext.Current.Response.Cookies["userID"].Expires = DateTime.Now.AddDays(-1);
         }

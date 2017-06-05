@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BotDetect.Web.Mvc;
 using WebDauGia.Helper;
 using WebDauGia.Models;
+using WebDauGia.Filters;
 
 namespace WebDauGia.Controllers
 {
@@ -39,9 +40,13 @@ namespace WebDauGia.Controllers
                     if(model.Remember != null)
                     {
                         //Cái này xử lí nếu người dùng check Ghi nhớ đăng nhập
+                        Response.Cookies["userID"].Value = us.UserName.ToString();
+                        Response.Cookies["userID"].Expires = DateTime.Now.AddDays(7);
                     }
                     Session["isLogin"] = 1;
                     Session["user"] = us;
+
+
                     //Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
                     return RedirectToAction("Index", "Home");
                 }
@@ -49,6 +54,14 @@ namespace WebDauGia.Controllers
                 return View(model);
             }
         }
+        // Post: User/Logout
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            CurrentContext.Destroy();
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: User/Register
         public ActionResult Register()
         {
@@ -109,8 +122,8 @@ namespace WebDauGia.Controllers
             }
             return View(model);
         }
-
         //Get : User/Edit
+        [CheckLogin]
         public ActionResult Edit(string ID)
         {
             if (ID == "" || ID == null)

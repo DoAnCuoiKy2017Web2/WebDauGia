@@ -18,7 +18,9 @@ else
         {
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
+                    <a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
+                        <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
+                    </a>
                     <div class="caption">
                         <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
                         <p>Lượt đấu: (@p.NumOfAuction)</p>
