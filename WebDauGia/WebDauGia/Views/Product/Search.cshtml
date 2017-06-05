@@ -52,7 +52,7 @@ else
             else
             {
                 <li>
-                    <a href="?page=@(ViewBag.curPage - 1)" aria-label="Previous">
+                    <a href="?txtkey=@ViewBag.key&page=@(ViewBag.curPage - 1)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -61,11 +61,11 @@ else
             {
                 if (i == ViewBag.curPage)
                 {
-                    <li class="active"><a href="?page=@i">@i</a></li>
+                    <li class="active"><a href="?txtkey=@ViewBag.key&page=@i">@i</a></li>
                 }
                 else
                 {
-                    <li><a href="page=@i">@i</a></li>
+                    <li><a href="?txtkey=@ViewBag.key&page=@i">@i</a></li>
                 }
             }
             @if (@ViewBag.curPage == @ViewBag.Pages)
@@ -79,7 +79,7 @@ else
             else
             {
                 <li>
-                    <a href="?page=@(ViewBag.curPage + 1)" aria-label="Next">
+                    <a href="?txtkey=@ViewBag.key&page=@(ViewBag.curPage + 1)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

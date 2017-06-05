@@ -120,6 +120,7 @@ namespace WebDauGia.Controllers
         //GET:Product/Search
         public ActionResult Search(string txtkey, int page = 1)
         {
+            @ViewBag.key = txtkey;
             if (txtkey == "")
             {
                 return RedirectToAction("Index", "Home");
@@ -154,7 +155,7 @@ namespace WebDauGia.Controllers
 
                 @ViewBag.Pages = nPages;
                 ViewBag.key = txtkey;
-                List<Product> list = LSP.Skip((page - 1) * recordsPerPage)
+                List<Product> list = LSP.OrderBy(l=>l.ProID).Skip((page - 1) * recordsPerPage)
                     .Take(recordsPerPage).ToList();
                 return View(list);
             }
