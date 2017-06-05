@@ -900,6 +900,7 @@
     <Content Include="Views\Product\Top5Price.cshtml" />
     <Content Include="Views\Product\Top5NumAuction.cshtml" />
     <Content Include="Views\Product\Top5MinTime.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

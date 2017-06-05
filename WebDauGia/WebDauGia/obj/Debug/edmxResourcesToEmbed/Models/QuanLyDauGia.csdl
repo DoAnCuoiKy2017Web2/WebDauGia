@@ -18,16 +18,6 @@
     <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" />
   </EntityType>
-  <EntityType Name="Comment">
-    <Key>
-      <PropertyRef Name="CmtID" />
-    </Key>
-    <Property Name="CmtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ProID" Type="Int32" Nullable="false" />
-    <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProID" />
@@ -80,9 +70,19 @@
   <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistory" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
-    <EntitySet Name="Comments" EntityType="Self.Comment" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="Comments" EntityType="QuanLyDauGiaModel.Comment" />
   </EntityContainer>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CmtID" />
+    </Key>
+    <Property Name="CmtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProID" Type="Int32" Nullable="false" />
+    <Property Name="Comment1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
 </Schema>

@@ -19,16 +19,18 @@ namespace WebDauGia.Controllers
         {
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                List<SubProduct> list = ctx.Products.OrderByDescending(l => l.Price).Where(l => l.EndTime > DateTime.Now).Select(l => new SubProduct
-                {
-                    ProID = l.ProID,
-                    ProName = l.ProName,
-                    Price = l.Price,
-                    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
-                    StartTime = l.StartTime,
-                    EndTime = l.EndTime,
-                    NumOfAuction = l.NumOfAuction
-                }).Take(5).ToList();
+                List<Product> list = ctx.Products.OrderByDescending(l => l.Price).Where(l => l.EndTime > DateTime.Now)
+                //    .Select(l => new SubProduct
+                //{
+                //    ProID = l.ProID,
+                //    ProName = l.ProName,
+                //    Price = l.Price,
+                //    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                //    StartTime = l.StartTime,
+                //    EndTime = l.EndTime,
+                //    NumOfAuction = l.NumOfAuction
+                //})
+                .Take(5).ToList();
                 return PartialView("Top5Price", list);
             }
         }
@@ -37,16 +39,18 @@ namespace WebDauGia.Controllers
         {
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                List<SubProduct> list = ctx.Products.OrderByDescending(l => l.NumOfAuction).Where(l => l.EndTime > DateTime.Now).Select(l => new SubProduct
-                {
-                    ProID = l.ProID,
-                    ProName = l.ProName,
-                    Price = l.Price,
-                    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
-                    StartTime = l.StartTime,
-                    EndTime = l.EndTime,
-                    NumOfAuction = l.NumOfAuction
-                }).Take(5).ToList();
+                List<Product> list = ctx.Products.OrderByDescending(l => l.NumOfAuction).Where(l => l.EndTime > DateTime.Now)
+                //    .Select(l => new SubProduct
+                //{
+                //    ProID = l.ProID,
+                //    ProName = l.ProName,
+                //    Price = l.Price,
+                //    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                //    StartTime = l.StartTime,
+                //    EndTime = l.EndTime,
+                //    NumOfAuction = l.NumOfAuction
+                //})
+                .Take(5).ToList();
                 return PartialView("Top5NumAuction", list);
             }
         }
@@ -55,16 +59,18 @@ namespace WebDauGia.Controllers
         {
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                List<SubProduct> list = ctx.Products.OrderBy(l => l.EndTime).Where(l => l.EndTime > DateTime.Now).Select(l => new SubProduct
-                {
-                    ProID = l.ProID,
-                    ProName = l.ProName,
-                    Price = l.Price,
-                    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
-                    StartTime = l.StartTime,
-                    EndTime = l.EndTime,
-                    NumOfAuction = l.NumOfAuction
-                }).Take(5).ToList();
+                List<Product> list = ctx.Products.OrderBy(l => l.EndTime).Where(l => l.EndTime > DateTime.Now)
+                //    .Select(l => new SubProduct
+                //{
+                //    ProID = l.ProID,
+                //    ProName = l.ProName,
+                //    Price = l.Price,
+                //    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                //    StartTime = l.StartTime,
+                //    EndTime = l.EndTime,
+                //    NumOfAuction = l.NumOfAuction
+                //})
+                .Take(5).ToList();
                 return PartialView("Top5MinTime", list);
             }
         }
@@ -92,24 +98,67 @@ namespace WebDauGia.Controllers
 
                 @ViewBag.Pages = nPages;
 
-                List<SubProduct> list = ctx.Products
+                List<Product> list = ctx.Products
                     .Where(p => p.CatID == id)
-                    .OrderBy(p => p.ProID).Select(l => new SubProduct
-                    {
-                        ProID = l.ProID,
-                        ProName = l.ProName,
-                        Price = l.Price,
-                        Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
-                        StartTime = l.StartTime,
-                        EndTime = l.EndTime,
-                        NumOfAuction = l.NumOfAuction
-                    }).Skip((page - 1) * recordsPerPage)
+                    .OrderBy(p => p.ProID)
+                    //.Select(l => new SubProduct
+                    //{
+                    //    ProID = l.ProID,
+                    //    ProName = l.ProName,
+                    //    Price = l.Price,
+                    //    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
+                    //    StartTime = l.StartTime,
+                    //    EndTime = l.EndTime,
+                    //    NumOfAuction = l.NumOfAuction
+                    //})
+                    .Skip((page - 1) * recordsPerPage)
                     .Take(recordsPerPage)
                     .ToList();
                 return View(list);
             }
         }
+        //GET:Product/Search
+        public ActionResult Search(string txtkey, int page = 1)
+        {
+            if (txtkey == "")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                @ViewBag.curPage = page;
 
+                List<Product> LSP = new List<Product>();
+                var Cat = ctx.Categories.Where(c=>c.CatName.ToLower().Contains(txtkey.ToLower())).ToList();
+                var kq1 = (from c in Cat
+	                      join p in ctx.Products on c.CatID equals p.CatID
+                            select p).ToList();
+                var kq2 = ctx.Products.Where(p => p.ProName.ToLower().Contains(txtkey.ToLower())).ToList();
+                LSP.AddRange(kq1);
+                LSP.AddRange(kq2);
+                for(int i=0;i<LSP.Count()-1;i++)
+                {
+                    for(int j=i+1;j<LSP.Count();j++)
+                    {
+                        if(LSP[i].ProID==LSP[j].ProID)
+                        {
+                            LSP.RemoveAt(i);
+                            i--;
+                            break;
+                        }
+                    }
+                }
+                int n =LSP.Count();
+                int recordsPerPage = 3;
+                int nPages = n / recordsPerPage + (n % recordsPerPage == 0 ? 0 : 1);
+
+                @ViewBag.Pages = nPages;
+                ViewBag.key = txtkey;
+                List<Product> list = LSP.Skip((page - 1) * recordsPerPage)
+                    .Take(recordsPerPage).ToList();
+                return View(list);
+            }
+        }
         //GET: Product/Detail
         public ActionResult Detail(int? id)
         {

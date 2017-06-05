@@ -1,7 +1,7 @@
 ﻿
 @using WebDauGia.Models
 
-@model List<SubProduct>
+@model List<Product>
 
 <style>
     p {
@@ -29,7 +29,7 @@ else
 
                         <p>Lượt đấu: (@p.NumOfAuction)</p>
 
-                        <p>Người mua: @p.Buyer</p>
+                        <p>Người mua: @p.Owner</p>
                         <p style="color:navy">Giá: @string.Format("{0:N0}", p.Price) VNĐ</p>
                         <p style="color:red">Còn: @Function.DateTimeToString(p.EndTime)</p>
                         <p style="overflow:hidden;text-overflow:ellipsis; white-space:nowrap"></p>
