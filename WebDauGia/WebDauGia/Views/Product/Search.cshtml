@@ -1,12 +1,11 @@
 ﻿@using WebDauGia.Models
 @model List<Product>
 @{
-    ViewBag.Title = @ViewBag.CatName;
+    ViewBag.Title = "Search";
 }
 @section view_title{
-    Danh sách sản phẩm: @ViewBag.CatName
+    Kết Quả Tìm Kiếm Với Từ Khóa:
 }
-
 @if (Model.Count == 0)
 {
     <text>Không có sản phẩm.</text>
@@ -18,9 +17,7 @@ else
         {
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
-                        <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
-                    </a>
+                    <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
                     <div class="caption">
                         <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
                         <p>Lượt đấu: (@p.NumOfAuction)</p>
@@ -68,7 +65,7 @@ else
                 }
                 else
                 {
-                    <li><a href="?page=@i">@i</a></li>
+                    <li><a href="page=@i">@i</a></li>
                 }
             }
             @if (@ViewBag.curPage == @ViewBag.Pages)

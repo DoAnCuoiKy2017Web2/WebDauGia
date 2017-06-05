@@ -21,17 +21,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Comments">
-      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Comment">
-        <MappingFragment StoreEntitySet="Comments">
-          <ScalarProperty Name="CmtID" ColumnName="CmtID" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="ProID" ColumnName="ProID" />
-          <ScalarProperty Name="Comment1" ColumnName="Comment" />
-          <ScalarProperty Name="TimeCmt" ColumnName="TimeCmt" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
         <MappingFragment StoreEntitySet="Products">
@@ -81,6 +70,17 @@
           <ScalarProperty Name="AllowAuction" ColumnName="AllowAuction" />
           <ScalarProperty Name="AllowSales" ColumnName="AllowSales" />
           <ScalarProperty Name="Reliability" ColumnName="Reliability" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="TimeCmt" ColumnName="TimeCmt" />
+          <ScalarProperty Name="Comment1" ColumnName="Comment" />
+          <ScalarProperty Name="ProID" ColumnName="ProID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CmtID" ColumnName="CmtID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

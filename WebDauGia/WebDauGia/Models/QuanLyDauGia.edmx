@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QuanLyDauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QuanLyDauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuctionHistorys">
           <Key>
             <PropertyRef Name="AucID" />
@@ -90,8 +90,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -112,16 +111,6 @@
           <Property Name="CatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CatName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="CmtID" />
-          </Key>
-          <Property Name="CmtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProID" Type="Int32" Nullable="false" />
-          <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -175,11 +164,21 @@
         <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistory" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Comments" EntityType="QuanLyDauGiaModel.Comment" />
         </EntityContainer>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CmtID" />
+          </Key>
+          <Property Name="CmtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProID" Type="Int32" Nullable="false" />
+          <Property Name="Comment1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -203,17 +202,6 @@
                 <ScalarProperty Name="CatID" ColumnName="CatID" />
                 <ScalarProperty Name="CatName" ColumnName="CatName" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Comment">
-              <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="CmtID" ColumnName="CmtID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="ProID" ColumnName="ProID" />
-                <ScalarProperty Name="Comment1" ColumnName="Comment" />
-                <ScalarProperty Name="TimeCmt" ColumnName="TimeCmt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -266,6 +254,17 @@
                 <ScalarProperty Name="AllowAuction" ColumnName="AllowAuction" />
                 <ScalarProperty Name="AllowSales" ColumnName="AllowSales" />
                 <ScalarProperty Name="Reliability" ColumnName="Reliability" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="TimeCmt" ColumnName="TimeCmt" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="ProID" ColumnName="ProID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="CmtID" ColumnName="CmtID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
