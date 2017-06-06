@@ -1,0 +1,3 @@
+﻿//ở Product/Search
+Nếu Command ==1 sắp xếp tăng theo thời gian kết thúc
+	Command ==2 sắp xếp giảm theo giá
