@@ -47,7 +47,7 @@ namespace WebDauGia.Controllers
                     Session["user"] = us;
 
 
-                    //Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
                     return RedirectToAction("Index", "Home");
                 }
                 Response.Write("<script LANGUAGE='JavaScript' >alert('Tên đăng nhập hoặc mật khẩu không đúng')</script>");
@@ -114,6 +114,14 @@ namespace WebDauGia.Controllers
                         ctx.SaveChanges();
                     }
                     @ViewBag.Error = false;
+
+                    LoginVM lvm = new LoginVM();
+                    lvm.UserName = model.Username;
+                    lvm.PassWord = model.Password;
+                    Login(lvm);
+
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng ký thành công. Đang chuyển về trang chủ')</script>");
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception)
                 {
