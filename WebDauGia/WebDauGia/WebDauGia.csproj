@@ -731,8 +731,28 @@
     <Content Include="Images\Home\icon.png" />
     <Content Include="Images\Home\logo.png" />
     <Content Include="Images\Home\Untitled.png" />
+    <Content Include="Images\sp\10\main.jpg" />
+    <Content Include="Images\sp\10\main_thumbs.jpg" />
+    <Content Include="Images\sp\11\1.jpg" />
+    <Content Include="Images\sp\11\1_thumbs.jpg" />
+    <Content Include="Images\sp\11\main.jpg" />
+    <Content Include="Images\sp\11\main_thumbs.jpg" />
+    <Content Include="Images\sp\12\1.jpg" />
+    <Content Include="Images\sp\12\1_thumbs.jpg" />
+    <Content Include="Images\sp\12\main.jpg" />
+    <Content Include="Images\sp\12\main_thumbs.jpg" />
+    <Content Include="Images\sp\13\1.jpg" />
+    <Content Include="Images\sp\13\1_thumbs.jpg" />
+    <Content Include="Images\sp\13\main.jpg" />
+    <Content Include="Images\sp\13\main_thumbs.jpg" />
+    <Content Include="Images\sp\2\1.jpg" />
+    <Content Include="Images\sp\2\1_thumbs.jpg" />
     <Content Include="Images\sp\2\main.jpg" />
     <Content Include="Images\sp\2\main_thumbs.jpg" />
+    <Content Include="Images\sp\9\1.jpg" />
+    <Content Include="Images\sp\9\1_thumbs.jpg" />
+    <Content Include="Images\sp\9\main.jpg" />
+    <Content Include="Images\sp\9\main_thumbs.jpg" />
     <Content Include="Models\QuanLyDauGia.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
@@ -820,6 +840,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Product\ByCat.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -891,7 +912,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Category\ListPartial.cshtml" />
-    <Content Include="Views\Product\ByCat.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutRegisterLogin.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
