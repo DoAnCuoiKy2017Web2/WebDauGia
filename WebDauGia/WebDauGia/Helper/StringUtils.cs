@@ -17,5 +17,16 @@ namespace WebDauGia.Helper
             string ret = BitConverter.ToString(output).Replace("-", "");
             return ret;
         }
+
+        //Mã hóa tên người dùng.
+        public static string Replace(string strinput)
+        {
+            if (strinput == null)
+                return "";
+            if (strinput.Length <= 3)
+                return strinput.Replace(strinput.Substring(0, 1), "*****");
+            else
+                return strinput.Replace(strinput.Substring(0, strinput.Length - 3), "*****");
+        }
     }
 }

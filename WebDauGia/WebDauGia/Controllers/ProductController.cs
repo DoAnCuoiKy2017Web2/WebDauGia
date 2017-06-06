@@ -118,8 +118,11 @@ namespace WebDauGia.Controllers
             }
         }
         //GET:Product/Search
-        public ActionResult Search(string txtkey, int page = 1)
+        [HttpGet, ValidateInput(false)]
+        public ActionResult Search(string txtkey, int Command = 0, int page = 1)
         {
+            @ViewBag.key = txtkey;
+            @ViewBag.Command = Command;
             if (txtkey == "")
             {
                 return RedirectToAction("Index", "Home");
@@ -132,8 +135,8 @@ namespace WebDauGia.Controllers
                 var Cat = ctx.Categories.Where(c=>c.CatName.ToLower().Contains(txtkey.ToLower())).ToList();
                 var kq1 = (from c in Cat
 	                      join p in ctx.Products on c.CatID equals p.CatID
-                            select p).ToList();
-                var kq2 = ctx.Products.Where(p => p.ProName.ToLower().Contains(txtkey.ToLower())).ToList();
+                            select p).Where(p=>p.EndTime>DateTime.Now).ToList();
+                var kq2 = ctx.Products.Where(p => p.ProName.ToLower().Contains(txtkey.ToLower()) && p.EndTime>DateTime.Now).ToList();
                 LSP.AddRange(kq1);
                 LSP.AddRange(kq2);
                 for(int i=0;i<LSP.Count()-1;i++)
@@ -147,6 +150,14 @@ namespace WebDauGia.Controllers
                             break;
                         }
                     }
+                }
+                if (Command == 1)
+                {
+                   LSP=LSP.OrderByDescending(l => l.EndTime).ToList();
+                }
+                else if (Command == 2)
+                {
+                    LSP = LSP.OrderBy(l => l.Price).ToList();
                 }
                 int n =LSP.Count();
                 int recordsPerPage = 3;
