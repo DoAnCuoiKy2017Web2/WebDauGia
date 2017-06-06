@@ -13,5 +13,18 @@ namespace WebDauGia.Models
             TimeSpan kq = Finish - Today;
             return kq.Days + "d:" + kq.Hours + "h:" + kq.Minutes + "p.";
         }
+        public static int CheckNew(DateTime Start)
+        {
+            int check = 0;
+            DateTime Today = DateTime.Now;
+            TimeSpan kq = Today - Start;
+            if (kq.Days * 24 * 60 + kq.Hours * 60 + kq.Minutes <= 30)
+            {
+                check = 1;
+            }
+            return check;
+        }
     }
+    
+
 }
