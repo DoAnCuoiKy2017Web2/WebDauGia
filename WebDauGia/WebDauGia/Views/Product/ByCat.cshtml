@@ -6,7 +6,9 @@
 @section view_title{
     Danh sách sản phẩm: @ViewBag.CatName
 }
-
+@section css{
+    <link href="~/Content/LightBox/Hinh.css" rel="stylesheet" />
+}
 @if (Model.Count == 0)
 {
     <text>Không có sản phẩm.</text>
@@ -18,9 +20,18 @@ else
         {
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
-                        <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName"/>
-                    </a>
+                    @if (WebDauGia.Models.Function.CheckNew(p.StartTime) == 1)
+                    {
+                        <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="item">
+                            <span class="nhan">NEW</span>
+                            <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
+                        </a>
+                    }
+                    else
+                    {<a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
+                        <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
+                    </a> }
+                    
                     <div class="caption">
                         <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
                         <p>Lượt đấu: (@p.NumOfAuction)</p>

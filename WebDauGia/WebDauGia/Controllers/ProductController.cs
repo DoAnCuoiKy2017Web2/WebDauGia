@@ -99,7 +99,7 @@ namespace WebDauGia.Controllers
                 @ViewBag.Pages = nPages;
 
                 List<Product> list = ctx.Products
-                    .Where(p => p.CatID == id)
+                    .Where(p => p.CatID == id && p.EndTime>DateTime.Now)
                     .OrderBy(p => p.ProID)
                     //.Select(l => new SubProduct
                     //{
