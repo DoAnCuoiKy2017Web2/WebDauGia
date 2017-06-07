@@ -46,13 +46,13 @@ else
 {
     <div class="row">
         <div class="col-md-3">
-            <img src="~/Images/sp/@Model.ProID/main.jpg" style="width:100%"/>
+            <img src="~/Images/sp/@Model.ProID/main.jpg" style="width:100%" />
         </div>
         <div class="col-md-3">
-            <img src="~/Images/sp/@Model.ProID/main.jpg" style="width:100%"/>
+            <img src="~/Images/sp/@Model.ProID/main.jpg" style="width:100%" />
         </div>
         <div class="col-md-3">
-            <img src="~/Images/sp/@Model.ProID/main.jpg" style="width:100%"/>
+            <img src="~/Images/sp/@Model.ProID/main.jpg" style="width:100%" />
         </div>
         <div class="col-md-12 caption-lg-orange">
             <h3>@Model.ProName</h3>
@@ -76,6 +76,16 @@ else
             <span class="caption-lg-red">Thời điểm kết thúc: @Model.EndTime</span>
         </div>
         <div class="col-md-12 padding">
+            <div class="profile-info-row">
+                <button type="button" class="btn btn-info">
+                    Xem lịch sử đấu giá
+                </button>
+                <button type="button" class="btn btn-success">
+                    Đấu giá
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12 padding">
             Tồn kho: @Model.Quantity
         </div>
         <div class="col-md-12 padding">
@@ -83,22 +93,22 @@ else
         </div>
     </div>
 
-    @*if (CurrentContext.IsLogged())
-    {
-        <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
-                    <div class="input-group" style="margin-left: 24px;">
-                        <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fa fa-cart-plus"></i>
-                            </button>
-                        </span>
+        @*if (CurrentContext.IsLogged())
+            {
+                <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
+                            <div class="input-group" style="margin-left: 24px;">
+                                <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-cart-plus"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </form>
-    }*@
+                </form>
+            }*@
 }
