@@ -841,6 +841,7 @@
     <Content Include="Content\Jquery-Valid\localization\methods_pt.min.js" />
     <Content Include="Content\LightBox\css\lightbox.css" />
     <Content Include="Content\LightBox\css\lightbox.min.css" />
+    <Content Include="Content\LightBox\Hinh.css" />
     <Content Include="Content\LightBox\images\close.png" />
     <Content Include="Content\LightBox\images\loading.gif" />
     <Content Include="Content\LightBox\images\next.png" />

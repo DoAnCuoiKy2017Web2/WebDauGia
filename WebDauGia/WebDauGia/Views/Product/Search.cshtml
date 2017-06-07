@@ -25,25 +25,9 @@
             </div>
         }
   }
-<style>
-    .item {
-        position: relative;
-        padding-top: 20px;
-        display: inline-block;
-    }
-
-    .nhan {
-        position: absolute;
-        right: -20px;
-        top: 10px;
-        background: green;
-        text-align: center;
-        border-radius: 30px 30px 30px 30px;
-        color: white;
-        padding: 5px 10px;
-        font-size: 10px;
-    }
-</style>
+@section css{
+<link href="~/Content/LightBox/Hinh.css" rel="stylesheet" />
+}
 
 @if (Model.Count == 0)
 { 
