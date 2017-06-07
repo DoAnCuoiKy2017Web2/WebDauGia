@@ -214,5 +214,31 @@ namespace WebDauGia.Controllers
             }
             return View(listUser);
         }
+        //Get : User/Profile
+        [CheckLogin]
+        public ActionResult Profile(string ID)
+        {
+            if (ID == "" || ID == null)
+            {
+                if (CurrentContext.IsLogged() == false)
+                    return RedirectToAction("Index", "User");
+                else
+                {
+                    ID = CurrentContext.GetCurUser().UserName;
+                }
+            }
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+
+                User us = dt.Users
+                    .Where(p => p.UserName == ID.ToString())
+                    .FirstOrDefault();
+                if (us != null)
+                {
+                    return View(us);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }

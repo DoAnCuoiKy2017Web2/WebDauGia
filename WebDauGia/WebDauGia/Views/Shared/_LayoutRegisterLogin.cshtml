@@ -1,14 +1,35 @@
-﻿
+﻿@using WebDauGia.Helper
+
+@section css{
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+}
+
+@section js{
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script>
+
+        $('#myCarousel').carousel({
+            interval: 4000
+        });
+    </script>
+}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Images/Home/icon.png" />
     <title>@ViewBag.Title - Sky Market</title>
-
+    @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <script src="~/Scripts/modernizr-2.6.2.js"></script>*@
     <link href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Content/jquery-3.2.0.min.js"></script>
+
     @RenderSection("css", false)
 </head>
 <body>
@@ -42,70 +63,130 @@
                                 <li><a href="#">One more separated link</a></li>
                             </ul>
                         </li>
-                    </ul>
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Tìm kiếm</button>
-                    </form>*@
+                    </ul>*@
+                <form class="navbar-form navbar-left" method="get" action="@Url.Action("Search", "Product")">
+                    <div class="form-group">
+                        <input type="text" name="txtkey" class="form-control" placeholder="Search">
+                        <input type="hidden" name="txtcommand" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Tìm kiếm</button>
+                </form>
                 <ul class="nav navbar-nav navbar-right">
                     @*<li><a href="#">Link</a></li>*@
-                    <li><a href="@Url.Action("Register", "User")">Đăng ký</a></li>
-                    <li><a href="@Url.Action("Login", "User")">Đăng Nhập</a></li>
-                    @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    @if (CurrentContext.IsLogged() == false)
+                    {
+                        <li><a href="@Url.Action("Register", "User")">Đăng ký</a></li>
+                        <li><a href="@Url.Action("Login", "User")">Đăng Nhập</a></li>
+                    }
+                    else
+                    {
+                        @*<li>
+                                <a href="@Url.Action("Index","Cart")">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Giỏ hàng có @CurrentContext.GetCart().SumQ() sản phẩm
+                                </a>
+                            </li>*@
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                @CurrentContext.GetCurUser().UserName
+                                <span class="caret"></span>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                @*<li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>*@
+                                <li><a href="@Url.Action("Profile", "User")">Thông tin cá nhân</a></li>
+                                @*<li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>*@
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
                             </ul>
-                        </li>*@
+                        </li>
+                    }
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-    </nav>
-    @*<div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            @RenderSection("view_title")
-                        </div>
-                        <div class="panel-body">
-                            @RenderBody()
-                        </div>
+        <form id="frmLogout" method="post" action="@Url.Action("Logout","User")"></form>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="~/Images/Home/3.jpg" style="width:100%;" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>Đấu giá trực tuyến</h2>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="item">
+                    <img src="~/Images/Home/5.jpg" style="width:100%;" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>Đấu giá trực tuyến</h2>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Images/Home/2.jpg" style="width:100%;" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>Đấu giá trực tuyến</h2>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/Images/Home/4.jpg" style="width:100%;" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>Đấu giá trực tuyến</h2>
+                    </div>
                 </div>
             </div>
-        </div>*@
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </nav>
+
     <div class="container-fluid">
         <div class="row">
             @*<div class="col-md-12">
                     <img src="~/Images/Home/1.jpg" />
                     <h2 style="vertical-align:central">Hiện thông tin HOT</h2>
                 </div>*@
-            <div class="col-md-3">
-                <img src="~/Images/Home/Untitled.png" />
-                
-            </div>
-            <div class="col-md-7">
+            @*/////////Đổi chổ này 3 thành 2 nhé*@
+            <div class="col-md-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        @RenderSection("view_title")
+                        Danh mục
+                    </div>
+                    @Html.Action("List", "Category")
+                </div>
+                @*<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Hãng sản xuất
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            Panel content
+                        </div>
+                    </div>*@
+            </div>
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                       
                     </div>
                     <div class="panel-body">
                         @RenderBody()
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
     <hr />
@@ -126,9 +207,9 @@
                     <p>&copy; @DateTime.Now.Year - Our ASP.NET Web</p>
                 </div>
                 <div class="col-md-3 col-sm-6 paddingtop-bottom">
-                    <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-height="300" data-small-header="false" style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                    <div class="fb-page" data-href="https://www.facebook.com/thihatrang.phan?hc_ref=NEWSFEED" data-tabs="timeline" data-height="300" data-small-header="false" style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                         <div class="fb-xfbml-parse-ignore">
-                            <blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote>
+                            <blockquote cite="https://www.facebook.com/thihatrang.phan?hc_ref=NEWSFEED"><a href="https://www.facebook.com/thihatrang.phan?hc_ref=NEWSFEED">Facebook</a></blockquote>
                         </div>
                     </div>
                 </div>
@@ -137,6 +218,17 @@
     </footer>
     <script src="~/Content/jquery-3.2.0.min.js"></script>
     <script src="~/Content/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#logoutLink').on('click', function () {
+            $('#frmLogout').submit();
+        })
+    </script>
+    <script>
+
+        $('#myCarousel').carousel({
+            interval: 4000
+        });
+    </script>
     @RenderSection("js", false)
 </body>
 </html>
