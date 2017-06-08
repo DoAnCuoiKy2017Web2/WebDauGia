@@ -93,6 +93,8 @@ else
         <div class="col-md-12 padding">
             Tồn kho: @Model.Quantity
         </div>
+        @if(WebDauGia.Helper.CurrentContext.IsLogged()==true)
+        { 
         <form id="auction" action="/AuctionHistory/Add/" method="post" novalidate="novalidate">
             <div class="col-md-12 caption-lg-green">
                 <h3>
@@ -164,6 +166,7 @@ else
             </div>
 
         </div>
+        }
 
     </div>
 
