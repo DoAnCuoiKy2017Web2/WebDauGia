@@ -124,6 +124,7 @@
     <Content Include="assets\css\jquery.gritter.min.css" />
     <Content Include="assets\css\prettify.min.css" />
     <Content Include="assets\css\select2.min.css" />
+    <Content Include="assets\css\style.css" />
     <Content Include="assets\css\ui.jqgrid.min.css" />
     <Content Include="assets\font-awesome\4.5.0\css\font-awesome.min.css" />
     <Content Include="assets\font-awesome\4.5.0\fonts\fontawesome-webfont.svg" />
@@ -998,6 +999,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WatchListController.cs" />
     <Compile Include="Filters\CheckLoginAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1079,6 +1081,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\AuctionHistory\" />
     <Folder Include="Views\Comment\" />
+    <Folder Include="Views\WatchList\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
