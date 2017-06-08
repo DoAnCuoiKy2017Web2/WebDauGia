@@ -18,7 +18,7 @@ namespace WebDauGia.Models
             int check = 0;
             DateTime Today = DateTime.Now;
             TimeSpan kq = Today - Start;
-            if (kq.Days * 24 * 60 + kq.Hours * 60 + kq.Minutes <= 30)
+            if (kq.Days * 24 * 60 + kq.Hours * 60 + kq.Minutes <= 6000)
             {
                 check = 1;
             }

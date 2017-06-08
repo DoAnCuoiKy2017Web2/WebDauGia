@@ -11,6 +11,45 @@
     img {
     }
 </style>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="love"]').tooltip();
+    });
+    function love(proid) {
+        $(function () {
+            var url = "/WatchList/Add";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data:{ProID:proid},
+                dataType: "json",
+                timeout: 30 * 1000,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error - ' + errorThrown);
+                }
+            })
+                .done(function (data) {
+                    alert(data);
+                    $.each(data, function (data) {
+                        //var html =
+                        //    '<tr>' +
+                        //        '<td>' + p.ProID + '</td>' +
+                        //        '<td>' + p.ProName + '</td>' +
+                        //        '<td>' + p.Price + '</td>' +
+                        //        '<td><a href="javascript:;" class="btn btn-default viewPro" data-id="' + p.ProID + '">VIEW</a></td>' +
+                        //    '</tr>';
+
+                        //$('#productList').append(html);
+                    });
+                })
+                .fail(function (jqXHR, status, error) {
+                    console.log(jqXHR);
+                    alert('fail');
+                });
+        });
+    }
+</script>
+
 @if (Model.Count == 0)
 {
     <text>Không có sản phẩm.</text>
@@ -31,7 +70,10 @@ else
 
                         <p>Người mua: @WebDauGia.Helper.StringUtils.Replace(p.Owner)</p>
                         <p style="color:navy">Giá: @string.Format("{0:N0}", p.Price) VNĐ</p>
-                        <p style="color:red">Còn: @Function.DateTimeToString(p.EndTime)</p>
+                        <p style="color:red">Còn: @Function.DateTimeToString(p.EndTime)
+                            <a style="font-size: 19px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
+                               class="fa fa-heart" onclick="love(@p.ProID)" aria-hidden="true"></a>
+                        </p>
                         <p style="overflow:hidden;text-overflow:ellipsis; white-space:nowrap"></p>
                         <p>
                             <a href="#" class="btn btn-success" role="button">
