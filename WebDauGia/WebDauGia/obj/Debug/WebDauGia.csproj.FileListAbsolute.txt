@@ -93,6 +93,5 @@ C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.We
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.xml
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.xml
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
-C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
