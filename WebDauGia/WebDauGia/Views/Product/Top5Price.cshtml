@@ -29,8 +29,15 @@
                 }
             })
                 .done(function (data) {
-                    alert(data);
-                    $.each(data, function (data) {
+                    if(data=="1")
+                    {
+                        if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yếu Thích Của Bạn???") == true) {
+                            window.location = "@Url.Action("Login","User")";
+                        } else {
+
+                        }
+                    }
+                    else{alert(data);}
                         //var html =
                         //    '<tr>' +
                         //        '<td>' + p.ProID + '</td>' +
@@ -40,7 +47,7 @@
                         //    '</tr>';
 
                         //$('#productList').append(html);
-                    });
+                    //});
                 })
                 .fail(function (jqXHR, status, error) {
                     console.log(jqXHR);

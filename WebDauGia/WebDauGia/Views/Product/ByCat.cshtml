@@ -19,7 +19,7 @@
             $.ajax({
                 url: url,
                 type: "POST",
-                data:{ProID:proid},
+                data: { ProID: proid },
                 dataType: "json",
                 timeout: 30 * 1000,
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -27,18 +27,14 @@
                 }
             })
                 .done(function (data) {
-                    alert(data);
-                    $.each(data, function (data) {
-                        //var html =
-                        //    '<tr>' +
-                        //        '<td>' + p.ProID + '</td>' +
-                        //        '<td>' + p.ProName + '</td>' +
-                        //        '<td>' + p.Price + '</td>' +
-                        //        '<td><a href="javascript:;" class="btn btn-default viewPro" data-id="' + p.ProID + '">VIEW</a></td>' +
-                        //    '</tr>';
+                    if (data == "1") {
+                        if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yếu Thích Của Bạn???") == true) {
+                            window.location = "@Url.Action("Login","User")";
+                        } else {
 
-                        //$('#productList').append(html);
-                    });
+                        }
+                    }
+                    else { alert(data); }
                 })
                 .fail(function (jqXHR, status, error) {
                     console.log(jqXHR);
@@ -47,6 +43,7 @@
         });
     }
 </script>
+
 @if (Model.Count == 0)
 {
     <text>Không có sản phẩm.</text>
@@ -67,7 +64,7 @@ else
                     }
                     else
                     {<a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
-                        <img src="~/Images/sp/@p.ProID/main_thumbs.jpg" title="@p.ProName" />
+                        <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName" />
                     </a> }
                     
                     <div class="caption">
