@@ -105,7 +105,7 @@ else
 
         <br>
         <div class="col-md-12 padding">
-            
+
 
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-18">
@@ -127,11 +127,11 @@ else
                 <div class="tab-content no-border padding-24">
                     <div id="userprofile" class="tab-pane in active">
                         <div class="row">
-                            <div class="col-md-12 padding">
+                            <div class="col-md-8 padding">
                                 @Html.Raw(HttpUtility.HtmlDecode(Model.FullDes))
                             </div>
                         </div><!-- /.row -->
-                        
+
                     </div><!-- /#userprofile -->
 
                     <div id="userupdate" class="tab-pane">
@@ -154,29 +154,25 @@ else
 
     </div>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e96798c06d7b7eb8a6bde5fb1ed7a036922d0001
     @*if (CurrentContext.IsLogged())
-        {
-            <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
-                <div class="form-group">
-                    <div class="col-sm-4">
-                        <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
-                        <div class="input-group" style="margin-left: 24px;">
-                            <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fa fa-cart-plus"></i>
-                                </button>
-                            </span>
-<<<<<<< HEAD
+                {
+                    <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
+                                <div class="input-group" style="margin-left: 24px;">
+                                    <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-cart-plus"></i>
+                                        </button>
+                                    </span>
+        <<<<<<< HEAD
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </form>
-        }*@
+                    </form>
+                }*@
 }
 
 @{
@@ -209,12 +205,12 @@ else
                             </div>
                             <div class="meta-user-comment clearfix">
                                 <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
-                                   
-                                @{
-                                    var ct = new QuanLyDauGiaEntities();
-                                    var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
-                                    Uname = ten.UserName;
-                                        }
+
+                                    @{
+                                        var ct = new QuanLyDauGiaEntities();
+                                        var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
+                                        Uname = ten.UserName;
+                                    }
                                     @Uname
                                 </a>
                                 <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
@@ -223,15 +219,10 @@ else
 
                         </div>
                     </li>
-                }
-            }
-    </div>
-=======
-                        </div>
-                    </div>
-                </div>
-            </form>
-        }*@
 
->>>>>>> e96798c06d7b7eb8a6bde5fb1ed7a036922d0001
+                                            }
+                                        }
+        </ul>
+    </div>
+
 }
