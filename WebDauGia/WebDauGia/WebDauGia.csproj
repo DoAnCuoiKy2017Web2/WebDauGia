@@ -124,6 +124,7 @@
     <Content Include="assets\css\jquery.gritter.min.css" />
     <Content Include="assets\css\prettify.min.css" />
     <Content Include="assets\css\select2.min.css" />
+    <Content Include="assets\css\style.css" />
     <Content Include="assets\css\ui.jqgrid.min.css" />
     <Content Include="assets\font-awesome\4.5.0\css\font-awesome.min.css" />
     <Content Include="assets\font-awesome\4.5.0\fonts\fontawesome-webfont.svg" />

@@ -8,6 +8,7 @@
 }
 @section css{
     <link href="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
     <style type="text/css">
         .caption-lg-orange {
             font-weight: bold;
@@ -93,22 +94,72 @@ else
         </div>
     </div>
 
-        @*if (CurrentContext.IsLogged())
-            {
-                <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
-                            <div class="input-group" style="margin-left: 24px;">
-                                <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fa fa-cart-plus"></i>
-                                    </button>
-                                </span>
-                            </div>
+
+    @*if (CurrentContext.IsLogged())
+        {
+            <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
+                        <div class="input-group" style="margin-left: 24px;">
+                            <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-cart-plus"></i>
+                                </button>
+                            </span>
                         </div>
                     </div>
-                </form>
-            }*@
+                </div>
+            </form>
+        }*@
+}
+
+@{
+    List<Comment> list;
+    string Uname;
+    using (var ctx = new QuanLyDauGiaEntities())
+    {
+        list = ctx.Comments.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.CmtID).ToList();
+    }
+    <div id="comments" class="clearfix">
+        <span class="arr"></span>
+        <a name="binhluan"></a>
+        <h5 class="head-title-box" id="showNumberbinhluan">@list.Count() bình luận</h5>
+        <ul class="comment-list unstyled clearfix" id="pn_list_comment" style="opacity: 1;">
+
+            @if (list.Count() == 0)
+            {
+                <li>
+                    Chưa có bình luận nào, bạn hãy tham gia nhé !
+                </li>
+            }
+            else
+            {
+                foreach (var item in list)
+                {
+                    <li>
+                        <div class="comment-content">
+                            <div class="user-picture">
+                                <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title=""><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"></a>
+                            </div>
+                            <div class="meta-user-comment clearfix">
+                                <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
+                                   
+                                @{
+                                    var ct = new QuanLyDauGiaEntities();
+                                    var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
+                                    Uname = ten.UserName;
+                                        }
+                                    @Uname
+                                </a>
+                                <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
+                            </div>
+                            <div class="comment-body">@item.Comment1</div>
+
+                        </div>
+                    </li>
+                }
+            }
+    </div>
 }
