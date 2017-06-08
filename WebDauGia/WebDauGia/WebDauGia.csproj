@@ -1040,10 +1040,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\SubProduct.cs" />
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\WatchList.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

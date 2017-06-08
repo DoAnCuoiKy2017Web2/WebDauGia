@@ -49,16 +49,6 @@
     <Property Name="Status" Type="bit" />
     <Property Name="NumOfAuction" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserName" />
@@ -77,12 +67,20 @@
     <Property Name="AllowSales" Type="bit" Nullable="false" />
     <Property Name="Reliability" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="WatchList">
+    <Key>
+      <PropertyRef Name="ProID" />
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="ProID" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityContainer Name="QuanLyDauGiaModelStoreContainer">
     <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistorys" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WatchList" EntityType="Self.WatchList" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

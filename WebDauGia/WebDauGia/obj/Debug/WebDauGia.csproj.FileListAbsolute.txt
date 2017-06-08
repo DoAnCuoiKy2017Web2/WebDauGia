@@ -95,3 +95,27 @@ C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.He
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll.config
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.pdb
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\BotDetect.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\BotDetect.Web.Mvc.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.SqlServer.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Razor.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Deployment.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.dll
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.SqlServer.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Razor.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Deployment.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.xml
+D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
