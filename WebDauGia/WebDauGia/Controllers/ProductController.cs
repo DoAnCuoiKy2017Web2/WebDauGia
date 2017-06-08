@@ -114,7 +114,7 @@ namespace WebDauGia.Controllers
                     .ToString();
                 @ViewBag.CatName = c;
 
-                int n = ctx.Products.Where(p => p.CatID == id).Count();
+                int n = ctx.Products.Where(p => p.CatID == id && p.EndTime > DateTime.Now).Count();
 
                 int recordsPerPage = 3;
                 int nPages = n / recordsPerPage + (n % recordsPerPage == 0 ? 0 : 1);
