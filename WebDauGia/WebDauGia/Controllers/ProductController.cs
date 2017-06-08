@@ -81,6 +81,29 @@ namespace WebDauGia.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            if(id == -1)
+            {
+                using (var ctx = new QuanLyDauGiaEntities())
+                {
+                    @ViewBag.curPage = page;
+                    @ViewBag.CatName = "Tất cả";
+
+                    int n = ctx.Products.Where(p => p.EndTime > DateTime.Now).Count();
+
+                    int recordsPerPage = 3;
+                    int nPages = n / recordsPerPage + (n % recordsPerPage == 0 ? 0 : 1);
+
+                    @ViewBag.Pages = nPages;
+
+                    List<Product> list = ctx.Products
+                        .Where(p => p.EndTime > DateTime.Now)
+                        .OrderBy(p => p.ProID)
+                        .Skip((page - 1) * recordsPerPage)
+                        .Take(recordsPerPage)
+                        .ToList();
+                    return View(list);
+                }
+            }
             using (var ctx = new QuanLyDauGiaEntities())
             {
                 @ViewBag.curPage = page;
