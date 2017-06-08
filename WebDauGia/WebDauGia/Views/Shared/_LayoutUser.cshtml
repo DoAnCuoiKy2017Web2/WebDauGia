@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title>User Profile Page - Ace Admin</title>
+    <title>Quản lý tài khoản</title>
 
     <meta name="description" content="3 styles with inline editable feature" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -43,12 +43,10 @@
     <script src="~/assets/js/ace-extra.min.js"></script>
 
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-
 </head>
 
 <body class="no-skin">
-    <div id="navbar" class="navbar navbar-default          ace-save-state">
+    <div id="navbar" class="navbar navbar-default ace-save-state">
         <div class="navbar-container ace-save-state" id="navbar-container">
             <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
                 <span class="sr-only">Toggle sidebar</span>
@@ -84,24 +82,11 @@
                         </a>
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#">
-                                    <i class="ace-icon fa fa-cog"></i>
-                                    Settings
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="profile.html">
-                                    <i class="ace-icon fa fa-user"></i>
-                                    Profile
-                                </a>
-                            </li>
-
+                            
                             <li class="divider"></li>
 
                             <li>
-                                <a href="#">
+                                <a id="logoutLink" href="javascript:;">
                                     <i class="ace-icon fa fa-power-off"></i>
                                     Logout
                                 </a>
@@ -112,19 +97,11 @@
             </div>
         </div><!-- /.navbar-container -->
     </div>
-
+    <form id="frmLogout" method="post" action="@Url.Action("Logout","User")"></form>
     <div class="main-container ace-save-state" id="main-container">
         <script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
         </script>
-
-        <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
-            <script type="text/javascript">
-					try{ace.settings.loadState('sidebar')}catch(e){}
-            </script>
-
-
-        </div>
 
         <div class="main-content">
             <div class="main-content-inner">
@@ -152,8 +129,7 @@
             <div class="footer-inner">
                 <div class="footer-content">
                     <span class="bigger-120">
-                        <span class="blue bolder">Ace</span>
-                        Application &copy; 2013-2014
+                        &copy; 2017 - Our ASP.NET Web
                     </span>
 
                     &nbsp; &nbsp;
@@ -652,6 +628,9 @@
 					$('[class*=select2]').remove();
 				});
 			});
+			$('#logoutLink').on('click', function () {
+			    $('#frmLogout').submit();
+			})
     </script>
 </body>
 </html>
