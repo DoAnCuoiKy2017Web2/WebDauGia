@@ -21,19 +21,39 @@ namespace WebDauGia.Controllers
             return View();
         }
 
+
         //Post : Comment/Add
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(Comment model)
+        public ActionResult Add(int proid, string usname, string noidung)
         {
-            using (var ctx = new QuanLyDauGiaEntities())
+            Comment obj = new Comment();
+            obj.ProID = proid;
+            obj.UserName = usname;
+            obj.Comment1 = noidung;
+            obj.TimeCmt = DateTime.Now.ToShortDateString();
+            using(var ctx = new QuanLyDauGiaEntities())
             {
-                ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
+                ctx.Entry(obj).State = System.Data.Entity.EntityState.Added;
                 ctx.SaveChanges();
                 @ViewBag.Message = "Đã thêm thành công.";
             }
-            return View();
+            return RedirectToAction("Detail", "Product", new { ID = proid });
         }
+
+        ////Post : Comment/Add
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult Add(Comment model)
+        //{
+        //    using (var ctx = new QuanLyDauGiaEntities())
+        //    {
+        //        ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
+        //        ctx.SaveChanges();
+        //        @ViewBag.Message = "Đã thêm thành công.";
+        //    }
+        //    return View();
+        //}
 
         //Get : Comment/Edit
         public ActionResult Edit(int? ID)

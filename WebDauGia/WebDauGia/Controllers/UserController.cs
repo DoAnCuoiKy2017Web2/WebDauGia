@@ -45,7 +45,7 @@ namespace WebDauGia.Controllers
                     }
                     Session["isLogin"] = 1;
                     Session["user"] = us;
-
+                    Session["username"] = us.UserName;
 
                     Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
                     return RedirectToAction("Index", "Home");
