@@ -1,13 +1,5 @@
 ﻿@using WebDauGia.Helper
-
-@section css{
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-}
-
 @section js{
-
     <script src="js/jquery-1.11.1.min.js"></script>
     <script>
 
@@ -66,7 +58,7 @@
                     </ul>*@
                 <form class="navbar-form navbar-left" method="get" action="@Url.Action("Search", "Product")">
                     <div class="form-group">
-                        <input type="text" name="txtkey" class="form-control"  placeholder="Search">
+                        <input type="text" name="txtkey" class="form-control" placeholder="Search">
                         <input type="hidden" name="txtcommand" class="form-control" placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">Tìm kiếm</button>
@@ -80,26 +72,26 @@
                     }
                     else
                     {
-                        @*<li>
-                                <a href="@Url.Action("Index","Cart")">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Giỏ hàng có @CurrentContext.GetCart().SumQ() sản phẩm
-                                </a>
-                            </li>*@
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                @CurrentContext.GetCurUser().UserName
-                                <span class="caret"></span>
+                        <li>
+                            <a href="@Url.Action("Add","Product")">
+                                <i class="fa fa-shopping-cart"></i>
+                                Đăng sản phẩm
                             </a>
-                            <ul class="dropdown-menu">
-                                @*<li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>*@
-                                <li><a href="@Url.Action("Profile", "User")">Quản lý tài khoản</a></li>
-                                @*<li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>*@
-                                <li role="separator" class="divider"></li>
-                                <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
-                            </ul>
                         </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    @CurrentContext.GetCurUser().UserName
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @*<li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>*@
+                                    <li><a href="@Url.Action("Profile", "User")">Quản lý tài khoản</a></li>
+                                    @*<li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>*@
+                                    <li role="separator" class="divider"></li>
+                                    <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
+                                </ul>
+                            </li>
                     }
                 </ul>
             </div><!-- /.navbar-collapse -->
