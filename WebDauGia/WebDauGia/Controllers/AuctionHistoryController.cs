@@ -23,16 +23,35 @@ namespace WebDauGia.Controllers
         //Post : AuctionHistory/Add
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(AuctionHistory model)
+        public ActionResult Add(int proid ,string uname,DateTime time, double ragia)
         {
+            AuctionHistory a = new AuctionHistory();
+            a.ProID = proid;
+            a.UserName = uname;
+            a.Time = time;
+            a.AucPrice = ragia;
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
+                ctx.Entry(a).State = System.Data.Entity.EntityState.Added;
                 ctx.SaveChanges();
                 @ViewBag.Message = "Đã thêm thành công.";
             }
-            return View();
+            return RedirectToAction("Detail", "Product", new { ID = a.ProID });
         }
+
+        ////Post : AuctionHistory/Add
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult Add(AuctionHistory model)
+        //{
+        //    using (var ctx = new QuanLyDauGiaEntities())
+        //    {
+        //        ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
+        //        ctx.SaveChanges();
+        //        @ViewBag.Message = "Đã thêm thành công.";
+        //    }
+        //    return View();
+        //}
 
         //Get : AuctionHistory/Edit
         public ActionResult Edit(int? ID)
