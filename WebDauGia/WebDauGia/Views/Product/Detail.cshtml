@@ -255,7 +255,10 @@ else
             <li>
                 <div class="comment-content">
                     <div class="user-picture">
-                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title=""><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"></a>
+                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title="">
+                            <img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"
+                                 >
+                        </a>
                     </div>
                     <div class="meta-user-comment clearfix">
                         <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
@@ -300,7 +303,10 @@ else
                 <li>
                     <div class="comment-content">
                         <div class="user-picture">
-                            <a href="../../SanPham/DSTheoThanhVien/@us"><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"></a>
+                            <a href="../../SanPham/DSTheoThanhVien/@us">
+                                <img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"
+                                     onerror="this.onerror = null; this.src = '/assets/images/avatardefault.png';"/>
+                            </a>
                         </div>
                         <form id="comment" action="/Comment/Add/" method="post" novalidate="novalidate">
                             @Html.Hidden("proid", @Model.ProID)

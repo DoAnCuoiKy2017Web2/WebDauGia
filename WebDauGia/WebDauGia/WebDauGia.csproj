@@ -129,6 +129,7 @@
     <Content Include="assets\font-awesome\4.5.0\css\font-awesome.min.css" />
     <Content Include="assets\font-awesome\4.5.0\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\images\avatardefault.png" />
     <Content Include="assets\images\avatars\avatar.png" />
     <Content Include="assets\images\avatars\avatar1.png" />
     <Content Include="assets\images\avatars\avatar2.png" />
