@@ -890,6 +890,7 @@
     <Content Include="Images\sp\9\main_thumbs_1.jpg" />
     <Content Include="Images\sp\9\main_thumbs_2.jpg" />
     <Content Include="Images\sp\9\main_thumbs_3.jpg" />
+    <Content Include="Images\sp\main.jpg" />
     <Content Include="Models\QuanLyDauGia.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
