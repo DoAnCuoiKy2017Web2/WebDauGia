@@ -56,6 +56,10 @@ namespace WebDauGia.Controllers
                                               ProID = p.ProID,
                                               ProName = p.ProName,
                                               UserName = username,
+                                              Price =p.Price,
+                                              AucPrice=(double)p.AucPrice,
+                                              EndTime =p.EndTime,
+                                              StartTime=p.StartTime
                                           }).ToList();
                 return PartialView("ListPartial", list);
             }

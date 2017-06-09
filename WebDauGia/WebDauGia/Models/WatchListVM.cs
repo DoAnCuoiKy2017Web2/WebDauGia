@@ -9,7 +9,10 @@ namespace WebDauGia.Models
     {
         public string ProName { get; set; }
         public int ProID { get; set; }
-
+        public double Price { get; set; }
+        public double AucPrice { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public String UserName { get; set; }
     }
 }
