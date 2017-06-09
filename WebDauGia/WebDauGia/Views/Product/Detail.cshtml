@@ -113,7 +113,7 @@ else
                     Bạn muốn ra giá:
                 </h3>
                 <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="text">
-                @{ 
+                @*@{ 
 
                     User us = (User)Session["user"];
                     AuctionHistory ah = new AuctionHistory();
@@ -123,8 +123,8 @@ else
                 }
                 @Html.Hidden("proid", @Model.ProID)
                 @Html.Hidden("uname", @us.UserName)
-                @Html.Hidden("time", @DateTime.Now)
-                <i>></i>@ah.ProID , @ah.UserName,@ah.Time
+                @Html.Hidden("time", @DateTime.Now)*@
+                @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
                 <button type="submit" class="btn btn-success orm-control input-lg" name="auction" id="auction">
                     Đấu giá
                 </button>
@@ -137,43 +137,68 @@ else
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-18">
                     <li class="active">
-                        <a data-toggle="tab" href="#userprofile">
+                        <a data-toggle="tab" href="#thongtinsanpham">
                             <i class="green ace-icon fa fa-product-hunt bigger-120"></i>
                             Thông tin sản phẩm
                         </a>
                     </li>
 
                     <li>
-                        <a data-toggle="tab" href="#userupdate">
+                        <a data-toggle="tab" href="#lichsu">
                             <i class="orange ace-icon fa fa-history bigger-120"></i>
                             Lịch sử đấu giá sản phẩm
+                        </a>
+                    </li>
+
+                    <li>
+                        <a data-toggle="tab" href="#binhluan">
+                            <i class="green ace-icon fa fa-comments bigger-120"></i>
+                            Bình luận
                         </a>
                     </li>
                 </ul>
 
                 <div class="tab-content no-border padding-24">
-                    <div id="userprofile" class="tab-pane in active">
+                    <div id="thongtinsanpham" class="tab-pane in active">
                         <div class="row">
                             <div class="col-md-8 padding">
                                 @Html.Raw(HttpUtility.HtmlDecode(Model.FullDes))
                             </div>
                         </div><!-- /.row -->
 
-                    </div><!-- /#userprofile -->
+                    </div><!-- /#thongtinsanpham -->
 
-                    <div id="userupdate" class="tab-pane">
+                    <div id="lichsu" class="tab-pane">
                         <form class="form-horizontal">
                             <div class="tabbable">
                                 <div class="tab-content profile-edit-tab-content">
                                     <div id="edit-basic" class="tab-pane in active">
-                                        <h4 class="header blue bolder smaller">Ahihi</h4>
+                                        <div class="col-md-8 padding">
+                                            aii
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
 
                         </form>
-                    </div><!-- /#userupdate -->
+                    </div><!-- /#lichsu -->
+
+                    <div id="binhluan" class="tab-pane">
+                        <form class="form-horizontal">
+                            <div class="tabbable">
+                                <div class="tab-content profile-edit-tab-content">
+                                    <div id="edit-basic" class="tab-pane in active">
+                                        <div class="col-md-8 padding">
+                                            aii
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div><!-- /#binhluan -->
                 </div>
             </div>
 
@@ -236,9 +261,9 @@ else
                         <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
 
                             @{
-                                        var ct = new QuanLyDauGiaEntities();
-                                        var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
-                                        Uname = ten.UserName;
+                                var ct = new QuanLyDauGiaEntities();
+                                var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
+                                Uname = ten.UserName;
                             }
                             @Uname
                         </a>
@@ -258,7 +283,7 @@ else
         {
             <div class="alert alert-success">
                 Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login", "User")">đăng nhập</a> hoặc
-                <a href="@Url.Action("Register", "User")">đăng ký</a> đã viết bình luận.
+                <a href="@Url.Action("Register", "User")">đăng ký</a> để viết bình luận.
             </div>
         }
         else
@@ -293,6 +318,5 @@ else
             </ul>
         }
     </div>
-
 }
 
