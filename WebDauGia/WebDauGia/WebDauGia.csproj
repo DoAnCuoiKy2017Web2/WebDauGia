@@ -1014,6 +1014,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordVM.cs" />
     <Compile Include="Models\Comment.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -1074,6 +1075,7 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\WatchList\ListPartial.cshtml" />
+    <Content Include="Views\User\ChangePass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
