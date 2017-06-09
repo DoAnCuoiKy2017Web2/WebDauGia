@@ -48,6 +48,7 @@ namespace WebDauGia.Controllers
             string username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
+                ViewBag.Loai = 1;
                 List<WatchListVM> list = (from p in ctx.Products
                                           join w in ctx.WatchLists on p.ProID equals w.ProID
                                           where w.UserName == username
@@ -66,6 +67,7 @@ namespace WebDauGia.Controllers
         }
         public ActionResult ListDangThamGia()
         {
+            ViewBag.Loai = 2;
             string username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
@@ -83,6 +85,7 @@ namespace WebDauGia.Controllers
         }
         public ActionResult ListDaThang()
         {
+            ViewBag.Loai = 3;
             string username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
