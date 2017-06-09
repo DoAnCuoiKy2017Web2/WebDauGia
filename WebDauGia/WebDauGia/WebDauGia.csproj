@@ -1048,6 +1048,7 @@
     <Compile Include="Models\WatchList.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WatchListVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1072,6 +1073,7 @@
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\WatchList\ListPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1083,7 +1085,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\AuctionHistory\" />
     <Folder Include="Views\Comment\" />
-    <Folder Include="Views\WatchList\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

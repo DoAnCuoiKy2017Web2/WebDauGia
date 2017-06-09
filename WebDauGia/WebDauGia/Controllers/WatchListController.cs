@@ -43,5 +43,22 @@ namespace WebDauGia.Controllers
                 }
             }
         }
+        public ActionResult List()
+        {
+            string username = ((User)Session["user"]).UserName;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<WatchListVM> list = (from p in ctx.Products
+                                          join w in ctx.WatchLists on p.ProID equals w.ProID
+                                          where w.UserName == username
+                                          select new WatchListVM
+                                          {
+                                              ProId = p.ProID,
+                                              ProName = p.ProName,
+                                              UserName = w.UserName,
+                                          }).ToList();
+                return PartialView("ListPartial", list);
+            }
+        }
     }
 }

@@ -1,0 +1,33 @@
+﻿@using WebDauGia.Models
+
+@model List<WatchListVM>
+
+@foreach (var c in Model)
+{
+    <li>
+        <a href="#" data-rel="colorbox">
+            <img alt="150x150" src="~/Images/sp/@c.ProId/main.jpg" width="150" height="150" />
+            <div class="text">
+                <div class="inner">@c.ProName</div>
+            </div>
+        </a>
+
+        <div class="tools tools-bottom">
+            <a href="#">
+                <i class="ace-icon fa fa-link"></i>
+            </a>
+
+            <a href="#">
+                <i class="ace-icon fa fa-paperclip"></i>
+            </a>
+
+            <a href="#">
+                <i class="ace-icon fa fa-pencil"></i>
+            </a>
+
+            <a href="#">
+                <i class="ace-icon fa fa-times red"></i>
+            </a>
+        </div>
+    </li>
+}
