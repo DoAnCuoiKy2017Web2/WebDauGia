@@ -1,13 +1,5 @@
 ﻿@using WebDauGia.Helper
-
-@section css{
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-}
-
 @section js{
-
     <script src="js/jquery-1.11.1.min.js"></script>
     <script>
 
@@ -80,12 +72,12 @@
                     }
                     else
                     {
-                        @*<li>
-                                <a href="@Url.Action("Index","Cart")">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Giỏ hàng có @CurrentContext.GetCart().SumQ() sản phẩm
-                                </a>
-                            </li>*@
+                        <li>
+                            <a href="@Url.Action("Add","Product")">
+                                <i class="fa fa-shopping-cart"></i>
+                                Đăng sản phẩm
+                            </a>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 @CurrentContext.GetCurUser().UserName
@@ -93,7 +85,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 @*<li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>*@
-                                <li><a href="@Url.Action("Profile", "User")">Thông tin cá nhân</a></li>
+                                <li><a href="@Url.Action("Profile", "User")">Quản lý tài khoản</a></li>
                                 @*<li><a href="#">Another action</a></li>
                                     <li><a href="#">Something else here</a></li>*@
                                 <li role="separator" class="divider"></li>
@@ -105,7 +97,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
         <form id="frmLogout" method="post" action="@Url.Action("Logout","User")"></form>
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        @*<div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -149,43 +141,24 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="sr-only">Next</span>
             </a>
-        </div>
+        </div>*@
     </nav>
 
     <div class="container-fluid">
         <div class="row">
-            @*<div class="col-md-12">
-                    <img src="~/Images/Home/1.jpg" />
-                    <h2 style="vertical-align:central">Hiện thông tin HOT</h2>
-                </div>*@
-            @*/////////Đổi chổ này 3 thành 2 nhé*@
             <div class="col-md-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Danh mục
-                    </div>
-                    @Html.Action("List", "Category")
-                </div>
-                @*<div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">
-                                Hãng sản xuất
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            Panel content
-                        </div>
-                    </div>*@
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                       
+                        @RenderSection("view_title")
                     </div>
                     <div class="panel-body">
                         @RenderBody()
                     </div>
                 </div>
+            </div>
+            <div class="col-md-2">
             </div>
         </div>
     </div>
