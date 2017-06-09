@@ -76,17 +76,26 @@ else
         <hr width="100%" align="center" />
 
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Giá hiện tại: @string.Format("{0:N0}", Model.Price)</span>
+            <span class="caption-lg-red">Giá hiện tại: @string.Format("{0:N0}", Model.AucPrice)</span>
         </div>
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Giá mua ngay: @string.Format("{0:N0}", Model.Price)</span>
         </div>
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Người bán và điểm đánh giá: @string.Format("{0:N0}", Model.Price)</span>
+            <span class="caption-lg-red">Người bán: @string.Format("{0} [{1:0.00}/100 điểm]", WebDauGia.Helper.StringUtils.Replace(Model.Salesman), WebDauGia.Models.Function.GetReliability(Model.Salesman))</span>
         </div>
-        <div class="col-md-12 padding">
-            <span class="caption-lg-red">Người đang giữ giá cao nhất và điểm đánh giá: @string.Format("{0:N0}", Model.Price)</span>
-        </div>
+        @if(Model.Owner != null && Model.Owner != "")
+        { 
+            <div class="col-md-12 padding">
+                <span class="caption-lg-red">Người đang giữ giá cao nhất @string.Format("{0} điểm đánh giá: {1:0.00}/100", WebDauGia.Helper.StringUtils.Replace(Model.Owner), WebDauGia.Models.Function.GetReliability(Model.Owner))</span>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12 padding">
+                <span class="caption-lg-red">Người đang giữ giá cao nhất : chưa có </span>
+            </div>
+        }
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Thời điểm đăng: @Model.StartTime</span>
         </div>
@@ -94,7 +103,7 @@ else
             <span class="caption-lg-red">Thời điểm kết thúc: @Model.EndTime</span>
         </div>
         <div class="col-md-12 padding">
-            Tồn kho: @Model.Quantity
+            <span class="caption-lg-red">kho: @Model.Quantity</span> 
         </div>
         @if(WebDauGia.Helper.CurrentContext.IsLogged()==true)
         { 
