@@ -53,7 +53,7 @@ namespace WebDauGia.Controllers
                                           where w.UserName == username
                                           select new WatchListVM
                                           {
-                                              ProId = p.ProID,
+                                              ProID = p.ProID,
                                               ProName = p.ProName,
                                               UserName = w.UserName,
                                           }).ToList();

@@ -8,7 +8,7 @@ namespace WebDauGia.Models
     public class WatchListVM
     {
         public string ProName { get; set; }
-        public int ProId { get; set; }
+        public int ProID { get; set; }
 
         public String UserName { get; set; }
     }

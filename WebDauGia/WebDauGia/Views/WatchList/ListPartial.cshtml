@@ -5,8 +5,8 @@
 @foreach (var c in Model)
 {
     <li>
-        <a href="#" data-rel="colorbox">
-            <img alt="150x150" src="~/Images/sp/@c.ProId/main.jpg" width="150" height="150" />
+        <a href="@Url.Action("Detail", "Product", new { id = c.ProID})" data-rel="colorbox">
+            <img alt="150x150" src="~/Images/sp/@c.ProID/main.jpg" width="150" height="150" />
             <div class="text">
                 <div class="inner">@c.ProName</div>
             </div>
