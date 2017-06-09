@@ -55,7 +55,40 @@ namespace WebDauGia.Controllers
                                           {
                                               ProID = p.ProID,
                                               ProName = p.ProName,
-                                              UserName = w.UserName,
+                                              UserName = username,
+                                          }).ToList();
+                return PartialView("ListPartial", list);
+            }
+        }
+        public ActionResult ListDangThamGia()
+        {
+            string username = ((User)Session["user"]).UserName;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<WatchListVM> list = (from p in ctx.Products
+                                          join h in ctx.AuctionHistorys on p.ProID equals h.ProID
+                                          where h.UserName == username && p.EndTime < DateTime.Now
+                                          select new WatchListVM
+                                          {
+                                              ProID = p.ProID,
+                                              ProName = p.ProName,
+                                              UserName = username,
+                                          }).ToList();
+                return PartialView("ListPartial", list);
+            }
+        }
+        public ActionResult ListDaThang()
+        {
+            string username = ((User)Session["user"]).UserName;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<WatchListVM> list = (from p in ctx.Products
+                                          where p.Owner == username && p.EndTime >= DateTime.Now
+                                          select new WatchListVM
+                                          {
+                                              ProID = p.ProID,
+                                              ProName = p.ProName,
+                                              UserName = username,
                                           }).ToList();
                 return PartialView("ListPartial", list);
             }
