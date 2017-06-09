@@ -47,21 +47,21 @@
                             </li>
 
                             <li>
-                                <a data-toggle="tab" href="#pictures">
+                                <a data-toggle="tab" href="#watchlist">
                                     <i class="pink ace-icon fa fa-heart bigger-120"></i>
                                     Sản phẩm yêu thích
                                 </a>
                             </li>
 
                             <li>
-                                <a data-toggle="tab" href="#pictures">
+                                <a data-toggle="tab" href="#Aucting">
                                     <i class="black ace-icon fa fa-arrow-circle-up bigger-120"></i>
                                     Sản phẩm đang đấu giá
                                 </a>
                             </li>
 
                             <li>
-                                <a data-toggle="tab" href="#pictures">
+                                <a data-toggle="tab" href="#winner">
                                     <i class="black ace-icon fa fa-check-square bigger-120"></i>
                                     Sản phẩm đấu giá thắng
                                 </a>
@@ -459,11 +459,21 @@
 
                             </div><!-- /#changepassword -->
 
-                            <div id="pictures" class="tab-pane">
+                            <div id="watchlist" class="tab-pane">
                                 <ul class="ace-thumbnails">
                                     @Html.Action("List", "WatchList")
                                 </ul>
                             </div><!-- /#pictures -->
+                            <div id="aucting" class="tab-pane">
+                                <ul class="ace-thumbnails">
+                                    @Html.Action("ListDangThamGia", "WatchList")
+                                </ul>
+                            </div>
+                            <div id="winner" class="tab-pane">
+                                <ul class="ace-thumbnails">
+                                    @Html.Action("ListDaThang", "WatchList")
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
