@@ -31,17 +31,102 @@
         .padding {
             padding-top: 8px;
         }
+        .Butan{
+                font-size: 18px;
+                margin-left: 15px;
+                margin-top: 0px;
+                width: 94px;
+                height: 45px;
+                padding-top: 8px;
+        }
     </style>
 }
 
 @section js{
     <script src="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    @*yeu thich*@
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="love"]').tooltip();
+        });
+        function love(proid) {
+            $(function () {
+                var url = "/WatchList/Add";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { ProID: proid },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
+                    }
+                })
+                    .done(function (data) {
+                        if (data == "1") {
+                            if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yếu Thích Của Bạn???") == true) {
+                                window.location = "@Url.Action("Login","User")";
+                            } else {
+
+                            }
+                        }
+                        else { alert(data); }
+                    })
+                    .fail(function (jqXHR, status, error) {
+                        console.log(jqXHR);
+                        alert('fail');
+                    });
+            });
+        }
+    </script>
+    @*xu ly dau gia*@
     <script type="text/javascript">
         $('#txtQ').TouchSpin({
             min: 1,
             max: 50,
             verticalbuttons: true
         });
+    </script>
+    <script>
+        function Bid(proid) {
+            $(function () {
+                var GiaTra = $('#ragia').val();
+                var GiaGoc = $('#giagoc').val();
+                var GiaMuaLuon = $('#giamualuon').val();
+                if(GiaTra==null)
+                {
+                    alert("Vui Lòng Nhập Số Tiền");
+                }
+                else if(GiaTra<=GiaGoc)
+                {
+                    alert("Bạn Phải Trả Cao Hơn Giá Hiện Tại")
+                }
+                else if(GiaTra>GiaGoc)
+                {
+                    var url = "/AuctionHistory/Add";
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: { giatra: GiaTra, proid:proid},
+                        dataType: "json",
+                        timeout: 30 * 1000,
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Error - ' + errorThrown);
+                        }
+                    })
+                        .done(function (data) {
+                            alert(data);
+                            //$.each(data, function (idx, p) {
+                            //    alert(p.user);
+                            //});
+                        })
+                    .fail(function (jqXHR, status, error) {
+                        console.log(jqXHR);
+                        alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+                    });
+                }
+            });
+        }
     </script>
 }
 
@@ -78,7 +163,8 @@ else
 
 
         <div class="col-md-12 caption-lg-orange">
-            <h2>@Model.ProName</h2>
+            <h2>@Model.ProName <a style="font-size: 25px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
+   class="fa fa-heart" onclick="love(@Model.ProID)" aria-hidden="true"></a></h2>
         </div>
         <br />
         <hr width="100%" align="center" />
@@ -113,13 +199,16 @@ else
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
         </div>
+        @*Dau Gia O Day*@
         @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
         {
-            <form id="auction" action="/AuctionHistory/Add/" method="post" novalidate="novalidate">
+            <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate"*@>
                 <div class="col-md-12 caption-lg-green">
                     <h3>
                         Bạn muốn ra giá:
                     </h3>
+                    <input id="giagoc" type="hidden" value="@Model.AucPrice">
+                    <input id="giamualuon" type="hidden" value="@Model.Price">
                     <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number">
                     @*@{
 
@@ -133,9 +222,9 @@ else
                         @Html.Hidden("uname", @us.UserName)
                         @Html.Hidden("time", @DateTime.Now)*@
                     @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
-                    <button type="submit" class="btn btn-success orm-control input-lg" name="auction" id="auction">
+                    <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
                         Đấu giá
-                    </button>
+                    </a>
                 </div>
             </form>
         }
