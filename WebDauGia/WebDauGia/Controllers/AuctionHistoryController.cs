@@ -22,21 +22,27 @@ namespace WebDauGia.Controllers
 
         //Post : AuctionHistory/Add
         [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Add(int proid ,string uname,DateTime time, double ragia)
+        //[ValidateInput(false)]
+        public ActionResult Add(double giatra, int proid)
         {
-            AuctionHistory a = new AuctionHistory();
-            a.ProID = proid;
-            a.UserName = uname;
-            a.Time = time;
-            a.AucPrice = ragia;
+            //AuctionHistory a = new AuctionHistory();
+            //a.ProID = proid;
+            //a.UserName = uname;
+            //a.Time = time;
+            //a.AucPrice = ragia;
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                ctx.Entry(a).State = System.Data.Entity.EntityState.Added;
+                var pro = ctx.Products.Where(p => p.ProID == proid).FirstOrDefault();
+                var auhis = new AuctionHistory();
+                auhis.ProID = proid;
+                auhis.UserName = ((User)Session["user"]).UserName;
+                auhis.AucPrice = giatra;
+                auhis.Time = DateTime.Now;
+                ctx.AuctionHistorys.Add(auhis);
                 ctx.SaveChanges();
-                @ViewBag.Message = "Đã thêm thành công.";
             }
-            return RedirectToAction("Detail", "Product", new { ID = a.ProID });
+            //return RedirectToAction("Detail", "Product", new { ID = a.ProID });
+            return Json(giatra, JsonRequestBehavior.AllowGet);
         }
 
         ////Post : AuctionHistory/Add

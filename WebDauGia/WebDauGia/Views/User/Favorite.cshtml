@@ -1,0 +1,14 @@
+﻿@using WebDauGia.Models
+@using WebDauGia.Helper
+@model List<WatchListVM>
+@section view_title{
+    Cập nhật thông tin
+}
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div id="watchlist">
+    <ul class="ace-thumbnails">
+        @Html.Action("List", "WatchList")
+    </ul>
+</div>

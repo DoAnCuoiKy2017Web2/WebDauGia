@@ -312,11 +312,36 @@ namespace WebDauGia.Controllers
                 return RedirectToAction("Profile", "User");
             }
         }
+<<<<<<< HEAD
         // GET: User/SanPhamDangBan
         [CheckLogin]
         public ActionResult SanPhamDangBan()
         {
             return View();
+=======
+
+        public ActionResult Favorite()
+        {
+            string username = ((User)Session["user"]).UserName;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                ViewBag.Loai = 1;
+                List<WatchListVM> list = (from p in ctx.Products
+                                          join w in ctx.WatchLists on p.ProID equals w.ProID
+                                          where w.UserName == username
+                                          select new WatchListVM
+                                          {
+                                              ProID = p.ProID,
+                                              ProName = p.ProName,
+                                              UserName = username,
+                                              Price = p.Price,
+                                              AucPrice = (double)p.AucPrice,
+                                              EndTime = p.EndTime,
+                                              StartTime = p.StartTime
+                                          }).ToList();
+                return View();
+            }
+>>>>>>> origin/master
         }
     }
 }
