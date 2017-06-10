@@ -24,9 +24,9 @@
                 <p style="color:navy">Giá mua ngay: không có</p>
             }
             if (Function.CheckTime(c.EndTime) == 1)
-            { <p class="fa fa-hourglass-half" aria-hidden="true" style="color:green; font-size:18px"> Đang Diển Ra</p>}
+            { <p class="fa fa-hourglass-half" aria-hidden="true" style="color:green; font-size:18px">@c.EndTime</p>}
             else
-            { <p class="fa fa-hourglass-end" aria-hidden="true" style="color:red;font-size:18px"> Đã Kết Thúc</p>}
+            { <p class="fa fa-hourglass-end" aria-hidden="true" style="color:red;font-size:18px"> @c.EndTime</p>}
         }
         else if (ViewBag.Loai == 2)
         {

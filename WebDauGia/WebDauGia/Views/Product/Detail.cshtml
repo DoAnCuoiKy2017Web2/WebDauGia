@@ -90,18 +90,19 @@
     <script>
         function Bid(proid) {
             $(function () {
-                var GiaTra = $('#ragia').val();
-                var GiaGoc = $('#giagoc').val();
-                var GiaMuaLuon = $('#giamualuon').val();
+                var GiaTra = parseFloat($('#ragia').val());
+                var GiaGoc = parseFloat($('#giagoc').val());
+                var buocgia = parseFloat($('#buocgia').val());
+                var tiendenghi = GiaGoc+buocgia;
                 if(GiaTra==null)
                 {
                     alert("Vui Lòng Nhập Số Tiền");
                 }
-                else if(GiaTra<=GiaGoc)
+                else if (GiaTra < tiendenghi)
                 {
-                    alert("Bạn Phải Trả Cao Hơn Giá Hiện Tại")
+                    alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
                 }
-                else if(GiaTra>GiaGoc)
+                else if (GiaTra >=tiendenghi)
                 {
                     var url = "/AuctionHistory/Add";
                     $.ajax({
@@ -205,10 +206,10 @@ else
             <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate"*@>
                 <div class="col-md-12 caption-lg-green">
                     <h3>
-                        Bạn muốn ra giá:
+                        Bạn muốn ra gía? (Giá đề nghị: @(string.Format("{0:N0}",Model.AucPrice+Model.StepPrice)) VNĐ)
                     </h3>
                     <input id="giagoc" type="hidden" value="@Model.AucPrice">
-                    <input id="giamualuon" type="hidden" value="@Model.Price">
+                    <input id="buocgia" type="hidden" value="@Model.StepPrice">
                     <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number">
                     @*@{
 

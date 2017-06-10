@@ -30,14 +30,19 @@ namespace WebDauGia.Controllers
             //a.UserName = uname;
             //a.Time = time;
             //a.AucPrice = ragia;
-            //using (var ctx = new QuanLyDauGiaEntities())
-            //{
-            //    ctx.Entry(a).State = System.Data.Entity.EntityState.Added;
-            //    ctx.SaveChanges();
-            //    @ViewBag.Message = "Đã thêm thành công.";
-            //}
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                var pro = ctx.Products.Where(p => p.ProID == proid).FirstOrDefault();
+                var auhis = new AuctionHistory();
+                auhis.ProID = proid;
+                auhis.UserName = ((User)Session["user"]).UserName;
+                auhis.AucPrice = giatra;
+                auhis.Time = DateTime.Now;
+                ctx.AuctionHistorys.Add(auhis);
+                ctx.SaveChanges();
+            }
             //return RedirectToAction("Detail", "Product", new { ID = a.ProID });
-            return Json("Chúng Tôi Đã Nhận Được Dữ Liệu Của Bạn", JsonRequestBehavior.AllowGet);
+            return Json(giatra, JsonRequestBehavior.AllowGet);
         }
 
         ////Post : AuctionHistory/Add
