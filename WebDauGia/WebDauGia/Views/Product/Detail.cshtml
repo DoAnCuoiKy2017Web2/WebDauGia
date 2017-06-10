@@ -58,11 +58,19 @@ else
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
             <div class="col-md-4">
+<<<<<<< HEAD
                 <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" title="@Model.ProID"
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
             <div class="col-md-4">
                 <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" title="@Model.ProID"
+=======
+                <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" width="200" height="150" title="@Model.ProID"
+                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+            </div>
+            <div class="col-md-4">
+                <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" width="200" height="150" title="@Model.ProID"
+>>>>>>> origin/master
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
         </div>
@@ -307,5 +315,91 @@ else
                 }*@
 }
 
+<<<<<<< HEAD
+=======
+@{
+    List<Comment> list;
+    User user = (User)Session["user"];
+    string Uname;
+    using (var ctx = new QuanLyDauGiaEntities())
+    {
+        list = ctx.Comments.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.CmtID).ToList();
+    }
+    <div id="comments" class="clearfix">
+        <span class="arr"></span>
+        <a name="binhluan"></a>
+        <h5 class="head-title-box" id="showNumberbinhluan">@list.Count() bình luận</h5>
+        <ul class="comment-list unstyled clearfix" id="pn_list_comment" style="opacity: 1;">
+
+            @if (list.Count() == 0)
+            {
+            <li>
+                Chưa có bình luận nào, bạn hãy tham gia nhé !
+            </li>
+            }
+            else
+            {
+                foreach (var item in list)
+                {
+            <li>
+                <div class="comment-content">
+                    <div class="user-picture">
+                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title="">
+                            <img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"
+                                 >
+                        </a>
+                    </div>
+                    <div class="meta-user-comment clearfix">
+                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
+
+                            @{
+                                var ct = new QuanLyDauGiaEntities();
+                                var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
+                                Uname = ten.UserName;
+                            }
+                            @Uname
+                        </a>
+                        <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
+                    </div>
+                    <div class="comment-body">@item.Comment1</div>
+
+                </div>
+            </li>
+
+                                            }
+                                        }
+        </ul>
+
+        <h5 class="head-title-box">Gửi bình luận</h5>
+        @if (Session["user"] == null)
+        {
+            <div class="alert alert-success">
+                Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login", "User")">đăng nhập</a> hoặc
+                <a href="@Url.Action("Register", "User")">đăng ký</a> để viết bình luận.
+            </div>
+        }
+        else
+        {
+            //User s;
+            //using (var ctx = new QuanLyDauGiaEntities())
+            //{
+            //    s = ctx.Users.Where(us => us.UserName == Session["username"].ToString()).Single();
+            //}
+            //string us = Session["username"].ToString();
+            
+            string us = user.UserName;
+            <ul class="comment-list form-comment unstyled clearfix">
+                <li>
+                    <div class="comment-content">
+                        <div class="user-picture">
+                            <a href="../../SanPham/DSTheoThanhVien/@us">
+                                <img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"
+                                     onerror="this.onerror = null; this.src = '/assets/images/avatardefault.png';"/>
+                            </a>
+                        </div>
+                        <form id="comment" action="/Comment/Add/" method="post" novalidate="novalidate">
+                            @Html.Hidden("proid", @Model.ProID)
+                            @Html.Hidden("usname", us)
+>>>>>>> origin/master
 
 

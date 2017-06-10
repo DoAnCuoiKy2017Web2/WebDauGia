@@ -119,3 +119,4 @@ D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\S
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.xml
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.xml
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
+C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache

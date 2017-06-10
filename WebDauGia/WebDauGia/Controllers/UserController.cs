@@ -37,7 +37,7 @@ namespace WebDauGia.Controllers
                     .FirstOrDefault();
                 if (us != null)
                 {
-                    if(model.Remember != null)
+                    if (model.Remember != null)
                     {
                         //Cái này xử lí nếu người dùng check Ghi nhớ đăng nhập
                         Response.Cookies["userID"].Value = us.UserName.ToString();
@@ -229,7 +229,6 @@ namespace WebDauGia.Controllers
             }
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-
                 User us = dt.Users
                     .Where(p => p.UserName == ID.ToString())
                     .FirstOrDefault();
@@ -238,6 +237,44 @@ namespace WebDauGia.Controllers
                     return View(us);
                 }
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        // GET: User/ChangePass
+        public ActionResult ChangePass()
+        {
+            return View();
+        }
+        // Post: User/ChangePass
+        [HttpPost]
+        public ActionResult ChangePass(string un, string tOPassWord, string tNPassWord)
+        {
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                string pass = StringUtils.MD5(tOPassWord);
+                User us = dt.Users
+                    .Where(p => p.UserName == un && p.Password == pass)
+                    .FirstOrDefault();
+
+                if (us != null)
+                {
+                    string newpass = StringUtils.MD5(tNPassWord);
+                    us.Password = newpass;
+                    using (var ctx = new QuanLyDauGiaEntities())
+                    {
+                        ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                        ctx.SaveChanges();
+                        
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "Mật khẩu chưa đúng!";
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Mật khẩu sai!!')</script>");
+                }
+
+
+                return RedirectToAction("Profile", "User");
             }
         }
     }

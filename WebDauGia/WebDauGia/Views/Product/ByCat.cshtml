@@ -82,7 +82,8 @@ else
                         {
                             <p style="color:navy">Giá mua ngay: không có</p>
                         }
-                        <p style="color:red">Còn: @Function.DateTimeToString(p.EndTime)
+                        <p style="color:red" class="fa fa-hourglass-half">
+                            : @Function.DateTimeToString(p.EndTime)
                             <a style="font-size: 19px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
                                class="fa fa-heart" onclick="love(@p.ProID)" aria-hidden="true"></a>
                         </p>

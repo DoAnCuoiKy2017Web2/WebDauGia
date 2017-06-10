@@ -129,6 +129,7 @@
     <Content Include="assets\font-awesome\4.5.0\css\font-awesome.min.css" />
     <Content Include="assets\font-awesome\4.5.0\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\images\avatardefault.png" />
     <Content Include="assets\images\avatars\avatar.png" />
     <Content Include="assets\images\avatars\avatar1.png" />
     <Content Include="assets\images\avatars\avatar2.png" />
@@ -1013,6 +1014,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordVM.cs" />
     <Compile Include="Models\Comment.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -1047,6 +1049,7 @@
     <Compile Include="Models\WatchList.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WatchListVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1071,6 +1074,8 @@
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\WatchList\ListPartial.cshtml" />
+    <Content Include="Views\User\ChangePass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1082,7 +1087,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\AuctionHistory\" />
     <Folder Include="Views\Comment\" />
-    <Folder Include="Views\WatchList\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

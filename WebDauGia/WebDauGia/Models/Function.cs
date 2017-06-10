@@ -24,6 +24,17 @@ namespace WebDauGia.Models
             }
             return check;
         }
+        public static int CheckTime(DateTime d)
+        {
+            int check = 0;
+            DateTime Today = DateTime.Now;
+            TimeSpan kq = Today - d;
+            if (kq.Days * 24 * 60 + kq.Hours * 60 + kq.Minutes *60 +kq.Milliseconds <= 0)
+            {
+                check = 1;
+            }
+            return check;
+        }
         public static double GetReliability(String username)
         {
             double diemdanhgia = 0;
