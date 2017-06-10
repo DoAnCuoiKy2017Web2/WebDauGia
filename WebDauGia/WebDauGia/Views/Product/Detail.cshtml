@@ -58,11 +58,11 @@ else
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
             <div class="col-md-4">
-                <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg"  title="@Model.ProID"
+                <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" title="@Model.ProID"
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
             <div class="col-md-4">
-                <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg"  title="@Model.ProID"
+                <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" title="@Model.ProID"
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
         </div>
@@ -84,8 +84,8 @@ else
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Người bán: @string.Format("{0} [{1:0.00}/100 điểm]", WebDauGia.Helper.StringUtils.Replace(Model.Salesman), WebDauGia.Models.Function.GetReliability(Model.Salesman))</span>
         </div>
-        @if(Model.Owner != null && Model.Owner != "")
-        { 
+        @if (Model.Owner != null && Model.Owner != "")
+        {
             <div class="col-md-12 padding">
                 <span class="caption-lg-red">Người đang giữ giá cao nhất @string.Format("{0} điểm đánh giá: {1:0.00}/100", WebDauGia.Helper.StringUtils.Replace(Model.Owner), WebDauGia.Models.Function.GetReliability(Model.Owner))</span>
             </div>
@@ -103,37 +103,36 @@ else
             <span class="caption-lg-red">Thời điểm kết thúc: @Model.EndTime</span>
         </div>
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Số lượng: @Model.Quantity</span> 
+            <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
         </div>
-        @if(WebDauGia.Helper.CurrentContext.IsLogged()==true)
-        { 
-        <form id="auction" action="/AuctionHistory/Add/" method="post" novalidate="novalidate">
-            <div class="col-md-12 caption-lg-green">
-                <h3>
-                    Bạn muốn ra giá:
-                </h3>
-                <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="text">
-                @*@{ 
+        @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
+        {
+            <form id="auction" action="/AuctionHistory/Add/" method="post" novalidate="novalidate">
+                <div class="col-md-12 caption-lg-green">
+                    <h3>
+                        Bạn muốn ra giá:
+                    </h3>
+                    <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number">
+                    @*@{
 
-                    User us = (User)Session["user"];
-                    AuctionHistory ah = new AuctionHistory();
-                    ah.ProID = Model.ProID;
-                    ah.UserName = us.UserName;
-                    ah.Time = DateTime.Now;
-                }
-                @Html.Hidden("proid", @Model.ProID)
-                @Html.Hidden("uname", @us.UserName)
-                @Html.Hidden("time", @DateTime.Now)*@
-                @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
-                <button type="submit" class="btn btn-success orm-control input-lg" name="auction" id="auction">
-                    Đấu giá
-                </button>
-            </div>
-        </form>
-        <br>
+                            User us = (User)Session["user"];
+                            AuctionHistory ah = new AuctionHistory();
+                            ah.ProID = Model.ProID;
+                            ah.UserName = us.UserName;
+                            ah.Time = DateTime.Now;
+                        }
+                        @Html.Hidden("proid", @Model.ProID)
+                        @Html.Hidden("uname", @us.UserName)
+                        @Html.Hidden("time", @DateTime.Now)*@
+                    @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
+                    <button type="submit" class="btn btn-success orm-control input-lg" name="auction" id="auction">
+                        Đấu giá
+                    </button>
+                </div>
+            </form>
+        }
+        <br />
         <div class="col-md-12 padding">
-
-
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-18">
                     <li class="active">
@@ -169,42 +168,122 @@ else
                     </div><!-- /#thongtinsanpham -->
 
                     <div id="lichsu" class="tab-pane">
-                        <form class="form-horizontal">
-                            <div class="tabbable">
-                                <div class="tab-content profile-edit-tab-content">
-                                    <div id="edit-basic" class="tab-pane in active">
-                                        <div class="col-md-8 padding">
-                                            aii
-                                        </div>
+
+                        <div class="tabbable">
+                            <div class="tab-content profile-edit-tab-content">
+                                <div id="edit-basic" class="tab-pane in active">
+                                    <div class="col-md-8 padding">
+                                        aii
                                     </div>
-
                                 </div>
-                            </div>
 
-                        </form>
+                            </div>
+                        </div>
+
+
                     </div><!-- /#lichsu -->
 
                     <div id="binhluan" class="tab-pane">
-                        <form class="form-horizontal">
-                            <div class="tabbable">
-                                <div class="tab-content profile-edit-tab-content">
-                                    <div id="edit-basic" class="tab-pane in active">
-                                        <div class="col-md-8 padding">
-                                            aii
-                                        </div>
-                                    </div>
+                        <div class="tabbable">
+                            <div class="tab-content profile-edit-tab-content">
+                                <div id="edit-basic" class="tab-pane in active">
+                                    <div class="col-md-12 padding">
+                                        @{
+                                            List<Comment> list;
+                                            User user = (User)Session["user"];
+                                            string Uname;
+                                            using (var ctx = new QuanLyDauGiaEntities())
+                                            {
+                                                list = ctx.Comments.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.CmtID).ToList();
+                                            }
+                                            <div id="comments" class="clearfix">
+                                                <span class="arr"></span>
+                                                <a name="binhluan"></a>
+                                                <h5 class="head-title-box" id="showNumberbinhluan">@list.Count() bình luận</h5>
+                                                <ul class="comment-list unstyled clearfix" id="pn_list_comment" style="opacity: 1;">
+                                                    @if (list.Count() == 0)
+                                                    {
+                                                        <li>
+                                                            Chưa có bình luận nào, bạn hãy tham gia nhé !
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        foreach (var item in list)
+                                                        {
+                                                            <li>
+                                                                <div class="comment-content">
+                                                                    <div class="user-picture">
+                                                                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title=""><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"></a>
+                                                                    </div>
+                                                                    <div class="meta-user-comment clearfix">
+                                                                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
+                                                                            @{
+                                                                                var ct = new QuanLyDauGiaEntities();
+                                                                                var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
+                                                                                Uname = ten.UserName;
+                                                                            }
+                                                                            @Uname
+                                                                        </a>
+                                                                        <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
+                                                                    </div>
+                                                                    <div class="comment-body">@item.Comment1</div>
+                                                                </div>
+                                                            </li>
+                                                                                    }
+                                                                                }
 
+                                                </ul>
+
+                                                <h5 class="head-title-box">Gửi bình luận</h5>
+                                                @if (Session["user"] == null)
+                                                {
+                                                    <div class="alert alert-success">
+                                                        Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login", "User")">đăng nhập</a> hoặc
+                                                        <a href="@Url.Action("Register", "User")">đăng ký</a> để viết bình luận.
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    //User s;
+                                                    //using (var ctx = new QuanLyDauGiaEntities())
+                                                    //{
+                                                    //    s = ctx.Users.Where(us => us.UserName == Session["username"].ToString()).Single();
+                                                    //}
+                                                    //string us = Session["username"].ToString();
+
+                                                    string us = user.UserName;
+                                                    <ul class="comment-list form-comment unstyled clearfix">
+                                                        <li>
+                                                            <div class="comment-content">
+                                                                <div class="user-picture">
+                                                                    <a href="../../SanPham/DSTheoThanhVien/@us"><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"></a>
+                                                                </div>
+                                                                <form id="comment" action="/Comment/Add/" method="post" novalidate="novalidate">
+                                                                    @Html.Hidden("proid", @Model.ProID)
+                                                                    @Html.Hidden("usname", us)
+
+                                                                    <textarea id="noidung" class="col-md-12 required" name="noidung"></textarea>
+                                                                    <div class="controls">
+                                                                        <input type="submit" name="comment" id="comment">
+                                                                        <input name="action" type="hidden" value="comment">
+
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-
-                        </form>
+                        </div>
                     </div><!-- /#binhluan -->
                 </div>
             </div>
-
         </div>
-        }
-
     </div>
 
     @*if (CurrentContext.IsLogged())
@@ -228,95 +307,5 @@ else
                 }*@
 }
 
-@{
-    List<Comment> list;
-    User user = (User)Session["user"];
-    string Uname;
-    using (var ctx = new QuanLyDauGiaEntities())
-    {
-        list = ctx.Comments.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.CmtID).ToList();
-    }
-    <div id="comments" class="clearfix">
-        <span class="arr"></span>
-        <a name="binhluan"></a>
-        <h5 class="head-title-box" id="showNumberbinhluan">@list.Count() bình luận</h5>
-        <ul class="comment-list unstyled clearfix" id="pn_list_comment" style="opacity: 1;">
 
-            @if (list.Count() == 0)
-            {
-            <li>
-                Chưa có bình luận nào, bạn hãy tham gia nhé !
-            </li>
-            }
-            else
-            {
-                foreach (var item in list)
-                {
-            <li>
-                <div class="comment-content">
-                    <div class="user-picture">
-                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title=""><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"></a>
-                    </div>
-                    <div class="meta-user-comment clearfix">
-                        <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
-
-                            @{
-                                var ct = new QuanLyDauGiaEntities();
-                                var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
-                                Uname = ten.UserName;
-                            }
-                            @Uname
-                        </a>
-                        <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
-                    </div>
-                    <div class="comment-body">@item.Comment1</div>
-
-                </div>
-            </li>
-
-                                            }
-                                        }
-        </ul>
-
-        <h5 class="head-title-box">Gửi bình luận</h5>
-        @if (Session["user"] == null)
-        {
-            <div class="alert alert-success">
-                Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login", "User")">đăng nhập</a> hoặc
-                <a href="@Url.Action("Register", "User")">đăng ký</a> để viết bình luận.
-            </div>
-        }
-        else
-        {
-            //User s;
-            //using (var ctx = new QuanLyDauGiaEntities())
-            //{
-            //    s = ctx.Users.Where(us => us.UserName == Session["username"].ToString()).Single();
-            //}
-            //string us = Session["username"].ToString();
-            
-            string us = user.UserName;
-            <ul class="comment-list form-comment unstyled clearfix">
-                <li>
-                    <div class="comment-content">
-                        <div class="user-picture">
-                            <a href="../../SanPham/DSTheoThanhVien/@us"><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"></a>
-                        </div>
-                        <form id="comment" action="/Comment/Add/" method="post" novalidate="novalidate">
-                            @Html.Hidden("proid", @Model.ProID)
-                            @Html.Hidden("usname", us)
-
-                            <textarea id="noidung" class="required" name="noidung"></textarea>
-                            <div class="controls">
-                                <input type="submit" name="comment" id="comment">
-                                <input name="action" type="hidden" value="comment">
-
-                            </div>
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        }
-    </div>
-}
 
