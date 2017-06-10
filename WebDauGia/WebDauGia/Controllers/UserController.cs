@@ -177,15 +177,30 @@ namespace WebDauGia.Controllers
         [HttpPost]
         public ActionResult Update(User model)
         {
-            //using (var ctx = new QuanLyDauGiaEntities())
-            //{
-            //    ctx.Entry(model).State = System.Data.Entity.EntityState.Modified;
-            //    ctx.SaveChanges();
-            //    @ViewBag.Message = "Cập nhật thành công.";
-            //}
-            //return RedirectToAction("Edit", "User", new { ID = model.UserName });
-            int t;
-            return View();
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                User us = dt.Users
+                .Where(p => p.UserName == model.UserName)
+                .FirstOrDefault();
+
+                if (us != null)
+                {
+                    us.Name = model.Name;
+                    us.Address = model.Address;
+                    us.Email = model.Email;
+                    us.Phone = model.Phone;
+                    // ngày sinh
+                    // giới tính
+                    using (var ctx = new QuanLyDauGiaEntities())
+                    {
+                        ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                        ctx.SaveChanges();
+                        @ViewBag.Message = "Cập nhật thành công.";
+                    }
+                }
+                return RedirectToAction("Update", "User", new { ID = model.UserName });
+
+            }
         }
 
         //Get : User/Delete
