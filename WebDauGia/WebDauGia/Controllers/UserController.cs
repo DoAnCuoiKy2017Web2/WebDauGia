@@ -312,5 +312,11 @@ namespace WebDauGia.Controllers
                 return RedirectToAction("Profile", "User");
             }
         }
+        // GET: User/SanPhamDangBan
+        [CheckLogin]
+        public ActionResult SanPhamDangBan()
+        {
+            return View();
+        }
     }
 }
