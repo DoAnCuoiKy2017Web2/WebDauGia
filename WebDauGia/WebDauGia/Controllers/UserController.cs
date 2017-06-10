@@ -157,18 +157,35 @@ namespace WebDauGia.Controllers
             }
         }
 
+        // GET: User/Update
+        [CheckLogin]
+        public ActionResult Update()
+        {
+            string ID= CurrentContext.GetCurUser().UserName;
+
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                User us = dt.Users
+                    .Where(p => p.UserName == ID.ToString())
+                    .FirstOrDefault();
+                return View(us);
+            }
+            return View();
+        }
         //Post: User/Update
-        [HttpPost]
         [ValidateInput(false)]
+        [HttpPost]
         public ActionResult Update(User model)
         {
-            using (var ctx = new QuanLyDauGiaEntities())
-            {
-                ctx.Entry(model).State = System.Data.Entity.EntityState.Modified;
-                ctx.SaveChanges();
-                @ViewBag.Message = "Cập nhật thành công.";
-            }
-            return RedirectToAction("Edit", "User", new { ID = model.UserName });
+            //using (var ctx = new QuanLyDauGiaEntities())
+            //{
+            //    ctx.Entry(model).State = System.Data.Entity.EntityState.Modified;
+            //    ctx.SaveChanges();
+            //    @ViewBag.Message = "Cập nhật thành công.";
+            //}
+            //return RedirectToAction("Edit", "User", new { ID = model.UserName });
+            int t;
+            return View();
         }
 
         //Get : User/Delete
@@ -241,12 +258,15 @@ namespace WebDauGia.Controllers
         }
 
         // GET: User/ChangePass
+        [CheckLogin]
         public ActionResult ChangePass()
         {
             return View();
         }
         // Post: User/ChangePass
+       
         [HttpPost]
+        [CheckLogin]
         public ActionResult ChangePass(string un, string tOPassWord, string tNPassWord)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())

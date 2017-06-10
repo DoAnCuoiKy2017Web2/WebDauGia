@@ -3,7 +3,9 @@
 @section view_title{
     Thay đổi mật khẩu
 }
-
+@{ 
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
 @if (ViewBag.ErrorMsg != null)
 {
     <div class="alert alert-warning alert-dismissible" role="alert">
