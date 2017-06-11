@@ -8,10 +8,10 @@
 }
 @section css{
     <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/jquery-3.2.0.min.js"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+    
     <style type="text/css">
         .modal-header, h4, .close {
             background-color: #5cb85c;
@@ -26,21 +26,27 @@
     </style>
 }
 @section js{
+    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
+
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#myBtn").click(function () {
+            $("#showlichsu").click(function () {
+                $("#lichsu").modal();
+            });
+        });
+        $(document).ready(function () {
+            $("#showmota").click(function () {
+                $("#mota").modal();
+            });
+        });
+        $(document).ready(function () {
+            $("#showdanhsach").click(function () {
                 $("#myModal").modal();
             });
         });
         $(document).ready(function () {
-            $("#myBtn1").click(function () {
-                $("#myModal").modal();
-            });
-        });
-        $(document).ready(function () {
-            $("#loginLink").click(function () {
-                $("#myModal").modal();
-            });
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 }
@@ -53,7 +59,7 @@
                     <li class="active">
                         <a data-toggle="tab" href="#pictures">
                             <i class="pink ace-icon fa fa-picture-o bigger-120"></i>
-                            Sản phẩm đang bán
+                            Danh sách sản phẩm
                         </a>
                     </li>
                 </ul>
@@ -70,105 +76,147 @@
                             </a>
                             <div class="tools tools-bottom">
 
-                                <a id="loginLink">
-                                    <i class="ace-icon fa fa-link"></i>
+                                @*Hiện lịch sử đấu giá*@
+                                <a id="showlichsu" data-toggle="tooltip" data-placement="top" title="Lịch sử đấu giá!">
+                                    <i class="ace-icon fa fa-history"></i>
+                                </a>
+                                @*Hiện danh sách người đấu giá*@
+                                <a id="showdanhsach" data-toggle="tooltip" data-placement="top" title="Danh sách người đấu giá!">
+                                    <i class="ace-icon fa fa-list-alt"></i>
 
                                 </a>
-                                <table id="loginTable" border="1" align="center" style="display:none">
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                    </tr>
-                                </table>
-                                <a href="#">
-                                    <i class="ace-icon fa fa-paperclip"></i>
-
-                                </a>
-
-                                <a href="#">
+                                @*Thêm mô tả*@
+                                <a id="showmota" data-toggle="tooltip" data-placement="top" title="Thêm mô tả!">
                                     <i class="ace-icon fa fa-pencil"></i>
 
                                 </a>
-
-                                <a href="#">
+                                @*Xóa*@
+                                <a href="#" data-toggle="tooltip" data-placement="top" title="Xóa!">
                                     <i class="ace-icon fa fa-times red"></i>
 
                                 </a>
                             </div>
                         </li>
-                        <li><button type="button" class="btn btn-default btn-lg" id="myBtn">Danh sách người đấu giá</button></li>
-                        <li><button type="button" class="btn btn-default btn-lg" id="myBtn1">Thêm mô tả</button></li>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
-                            <div class="modal-dialog">
-
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header" style="padding:35px 50px;">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4><span class="glyphicon glyphicon-lock"></span>Danh sách người chơi đấu giá</h4>
-                                    </div>
-                                    <div class="modal-body" style="padding:40px 50px;">
-                                        <form role="form">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Người chơi</th>
-                                                        <th>Kick</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>a</td>
-                                                        <td><button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-off"></span> Kick</button></td>
-                                                        
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                                        
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div> 
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
-        <div class="col-xs-12">
-            <h3>Lịch sử đấu giá sản phẩm + tên sản phẩm</h3>
+
+    <!-- Modal Danh sách người chơi-->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span class="glyphicon glyphicon-lock"></span>Danh sách người chơi đấu giá</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Người chơi</th>
+                                    <th>Kick</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>a</td>
+                                    <td><button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-remove"></span></button></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+                </div>
+            </div>
+
         </div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Người chơi</th>
-                    <th>Giá tiền</th>
-                    <th>Thời gian</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Duy</td>
-                    <td>100000</td>
-                    <td>12-2-2017</td>
-                </tr>
-                <tr>
-                    <td>a</td>
-                    <td>20000</td>
-                    <td>12-2-2017</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 
+    <!-- Modal Lịch sử đấu giá-->
+    <div class="modal fade" id="lichsu" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span class="glyphicon glyphicon-lock"></span>Lịch sử đấu giá</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Người chơi</th>
+                                    <th>Giá tiền</th>
+                                    <th>Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Duy</td>
+                                    <td>100000</td>
+                                    <td>12-2-2017</td>
+                                </tr>
+                                <tr>
+                                    <td>a</td>
+                                    <td>20000</td>
+                                    <td>12-2-2017</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Thêm mô tả-->
+    <div class="modal fade" id="mota" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span class="glyphicon glyphicon-lock"></span>Mô tả sản phẩm</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <textarea name="FullDes" id="FullDes"></textarea>
+                        <script>
+                            CKEDITOR.replace('FullDes', {
+                                toolbar: [
+                                    ['Font', 'FontSize', '-', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Undo', 'Redo', '-', 'Cut', 'Copy', 'Paste', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
+                                    '/',
+                                    ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                                    ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
+                                ]
+                            });
+                        </script>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
     <!-- PAGE CONTENT ENDS -->
 </div><!-- /.col -->
