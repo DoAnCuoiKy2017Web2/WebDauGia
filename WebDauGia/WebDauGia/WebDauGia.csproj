@@ -1203,14 +1203,11 @@
     <Content Include="Views\WatchList\ListPartial.cshtml" />
     <Content Include="Views\User\ChangePass.cshtml" />
     <Content Include="Views\User\Update.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\User\SanPhamDangBan.cshtml" />
-=======
     <Content Include="Views\User\Favorite.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
->>>>>>> origin/master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

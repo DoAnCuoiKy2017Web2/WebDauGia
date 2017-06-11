@@ -312,14 +312,12 @@ namespace WebDauGia.Controllers
                 return RedirectToAction("Profile", "User");
             }
         }
-<<<<<<< HEAD
         // GET: User/SanPhamDangBan
         [CheckLogin]
         public ActionResult SanPhamDangBan()
         {
             return View();
-=======
-
+        }
         public ActionResult Favorite()
         {
             string username = ((User)Session["user"]).UserName;
@@ -341,7 +339,6 @@ namespace WebDauGia.Controllers
                                           }).ToList();
                 return View();
             }
->>>>>>> origin/master
         }
     }
 }
