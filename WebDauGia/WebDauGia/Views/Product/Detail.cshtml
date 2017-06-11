@@ -208,13 +208,22 @@ else
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
         </div>
-        @*Dau Gia O Day*@
-        @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
-        {
+         @*Dau Gia O Day*@
+            @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
+            {
             <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate"*@>
                 <div class="col-md-12 caption-lg-green">
+                    @if (@Model.Owner != null)
+                    {
+                        if (@Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                        {
+                            <h3 style="color:darkblue">
+                                Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}",Model.OwnerPrice) VNĐ!!!
+                            </h3>
+                        }
+                    }
                     <h3>
-                        Bạn muốn ra gía? (Giá đề nghị: @(string.Format("{0:N0}",Model.AucPrice+Model.StepPrice)) VNĐ)
+                        Bạn muốn ra gía? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
                     </h3>
                     <input id="giagoc" type="hidden" value="@Model.AucPrice">
                     <input id="buocgia" type="hidden" value="@Model.StepPrice">
@@ -236,6 +245,13 @@ else
                     </a>
                 </div>
             </form>
+        }
+        else if (WebDauGia.Helper.CurrentContext.IsLogged() == false)
+        {
+            <div class="alert alert-default" style="color:green">
+                Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login", "User")">đăng nhập</a> Nếu chưa có tài khoản hãy
+                <a href="@Url.Action("Register", "User")">đăng ký</a> Để Đấu Giá.
+            </div>
         }
         <br />
         <div class="col-md-12 padding">

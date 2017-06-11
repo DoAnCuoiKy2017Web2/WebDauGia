@@ -44,6 +44,7 @@ namespace WebDauGia.Controllers
                     //update Product
                     pro.OwnerPrice = pro.Price;
                     pro.AucPrice = pro.Price;
+                    pro.Owner = ((User)Session["user"]).UserName;
                     pro.EndTime = DateTime.Now;
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
