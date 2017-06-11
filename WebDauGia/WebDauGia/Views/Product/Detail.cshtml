@@ -88,22 +88,23 @@
         });
     </script>
     <script>
-        function Bid(proid) {
-            $(function () {
-                var GiaTra = parseFloat($('#ragia').val());
-                var GiaGoc = parseFloat($('#giagoc').val());
-                var buocgia = parseFloat($('#buocgia').val());
-                var tiendenghi = GiaGoc+buocgia;
-                if(GiaTra==null)
-                {
-                    alert("Vui Lòng Nhập Số Tiền");
-                }
-                else if (GiaTra < tiendenghi)
-                {
-                    alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
-                }
-                else if (GiaTra >=tiendenghi)
-                {
+    function Bid(proid) {
+        $(function () {
+            var GiaTra = parseFloat($('#ragia').val());
+            var GiaGoc = parseFloat($('#giagoc').val());
+            var buocgia = parseFloat($('#buocgia').val());
+            var tiendenghi = GiaGoc+buocgia;
+            if(GiaTra==null)
+            {
+                alert("Vui Lòng Nhập Số Tiền");
+            }
+            else if (GiaTra < tiendenghi)
+            {
+                alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
+            }
+            else if (GiaTra >=tiendenghi)
+            {
+                if (confirm("Số Tiền Bạn Đưa Ra Là "+GiaTra+" VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
                     var url = "/AuctionHistory/Add";
                     $.ajax({
                         url: url,
@@ -118,7 +119,7 @@
                         .done(function (data) {
                             if(data==1)
                             {
-                                alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền" + GiaTra + "VNĐ")
+                                alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền " + GiaTra + " VNĐ")
                             }
                             else if(data==2)
                             {
@@ -128,11 +129,14 @@
                             {
                                 alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ")
                             }
+                            window.location = "/Product/Detail/" + proid;
                         })
                     .fail(function (jqXHR, status, error) {
                         console.log(jqXHR);
                         alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
                     });
+                    } else {
+                    }
                 }
             });
         }
@@ -208,7 +212,7 @@ else
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
         </div>
-         @*Dau Gia O Day*@
+         @*Dau Gia ở Day*@
             @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
             {
             <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate"*@>
@@ -220,6 +224,9 @@ else
                             <h3 style="color:darkblue">
                                 Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}",Model.OwnerPrice) VNĐ!!!
                             </h3>
+                            <h4 style="color:red" >
+                                <p class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu lại giá mới (phải lớn hơn giá đề nghị)</p>
+                            </h4>
                         }
                     }
                     <h3>

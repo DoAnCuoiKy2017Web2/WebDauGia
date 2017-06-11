@@ -26,18 +26,28 @@ namespace WebDauGia.Controllers
         public ActionResult Add(double giatra, int proid)
         {
             int TH = 0;
+            var username=((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
                 var pro = ctx.Products.Where(p => p.ProID == proid).FirstOrDefault();
+                if(pro.EndTime<=DateTime.Now)
+                {
+                    return Json("Phiên Đấu Giá Đã Kết Thúc Lúc "+pro.EndTime.ToString(), JsonRequestBehavior.AllowGet);
+                }
+                if(giatra< pro.AucPrice)
+                {
+                    return Json("Đã Có Người Trả Giá Cao Hơn Bạn! Giá Hiện Tại Là " + string.Format("{0:N0}", pro.AucPrice), JsonRequestBehavior.AllowGet);
+                }
                 var auhis = new AuctionHistory();
                 auhis.ProID = proid;
-                auhis.UserName = ((User)Session["user"]).UserName;
+                auhis.UserName = username;
                 auhis.AucPrice = giatra;
                 auhis.Time = DateTime.Now;
                 ctx.AuctionHistorys.Add(auhis);
                 ctx.SaveChanges();
                 //tang lượt đâu giá lên 1
                 pro.NumOfAuction += 1;
+                //van con giữ giá
                 if(giatra >=pro.Price)
                 {
                     TH = 3;//chiến thắng tuyệt đối
