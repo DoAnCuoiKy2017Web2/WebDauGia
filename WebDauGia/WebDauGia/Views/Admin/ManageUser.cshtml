@@ -1,0 +1,106 @@
+﻿@using WebDauGia.Helper
+@using WebDauGia.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section js{
+    <script src="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/Content/jquery-3.2.0.min.js"></script>
+}
+
+<form id="frmR" method="post" action="@Url.Action("RemoveUser","Admin")">
+    <input id="txtRProId" type="text" name="proId" />
+</form>
+<form id="frmU" method="post" action="@Url.Action("UpdateUserPassword", "Admin")">
+    <input id="txtUProId" type="hidden" name="proId" />
+    <input id="txtUQ" type="hidden" name="newpass" />
+</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="title">Quản ký ngời dùng</h4>
+                    <p class="category">Danh sách người dùng</p>
+                </div>
+                <div class="card-content table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Mã người dùng</th>
+                                <th>Tên người dùng</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Mật khẩu</th>
+                                <th class="text-right">Điều chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var ctx = new QuanLyDauGiaEntities();
+                            }
+                            @foreach (var cim in ctx.Users)
+                            {
+                                <tr>
+                                    <td>ko co id</td>
+                                    <td class="text-primary">@cim.Name</td>
+                                    <td>@cim.UserName</td>
+                                    <td class="text-primary">
+                                        <input type="password" id="txtNPassword" class="numberic" onclick="this.value=''" value="@cim.Password" />
+
+                                    </td>
+                                    <td class="text-right">
+                                        <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.UserName">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.UserName">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+
+    $('.removeItem').on('click', function () {
+
+        if (confirm("Bạn muốn xóa người dùng " + $('#txtUProId').val())) {
+            var id = $(this).data('proid');
+            // Cách 1: Khai báo biến và lấy giá trị
+            $('#txtRProId').val(id);
+            $('#frmR').submit();
+            alert('Xóa thành công.');
+        }
+        else {
+            alert('Không xóa à =)))).');
+        }
+    });
+    $('.updateItem').on('click', function () {
+        var id = $(this).data('proid');
+        $('#txtUProId').val(id);
+        if (confirm("Bạn muốn thay đổi mật khẩu của người dùng " + $('#txtUProId').val())) {
+            var q = $(this).closest('tr').find('.numberic').val();
+            $('#txtUQ').val(q);
+
+            $('#frmU').submit();
+
+            alert('Thay đổi thành công.');
+        }
+        else {
+            alert('Không đổi à =)))).');
+            return false;
+        }
+
+
+    })
+</script>

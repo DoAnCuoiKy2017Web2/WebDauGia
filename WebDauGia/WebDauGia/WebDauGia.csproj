@@ -1134,6 +1134,7 @@
     </Compile>
     <Compile Include="Helper\CurrentContext.cs" />
     <Compile Include="Helper\StringUtils.cs" />
+    <Compile Include="Helper\UserX.cs" />
     <Compile Include="Models\AuctionHistory.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -1208,6 +1209,9 @@
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Test.cshtml" />
+    <Content Include="Views\Admin\ManageCategory.cshtml" />
+    <Content Include="Views\Admin\ManageUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

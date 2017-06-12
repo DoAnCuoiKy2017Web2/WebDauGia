@@ -1,0 +1,41 @@
+﻿@using WebDauGia.Helper
+@using WebDauGia.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chạy chương trình jquery đầu tiên</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    @*<script language="javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>*@
+    <script src="~/Content/jquery-3.2.0.min.js"></script>
+</head>
+<body>
+    <h1>jQuery</h1>
+    <a class="btn btn-danger btn-xs removeItem" id="qwe" href="javascript:;" role="button" title="Xóa" data-proid="ahhh">
+        ahihi
+        <i class="fa fa-remove"></i>
+    </a>
+    <input type="text" id="id-textbox" value="" /> <br />
+    <input type="button" id="id-button" class="qwed" value="Alert" />
+    <input type="button" id="id-button" class="qwed" value="Alert2" />
+    <script language="javascript">
+            // Code jQuery tại đây
+            // Khi click vào button có id = id-button
+$('.qwe').click(function()
+{
+    var id = $(this).data('proid');
+    // Cách 1: Khai báo biến và lấy giá trị
+    var textbox = $('#id-textbox');
+    $('#txtRProId').val(id);
+    alert(textbox.val());
+});
+    </script>
+    <form id="frmR" method="post">
+        <input id="txtRProId" type="text" name="proId" />
+    </form>
+</body>
+</html>

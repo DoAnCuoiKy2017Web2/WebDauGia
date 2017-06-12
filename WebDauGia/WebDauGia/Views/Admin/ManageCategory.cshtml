@@ -1,0 +1,106 @@
+﻿@using WebDauGia.Helper
+@using WebDauGia.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section js{
+    <script src="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/Content/jquery-3.2.0.min.js"></script>
+}
+
+<form id="frmR" method="post" action="@Url.Action("RemoveCat","Admin")">
+    <input id="txtRProId" type="text" name="proId" />
+</form>
+<form id="frmU" method="post" action="@Url.Action("UpdateCat", "Admin")">
+    <input id="txtUProId" type="hidden" name="proId" />
+    <input id="txtUQ" type="hidden" name="newpass" />
+</form>
+<form id="frmA" method="post" action="@Url.Action("AddCat","Admin")">
+    <input id="txtRProId" type="text" name="proId" />
+</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="title">Quản lý danh mục</h4>
+                    <p class="category">Danh sách danh mục</p>
+                </div>
+                <div class="card-content table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Mã danh mục</th>
+                                <th>Tên danh mục</th>
+                                <th>Trang thái</th>
+                                <th class="text-right">Điều chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var ctx = new QuanLyDauGiaEntities();
+                            }
+                            @foreach (var cim in ctx.Categories)
+                            {
+                                <tr>
+                                    <td class="text-primary">@cim.CatID</td>
+                                    <td >
+                                    <input type="text" id="txtNCatName" class="numberic2" value="@cim.CatName" />
+                                    </td>
+                                    <td>@cim.Status</td>
+                                    <td class="text-right">
+                                        <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.CatID">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.CatID">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+
+    $('.removeItem').on('click', function () {
+
+        if (confirm("Bạn muốn xóa danh mục " + $('#txtUProId').val())) {
+            var id = $(this).data('proid');
+            // Cách 1: Khai báo biến và lấy giá trị
+            $('#txtRProId').val(id);
+            $('#frmR').submit();
+            alert('Xóa thành công.');
+        }
+        else {
+            alert('Không xóa à =)))).');
+        }
+    });
+    $('.updateItem').on('click', function () {
+        var id = $(this).data('proid');
+        $('#txtUProId').val(id);
+        if (confirm("Bạn muốn thay đổi tên danh mục " + $('#txtUProId').val())) {
+            var q = $(this).closest('tr').find('.numberic2').val();
+            $('#txtUQ').val(q);
+
+            $('#frmU').submit();
+
+            alert('Thay đổi thành công.');
+        }
+        else {
+            alert('Không đổi à =)))).');
+            return false;
+        }
+
+
+    })
+</script>
