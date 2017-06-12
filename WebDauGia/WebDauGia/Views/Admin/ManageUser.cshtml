@@ -10,7 +10,7 @@
 }
 
 <form id="frmR" method="post" action="@Url.Action("RemoveUser","Admin")">
-    <input id="txtRProId" type="text" name="proId" />
+    <input id="txtRProId" type="hidden" name="proId" />
 </form>
 <form id="frmU" method="post" action="@Url.Action("UpdateUserPassword", "Admin")">
     <input id="txtUProId" type="hidden" name="proId" />
@@ -21,7 +21,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header" data-background-color="purple">
-                    <h4 class="title">Quản ký ngời dùng</h4>
+                    <h4 class="title">Quản lý người dùng</h4>
                     <p class="category">Danh sách người dùng</p>
                 </div>
                 <div class="card-content table-responsive">
@@ -32,7 +32,7 @@
                                 <th>Tên người dùng</th>
                                 <th>Tên đăng nhập</th>
                                 <th>Mật khẩu</th>
-                                <th class="text-right">Điều chỉnh</th>
+                                <th class="text-right">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -10,15 +10,45 @@
 }
 
 <form id="frmR" method="post" action="@Url.Action("RemoveCat","Admin")">
-    <input id="txtRProId" type="text" name="proId" />
+    <input id="txtRProId" type="hidden" name="proId" />
 </form>
 <form id="frmU" method="post" action="@Url.Action("UpdateCat", "Admin")">
     <input id="txtUProId" type="hidden" name="proId" />
     <input id="txtUQ" type="hidden" name="newpass" />
 </form>
 <form id="frmA" method="post" action="@Url.Action("AddCat","Admin")">
-    <input id="txtRProId" type="text" name="proId" />
+    <input id="txtAProId" type="hidden" name="proId" />
 </form>
+<div class="col-md-12">
+    <div class="card card-plain">
+        <div class="card-header" data-background-color="purple">
+            <h4 class="title">Thêm danh mục</h4>
+            @*<p class="category">ahihi</p>*@
+        </div>
+        <div class="card-content table-responsive">
+            <table class="table table-hover">
+                <thead class="text-primary">
+                    <tr>
+                        @*<th>Mã danh mục</th>*@
+                        <th>Tên danh mục</th>
+                        @*<th>Trang thái</th>*@
+                        <th class="text-right">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id="txtACatName" class="numberic3" value="" /></td>
+                        <td class="text-right">
+                                        <a class="btn btn-success btn-xs addItem" href="javascript:;" role="button" title="Thêm">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -34,7 +64,7 @@
                                 <th>Mã danh mục</th>
                                 <th>Tên danh mục</th>
                                 <th>Trang thái</th>
-                                <th class="text-right">Điều chỉnh</th>
+                                <th class="text-right">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,7 +101,19 @@
 </div>
 
 <script language="javascript">
-
+    $('.addItem').on('click', function () {
+        var q = $(this).closest('tr').find('.numberic3').val();
+        $('#txtAProId').val(q);
+        alert('T312312g.');
+        if (confirm("Bạn muốn thêm danh mục " + $('#txtAProId').val())) {
+            $('#txtAProId').val(q);
+            $('#frmA').submit();
+            alert('Thêm thành công.');
+        }
+        else {
+            alert('Không thêm à =)))).');
+        }
+    });
     $('.removeItem').on('click', function () {
 
         if (confirm("Bạn muốn xóa danh mục " + $('#txtUProId').val())) {

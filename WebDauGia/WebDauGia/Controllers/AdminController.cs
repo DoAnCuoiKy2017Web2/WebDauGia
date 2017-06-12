@@ -13,6 +13,7 @@ namespace WebDauGia.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            @ViewBag.Active1 = "class=\"active\"";
             return View();
         }
 
@@ -113,6 +114,7 @@ namespace WebDauGia.Controllers
 
         public ActionResult ManageUser()
         {
+            @ViewBag.Active2 = "class=\"active\"";
             return View();
         }
         // Post: Admin/Login
@@ -123,6 +125,7 @@ namespace WebDauGia.Controllers
         }
         public ActionResult ManageCategory()
         {
+            @ViewBag.Active3 = "class=\"active\"";
             return View();
         }
         // Post: Admin/Login
@@ -131,7 +134,29 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        // GET: Admin/Login
+        public ActionResult AddCat()
+        {
+            return View();
+        }
+        // Post: Admin/Login
+        [HttpPost]
+        public ActionResult AddCat(string proId)
+        {
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                Category us = new Category();
+                us.CatName = proId;
+               
+                    dt.Entry(us).State = System.Data.Entity.EntityState.Added;
+                    dt.SaveChanges();
+                    @ViewBag.Message = "Thêm thành công.";
 
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi.')</script>");
+                    return RedirectToAction("ManageCategory", "Admin");
+               
+            }
+        }
         public ActionResult RemoveCat()
         {
             return View();
