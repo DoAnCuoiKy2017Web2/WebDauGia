@@ -286,7 +286,7 @@ namespace WebDauGia.Controllers
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-                string pass = StringUtils.MD5(tOPassWord);
+                string pass =StringUtils.MD5(tOPassWord);
                 User us = dt.Users
                     .Where(p => p.UserName == un && p.Password == pass)
                     .FirstOrDefault();

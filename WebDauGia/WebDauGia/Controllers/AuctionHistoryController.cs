@@ -19,7 +19,62 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        //Post : AuctionHistory/UpdateBid
+        [HttpPost]
+        public ActionResult UpdateBid(double giatra, int proid)
+        {
+            var username = ((User)Session["user"]).UserName;
 
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                var pro = ctx.Products.Where(p => p.ProID == proid).FirstOrDefault();
+                if (pro.EndTime <= DateTime.Now)
+                {
+                    return Json("Phiên Đấu Giá Đã Kết Thúc Lúc " + pro.EndTime.ToString(), JsonRequestBehavior.AllowGet);
+                }
+                //trường hợp thây đổi giá đề mua luôn sản phẩm
+                if (giatra >= pro.Price)
+                {
+                   //chiến thắng tuyệt đối
+                    //update Product
+                    pro.OwnerPrice = pro.Price;
+                    pro.AucPrice = pro.Price;
+                    pro.Owner = ((User)Session["user"]).UserName;
+                    pro.EndTime = DateTime.Now;
+                    ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                    ctx.SaveChanges();
+                    //lưu lịch sử
+                    var auhis = new AuctionHistory();
+                    auhis.ProID = proid;
+                    auhis.UserName = username;
+                    auhis.AucPrice = giatra;
+                    auhis.Time = DateTime.Now;
+                    ctx.AuctionHistorys.Add(auhis);
+                    ctx.SaveChanges();
+                    return Json("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền"+string.Format("{0:N0}",pro.Price)+"VNĐ", JsonRequestBehavior.AllowGet);
+                }
+                //còn là người giữ giá
+                if (pro.Owner == username)
+                {
+                    if(giatra<pro.AucPrice)
+                    {
+                        return Json("Đổi Giá Thất Bại! Đã Có Người Trả Giá Cao Hơn Giá Bạn Muốn Thay Đổi!", JsonRequestBehavior.AllowGet);
+                    }
+                    else if(giatra>=pro.AucPrice)
+                    {
+                        pro.OwnerPrice = giatra;
+                        ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                        ctx.SaveChanges();
+                    }
+                }
+                    //đã mất quyền giữ giá không thể đổi giá
+                else
+                {
+                    return Json("Đổi Giá Thất Bại! Đã Có Người Khác Giữ Giá Sản Phẩm Này!", JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json("Hệ Thống Quá Tải. Vui Lòng Thử Lại!", JsonRequestBehavior.AllowGet);
+        }
         //Post : AuctionHistory/Add
         [HttpPost]
         //[ValidateInput(false)]
@@ -34,17 +89,10 @@ namespace WebDauGia.Controllers
                 {
                     return Json("Phiên Đấu Giá Đã Kết Thúc Lúc "+pro.EndTime.ToString(), JsonRequestBehavior.AllowGet);
                 }
-                if(giatra< pro.AucPrice)
+                if(giatra< (pro.AucPrice+pro.StepPrice))
                 {
                     return Json("Đã Có Người Trả Giá Cao Hơn Bạn! Giá Hiện Tại Là " + string.Format("{0:N0}", pro.AucPrice), JsonRequestBehavior.AllowGet);
                 }
-                var auhis = new AuctionHistory();
-                auhis.ProID = proid;
-                auhis.UserName = username;
-                auhis.AucPrice = giatra;
-                auhis.Time = DateTime.Now;
-                ctx.AuctionHistorys.Add(auhis);
-                ctx.SaveChanges();
                 //tang lượt đâu giá lên 1
                 pro.NumOfAuction += 1;
                 //van con giữ giá
@@ -75,6 +123,16 @@ namespace WebDauGia.Controllers
                     //update Product
                     pro.AucPrice = giatra;
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                    ctx.SaveChanges();
+                }
+                if(TH==1 || TH ==2 || TH ==3)
+                {
+                    var auhis = new AuctionHistory();
+                    auhis.ProID = proid;
+                    auhis.UserName = username;
+                    auhis.AucPrice = giatra;
+                    auhis.Time = DateTime.Now;
+                    ctx.AuctionHistorys.Add(auhis);
                     ctx.SaveChanges();
                 }
             }

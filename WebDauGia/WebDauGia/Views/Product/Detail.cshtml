@@ -88,6 +88,41 @@
         });
     </script>
     <script>
+        function UpdateBid(proid) {
+            var GiaTra = parseFloat($('#ragia').val());
+            var GiaGoc = parseFloat($('#giagoc').val());
+            var buocgia = parseFloat($('#buocgia').val());
+            var tiendenghi = GiaGoc+buocgia;
+            if(GiaTra==null)
+            {
+                alert("Vui Lòng Nhập Số Tiền");
+            }
+            else if (GiaTra < tiendenghi)
+            {
+                alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
+            }
+            else if (GiaTra >= tiendenghi) {
+                var url = "/AuctionHistory/UpdateBid";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { giatra: GiaTra, proid: proid },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
+                    }
+                })
+                            .done(function (data) {
+                                alert(data);
+                                window.location = "/Product/Detail/" + proid;
+                            })
+                    .fail(function (jqXHR, status, error) {
+                        console.log(jqXHR);
+                        alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+                    });
+            }
+        }
     function Bid(proid) {
         $(function () {
             var GiaTra = parseFloat($('#ragia').val());
@@ -103,7 +138,7 @@
                 alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
             }
             else if (GiaTra >=tiendenghi)
-            {
+            {        
                 if (confirm("Số Tiền Bạn Đưa Ra Là "+GiaTra+" VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
                     var url = "/AuctionHistory/Add";
                     $.ajax({
@@ -117,7 +152,10 @@
                         }
                     })
                         .done(function (data) {
-                            if(data==1)
+                            if (typeof (data) == 'string') {
+                                alert(data);
+                            }
+                            else if(data==1)
                             {
                                 alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền " + GiaTra + " VNĐ")
                             }
@@ -217,15 +255,15 @@ else
             {
             <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate"*@>
                 <div class="col-md-12 caption-lg-green">
-                    @if (@Model.Owner != null)
+                    @if (Model.Owner != null)
                     {
-                        if (@Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                        if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
                         {
                             <h3 style="color:darkblue">
                                 Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}",Model.OwnerPrice) VNĐ!!!
                             </h3>
                             <h4 style="color:red" >
-                                <p class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu lại giá mới (phải lớn hơn giá đề nghị)</p>
+                                <p class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</p>
                             </h4>
                         }
                     }
@@ -247,9 +285,28 @@ else
                         @Html.Hidden("uname", @us.UserName)
                         @Html.Hidden("time", @DateTime.Now)*@
                     @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
-                    <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
-                        Đấu giá
-                    </a>
+                    @if (Model.Owner != null)
+                    {
+                        if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                        {
+                            <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
+                                Đổi Giá
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                                Đấu giá
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                            Đấu giá
+                        </a>
+                    }
+                    
                 </div>
             </form>
         }
