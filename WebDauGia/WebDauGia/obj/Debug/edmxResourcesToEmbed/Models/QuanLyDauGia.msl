@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="QuanLyDauGiaModelStoreContainer" CdmEntityContainer="QuanLyDauGiaEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="AuctionHistorys">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.AuctionHistory">
         <MappingFragment StoreEntitySet="AuctionHistorys">
@@ -32,6 +39,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="LimitedLists">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.LimitedList">
+        <MappingFragment StoreEntitySet="LimitedLists">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ProID" ColumnName="ProID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
         <MappingFragment StoreEntitySet="Products">
@@ -51,6 +66,15 @@
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="ProName" ColumnName="ProName" />
           <ScalarProperty Name="ProID" ColumnName="ProID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requests">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Request">
+        <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="Request1" ColumnName="Request" />
+          <ScalarProperty Name="TimeRequest" ColumnName="TimeRequest" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

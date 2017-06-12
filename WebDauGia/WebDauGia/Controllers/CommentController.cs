@@ -31,7 +31,7 @@ namespace WebDauGia.Controllers
             obj.ProID = proid;
             obj.UserName = usname;
             obj.Comment1 = noidung;
-            obj.TimeCmt = DateTime.Now.ToShortDateString();
+            obj.TimeCmt = DateTime.Now;
             using(var ctx = new QuanLyDauGiaEntities())
             {
                 ctx.Entry(obj).State = System.Data.Entity.EntityState.Added;

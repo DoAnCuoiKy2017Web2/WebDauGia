@@ -25,10 +25,13 @@ namespace WebDauGia.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<AuctionHistory> AuctionHistorys { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<LimitedList> LimitedLists { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WatchList> WatchLists { get; set; }
     }

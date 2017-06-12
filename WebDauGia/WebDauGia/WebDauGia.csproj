@@ -1134,6 +1134,9 @@
     </Compile>
     <Compile Include="Helper\CurrentContext.cs" />
     <Compile Include="Helper\StringUtils.cs" />
+    <Compile Include="Models\Admin.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AuctionHistory.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -1145,6 +1148,9 @@
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Function.cs" />
+    <Compile Include="Models\LimitedList.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoginVM.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
@@ -1167,6 +1173,9 @@
     </Compile>
     <Compile Include="Models\RegisterVM.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Request.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SubProduct.cs" />
     <Compile Include="Models\User.cs">

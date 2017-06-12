@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="QuanLyDauGiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="AuctionHistorys">
     <Key>
       <PropertyRef Name="AucID" />
@@ -26,7 +32,15 @@
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ProID" Type="int" Nullable="false" />
     <Property Name="Comment" Type="ntext" Nullable="false" />
-    <Property Name="TimeCmt" Type="nchar" MaxLength="10" />
+    <Property Name="TimeCmt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LimitedLists">
+    <Key>
+      <PropertyRef Name="ProID" />
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="ProID" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
@@ -48,6 +62,15 @@
     <Property Name="OwnerPrice" Type="float" />
     <Property Name="Status" Type="bit" />
     <Property Name="NumOfAuction" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Request" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TimeRequest" Type="datetime" />
+    <Property Name="Request" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -76,10 +99,13 @@
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityContainer Name="QuanLyDauGiaModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistorys" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LimitedLists" EntityType="Self.LimitedLists" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WatchList" EntityType="Self.WatchList" Schema="dbo" store:Type="Tables" />
   </EntityContainer>

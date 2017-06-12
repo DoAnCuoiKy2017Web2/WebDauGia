@@ -1,13 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="QuanLyDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="QuanLyDauGiaModel.Admin" />
     <EntitySet Name="AuctionHistorys" EntityType="QuanLyDauGiaModel.AuctionHistory" />
     <EntitySet Name="Categories" EntityType="QuanLyDauGiaModel.Category" />
     <EntitySet Name="Comments" EntityType="QuanLyDauGiaModel.Comment" />
+    <EntitySet Name="LimitedLists" EntityType="QuanLyDauGiaModel.LimitedList" />
     <EntitySet Name="Products" EntityType="QuanLyDauGiaModel.Product" />
+    <EntitySet Name="Requests" EntityType="QuanLyDauGiaModel.Request" />
     <EntitySet Name="Users" EntityType="QuanLyDauGiaModel.User" />
     <EntitySet Name="WatchLists" EntityType="QuanLyDauGiaModel.WatchList" />
   </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="AuctionHistory">
     <Key>
       <PropertyRef Name="AucID" />
@@ -34,7 +43,15 @@
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProID" Type="Int32" Nullable="false" />
     <Property Name="Comment1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TimeCmt" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TimeCmt" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="LimitedList">
+    <Key>
+      <PropertyRef Name="ProID" />
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="ProID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -56,6 +73,15 @@
     <Property Name="OwnerPrice" Type="Double" />
     <Property Name="Status" Type="Boolean" />
     <Property Name="NumOfAuction" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Request1" />
+    </Key>
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TimeRequest" Type="DateTime" Precision="3" />
+    <Property Name="Request1" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="User">
     <Key>

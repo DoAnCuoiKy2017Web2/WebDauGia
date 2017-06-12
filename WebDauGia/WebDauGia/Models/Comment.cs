@@ -18,6 +18,6 @@ namespace WebDauGia.Models
         public string UserName { get; set; }
         public int ProID { get; set; }
         public string Comment1 { get; set; }
-        public string TimeCmt { get; set; }
+        public System.DateTime TimeCmt { get; set; }
     }
 }

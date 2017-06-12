@@ -5,12 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="757ac70df3264807b1e9e81559c74f4d" Name="Diagram1">
-        <EntityTypeShape EntityType="QuanLyDauGiaModel.AuctionHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuanLyDauGiaModel.Category" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuanLyDauGiaModel.Comment" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="QuanLyDauGiaModel.Product" Width="1.5" PointX="2.75" PointY="3.75" />
-        <EntityTypeShape EntityType="QuanLyDauGiaModel.User" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuanLyDauGiaModel.WatchList" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.AuctionHistory" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.Category" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.Comment" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.LimitedList" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.Product" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.Request" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.User" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="QuanLyDauGiaModel.WatchList" Width="1.5" PointX="6.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
