@@ -318,7 +318,13 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        [CheckLogin]
         public ActionResult SanPhamDangDauGia()
+        {
+            return View();
+        }
+        [CheckLogin]
+        public ActionResult ListDauGiaThang()
         {
             return View();
         }

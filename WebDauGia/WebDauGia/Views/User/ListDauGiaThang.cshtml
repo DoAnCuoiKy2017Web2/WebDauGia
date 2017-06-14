@@ -2,13 +2,13 @@
 @using WebDauGia.Helper
 @model List<WatchListVM>
 @section view_title{
-    Danh Sách Đang Ban
+    Danh Sách Đã Đấu Giá Thắng
 }
 @{
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 <div id="watchlist">
     <ul class="ace-thumbnails">
-        @Html.Action("ListDangBan", "WatchList")
+        @Html.Action("ListDaThang", "WatchList")
     </ul>
 </div>

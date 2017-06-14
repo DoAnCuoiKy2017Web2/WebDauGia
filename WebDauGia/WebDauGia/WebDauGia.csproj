@@ -1222,6 +1222,7 @@
     <Content Include="Views\Admin\ManageUser.cshtml" />
     <Content Include="Views\Admin\ManageRequest.cshtml" />
     <Content Include="Views\User\SanPhamDangDauGia.cshtml" />
+    <Content Include="Views\User\ListDauGiaThang.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

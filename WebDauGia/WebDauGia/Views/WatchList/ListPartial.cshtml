@@ -6,8 +6,6 @@
 @foreach (var c in Model)
 {
     <li>
-        @if (ViewBag.Loai == 1 || ViewBag.Loai==2)
-        {
             <a href="@Url.Action("Detail", "Product", new { id = c.ProID})" data-rel="colorbox">
                 <img alt="180x150" src="~/Images/sp/@c.ProID/main.jpg" width="180" height="150" />
                 <div class="text">
@@ -15,7 +13,7 @@
                 </div>
             </a>
             <p style="color:navy">Giá hiện tại: @string.Format("{0:N0}", c.AucPrice) VNĐ</p>
-            if (c.Price != null && c.Price != 0)
+            @if (c.Price != null && c.Price != 0)
             {
                 <p style="color:navy">Giá mua ngay: @string.Format("{0:N0}", c.Price) VNĐ</p>
             }
@@ -23,20 +21,10 @@
             {
                 <p style="color:navy">Giá mua ngay: không có</p>
             }
-            if (Function.CheckTime(c.EndTime) == 1)
+            @if (Function.CheckTime(c.EndTime) == 1)
             { <p class="fa fa-hourglass-half" aria-hidden="true" style="color:green; font-size:18px">@c.EndTime</p>}
             else
             { <p class="fa fa-hourglass-end" aria-hidden="true" style="color:red;font-size:18px"> @c.EndTime</p>}
-        }
-        else if (ViewBag.Loai == 3)
-        {
-            <a href="@Url.Action("Detail", "Product", new { id = c.ProID})" data-rel="colorbox">
-                <img alt="180x150" src="~/Images/sp/@c.ProID/main.jpg" width="180" height="150" />
-                <div class="text">
-                    <div class="inner">Tên:@c.ProName</div>
-                </div>
-            </a>
-        }
         <div class="tools tools-bottom">
             <a href="#">
                 <i class="ace-icon fa fa-link"></i>

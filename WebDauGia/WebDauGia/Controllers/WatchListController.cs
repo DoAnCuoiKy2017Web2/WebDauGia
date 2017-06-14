@@ -48,7 +48,6 @@ namespace WebDauGia.Controllers
             string username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                ViewBag.Loai = 1;
                 List<WatchListVM> list = (from p in ctx.Products
                                           join w in ctx.WatchLists on p.ProID equals w.ProID
                                           where w.UserName == username
@@ -67,13 +66,12 @@ namespace WebDauGia.Controllers
         }
         public ActionResult ListDangThamGia()
         {
-            ViewBag.Loai = 2;
             string username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
                 List<WatchListVM> list = (from p in ctx.Products
                                           join h in ctx.AuctionHistorys on p.ProID equals h.ProID
-                                          where h.UserName == username && p.EndTime < DateTime.Now
+                                          where h.UserName == username && p.EndTime > DateTime.Now
                                           select new WatchListVM
                                           {
                                               ProID = p.ProID,
@@ -89,42 +87,43 @@ namespace WebDauGia.Controllers
         }
         public ActionResult ListDaThang()
         {
-            ViewBag.Loai = 3;
             string username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
                 List<WatchListVM> list = (from p in ctx.Products
-                                          where p.Owner == username && p.EndTime >= DateTime.Now
+                                          where p.Owner == username && p.EndTime <= DateTime.Now
                                           select new WatchListVM
                                           {
                                               ProID = p.ProID,
                                               ProName = p.ProName,
                                               UserName = username,
+                                              Price = p.Price,
+                                              AucPrice = (double)p.AucPrice,
+                                              EndTime = p.EndTime,
+                                              StartTime = p.StartTime
                                           }).ToList();
                 return PartialView("ListPartial", list);
             }
         }
-        //public ActionResult Favorite()
-        //{
-        //    string username = ((User)Session["user"]).UserName;
-        //    using (var ctx = new QuanLyDauGiaEntities())
-        //    {
-        //        ViewBag.Loai = 1;
-        //        List<WatchListVM> list = (from p in ctx.Products
-        //                                  join w in ctx.WatchLists on p.ProID equals w.ProID
-        //                                  where w.UserName == username
-        //                                  select new WatchListVM
-        //                                  {
-        //                                      ProID = p.ProID,
-        //                                      ProName = p.ProName,
-        //                                      UserName = username,
-        //                                      Price = p.Price,
-        //                                      AucPrice = (double)p.AucPrice,
-        //                                      EndTime = p.EndTime,
-        //                                      StartTime = p.StartTime
-        //                                  }).ToList();
-        //        return View(list);
-        //    }
-        //}
+        public ActionResult ListDangBan()
+        {
+            string username = ((User)Session["user"]).UserName;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<WatchListVM> list = (from p in ctx.Products
+                                          where p.Salesman == username && p.EndTime > DateTime.Now
+                                          select new WatchListVM
+                                          {
+                                              ProID = p.ProID,
+                                              ProName = p.ProName,
+                                              UserName = username,
+                                              Price = p.Price,
+                                              AucPrice = (double)p.AucPrice,
+                                              EndTime = p.EndTime,
+                                              StartTime = p.StartTime
+                                          }).ToList();
+                return PartialView("ListPartial", list);
+            }
+        }
     }
 }
