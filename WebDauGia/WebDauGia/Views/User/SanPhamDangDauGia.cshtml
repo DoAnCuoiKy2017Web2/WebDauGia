@@ -2,13 +2,15 @@
 @using WebDauGia.Helper
 @model List<WatchListVM>
 @section view_title{
-    Danh Sách Yêu Thích
+    Danh Sách Đang Tham Gia Đấu Giá
 }
 @{
+    //ViewBag.Title = "SanPhamDangDauGia";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 <div id="watchlist">
     <ul class="ace-thumbnails">
-        @Html.Action("List", "WatchList")
+        @Html.Action("ListDangThamGia", "WatchList")
     </ul>
 </div>
+

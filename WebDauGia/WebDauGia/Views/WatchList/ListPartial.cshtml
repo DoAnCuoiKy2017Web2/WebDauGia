@@ -6,7 +6,7 @@
 @foreach (var c in Model)
 {
     <li>
-        @if (ViewBag.Loai == 1)
+        @if (ViewBag.Loai == 1 || ViewBag.Loai==2)
         {
             <a href="@Url.Action("Detail", "Product", new { id = c.ProID})" data-rel="colorbox">
                 <img alt="180x150" src="~/Images/sp/@c.ProID/main.jpg" width="180" height="150" />
@@ -27,15 +27,6 @@
             { <p class="fa fa-hourglass-half" aria-hidden="true" style="color:green; font-size:18px">@c.EndTime</p>}
             else
             { <p class="fa fa-hourglass-end" aria-hidden="true" style="color:red;font-size:18px"> @c.EndTime</p>}
-        }
-        else if (ViewBag.Loai == 2)
-        {
-            <a href="@Url.Action("Detail", "Product", new { id = c.ProID})" data-rel="colorbox">
-                <img alt="180x150" src="~/Images/sp/@c.ProID/main.jpg" width="180" height="150" />
-                <div class="text">
-                    <div class="inner">Tên:@c.ProName</div>
-                </div>
-            </a>
         }
         else if (ViewBag.Loai == 3)
         {

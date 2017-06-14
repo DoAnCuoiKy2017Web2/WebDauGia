@@ -318,6 +318,10 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        public ActionResult SanPhamDangDauGia()
+        {
+            return View();
+        }
         public ActionResult Favorite()
         {
             string username = ((User)Session["user"]).UserName;
