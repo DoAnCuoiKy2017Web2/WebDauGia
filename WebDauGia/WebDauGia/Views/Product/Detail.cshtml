@@ -88,41 +88,41 @@
         });
     </script>
     <script>
-        function UpdateBid(proid) {
-            var GiaTra = parseFloat($('#ragia').val());
-            var GiaGoc = parseFloat($('#giagoc').val());
-            var buocgia = parseFloat($('#buocgia').val());
-            var tiendenghi = GiaGoc+buocgia;
-            if(GiaTra==null)
-            {
-                alert("Vui Lòng Nhập Số Tiền");
-            }
-            else if (GiaTra < tiendenghi)
-            {
-                alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
-            }
-            else if (GiaTra >= tiendenghi) {
-                var url = "/AuctionHistory/UpdateBid";
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: { giatra: GiaTra, proid: proid },
-                    dataType: "json",
-                    timeout: 30 * 1000,
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('Error - ' + errorThrown);
-                    }
-                })
-                            .done(function (data) {
-                                alert(data);
-                                window.location = "/Product/Detail/" + proid;
-                            })
-                    .fail(function (jqXHR, status, error) {
-                        console.log(jqXHR);
-                        alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
-                    });
-            }
+    function UpdateBid(proid) {
+        var GiaTra = parseFloat($('#ragia').val());
+        var GiaGoc = parseFloat($('#giagoc').val());
+        var buocgia = parseFloat($('#buocgia').val());
+        var tiendenghi = GiaGoc+buocgia;
+        if(GiaTra==null)
+        {
+            alert("Vui Lòng Nhập Số Tiền");
         }
+        else if (GiaTra < tiendenghi)
+        {
+            alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
+        }
+        else if (GiaTra >= tiendenghi) {
+            var url = "/AuctionHistory/UpdateBid";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { giatra: GiaTra, proid: proid },
+                dataType: "json",
+                timeout: 30 * 1000,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error - ' + errorThrown);
+                }
+            })
+                        .done(function (data) {
+                            alert(data);
+                            window.location = "/Product/Detail/" + proid;
+                        })
+                .fail(function (jqXHR, status, error) {
+                    console.log(jqXHR);
+                    alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+                });
+        }
+    }
     function Bid(proid) {
         $(function () {
             var GiaTra = parseFloat($('#ragia').val());
@@ -138,7 +138,7 @@
                 alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
             }
             else if (GiaTra >=tiendenghi)
-            {        
+            {
                 if (confirm("Số Tiền Bạn Đưa Ra Là "+GiaTra+" VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
                     var url = "/AuctionHistory/Add";
                     $.ajax({
@@ -177,6 +177,67 @@
                     }
                 }
             });
+    }
+        function formatDate(ms) {
+
+            var date = new Date(parseInt(ms.replace("/Date(", "").replace(")/", ""), 10));
+            var hour = date.getHours();
+            var mins = date.getMinutes() + '';
+            var time = "AM";
+
+            // find time
+            if (hour >= 12) {
+                time = "PM";
+            }
+            // fix hours format
+            if (hour > 12) {
+                hour -= 12;
+            }
+            else if (hour == 0) {
+                hour = 12;
+            }
+            // fix minutes format
+            if (mins.length == 1) {
+                mins = "0" + mins;
+            }
+            // return formatted date time string
+            var month = date.getMonth() + 1;
+            return date.getDate() + "/" + month + "/" + date.getFullYear() + " " + hour + ":" + mins + " " + time;
+        }
+
+        //Lich Su Dau Giá
+        function showhistory(proid)
+        {
+            var showlistlove = $('#list-history');
+            showlistlove.children().remove();
+
+            var url = "/AuctionHistory/Show";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {proid: proid },
+                dataType: "json",
+                timeout: 30 * 1000,
+            })
+                .done(function (data) {
+                    if (typeof (data) == 'string') {
+                        alert("Chức Năng Yêu Cầu Đăng Nhập");
+                        window.location = "@Url.Action("Login","User")";
+                    }
+                    else {
+
+                        $.each(data, function (idx, p) {
+                            var html =
+                                '<li> <b>UserName: </b> ' + p.UserName + " <b>Tiền Cược: </b> " + p.AucPrice+ "VNĐ "+ "<b>Thờì Điểm Cược: </b>"+formatDate(p.Time)+'</li>';
+                            $('#list-history').append(html);
+                        });
+                    }
+                })
+                      .fail(function (jqXHR, status, error) {
+                          console.log(jqXHR);
+                          alert('fail');
+                      });
+
         }
     </script>
 }
@@ -337,7 +398,7 @@ else
                     </li>
 
                     <li>
-                        <a data-toggle="tab" href="#lichsu">
+                        <a data-toggle="tab" href="#lichsu" onclick="showhistory(@Model.ProID)">
                             <i class="orange ace-icon fa fa-history bigger-120"></i>
                             Lịch sử đấu giá sản phẩm
                         </a>
@@ -367,14 +428,12 @@ else
                             <div class="tab-content profile-edit-tab-content">
                                 <div id="edit-basic" class="tab-pane in active">
                                     <div class="col-md-8 padding">
-                                        aii
+                                        <ul style="list-style-type:none;font-size:15px;color:darkblue" id="list-history">                                    
+                                        </ul>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
-
                     </div><!-- /#lichsu -->
 
                     <div id="binhluan" class="tab-pane">

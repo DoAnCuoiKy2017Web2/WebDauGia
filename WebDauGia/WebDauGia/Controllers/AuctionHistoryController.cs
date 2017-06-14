@@ -177,7 +177,17 @@ namespace WebDauGia.Controllers
                 return RedirectToAction("Index", "AuctionHistory");
             }
         }
-
+        //post: AuctionHistory/Show
+        [HttpPost]
+        public ActionResult Show(int proid)
+        {
+            List<AuctionHistory> hisau;
+            using (var ctx= new QuanLyDauGiaEntities())
+            {
+                hisau = ctx.AuctionHistorys.Where(his => his.ProID == proid).ToList();
+            }
+            return Json(hisau, JsonRequestBehavior.AllowGet);
+        }
         //Post: AuctionHistory/Update
         [HttpPost]
         [ValidateInput(false)]
