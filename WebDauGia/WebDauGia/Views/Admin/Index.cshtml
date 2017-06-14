@@ -4,4 +4,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-Trang chủ để gì bây giờ
+@{
+    var ctx = new QuanLyDauGiaEntities();
+    int t = ctx.Requests.Count();
+}
+<h3>Bạn có @t yêu cầu mới từ người dùng cần xử lý</h3>
+   

@@ -1220,6 +1220,7 @@
     <Content Include="Views\Admin\Test.cshtml" />
     <Content Include="Views\Admin\ManageCategory.cshtml" />
     <Content Include="Views\Admin\ManageUser.cshtml" />
+    <Content Include="Views\Admin\ManageRequest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

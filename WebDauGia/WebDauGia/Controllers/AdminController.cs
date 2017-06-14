@@ -64,13 +64,11 @@ namespace WebDauGia.Controllers
                 {
                     dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
                     dt.SaveChanges();
-                    @ViewBag.Message = "Cập nhật thành công.";
-
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi.')</script>");
+                    TempData["ucheck"] = 1;
                     return RedirectToAction("ManageUser", "Admin");
                 }
-                Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi')</script>");
-                return View();
+                TempData["ucheck"] = 0;
+                return RedirectToAction("ManageUser", "Admin");
             }
         }
         // GET: Admin/Login
@@ -80,7 +78,7 @@ namespace WebDauGia.Controllers
         }
         // Post: Admin/Login
         [HttpPost]
-        public ActionResult UpdateUserPassword(string proId,string newpass)
+        public ActionResult UpdateUserPassword(string proId, string newpass)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -92,13 +90,11 @@ namespace WebDauGia.Controllers
                     us.Password = StringUtils.MD5(newpass);
                     dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                     dt.SaveChanges();
-                    @ViewBag.Message = "Cập nhật thành công.";
-
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi.')</script>");
+                    TempData["ucheck"] = 1;
                     return RedirectToAction("ManageUser", "Admin");
                 }
-                Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi')</script>");
-                return View();
+                TempData["ucheck"] = 0;
+                return RedirectToAction("ManageUser", "Admin");
             }
         }
         public ActionResult Test()
@@ -114,6 +110,19 @@ namespace WebDauGia.Controllers
 
         public ActionResult ManageUser()
         {
+            int t = Convert.ToInt32(TempData["ucheck"]);
+            if (t == 1)
+            {
+                ViewBag.Message = "yes";
+            }
+            else if(t==0)
+            {
+                ViewBag.Message = "no";
+            }
+            else
+            {
+                
+            }
             @ViewBag.Active2 = "class=\"active\"";
             return View();
         }
@@ -125,6 +134,19 @@ namespace WebDauGia.Controllers
         }
         public ActionResult ManageCategory()
         {
+            int t = Convert.ToInt32(TempData["ccheck"]);
+            if (t == 1)
+            {
+                ViewBag.Message = "yes";
+            }
+            else if(t==0)
+            {
+                ViewBag.Message = "no";
+            }
+            else
+            {
+
+            }
             @ViewBag.Active3 = "class=\"active\"";
             return View();
         }
@@ -147,14 +169,17 @@ namespace WebDauGia.Controllers
             {
                 Category us = new Category();
                 us.CatName = proId;
-               
-                    dt.Entry(us).State = System.Data.Entity.EntityState.Added;
-                    dt.SaveChanges();
-                    @ViewBag.Message = "Thêm thành công.";
 
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi.')</script>");
+                dt.Entry(us).State = System.Data.Entity.EntityState.Added;
+                dt.SaveChanges();
+                if (dt.SaveChanges() == 0)
+                {
+                    TempData["ccheck"] = 1;
                     return RedirectToAction("ManageCategory", "Admin");
-               
+                }
+
+                TempData["ccheck"] = 0;
+                return RedirectToAction("ManageCategory", "Admin");
             }
         }
         public ActionResult RemoveCat()
@@ -175,13 +200,11 @@ namespace WebDauGia.Controllers
                 {
                     dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
                     dt.SaveChanges();
-                    @ViewBag.Message = "Cập nhật thành công.";
-
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi.')</script>");
+                    TempData["ccheck"] = 1;
                     return RedirectToAction("ManageCategory", "Admin");
                 }
-                Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi')</script>");
-                return View();
+                TempData["ccheck"] = 0;
+                return RedirectToAction("ManageCategory", "Admin");
             }
         }
         // GET: Admin/Login
@@ -204,14 +227,20 @@ namespace WebDauGia.Controllers
                     us.CatName = newpass;
                     dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                     dt.SaveChanges();
-                    @ViewBag.Message = "Cập nhật thành công.";
-
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi.')</script>");
+                    TempData["ccheck"] = 1;
                     return RedirectToAction("ManageCategory", "Admin");
                 }
-                Response.Write("<script LANGUAGE='JavaScript' >alert('ahihi')</script>");
-                return View();
+                TempData["ccheck"] = 0;
+                return RedirectToAction("ManageCategory", "Admin");
             }
         }
+
+        // GET: Admin/Login
+        public ActionResult ManageRequest()
+        {
+            @ViewBag.Active4 = "class=\"active\"";
+            return View();
+        }
+
     }
 }

@@ -19,6 +19,26 @@
 <form id="frmA" method="post" action="@Url.Action("AddCat","Admin")">
     <input id="txtAProId" type="hidden" name="proId" />
 </form>
+@if (@ViewBag.Message == "yes")
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Thông báo: </strong> Thao tác thành công.
+    </div>
+}
+else if (@ViewBag.Message == "no")
+{
+
+}
+else
+{
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Lỗi!</strong> Thao tác thất bại! @ViewBag.Message
+    </div>
+}
 <div class="col-md-12">
     <div class="card card-plain">
         <div class="card-header" data-background-color="purple">
@@ -64,7 +84,7 @@
                                 <th>Mã danh mục</th>
                                 <th>Tên danh mục</th>
                                 <th>Trang thái</th>
-                                <th class="text-right">&nbsp;</th>
+                                <th class="text-right">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,42 +124,36 @@
     $('.addItem').on('click', function () {
         var q = $(this).closest('tr').find('.numberic3').val();
         $('#txtAProId').val(q);
-        alert('T312312g.');
-        if (confirm("Bạn muốn thêm danh mục " + $('#txtAProId').val())) {
+        if (confirm("Xác nhận thêm?")) {
             $('#txtAProId').val(q);
             $('#frmA').submit();
-            alert('Thêm thành công.');
         }
         else {
-            alert('Không thêm à =)))).');
+            return false;
         }
     });
     $('.removeItem').on('click', function () {
 
-        if (confirm("Bạn muốn xóa danh mục " + $('#txtUProId').val())) {
+        if (confirm("Xác nhận xóa?")) {
             var id = $(this).data('proid');
-            // Cách 1: Khai báo biến và lấy giá trị
             $('#txtRProId').val(id);
             $('#frmR').submit();
-            alert('Xóa thành công.');
         }
         else {
-            alert('Không xóa à =)))).');
+            return false;
         }
     });
     $('.updateItem').on('click', function () {
         var id = $(this).data('proid');
         $('#txtUProId').val(id);
-        if (confirm("Bạn muốn thay đổi tên danh mục " + $('#txtUProId').val())) {
+        if (confirm("Xác nhận thay đổi?")) {
             var q = $(this).closest('tr').find('.numberic2').val();
             $('#txtUQ').val(q);
 
             $('#frmU').submit();
 
-            alert('Thay đổi thành công.');
         }
         else {
-            alert('Không đổi à =)))).');
             return false;
         }
 

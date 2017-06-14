@@ -9,20 +9,20 @@
     <script src="~/Content/jquery-3.2.0.min.js"></script>
 }
 
-<form id="frmR" method="post" action="@Url.Action("RemoveUser","Admin")">
+<form id="frmR" method="post" action="@Url.Action("AcceptRequest","Admin")">
     <input id="txtRProId" type="hidden" name="proId" />
 </form>
-<form id="frmU" method="post" action="@Url.Action("UpdateUserPassword", "Admin")">
+<form id="frmU" method="post" action="@Url.Action("DenyRequest", "Admin")">
     <input id="txtUProId" type="hidden" name="proId" />
     <input id="txtUQ" type="hidden" name="newpass" />
 </form>
 
 
-@if (@ViewBag.Message =="yes")
+@*@if (@ViewBag.Message == "yes")
 {
     <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
         </button>
         <strong>Thông báo: </strong> Thao tác thành công.
     </div>
@@ -37,7 +37,7 @@ else
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Lỗi!</strong> Thao tác thất bại!
     </div>
-}
+}*@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -50,10 +50,9 @@ else
                     <table class="table">
                         <thead class="text-primary">
                             <tr>
-                                <th>Mã người dùng</th>
-                                <th>Tên người dùng</th>
-                                <th>Tên đăng nhập</th>
-                                <th>Mật khẩu</th>
+                                <th>ID người dùng</th>
+                                <th>Yêu cầu</th>
+                                <th>Thời gian</th>
                                 <th class="text-right">Thao tác</th>
                             </tr>
                         </thead>
@@ -61,16 +60,12 @@ else
                             @{
                                 var ctx = new QuanLyDauGiaEntities();
                             }
-                            @foreach (var cim in ctx.Users)
+                            @foreach (var cim in ctx.Requests)
                             {
                                 <tr>
-                                    <td>ko co id</td>
-                                    <td class="text-primary">@cim.Name</td>
-                                    <td>@cim.UserName</td>
-                                    <td class="text-primary">
-                                        <input type="password" id="txtNPassword" class="numberic" onclick="this.value=''" value="@cim.Password" />
-
-                                    </td>
+                                    <td class="text-primary">@cim.UserName</td>
+                                    <td>@cim.Request1</td>
+                                    <td>@cim.TimeRequest</td>
                                     <td class="text-right">
                                         <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.UserName">
                                             <i class="fa fa-check"></i>
