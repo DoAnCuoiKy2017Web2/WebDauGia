@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -46,56 +47,66 @@ namespace WebDauGia.Controllers
             }
         }
 
-        // GET: Admin/Login
+        // GET: Admin/RemoveUser
         public ActionResult RemoveUser()
         {
-            return View();
+            return RedirectToAction("ManageUser", "Admin");
         }
-        // Post: Admin/Login
+        // Post: Admin/RemoveUser
         [HttpPost]
         public ActionResult RemoveUser(string proId)
         {
-            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            try
             {
-                User us = dt.Users
-                    .Where(p => p.UserName == proId)
-                    .FirstOrDefault();
-                if (us != null)
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                    dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
-                    dt.SaveChanges();
-                    TempData["ucheck"] = 1;
-                    return RedirectToAction("ManageUser", "Admin");
+                    User us = dt.Users
+                        .Where(p => p.UserName == proId)
+                        .FirstOrDefault();
+                    if (us != null)
+                    {
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
+                        dt.SaveChanges();
+                        TempData["ucheck"] = 1;
+                    }
                 }
-                TempData["ucheck"] = 0;
-                return RedirectToAction("ManageUser", "Admin");
             }
+            catch (Exception)
+            {
+                TempData["ucheck"] = -1;
+            }
+            return RedirectToAction("ManageUser", "Admin");
         }
-        // GET: Admin/Login
+        // GET: Admin/UpdateUserPassword
         public ActionResult UpdateUserPassword()
         {
-            return View();
+            return RedirectToAction("ManageUser", "Admin");
         }
-        // Post: Admin/Login
+        // Post: Admin/UpdateUserPassword
         [HttpPost]
         public ActionResult UpdateUserPassword(string proId, string newpass)
         {
-            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            try
             {
-                User us = dt.Users
-                    .Where(p => p.UserName == proId)
-                    .FirstOrDefault();
-                if (us != null)
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                    us.Password = StringUtils.MD5(newpass);
-                    dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                    dt.SaveChanges();
-                    TempData["ucheck"] = 1;
-                    return RedirectToAction("ManageUser", "Admin");
+                    User us = dt.Users
+                        .Where(p => p.UserName == proId)
+                        .FirstOrDefault();
+                    if (us != null)
+                    {
+                        us.Password = StringUtils.MD5(newpass);
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                        dt.SaveChanges();
+                        TempData["ucheck"] = 1;
+                    }
                 }
-                TempData["ucheck"] = 0;
-                return RedirectToAction("ManageUser", "Admin");
             }
+            catch (Exception)
+            {
+                TempData["ucheck"] = -1;
+            }
+            return RedirectToAction("ManageUser", "Admin");
         }
         public ActionResult Test()
         {
@@ -107,7 +118,7 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
-
+        // Get: Admin/ManageUser
         public ActionResult ManageUser()
         {
             int t = Convert.ToInt32(TempData["ucheck"]);
@@ -115,23 +126,26 @@ namespace WebDauGia.Controllers
             {
                 ViewBag.Message = "yes";
             }
-            else if(t==0)
+            else if (t == -1)
             {
                 ViewBag.Message = "no";
             }
             else
             {
-                
+
             }
             @ViewBag.Active2 = "class=\"active\"";
             return View();
         }
-        // Post: Admin/Login
+
+        // Post: Admin/ManageUser
         [HttpPost]
         public ActionResult ManageUser(string proId)
         {
             return View();
         }
+
+        // Get: Admin/ManageCategory
         public ActionResult ManageCategory()
         {
             int t = Convert.ToInt32(TempData["ccheck"]);
@@ -139,7 +153,7 @@ namespace WebDauGia.Controllers
             {
                 ViewBag.Message = "yes";
             }
-            else if(t==0)
+            else if (t == -1)
             {
                 ViewBag.Message = "no";
             }
@@ -150,97 +164,216 @@ namespace WebDauGia.Controllers
             @ViewBag.Active3 = "class=\"active\"";
             return View();
         }
-        // Post: Admin/Login
+        // Post: Admin/ManageCategory
         [HttpPost]
         public ActionResult ManageCategory(string proId)
         {
             return View();
         }
-        // GET: Admin/Login
+
+        // GET: Admin/AddCat
         public ActionResult AddCat()
         {
-            return View();
+            return RedirectToAction("ManageCategory", "Admin");
         }
-        // Post: Admin/Login
+        // Post: Admin/AddCat
         [HttpPost]
         public ActionResult AddCat(string proId)
         {
-            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            try
             {
-                Category us = new Category();
-                us.CatName = proId;
-
-                dt.Entry(us).State = System.Data.Entity.EntityState.Added;
-                dt.SaveChanges();
-                if (dt.SaveChanges() == 0)
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                    TempData["ccheck"] = 1;
-                    return RedirectToAction("ManageCategory", "Admin");
-                }
+                    Category us = new Category();
+                    us.CatName = proId;
 
-                TempData["ccheck"] = 0;
-                return RedirectToAction("ManageCategory", "Admin");
+                    dt.Entry(us).State = System.Data.Entity.EntityState.Added;
+                    dt.SaveChanges();
+                    if (dt.SaveChanges() == 0)
+                    {
+                        TempData["ccheck"] = 1;
+                    }
+                }
             }
+            catch (Exception)
+            {
+                TempData["ccheck"] = -1;
+            }
+            return RedirectToAction("ManageCategory", "Admin");
         }
+        // Get: Admin/RemoveCat
         public ActionResult RemoveCat()
         {
-            return View();
+            return RedirectToAction("ManageCategory", "Admin");
         }
-        // Post: Admin/Login
+        // Post: Admin/RemoveCat
         [HttpPost]
         public ActionResult RemoveCat(string proId)
         {
-            int id = int.Parse(proId);
-            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            try
             {
-                Category us = dt.Categories
-                    .Where(p => p.CatID == id)
-                    .FirstOrDefault();
-                if (us != null)
+                int id = int.Parse(proId);
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                    dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
-                    dt.SaveChanges();
-                    TempData["ccheck"] = 1;
-                    return RedirectToAction("ManageCategory", "Admin");
+                    Category us = dt.Categories
+                        .Where(p => p.CatID == id)
+                        .FirstOrDefault();
+                    if (us != null)
+                    {
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
+                        dt.SaveChanges();
+                        TempData["ccheck"] = 1;
+                    }
                 }
-                TempData["ccheck"] = 0;
-                return RedirectToAction("ManageCategory", "Admin");
             }
+            catch (Exception)
+            {
+                TempData["ccheck"] = -1;
+            }
+            return RedirectToAction("ManageCategory", "Admin");
+
         }
-        // GET: Admin/Login
+
+        // GET: Admin/UpdateCat
         public ActionResult UpdateCat()
         {
-            return View();
+            return RedirectToAction("ManageCategory", "Admin");
         }
-        // Post: Admin/Login
+        // Post: Admin/UpdateCat
         [HttpPost]
         public ActionResult UpdateCat(string proId, string newpass)
         {
-            int id = int.Parse(proId);
-            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            try
             {
-                Category us = dt.Categories
-                    .Where(p => p.CatID == id)
-                    .FirstOrDefault();
-                if (us != null)
+                int id = int.Parse(proId);
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                    us.CatName = newpass;
-                    dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                    dt.SaveChanges();
-                    TempData["ccheck"] = 1;
-                    return RedirectToAction("ManageCategory", "Admin");
+                    Category us = dt.Categories
+                        .Where(p => p.CatID == id)
+                        .FirstOrDefault();
+                    if (us != null)
+                    {
+                        us.CatName = newpass;
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                        dt.SaveChanges();
+                        TempData["ccheck"] = 1;
+                    }
                 }
-                TempData["ccheck"] = 0;
-                return RedirectToAction("ManageCategory", "Admin");
             }
+            catch (Exception)
+            {
+                TempData["ccheck"] = -1;
+            }
+            return RedirectToAction("ManageCategory", "Admin");
         }
 
-        // GET: Admin/Login
+        // GET: Admin/ManageRequest
         public ActionResult ManageRequest()
         {
+            if (TempData["rcheck"] != null)
+            {
+                int x = Convert.ToInt32(TempData["rcheck"]);
+                if (x == 1)
+                {
+                    ViewBag.Message = "yes";
+                }
+                else if (x == -1)
+                {
+                    ViewBag.Message = "no";
+                }
+                else
+                {
+
+                }
+            }
+
             @ViewBag.Active4 = "class=\"active\"";
             return View();
         }
 
+        // GET: Admin/DenyRequest
+        public ActionResult DenyRequest()
+        {
+            return RedirectToAction("ManageRequest", "Admin");
+        }
+        // Post: Admin/DenyRequest
+        [HttpPost]
+        public ActionResult DenyRequest(string proId)
+        {
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                try
+                {
+                    Request us = dt.Requests
+                                       .Where(p => p.UserName == proId)
+                                       .FirstOrDefault();
+                    if (us != null)
+                    {
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
+                        dt.SaveChanges();
+                        TempData["rcheck"] = 1;
+                        return RedirectToAction("ManageRequest", "Admin");
+                    }
+                }
+                catch (Exception)
+                {
+                    TempData["rcheck"] = -1;
+                }
+                return RedirectToAction("ManageRequest", "Admin");
+            }
+        }
+
+        // GET: Admin/AcceptRequest
+        public ActionResult AcceptRequest()
+        {
+            return RedirectToAction("ManageRequest", "Admin");
+        }
+        // Post: Admin/AcceptRequest
+        [HttpPost]
+        public ActionResult AcceptRequest(string proId, string newpass)
+        {
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                try
+                {
+                    Request us = dt.Requests
+                    .Where(p => p.UserName == proId && p.Request1 == newpass)
+                    .FirstOrDefault();
+                    if (us != null)
+                    {
+                        User u = dt.Users
+                                .Where(t => t.UserName == us.UserName)
+                                .FirstOrDefault();
+                        if (newpass.Contains("buy"))
+                        {
+                            u.AllowAuction = true;
+                        }
+                        else
+                        {
+                            u.AllowSales = true;
+                        }
+                        try
+                        {
+                            dt.Entry(u).State = System.Data.Entity.EntityState.Modified;
+                            dt.SaveChanges();
+
+                            dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
+                            dt.SaveChanges();
+
+                            TempData["rcheck"] = 1;
+                        }
+                        catch (Exception)
+                        {
+                            TempData["rcheck"] = -1;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    TempData["rcheck"] = -1;
+                }
+                return RedirectToAction("ManageRequest", "Admin");
+            }
+        }
     }
 }

@@ -9,16 +9,16 @@
     <script src="~/Content/jquery-3.2.0.min.js"></script>
 }
 
-<form id="frmR" method="post" action="@Url.Action("AcceptRequest","Admin")">
+<form id="frmR" method="post" action="@Url.Action("DenyRequest", "Admin")">
     <input id="txtRProId" type="hidden" name="proId" />
 </form>
-<form id="frmU" method="post" action="@Url.Action("DenyRequest", "Admin")">
+<form id="frmU" method="post" action="@Url.Action("AcceptRequest", "Admin")">
     <input id="txtUProId" type="hidden" name="proId" />
     <input id="txtUQ" type="hidden" name="newpass" />
 </form>
 
 
-@*@if (@ViewBag.Message == "yes")
+@if (@ViewBag.Message == "yes")
 {
     <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -29,15 +29,15 @@
 }
 else if (@ViewBag.Message == "no")
 {
-
-}
-else
-{
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Lỗi!</strong> Thao tác thất bại!
     </div>
-}*@
+}
+else
+{
+
+}
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -59,15 +59,32 @@ else
                         <tbody>
                             @{
                                 var ctx = new QuanLyDauGiaEntities();
+                                List<Request> myAL = new List<Request>();
+                                foreach (var cim in ctx.Requests)
+                                {
+                                    myAL.Add(cim);
+                                }
                             }
-                            @foreach (var cim in ctx.Requests)
+                            @{
+                                myAL = myAL.OrderBy(x => x.TimeRequest).ToList();
+                            }
+                            @foreach (var cim in myAL)
                             {
                                 <tr>
                                     <td class="text-primary">@cim.UserName</td>
-                                    <td>@cim.Request1</td>
+                                    <td>
+                                        @if (@cim.Request1.Contains("buy"))
+                                        {
+                                            <text>Được phép đấu giá</text>
+                                        }
+                                        else
+                                        {
+                                            <text>Được phép đăng bán sản phẩm</text>
+                                        }
+                                    </td>
                                     <td>@cim.TimeRequest</td>
                                     <td class="text-right">
-                                        <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.UserName">
+                                        <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.UserName" data-tpe="@cim.Request1">
                                             <i class="fa fa-check"></i>
                                         </a>
                                         <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.UserName">
@@ -103,9 +120,12 @@ else
     $('.updateItem').on('click', function () {
         var id = $(this).data('proid');
         $('#txtUProId').val(id);
+
+        var id2 = $(this).data('tpe');
+        $('#txtUQ').val(id2);
         if (confirm("Xác nhận thay đổi ?")) {
-            var q = $(this).closest('tr').find('.numberic').val();
-            $('#txtUQ').val(q);
+            //var q = $(this).closest('tr').find('.numberic2').val();
+            //$('#txtUQ').val(q);
 
             $('#frmU').submit();
 

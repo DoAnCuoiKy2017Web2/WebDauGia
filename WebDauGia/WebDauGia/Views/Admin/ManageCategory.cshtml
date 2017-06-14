@@ -30,14 +30,14 @@
 }
 else if (@ViewBag.Message == "no")
 {
-
-}
-else
-{
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Lỗi!</strong> Thao tác thất bại! @ViewBag.Message
     </div>
+}
+else
+{
+
 }
 <div class="col-md-12">
     <div class="card card-plain">
@@ -52,7 +52,7 @@ else
                         @*<th>Mã danh mục</th>*@
                         <th>Tên danh mục</th>
                         @*<th>Trang thái</th>*@
-                        <th class="text-right">&nbsp;</th>
+                        <th class="text-right">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
