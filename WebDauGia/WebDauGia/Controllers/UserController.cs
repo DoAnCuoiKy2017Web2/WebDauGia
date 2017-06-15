@@ -125,6 +125,14 @@ namespace WebDauGia.Controllers
                 }
                 catch (Exception)
                 {
+                    using (QuanLyDauGiaEntities ctx = new QuanLyDauGiaEntities())
+                    {
+                        User us = ctx.Users.Where(p => p.Email == model.Email.ToString()).FirstOrDefault();
+                        if(us != null)
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Email đã tồn tại.')</script>");
+                        }
+                    }
                     Response.Write("<script LANGUAGE='JavaScript' >alert('Username đã tồn tại.')</script>");
                 }
             }
