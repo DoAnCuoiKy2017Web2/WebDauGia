@@ -97,14 +97,7 @@ namespace WebDauGia.Controllers
                 u.Password = StringUtils.MD5(model.Password);
                 u.Name = model.Name;
                 u.Gender = model.Gender;
-                if (model.DateOfBirth == null)
-                {
-                    u.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
-                }
-                else
-                {
-                    u.DateOfBirth = DateTime.ParseExact(DateTime.Now.ToShortDateString(), "d/M/yyyy", null);
-                }
+                u.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
                 u.Email = model.Email;
                 u.Phone = model.Phone;
                 u.Address = model.Address;
