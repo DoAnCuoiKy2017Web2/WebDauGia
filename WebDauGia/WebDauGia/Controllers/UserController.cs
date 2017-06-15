@@ -71,7 +71,7 @@ namespace WebDauGia.Controllers
                 Password = "",
                 Name = "",
                 Gender = "",
-                DateOfBirth = DateTime.Now.ToShortDateString(),
+                DateOfBirth = DateTime.Now.Day + "/" + DateTime.Now.Month +"/" + DateTime.Now.Year,
                 Email = "",
                 Phone = "",
                 Address = "",
