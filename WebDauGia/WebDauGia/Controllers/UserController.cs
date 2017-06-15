@@ -43,6 +43,10 @@ namespace WebDauGia.Controllers
                         Response.Cookies["userID"].Value = us.UserName.ToString();
                         Response.Cookies["userID"].Expires = DateTime.Now.AddDays(7);
                     }
+                    else
+                    {
+                        Response.Cookies["userID"].Expires = DateTime.Now;
+                    }
                     Session["isLogin"] = 1;
                     Session["user"] = us;
                     Session["username"] = us.UserName;
