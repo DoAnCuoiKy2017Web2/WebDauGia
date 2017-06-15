@@ -44,7 +44,7 @@ namespace WebDauGia.Helper
             HttpContext.Current.Session["user"] = null;
             //HttpContext.Current.Session["cart"] = null;
 
-            HttpContext.Current.Response.Cookies["userID"].Expires = DateTime.Now.AddDays(-1);
+            //HttpContext.Current.Response.Cookies["userID"].Expires = DateTime.Now.AddDays(-1);
         }
     }
 }

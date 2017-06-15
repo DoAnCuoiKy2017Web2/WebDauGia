@@ -23,6 +23,11 @@ namespace WebDauGia.Controllers
         {
             LoginVM model = new LoginVM();
             model.UserName = "";
+            if(Response.Cookies["userID"].Expires > DateTime.Now)
+            {
+                model.UserName = Response.Cookies["userID"].Value;
+                model.PassWord = "***";
+            }
             return View(model);
         }
         // Post: User/Login
@@ -35,6 +40,12 @@ namespace WebDauGia.Controllers
                 User us = dt.Users
                     .Where(p => p.UserName == model.UserName && p.Password == pass)
                     .FirstOrDefault();
+                if (Response.Cookies["userID"].Value == model.UserName && Response.Cookies["userID"].Expires > DateTime.Now)
+                {
+                    us = dt.Users
+                    .Where(p => p.UserName == model.UserName)
+                    .FirstOrDefault();
+                }
                 if (us != null)
                 {
                     if (model.Remember != null)
@@ -45,7 +56,7 @@ namespace WebDauGia.Controllers
                     }
                     else
                     {
-                        Response.Cookies["userID"].Expires = DateTime.Now;
+                        Response.Cookies["userID"].Expires = DateTime.Now.AddDays(-1);
                     }
                     Session["isLogin"] = 1;
                     Session["user"] = us;
