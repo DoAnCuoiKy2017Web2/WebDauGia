@@ -29,11 +29,18 @@ namespace WebDauGia.Models
             int check = 0;
             DateTime Today = DateTime.Now;
             TimeSpan kq = Today - d;
-            if (kq.Days * 24 * 60 + kq.Hours * 60 + kq.Minutes *60 +kq.Milliseconds <= 0)
+            if (kq.Days * 24 * 60 + kq.Hours * 60 + kq.Minutes <= 0)
             {
                 check = 1;
             }
             return check;
+        }
+        public static int Rest(DateTime d)
+        {
+
+            DateTime Today = DateTime.Now;
+            TimeSpan kq =d-Today;
+            return (kq.Days * 24 + kq.Hours)*3600 + kq.Minutes * 60 + kq.Seconds;
         }
         public static double GetReliability(String username)
         {
