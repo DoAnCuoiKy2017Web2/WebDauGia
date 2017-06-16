@@ -60,6 +60,31 @@
             }
 
         });
+        function XinBan(name) {
+            if (name != null) {
+                var url = "/User/Sale";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { name: name },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
+                    }
+                })
+                    .done(function (data) {
+                        if (typeof (data) == 'string') {
+                            alert(data);
+                        }
+                    })
+            .fail(function (jqXHR, status, error) {
+                //console.log(jqXHR);
+                //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+            });
+            }
+        }
+
     </script>
 }
 
@@ -228,7 +253,7 @@
                                                 <div class="col-xs-12 col-sm-9">
                                                     @*Xin được đăng đấu giá*@
                                                     <div class="profile-info-row">
-                                                        <button type="button" class="btn btn-success">
+                                                        <button type="button" class="btn btn-success" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
                                                             Xin được đăng sản phẩm đấu giá
                                                         </button>
                                                     </div>

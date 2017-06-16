@@ -65,6 +65,33 @@ namespace WebDauGia.Controllers
             CurrentContext.Destroy();
             return RedirectToAction("Index", "Home");
         }
+        //Post: User/Sale
+        [HttpPost]
+        public ActionResult Sale(string name)
+        {
+            try
+            {
+                using (var ctx = new QuanLyDauGiaEntities())
+                {
+                    var check = ctx.Requests.Where(r => r.UserName == name).FirstOrDefault();
+                    if (check != null)
+                    {
+                        return Json("Gửi Yêu Cầu Thất Bại! Đơn Của Bạn Đang Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
+                    }
+                    var rq = new Request();
+                    rq.UserName = name;
+                    rq.TimeRequest = DateTime.Now;
+                    rq.Request1 = "sale";
+                    ctx.Requests.Add(rq);
+                    ctx.SaveChanges();
+                    return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Hiện Tại Không Thể Gửi Yêu Cầu!!!", JsonRequestBehavior.AllowGet);
+            }
+        }
 
         // GET: User/Register
         public ActionResult Register()
