@@ -173,35 +173,37 @@
 
                                                 <div class="profile-user-info">
                                                     <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Tên người dùng </div>
+                                                        <div class="profile-info-name"> Tên người dùng: @Model.UserName </div>
 
-                                                        <div class="profile-info-value">
+                                                        @*<div class="profile-info-value">
                                                             <span>@Model.UserName</span>
-                                                        </div>
+                                                        </div>*@
                                                     </div>
 
                                                     <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Địa chỉ </div>
-
-                                                        <div class="profile-info-value">
+                                                        <div class="profile-info-name"> Địa chỉ:
                                                             <i class="fa fa-map-marker light-orange bigger-110"></i>
                                                             <span>@Model.Address</span>
                                                         </div>
+
+                                                        @*<div class="profile-info-value">
+                                                            <i class="fa fa-map-marker light-orange bigger-110"></i>
+                                                            <span>@Model.Address</span>
+                                                        </div>*@
                                                     </div>
 
                                                     <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Ngày sinh </div>
+                                                        <div class="profile-info-name"> Ngày sinh: @Model.DateOfBirth.ToShortDateString() </div>
 
-                                                        <div class="profile-info-value">
+                                                        @*<div class="profile-info-value">
                                                             <span>@Model.DateOfBirth.ToShortDateString()</span>
-                                                        </div>
+                                                        </div>*@
                                                     </div>
 
                                                     <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Giới tính </div>
+                                                        <div class="profile-info-name"> Giới tính: 
 
-                                                        <div class="profile-info-value">
-                                                            <div class="profile-info-value">
+                                                        
                                                                 @if (Model.Gender == "Nam")
                                                     {
                                                                 <i>Nam</i>
@@ -214,14 +216,14 @@
                                                     {
                                                                 <i>Khac</i>
                                                     }
-                                                            </div>
+                                                            
 
                                                         </div>
                                                     </div>
 
-
+                                                    
                                                 </div>
-
+                                                <br /><br /><br />
                                                 <div class="hr hr-8 dotted"></div>
                                                 <div class="col-xs-12 col-sm-9">
                                                     @*Xin được đăng đấu giá*@

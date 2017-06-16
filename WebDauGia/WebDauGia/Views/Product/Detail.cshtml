@@ -64,7 +64,7 @@
                 })
                     .done(function (data) {
                         if (data == "1") {
-                            if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yếu Thích Của Bạn???") == true) {
+                            if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yêu Thích Của Bạn???") == true) {
                                 window.location = "@Url.Action("Login","User")";
                             } else {
 
@@ -336,7 +336,7 @@ else
                                 }
                             }
                             <h3>
-                                Bạn muốn ra gía? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
+                                Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
                             </h3>
                             <input id="giagoc" type="hidden" value="@Model.AucPrice">
                             <input id="buocgia" type="hidden" value="@Model.StepPrice">
