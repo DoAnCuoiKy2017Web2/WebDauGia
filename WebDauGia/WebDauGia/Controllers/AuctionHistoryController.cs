@@ -110,7 +110,12 @@ namespace WebDauGia.Controllers
                 }
                 else if(giatra > pro.OwnerPrice)
                 {
-                    TH=1;// 1 là chiến thắng.
+                    TH=1;// 1 là chiến thắng trờ thành người giữ giá
+                    int RestTime=Function.Rest(pro.EndTime);
+                    if(0<RestTime && RestTime<=5*60)
+                    {
+                        pro.EndTime=pro.EndTime.AddMinutes(10);
+                    }
                     //update Product
                     pro.OwnerPrice = giatra;
                     pro.AucPrice += pro.StepPrice;
