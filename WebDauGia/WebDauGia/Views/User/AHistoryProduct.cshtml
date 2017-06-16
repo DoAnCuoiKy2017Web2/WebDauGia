@@ -1,0 +1,54 @@
+﻿@using WebDauGia.Models
+@using WebDauGia.Helper
+
+@section view_title{
+    Sản phẩm đăng bán
+}
+@{
+
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    int t = @ViewBag.proidd;
+    var ctx = new QuanLyDauGiaEntities();
+    var proname = ctx.Products.Where(p => p.ProID == t).Select(p => p.ProName);
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header" data-background-color="blue">
+            <h4 class="title">
+                Lịch sử đấu giá của sản phẩm có 
+            </h4>
+            <p class="category">Danh sáchaaa </p>
+        </div>
+        <div class="card-content table-responsive">
+            <table class="table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>Mã lượt đấu</th>
+                        <th>Người đấu giá</th>
+                        <th class="text-right">Số tiền đấu giá</th>
+                        <th class="text-right">Thời điểm đấu giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        
+                        
+                        var myAL = ctx.AuctionHistorys.Where(p => p.ProID == t).OrderBy(p => p.Time);
+                    }
+                    @foreach (var cim in myAL)
+                    {
+                        <tr>
+                            <td>@cim.AucID</td>
+                            <td>@cim.UserName</td>
+                            <td class="text-right">@cim.AucPrice</td>
+                            <td class="text-right">@cim.Time</td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>

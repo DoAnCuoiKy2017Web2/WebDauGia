@@ -364,5 +364,40 @@ namespace WebDauGia.Controllers
                 return View();
             }
         }
+        // GET: Test
+        [CheckLogin]
+        public ActionResult MyProducts()
+        {
+            return View();
+        }
+
+        // GET: Test
+        [HttpPost]
+        public ActionResult MyProducts(string s)
+        {
+            return View();
+        }
+
+        [CheckLogin]
+        public ActionResult AHistoryProduct(int? id)
+        {
+            if (id.HasValue == false)
+            {
+                return RedirectToAction("MyProducts", "User");
+            }
+
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                var model = ctx.AuctionHistorys.Where(p => p.ProID == id).OrderBy(p=>p.AucPrice).ToList();
+                @ViewBag.proidd = id;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AHistoryProduct(string s)
+        {
+            return View();
+        }
     }
 }

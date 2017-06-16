@@ -11,7 +11,7 @@
     <script src="~/Content/jquery-3.2.0.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Material Dashboard by Creative Tim</title>
+    <title>@RenderSection("view_title")</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -87,7 +87,7 @@
                         <div class="collapse" id="pages2">
                             <ul class="nav">
                                 <li>
-                                    <a href="@Url.Action("SanPhamDangBan", "User")">Sản phẩm của tôi</a>
+                                    <a href="@Url.Action("MyProducts", "User")">Sản phẩm của tôi</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("Index", "User")"> Sản phẩm bán thành công</a>
@@ -160,18 +160,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header" data-background-color="blue">
-                                    <h4 class="title">
-                                        @RenderSection("view_title")</h4>
-                                    <p class="category">Danh sách </p>
-                                </div>
-                                <div class="card-content table-responsive">
                                     @RenderBody()
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

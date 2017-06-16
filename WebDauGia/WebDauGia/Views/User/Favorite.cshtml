@@ -7,8 +7,4 @@
 @{
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-<div id="watchlist">
-    <ul class="ace-thumbnails">
-        @Html.Action("List", "WatchList")
-    </ul>
-</div>
+@Html.Action("List", "WatchList")

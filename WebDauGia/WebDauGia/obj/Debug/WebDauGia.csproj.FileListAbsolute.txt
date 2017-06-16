@@ -119,4 +119,3 @@ C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.He
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
-C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
