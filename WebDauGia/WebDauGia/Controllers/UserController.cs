@@ -17,7 +17,11 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
-
+        // GET: Test
+        public ActionResult Test()
+        {
+            return View();
+        }
         // GET: User/Login
         public ActionResult Login()
         {
