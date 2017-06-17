@@ -12,85 +12,34 @@
     @*<link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
 }
 @section js{
-    @*<script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>*@
-    @*<script type="text/javascript">
-        $("#form_changepass").validate({
-            rules: {
-                OldPassWord: {
-                    required: true,
-                },
-                NewPassWord: {
-                    required: true,
-                    minlength: 6,
-                },
-                ReNewPassWord: {
-                    required: true,
-                    minlength: 6,
-                    equalTo: "#txtPassWord",
-                },
-            },
-            messages: {
-                OldPassWord: {
-                    required: "Chỗ này không được để trống.",
-                },
-                NewPassWord: {
-                    required: "Chỗ này không được để trống.",
-                    minlength: "Mật khẩu ít nhất 6 ký tự",
-                },
-                ReNewPassWord: {
-                    required: "Mật khẩu nhập lại chưa đúng.",
-                },
-            },
-            errorelement: 'span',
-            errorClass: 'help-block',
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass(errorClass).removeClass(validClass);
-                $(element).closest('.form-group')
-                  .addClass('has-error');
-            },
-            //unhighlight: function (element, errorClass, validClass) {
-            //    $(element).removeClass(errorClass).addClass(validClass);
-            //    $(element).closest('.form-group')
-            //      .removeClass('has-error');
-            //},
-            success: function (label) {
-                $(label).closest('.form-group')
-                  .removeClass('has-error').addClass('has-success');
-                label.remove;
-            }
-
-        });
-<<<<<<< HEAD
-    </script>*@
-=======
-        function XinBan(name) {
-            if (name != null) {
-                var url = "/User/Sale";
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: { name: name },
-                    dataType: "json",
-                    timeout: 30 * 1000,
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('Error - ' + errorThrown);
+<script type="text/javascript">
+    function XinBan(name) {
+        if (name != null) {
+            var url = "/User/Sale";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { name: name },
+                dataType: "json",
+                timeout: 30 * 1000,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error - ' + errorThrown);
+                }
+            })
+                .done(function (data) {
+                    if (typeof (data) == 'string') {
+                        alert(data);
                     }
                 })
-                    .done(function (data) {
-                        if (typeof (data) == 'string') {
-                            alert(data);
-                        }
-                    })
-            .fail(function (jqXHR, status, error) {
-                //console.log(jqXHR);
-                //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
-            });
-            }
-            else{
-            }
+        .fail(function (jqXHR, status, error) {
+            //console.log(jqXHR);
+            //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+        });
         }
+        else {
+        }
+    }
 </script>
->>>>>>> origin/master
 }
 
 @if (ViewBag.ErrorMsg != null)
@@ -222,7 +171,7 @@
                                                     </div>
 
                                                     <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Ngày sinh: @Model.DateOfBirth.ToShortDateString() </div>
+                                                        <div class="profile-info-name"> Ngày sinh: @String.Format("{0:d/M/yyyy}", Model.DateOfBirth) </div>
 
                                                         @*<div class="profile-info-value">
                                                             <span>@Model.DateOfBirth.ToShortDateString()</span>

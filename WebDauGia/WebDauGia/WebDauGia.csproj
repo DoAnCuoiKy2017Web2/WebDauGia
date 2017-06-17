@@ -1226,6 +1226,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CurrentContext.cs" />
+    <Compile Include="Helper\Picture.cs" />
     <Compile Include="Helper\StringUtils.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
