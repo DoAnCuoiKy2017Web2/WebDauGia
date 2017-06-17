@@ -30,5 +30,6 @@ namespace WebDauGia.Models
         public Nullable<double> OwnerPrice { get; set; }
         public Nullable<bool> Status { get; set; }
         public int NumOfAuction { get; set; }
+        public bool AutoRenewal { get; set; }
     }
 }

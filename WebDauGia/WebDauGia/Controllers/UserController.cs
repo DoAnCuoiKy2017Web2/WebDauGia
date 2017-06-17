@@ -65,14 +65,41 @@ namespace WebDauGia.Controllers
             CurrentContext.Destroy();
             return RedirectToAction("Index", "Home");
         }
+        //Post: User/Sale
+        [HttpPost]
+        public ActionResult Sale(string name)
+        {
+            try
+            {
+                using (var ctx = new QuanLyDauGiaEntities())
+                {
+                    var check = ctx.Requests.Where(r => r.UserName == name).FirstOrDefault();
+                    if (check != null)
+                    {
+                        return Json("Gửi Yêu Cầu Thất Bại! Đơn Của Bạn Đang Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
+                    }
+                    var rq = new Request();
+                    rq.UserName = name;
+                    rq.TimeRequest = DateTime.Now;
+                    rq.Request1 = "sale";
+                    ctx.Requests.Add(rq);
+                    ctx.SaveChanges();
+                    return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Hiện Tại Không Thể Gửi Yêu Cầu!!!", JsonRequestBehavior.AllowGet);
+            }
+        }
 
         // GET: User/Register
         public ActionResult Register()
         {
             RegisterVM model = new RegisterVM()
             {
-                Username = "",
-                Password = "",
+                UserName = "",
+                PassWord = "",
                 Name = "",
                 Gender = "",
                 DateOfBirth = DateTime.Now.Day + "/" + DateTime.Now.Month +"/" + DateTime.Now.Year,
@@ -106,8 +133,8 @@ namespace WebDauGia.Controllers
                     {
                         // TODO: Captcha validation passed, proceed with protected action
                         User u = new User();
-                        u.UserName = model.Username;
-                        u.Password = StringUtils.MD5(model.Password);
+                        u.UserName = model.UserName;
+                        u.Password = StringUtils.MD5(model.PassWord);
                         u.Name = model.Name;
                         u.Gender = model.Gender;
                         u.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
@@ -127,8 +154,8 @@ namespace WebDauGia.Controllers
                             @ViewBag.Error = false;
 
                             LoginVM lvm = new LoginVM();
-                            lvm.UserName = model.Username;
-                            lvm.PassWord = model.Password;
+                            lvm.UserName = model.UserName;
+                            lvm.PassWord = model.PassWord;
                             Login(lvm);
 
                             Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng ký thành công. Đang chuyển về trang chủ')</script>");
@@ -189,7 +216,7 @@ namespace WebDauGia.Controllers
         //Post: User/Update
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Update(User model)
+        public ActionResult Update(RegisterVM model)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -203,8 +230,8 @@ namespace WebDauGia.Controllers
                     us.Address = model.Address;
                     us.Email = model.Email;
                     us.Phone = model.Phone;
-                    // ngày sinh
-                    // giới tính
+                    us.Gender = model.Gender;
+                    us.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
                     using (var ctx = new QuanLyDauGiaEntities())
                     {
                         ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
@@ -396,6 +423,12 @@ namespace WebDauGia.Controllers
 
         [HttpPost]
         public ActionResult AHistoryProduct(string s)
+        {
+            return View();
+        }
+
+        [CheckLogin]
+        public ActionResult SoldProducts()
         {
             return View();
         }

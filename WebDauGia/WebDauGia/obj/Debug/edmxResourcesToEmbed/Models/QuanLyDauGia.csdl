@@ -2,6 +2,7 @@
 <Schema Namespace="QuanLyDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Admins" EntityType="QuanLyDauGiaModel.Admin" />
+    <EntitySet Name="Appraises" EntityType="QuanLyDauGiaModel.Apprais" />
     <EntitySet Name="AuctionHistorys" EntityType="QuanLyDauGiaModel.AuctionHistory" />
     <EntitySet Name="Categories" EntityType="QuanLyDauGiaModel.Category" />
     <EntitySet Name="Comments" EntityType="QuanLyDauGiaModel.Comment" />
@@ -16,6 +17,17 @@
       <PropertyRef Name="UserName" />
     </Key>
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Apprais">
+    <Key>
+      <PropertyRef Name="Assessor" />
+      <PropertyRef Name="BeAsssessed" />
+    </Key>
+    <Property Name="Assessor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BeAsssessed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TimeAppraise" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="AuctionHistory">
     <Key>
@@ -73,6 +85,7 @@
     <Property Name="OwnerPrice" Type="Double" />
     <Property Name="Status" Type="Boolean" />
     <Property Name="NumOfAuction" Type="Int32" Nullable="false" />
+    <Property Name="AutoRenewal" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Request">
     <Key>
@@ -81,7 +94,8 @@
     </Key>
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TimeRequest" Type="DateTime" Precision="3" />
-    <Property Name="Request1" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Request1" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="true" />
+    <Property Name="Expire" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="User">
     <Key>

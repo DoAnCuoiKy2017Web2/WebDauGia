@@ -17,5 +17,6 @@ namespace WebDauGia.Models
         public string UserName { get; set; }
         public Nullable<System.DateTime> TimeRequest { get; set; }
         public string Request1 { get; set; }
+        public Nullable<System.DateTime> Expire { get; set; }
     }
 }

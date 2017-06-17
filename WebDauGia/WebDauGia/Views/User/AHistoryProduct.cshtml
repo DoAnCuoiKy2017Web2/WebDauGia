@@ -27,6 +27,7 @@
                         <th>Người đấu giá</th>
                         <th class="text-right">Số tiền đấu giá</th>
                         <th class="text-right">Thời điểm đấu giá</th>
+                        <th class="text-right">Chặn người dùng</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,11 @@
                             <td>@cim.UserName</td>
                             <td class="text-right">@cim.AucPrice</td>
                             <td class="text-right">@cim.Time</td>
+                            <td class="text-right">
+                                <a class="btn btn-danger btn-xs updateItem" href="#" role="button" title="Chặn">
+                                   Không cho đấu giá sản phẩm này
+                                </a>
+                            </td>
                         </tr>
 
                     }

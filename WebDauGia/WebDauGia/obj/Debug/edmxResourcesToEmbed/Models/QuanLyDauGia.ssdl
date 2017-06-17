@@ -5,6 +5,17 @@
       <PropertyRef Name="UserName" />
     </Key>
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Appraises">
+    <Key>
+      <PropertyRef Name="Assessor" />
+      <PropertyRef Name="BeAsssessed" />
+    </Key>
+    <Property Name="Assessor" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BeAsssessed" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Remark" Type="ntext" />
+    <Property Name="TimeAppraise" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="AuctionHistorys">
     <Key>
@@ -62,6 +73,7 @@
     <Property Name="OwnerPrice" Type="float" />
     <Property Name="Status" Type="bit" />
     <Property Name="NumOfAuction" Type="int" Nullable="false" />
+    <Property Name="AutoRenewal" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Requests">
     <Key>
@@ -70,7 +82,8 @@
     </Key>
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TimeRequest" Type="datetime" />
-    <Property Name="Request" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Request" Type="nchar" MaxLength="4" Nullable="false" />
+    <Property Name="Expire" Type="datetime" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -100,6 +113,7 @@
   </EntityType>
   <EntityContainer Name="QuanLyDauGiaModelStoreContainer">
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appraises" EntityType="Self.Appraises" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistorys" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />

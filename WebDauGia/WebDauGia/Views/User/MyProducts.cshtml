@@ -23,6 +23,7 @@
                         <th class="text-right">Loại danh mục</th>
                         <th class="text-right">Giá đăng bán</th>
                         <th class="text-right">Số lượt đấu giá</th>
+                        <th class="text-right">Tình trạng</th>
                         <th class="text-right">Xem chi tiết</th>
                         <th class="text-right">Xem lịch sử đấu giá</th>
                     </tr>
@@ -40,15 +41,24 @@
                     @foreach (var cim in myAL)
                     {
                         int s = (from n in ctx.AuctionHistorys
-                                  where n.ProID == cim.ProID
-                                  select n).ToList().Count();
-                        
+                                 where n.ProID == cim.ProID
+                                 select n).ToList().Count();
+                        string s1;
+                        if (cim.EndTime < DateTime.Now)
+                        {
+                            s1 = "Còn hạn đấu giá";
+                        }
+                        else
+                        {
+                            s1 = "Hết hạn đấu giá";
+                        }
                         <tr>
                             <td >@cim.ProID</td>
                             <td >@cim.ProName</td>
                             <td class="text-right">@cim.CatID</td>
                             <td class="text-right">@cim.Price</td>
                             <td class="text-right">@s</td>
+                            <td class="text-right">@s1</td>
                             <td class="text-right">
                                 <a class="btn btn-info btn-xs updateItem" href="@Url.Action("Detail", "Product", new { id = @cim.ProID})" role="button" title="Xem thêm" data-proid="@cim.CatID">
                                     Xem

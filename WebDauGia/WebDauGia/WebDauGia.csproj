@@ -1229,6 +1229,9 @@
     <Compile Include="Models\Admin.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Apprais.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AuctionHistory.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
