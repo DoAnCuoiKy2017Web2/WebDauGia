@@ -74,7 +74,7 @@ namespace WebDauGia.Controllers
                     mail2.To.Add(GmNgBan);
                     mail2.From = new MailAddress("admiweb2nhom5@gmail.com");
                     mail2.Subject = "Thông Báo Đã Có Người Mua Thành Công Sản Phẩm Của Bạn " + pro.ProName;
-                    mail2.Body = Function.GmailBanTC(pro, username).ToString();
+                    mail2.Body = Function.GmailBanTC(pro, pro.Salesman).ToString();
                     mail2.IsBodyHtml = true;
                     SmtpClient smtp2 = new SmtpClient();
                     smtp2.Host = "smtp.gmail.com";
@@ -237,7 +237,7 @@ namespace WebDauGia.Controllers
                             mail1.To.Add(GmNgMuaCu);
                             mail1.From = new MailAddress("admiweb2nhom5@gmail.com");
                             mail1.Subject = "Thông Báo Bị Cướp Quyền Giá Sản Phẩm " + pro.ProName;
-                            mail1.Body = Function.GmailMatQuyenGiuGia(pro, username).ToString();
+                            mail1.Body = Function.GmailMatQuyenGiuGia(pro, nameold).ToString();
                             mail1.IsBodyHtml = true;
                             SmtpClient smtp1 = new SmtpClient();
                             smtp1.Host = "smtp.gmail.com";
@@ -253,7 +253,7 @@ namespace WebDauGia.Controllers
                     mail2.To.Add(GmNgBan);
                     mail2.From = new MailAddress("admiweb2nhom5@gmail.com");
                     mail2.Subject = "Thông Báo Có Người Ra Giá Cho Sản Phẩm " + pro.ProName + " Của Bạn";
-                    mail2.Body = Function.GmailCoNgTraGia(pro, username).ToString();
+                    mail2.Body = Function.GmailCoNgTraGia(pro, pro.Salesman).ToString();
                     mail2.IsBodyHtml = true;
                     SmtpClient smtp2 = new SmtpClient();
                     smtp2.Host = "smtp.gmail.com";
