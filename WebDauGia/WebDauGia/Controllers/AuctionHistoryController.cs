@@ -36,7 +36,9 @@ namespace WebDauGia.Controllers
                 //trường hợp thây đổi giá đề mua luôn sản phẩm
                 if (giatra >= pro.Price)
                 {
-                   //chiến thắng tuyệt đối
+                    string GmNgMua = (ctx.Users.Where(us => us.UserName == username).FirstOrDefault()).Email;
+                    string GmNgBan = (ctx.Users.Where(us => us.UserName == pro.Salesman).FirstOrDefault()).Email;
+                    //chiến thắng tuyệt đối
                     //lưu lịch sử
                     var auhis = new AuctionHistory();
                     auhis.ProID = proid;
@@ -52,16 +54,45 @@ namespace WebDauGia.Controllers
                     pro.EndTime = DateTime.Now;
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
-                    return Json("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền"+string.Format("{0:N0}",pro.Price)+"VNĐ", JsonRequestBehavior.AllowGet);
+                    //gửi gmail
+                    //nguoi mua
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(GmNgMua);
+                    mail.From = new MailAddress("admiweb2nhom5@gmail.com");
+                    mail.Subject = "Thông Báo Thắng Cuộc Trong Phiên Đấu Giá Sản Phẩm " + pro.ProName;
+                    mail.Body = Function.GmailTBChienThang(pro, username).ToString();
+                    mail.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                    //gửi gmail cho người bán
+                    MailMessage mail2 = new MailMessage();
+                    mail2.To.Add(GmNgBan);
+                    mail2.From = new MailAddress("admiweb2nhom5@gmail.com");
+                    mail2.Subject = "Thông Báo Đã Có Người Mua Thành Công Sản Phẩm Của Bạn " + pro.ProName;
+                    mail2.Body = Function.GmailBanTC(pro, pro.Salesman).ToString();
+                    mail2.IsBodyHtml = true;
+                    SmtpClient smtp2 = new SmtpClient();
+                    smtp2.Host = "smtp.gmail.com";
+                    smtp2.Port = 587;
+                    smtp2.UseDefaultCredentials = true;
+                    smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                    smtp2.EnableSsl = true;
+                    smtp2.Send(mail2);
+                    return Json("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền" + string.Format("{0:N0}", pro.Price) + "VNĐ", JsonRequestBehavior.AllowGet);
                 }
                 //còn là người giữ giá
                 if (pro.Owner == username)
                 {
-                    if(giatra<pro.AucPrice)
+                    if (giatra < pro.AucPrice)
                     {
                         return Json("Đổi Giá Thất Bại! Giá Hiện Tại Đã Bị Thay Đổi", JsonRequestBehavior.AllowGet);
                     }
-                    else if(giatra>=(pro.AucPrice+pro.StepPrice))
+                    else if (giatra >= (pro.AucPrice + pro.StepPrice))
                     {
                         pro.OwnerPrice = giatra;
                         ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
@@ -69,7 +100,7 @@ namespace WebDauGia.Controllers
                         return Json("Đổi Giá Thành Công!", JsonRequestBehavior.AllowGet);
                     }
                 }
-                    //đã mất quyền giữ giá không thể đổi giá
+                //đã mất quyền giữ giá không thể đổi giá
                 else
                 {
                     return Json("Đổi Giá Thất Bại! Đã Có Người Khác Giữ Giá Sản Phẩm Này!", JsonRequestBehavior.AllowGet);
@@ -83,28 +114,32 @@ namespace WebDauGia.Controllers
         public ActionResult Add(double giatra, int proid)
         {
             int TH = 0;
-            var username=((User)Session["user"]).UserName;
+            var username = ((User)Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
                 var pro = ctx.Products.Where(p => p.ProID == proid).FirstOrDefault();
-                if(pro.EndTime<=DateTime.Now)
+                //luu tên người giữ giá trước.
+                string nameold = pro.Owner;
+                if (pro.EndTime <= DateTime.Now)
                 {
-                    return Json("Phiên Đấu Giá Đã Kết Thúc Lúc "+pro.EndTime.ToString(), JsonRequestBehavior.AllowGet);
+                    return Json("Phiên Đấu Giá Đã Kết Thúc Lúc " + pro.EndTime.ToString(), JsonRequestBehavior.AllowGet);
                 }
-                if(giatra< (pro.AucPrice+pro.StepPrice))
+                if (giatra < (pro.AucPrice + pro.StepPrice))
                 {
                     return Json("Đã Có Người Trả Giá Cao Hơn Bạn! Giá Hiện Tại Là " + string.Format("{0:N0}", pro.AucPrice), JsonRequestBehavior.AllowGet);
                 }
-                string GmNgMua = ctx.Users.Where(us => us.UserName == username).Select(us => us.Email).ToString();
-                string GmNgBan = ctx.Users.Where(us => us.UserName == pro.Salesman).Select(us => us.Email).ToString();;
-                string GmNgMuaCu= ctx.Users.Where(us => us.UserName == pro.Owner).Select(us => us.Email).ToString();;
+                string GmNgMua = (ctx.Users.Where(us => us.UserName == username).FirstOrDefault()).Email;
+                string GmNgBan = (ctx.Users.Where(us => us.UserName == pro.Salesman).FirstOrDefault()).Email;
+                string GmNgMuaCu = "";
+                if (pro.Owner != null)
+                {
+                    GmNgMuaCu = (ctx.Users.Where(us => us.UserName == pro.Owner).FirstOrDefault()).Email;
+                }
                 //tang lượt đâu giá lên 1
                 pro.NumOfAuction += 1;
                 //van con giữ giá
-                if(giatra >=pro.Price)
+                if (giatra >= pro.Price)
                 {
-                    //luu tên 
-                    string nameold = pro.Owner;
                     TH = 3;//chiến thắng tuyệt đối
                     //update Product
                     pro.OwnerPrice = pro.Price;
@@ -125,11 +160,11 @@ namespace WebDauGia.Controllers
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
                     smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                     //gửi gmail cho người thua nếu có
-                    if(nameold !="")
+                    if (nameold != null)
                     {
                         if (nameold != ((User)Session["user"]).UserName)
                         {
@@ -143,9 +178,9 @@ namespace WebDauGia.Controllers
                             smtp1.Host = "smtp.gmail.com";
                             smtp1.Port = 587;
                             smtp1.UseDefaultCredentials = true;
-                            smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                            smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                             smtp1.EnableSsl = true;
-                            smtp1.Send(mail);
+                            smtp1.Send(mail1);
                         }
                     }
                     //gửi gmail cho người bán
@@ -159,20 +194,18 @@ namespace WebDauGia.Controllers
                     smtp2.Host = "smtp.gmail.com";
                     smtp2.Port = 587;
                     smtp2.UseDefaultCredentials = true;
-                    smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                    smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                     smtp2.EnableSsl = true;
-                    smtp2.Send(mail);
+                    smtp2.Send(mail2);
 
                 }
-                else if(giatra > pro.OwnerPrice)
+                else if (giatra > pro.OwnerPrice)
                 {
-                    //luu tên 
-                    var nameold = pro.Owner;
-                    TH=1;// 1 là chiến thắng trờ thành người giữ giá
-                    int RestTime=Function.Rest(pro.EndTime);
-                    if(0<RestTime && RestTime<=5*60)
+                    TH = 1;// 1 là chiến thắng trờ thành người giữ giá
+                    int RestTime = Function.Rest(pro.EndTime);
+                    if (0 < RestTime && RestTime <= 5 * 60)
                     {
-                        pro.EndTime=pro.EndTime.AddMinutes(10);
+                        pro.EndTime = pro.EndTime.AddMinutes(10);
                     }
                     //update Product
                     pro.OwnerPrice = giatra;
@@ -192,39 +225,45 @@ namespace WebDauGia.Controllers
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
                     smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
-                    //gửi gmail cho người thua
-                        MailMessage mail1 = new MailMessage();
-                        mail1.To.Add(GmNgMuaCu);
-                        mail1.From = new MailAddress("admiweb2nhom5@gmail.com");
-                        mail1.Subject = "Thông Báo Bị Cướp Quyền Giá Sản Phẩm " + pro.ProName;
-                        mail1.Body = Function.GmailMatQuyenGiuGia(pro, username).ToString();
-                        mail1.IsBodyHtml = true;
-                        SmtpClient smtp1 = new SmtpClient();
-                        smtp1.Host = "smtp.gmail.com";
-                        smtp1.Port = 587;
-                        smtp1.UseDefaultCredentials = true;
-                        smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
-                        smtp1.EnableSsl = true;
-                        smtp1.Send(mail);
+                    //gửi gmail cho người Mất Quyền Giữ Giá
+                    if (nameold != null)
+                    {
+                        if (nameold != ((User)Session["user"]).UserName)
+                        {
+                            MailMessage mail1 = new MailMessage();
+                            mail1.To.Add(GmNgMuaCu);
+                            mail1.From = new MailAddress("admiweb2nhom5@gmail.com");
+                            mail1.Subject = "Thông Báo Bị Cướp Quyền Giá Sản Phẩm " + pro.ProName;
+                            mail1.Body = Function.GmailMatQuyenGiuGia(pro, nameold).ToString();
+                            mail1.IsBodyHtml = true;
+                            SmtpClient smtp1 = new SmtpClient();
+                            smtp1.Host = "smtp.gmail.com";
+                            smtp1.Port = 587;
+                            smtp1.UseDefaultCredentials = true;
+                            smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                            smtp1.EnableSsl = true;
+                            smtp1.Send(mail1);
+                        }
+                    }
                     //gửi gmail cho người bán
                     MailMessage mail2 = new MailMessage();
                     mail2.To.Add(GmNgBan);
                     mail2.From = new MailAddress("admiweb2nhom5@gmail.com");
-                    mail2.Subject = "Thông Báo Có Người Ra Giá Cho Sản Phẩm " + pro.ProName+" Của Bạn";
-                    mail2.Body = Function.GmailCoNgTraGia(pro, username).ToString();
+                    mail2.Subject = "Thông Báo Có Người Ra Giá Cho Sản Phẩm " + pro.ProName + " Của Bạn";
+                    mail2.Body = Function.GmailCoNgTraGia(pro, pro.Salesman).ToString();
                     mail2.IsBodyHtml = true;
                     SmtpClient smtp2 = new SmtpClient();
                     smtp2.Host = "smtp.gmail.com";
                     smtp2.Port = 587;
                     smtp2.UseDefaultCredentials = true;
-                    smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                    smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                     smtp2.EnableSsl = true;
-                    smtp2.Send(mail);
+                    smtp2.Send(mail2);
                 }
-                else if(giatra <= pro.OwnerPrice)
+                else if (giatra <= pro.OwnerPrice)
                 {
                     TH = 2;//2 la thua 
                     //update Product
@@ -232,13 +271,13 @@ namespace WebDauGia.Controllers
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
                 }
-                if(TH==1 || TH ==2 || TH ==3)
+                if (TH == 1 || TH == 2 || TH == 3)
                 {
                     var auhis = new AuctionHistory();
                     auhis.ProID = proid;
                     auhis.UserName = username;
-                    if(TH==3)
-                    {auhis.AucPrice = pro.Price;}
+                    if (TH == 3)
+                    { auhis.AucPrice = pro.Price; }
                     else { auhis.AucPrice = (double)pro.AucPrice; }
                     auhis.Time = DateTime.Now;
                     ctx.AuctionHistorys.Add(auhis);
@@ -248,6 +287,7 @@ namespace WebDauGia.Controllers
             //return RedirectToAction("Detail", "Product", new { ID = a.ProID });
             return Json(TH, JsonRequestBehavior.AllowGet);
         }
+
 
         ////Post : AuctionHistory/Add
         //[HttpPost]

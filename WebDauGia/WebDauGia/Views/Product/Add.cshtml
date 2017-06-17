@@ -155,12 +155,12 @@
         <label for="StartTime" class="col-sm-2 control-label">Bắt đầu:</label>
         <div class="col-sm-4">
             <input type="text" class="form-control datepicker" id="time1"
-                   name="StartTime" value="@String.Format("{0:d/M/yyyy hh:mm tt}", DateTime.Now)" />
+                   name="StartTime" value="@String.Format("{0:d/M/yyyy}", DateTime.Now)" />
         </div>
         <script type="text/javascript">
             $(function () {
                 $('#time1').datetimepicker({
-                    format: 'DD/MM/YYYY hh:mm A'
+                    format: 'DD/MM/YYYY'
                 });
             });
         </script>
