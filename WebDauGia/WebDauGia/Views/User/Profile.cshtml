@@ -62,35 +62,35 @@
         });
 <<<<<<< HEAD
     </script>*@
-=======
-        function XinBan(name) {
-            if (name != null) {
-                var url = "/User/Sale";
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: { name: name },
-                    dataType: "json",
-                    timeout: 30 * 1000,
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('Error - ' + errorThrown);
+@*=======>>>>>>> origin/master*@
+<script type="text/javascript">
+    function XinBan(name) {
+        if (name != null) {
+            var url = "/User/Sale";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { name: name },
+                dataType: "json",
+                timeout: 30 * 1000,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error - ' + errorThrown);
+                }
+            })
+                .done(function (data) {
+                    if (typeof (data) == 'string') {
+                        alert(data);
                     }
                 })
-                    .done(function (data) {
-                        if (typeof (data) == 'string') {
-                            alert(data);
-                        }
-                    })
-            .fail(function (jqXHR, status, error) {
-                //console.log(jqXHR);
-                //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
-            });
-            }
-            else{
-            }
+        .fail(function (jqXHR, status, error) {
+            //console.log(jqXHR);
+            //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+        });
         }
+        else {
+        }
+    }
 </script>
->>>>>>> origin/master
 }
 
 @if (ViewBag.ErrorMsg != null)
