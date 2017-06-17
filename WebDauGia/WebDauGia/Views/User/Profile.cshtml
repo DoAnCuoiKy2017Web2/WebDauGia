@@ -171,7 +171,7 @@
                                                     </div>
 
                                                     <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Ngày sinh: @Model.DateOfBirth.ToShortDateString() </div>
+                                                        <div class="profile-info-name"> Ngày sinh: @String.Format("{0:d/M/yyyy}", Model.DateOfBirth) </div>
 
                                                         @*<div class="profile-info-value">
                                                             <span>@Model.DateOfBirth.ToShortDateString()</span>
