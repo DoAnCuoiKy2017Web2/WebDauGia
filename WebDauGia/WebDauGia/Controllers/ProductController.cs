@@ -254,12 +254,10 @@ namespace WebDauGia.Controllers
                 model.AucPrice = double.Parse(pro.AucPrice);
                 model.TinyDes = pro.TinyDes;
                 model.FullDes = pro.FullDes;
-                model.StartTime = DateTime.ParseExact(pro.StartTime, "d/M/yyyy", null);
-                model.EndTime = DateTime.ParseExact(pro.EndTime, "d/M/yyyy hh:mm tt", null);
-
-                model.StartTime.AddHours(DateTime.Now.Hour);
-                model.StartTime.AddMinutes(DateTime.Now.Minute);
-                model.StartTime.AddSeconds(DateTime.Now.Second);
+                model.StartTime = DateTime.ParseExact(pro.StartTime, "dd/MM/yyyy", null);
+                model.EndTime = DateTime.ParseExact(pro.EndTime, "dd/MM/yyyy hh:mm tt", null);
+                if (model.StartTime <= DateTime.Now)
+                    model.StartTime = DateTime.Now;
                 ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
                 ctx.SaveChanges();
                 @ViewBag.Message = "Đã thêm thành công.";
