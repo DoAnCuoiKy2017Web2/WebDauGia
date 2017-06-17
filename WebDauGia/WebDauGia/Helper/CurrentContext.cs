@@ -46,5 +46,38 @@ namespace WebDauGia.Helper
 
             HttpContext.Current.Response.Cookies["userID"].Expires = DateTime.Now.AddDays(-1);
         }
+
+        public static bool IsAdminLogged()
+        {
+            var flag = HttpContext.Current.Session["isAdminLogin"];
+            if (flag == null || (int)flag == 0)
+            {
+                if (HttpContext.Current.Request.Cookies["adminID"] != null)
+                {
+                    string userIdCookie = Convert.ToString(HttpContext.Current.Request.Cookies["adminID"].Value);
+                    using (var ctx = new QuanLyDauGiaEntities())
+                    {
+                        var user = ctx.Users.Where(u => u.UserName == userIdCookie).FirstOrDefault();
+
+
+                        HttpContext.Current.Session["isAdminLogin"] = 1;
+                        HttpContext.Current.Session["admin"] = user;
+
+                    }
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+        public static void AdDestroy()
+        {
+            HttpContext.Current.Session["isAdminLogin"] = 0;
+            HttpContext.Current.Session["admin"] = null;
+        }
+        public static Admin GetCurAdmin()
+        {
+            return (Admin)HttpContext.Current.Session["admin"];
+        }
     }
 }

@@ -6,12 +6,15 @@ using System.Web;
 using System.Web.Mvc;
 using WebDauGia.Helper;
 using WebDauGia.Models;
+using WebDauGia.Filters;
 
 namespace WebDauGia.Controllers
 {
+   
     public class AdminController : Controller
     {
         // GET: Admin
+        [CheckAdminLogin]
         public ActionResult Index()
         {
             @ViewBag.Active1 = "class=\"active\"";
@@ -29,15 +32,13 @@ namespace WebDauGia.Controllers
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-                string pass = StringUtils.MD5(model.PassWord);
-                User us = dt.Users
-                    .Where(p => p.UserName == model.UserName && p.Password == pass)
+                Admin ad = dt.Admins
+                    .Where(p => p.UserName == model.UserName && p.PassWord == model.PassWord)
                     .FirstOrDefault();
-                if (us != null)
+                if (ad != null)
                 {
-                    Session["isLogin"] = 1;
-                    Session["user"] = us;
-                    Session["username"] = us.UserName;
+                    Session["isAdminLogin"] = 1;
+                    Session["admin"] = ad;
 
                     Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng nhập thành công.')</script>");
                     return RedirectToAction("Index", "Admin");
@@ -46,13 +47,21 @@ namespace WebDauGia.Controllers
                 return View();
             }
         }
-
+        // Post: Admin/Logout
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            CurrentContext.AdDestroy();
+            return RedirectToAction("Login", "Admin");
+        }
         // GET: Admin/RemoveUser
+        [CheckAdminLogin]
         public ActionResult RemoveUser()
         {
             return RedirectToAction("ManageUser", "Admin");
         }
         // Post: Admin/RemoveUser
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult RemoveUser(string proId)
         {
@@ -78,11 +87,13 @@ namespace WebDauGia.Controllers
             return RedirectToAction("ManageUser", "Admin");
         }
         // GET: Admin/UpdateUserPassword
+        [CheckAdminLogin]
         public ActionResult UpdateUserPassword()
         {
             return RedirectToAction("ManageUser", "Admin");
         }
         // Post: Admin/UpdateUserPassword
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult UpdateUserPassword(string proId, string newpass)
         {
@@ -108,17 +119,20 @@ namespace WebDauGia.Controllers
             }
             return RedirectToAction("ManageUser", "Admin");
         }
+        [CheckAdminLogin]
         public ActionResult Test()
         {
             return View();
         }
         // Post: Admin/Login
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult Test(string proId)
         {
             return View();
         }
         // Get: Admin/ManageUser
+        [CheckAdminLogin]
         public ActionResult ManageUser()
         {
             int t = Convert.ToInt32(TempData["ucheck"]);
@@ -139,6 +153,7 @@ namespace WebDauGia.Controllers
         }
 
         // Post: Admin/ManageUser
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult ManageUser(string proId)
         {
@@ -146,6 +161,7 @@ namespace WebDauGia.Controllers
         }
 
         // Get: Admin/ManageCategory
+        [CheckAdminLogin]
         public ActionResult ManageCategory()
         {
             int t = Convert.ToInt32(TempData["ccheck"]);
@@ -165,6 +181,7 @@ namespace WebDauGia.Controllers
             return View();
         }
         // Post: Admin/ManageCategory
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult ManageCategory(string proId)
         {
@@ -172,11 +189,13 @@ namespace WebDauGia.Controllers
         }
 
         // GET: Admin/AddCat
+        [CheckAdminLogin]
         public ActionResult AddCat()
         {
             return RedirectToAction("ManageCategory", "Admin");
         }
         // Post: Admin/AddCat
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult AddCat(string proId)
         {
@@ -202,11 +221,13 @@ namespace WebDauGia.Controllers
             return RedirectToAction("ManageCategory", "Admin");
         }
         // Get: Admin/RemoveCat
+        [CheckAdminLogin]
         public ActionResult RemoveCat()
         {
             return RedirectToAction("ManageCategory", "Admin");
         }
         // Post: Admin/RemoveCat
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult RemoveCat(string proId)
         {
@@ -235,11 +256,13 @@ namespace WebDauGia.Controllers
         }
 
         // GET: Admin/UpdateCat
+        [CheckAdminLogin]
         public ActionResult UpdateCat()
         {
             return RedirectToAction("ManageCategory", "Admin");
         }
         // Post: Admin/UpdateCat
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult UpdateCat(string proId, string newpass)
         {
@@ -268,6 +291,7 @@ namespace WebDauGia.Controllers
         }
 
         // GET: Admin/ManageRequest
+        [CheckAdminLogin]
         public ActionResult ManageRequest()
         {
             if (TempData["rcheck"] != null)
@@ -292,11 +316,13 @@ namespace WebDauGia.Controllers
         }
 
         // GET: Admin/DenyRequest
+        [CheckAdminLogin]
         public ActionResult DenyRequest()
         {
             return RedirectToAction("ManageRequest", "Admin");
         }
         // Post: Admin/DenyRequest
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult DenyRequest(string proId)
         {
@@ -324,11 +350,13 @@ namespace WebDauGia.Controllers
         }
 
         // GET: Admin/AcceptRequest
+        [CheckAdminLogin]
         public ActionResult AcceptRequest()
         {
             return RedirectToAction("ManageRequest", "Admin");
         }
         // Post: Admin/AcceptRequest
+        [CheckAdminLogin]
         [HttpPost]
         public ActionResult AcceptRequest(string proId, string newpass)
         {
