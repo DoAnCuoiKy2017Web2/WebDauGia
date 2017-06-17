@@ -163,15 +163,16 @@
                                     }
                                     
                                     <p class="hidden-lg hidden-md">Profile</p>
-                                    Admin
-                                    @*@CurrentContext.GetCurUser().UserName*@
+                                   
+                                    @CurrentContext.GetCurAdmin().UserName
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="@Url.Action("Index","Admin")">Trang chủ Admin</a></li>
                                     <li><a href="@Url.Action("ManageUser","Admin")">Quản lý người dùng</a></li>
                                     <li><a href="@Url.Action("ManageCategory","Admin")">Quản lý danh mục</a></li>
                                     <li><a href="@Url.Action("ManageRequest","Admin")">Xử lý yêu cầu của người dùng (@yc)</a></li>
-                                    <li><a href="#">Thoát</a></li>
+                                    <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
+                                    
                                 </ul>
                             </li>
                         </ul>
@@ -179,7 +180,7 @@
                     </div>
                 </div>
             </nav>
-
+            <form id="frmLogout" method="post" action="@Url.Action("Logout","Admin")"></form>
             <div class="content">
                 @RenderBody()
             </div>
@@ -247,6 +248,11 @@
 
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
+
+        $('#logoutLink').on('click', function () {
+            $('#frmLogout').submit();
+        })
+
 
     });
 </script>

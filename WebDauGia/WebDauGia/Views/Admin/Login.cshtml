@@ -29,32 +29,74 @@
     <div class="pen-title">
         <h1>Đăng nhập</h1><span>Pen <i class='fa fa-code'></i> by <a href='#'>Andy Tran</a></span>
     </div>
-    <div class="container">
-        <div class="card"></div>
-        <div class="card">
-            <h1 class="title">Login</h1>
-            <form id="form_login" method="post" action="">
-                <div class="input-container">
-                    <input type="text" id="#{label}" required="required" name="UserName" />
-                    <label for="#{label}">Username</label>
-                    <div class="bar"></div>
-                </div>
-                <div class="input-container">
-                    <input type="password" id="#{label}" required="required" name="PassWord" />
-                    <label for="#{label}">Password</label>
-                    <div class="bar"></div>
-                </div>
-                <div class="button-container">
-                    <button type="submit"><span>Go</span></button>
-                </div>
-            </form>
+        <div class="container">
+            <div class="card"></div>
+            <div class="card">
+                <h1 class="title">Quản Trị Viên</h1>
+                <form id="form_login" method="post" action="">
+                    <div class="input-container">
+                        <input type="text" class="form-control" id="txtUserName" required="required" name="UserName">
+                        <label for="#{label}">Tên đăng nhập</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" class="form-control" required="required" id="txtPassword" name="PassWord" />
+                        <label for="#{label}">Mật khẩu</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit"><span>Đăng nhập</span></button>
+                    </div>
+                </form>
+            </div>
+
         </div>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-    </div>
-    
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-    <script src="~/assets/admin/js/index.js"></script>
+        <script src="~/assets/admin/js/index.js"></script>
 </body>
 </html>
 
+@section js{
+    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+       $("#form_login").validate({
+           rules: {
+               UserName: {
+                   required: true,
+               },
+               PassWord: {
+                   required: true,
+                   minlength: 6,
+               },
+           },
+           messages: {
+               UserName: {
+                   required: "Chỗ này không được để trống.",
+               },
+               PassWord: {
+                   required: "Chỗ này không được để trống.",
+                   minlength: "Mật khẩu ít nhất 6 ký tự",
+               },
+           },
+           errorelement: 'span',
+           errorClass: 'help-block',
+           highlight: function (element, errorClass, validClass) {
+               $(element).addClass(errorClass).removeClass(validClass);
+               $(element).closest('.form-group')
+                 .addClass('has-error');
+           },
+           //unhighlight: function (element, errorClass, validClass) {
+           //    $(element).removeClass(errorClass).addClass(validClass);
+           //    $(element).closest('.form-group')
+           //      .removeClass('has-error');
+           //},
+           success: function (label) {
+               $(label).closest('.form-group')
+                 .removeClass('has-error').addClass('has-success');
+               label.remove;
+           }
+
+       });
+    </script>
+}

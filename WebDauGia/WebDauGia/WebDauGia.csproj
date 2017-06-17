@@ -1220,6 +1220,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WatchListController.cs" />
+    <Compile Include="Filters\CheckAdminLoginAttribute.cs" />
     <Compile Include="Filters\CheckLoginAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
