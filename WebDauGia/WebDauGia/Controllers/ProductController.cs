@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebDauGia.Filters;
+using WebDauGia.Helper;
 using WebDauGia.Models;
 
 namespace WebDauGia.Controllers
@@ -232,7 +234,7 @@ namespace WebDauGia.Controllers
         {
             Product model = new Product();
             if (model.Salesman == null)
-                model.Salesman = "Admin"; // Sau này đăng nhập sẽ làm lại dòng này.
+                model.Salesman = CurrentContext.GetCurUser().UserName;
             
             if (model.StepPrice == 0)
             {
@@ -260,23 +262,29 @@ namespace WebDauGia.Controllers
                 List<Category> list = ctx.Categories.ToList();
                 @ViewBag.DanhSachDanhMuc = list;
             }
-            if(fuMain != null && fuMain.ContentLength > 0 && fuThumbs_1 != null && fuThumbs_1.ContentLength > 0 && fuThumbs_2 != null && fuThumbs_2.ContentLength > 0)
-            {
-                //tạo foder chứa hình
-                string spDirPath = Server.MapPath("~/Images/sp");
-                string targetDirPath = Path.Combine(spDirPath, model.ProID.ToString());
-                Directory.CreateDirectory(targetDirPath);
-
+            //tạo foder chứa hình
+            string spDirPath = Server.MapPath("~/Images/sp");
+            string targetDirPath = Path.Combine(spDirPath, model.ProID.ToString());
+            Directory.CreateDirectory(targetDirPath);
+            if(fuMain != null && fuMain.ContentLength > 0)
+            {               
                 //copy hình
                 string mainFileName = Path.Combine(targetDirPath, "main.jpg");
-                fuMain.SaveAs(mainFileName);
-
+                WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 400, 300, mainFileName);
+                //fuMain.SaveAs(mainFileName);
+                
+            }
+            if(fuThumbs_1 != null && fuThumbs_1.ContentLength > 0)
+            {
                 string thumbs_1FileName = Path.Combine(targetDirPath, "main_thumbs_1.jpg");
-                fuThumbs_1.SaveAs(thumbs_1FileName);
-
+                WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 200, 150, thumbs_1FileName);
+                //fuThumbs_1.SaveAs(thumbs_1FileName);
+            }
+            if(fuThumbs_2 != null && fuThumbs_2.ContentLength > 0)
+            {
                 string thumbs_2FileName = Path.Combine(targetDirPath, "main_thumbs_2.jpg");
-                fuThumbs_2.SaveAs(thumbs_2FileName);
-
+                WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 200, 150, thumbs_2FileName);
+                //fuThumbs_2.SaveAs(thumbs_2FileName);
             }
 
             return View();
