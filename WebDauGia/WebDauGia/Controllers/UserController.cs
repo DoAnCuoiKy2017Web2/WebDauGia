@@ -432,5 +432,10 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        [CheckLogin]
+        public ActionResult WinProducts()
+        {
+            return View();
+        }
     }
 }

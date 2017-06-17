@@ -1316,6 +1316,7 @@
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\AHistoryProduct.cshtml" />
     <Content Include="Views\User\SoldProducts.cshtml" />
+    <Content Include="Views\User\WinProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
