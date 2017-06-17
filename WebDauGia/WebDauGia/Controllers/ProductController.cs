@@ -257,6 +257,9 @@ namespace WebDauGia.Controllers
                 model.StartTime = DateTime.ParseExact(pro.StartTime, "d/M/yyyy", null);
                 model.EndTime = DateTime.ParseExact(pro.EndTime, "d/M/yyyy hh:mm tt", null);
 
+                model.StartTime.AddHours(DateTime.Now.Hour);
+                model.StartTime.AddMinutes(DateTime.Now.Minute);
+                model.StartTime.AddSeconds(DateTime.Now.Second);
                 ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
                 ctx.SaveChanges();
                 @ViewBag.Message = "Đã thêm thành công.";
