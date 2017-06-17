@@ -11,6 +11,8 @@ namespace WebDauGia.Models
         public string CatId { get; set; }
         public string Quantity { get; set; }
         public string Price { get; set; }
+        public string AucPrice { get; set; }
+
         public string TinyDes { get; set; }
         public string FullDes { get; set; }
         public string StartTime { get; set; }

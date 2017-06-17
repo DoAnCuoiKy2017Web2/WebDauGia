@@ -251,6 +251,7 @@ namespace WebDauGia.Controllers
                 model.CatID = int.Parse(pro.CatId);
                 model.Quantity = int.Parse(pro.Quantity);
                 model.Price = double.Parse(pro.Price);
+                model.AucPrice = double.Parse(pro.AucPrice);
                 model.TinyDes = pro.TinyDes;
                 model.FullDes = pro.FullDes;
                 model.StartTime = DateTime.ParseExact(pro.StartTime, "d/M/yyyy hh:mm tt", null);
