@@ -332,24 +332,22 @@ namespace WebDauGia.Controllers
                     .Where(p => p.UserName == un && p.Password == pass)
                     .FirstOrDefault();
 
-                if (us != null)
+                if(us == null)
+                {
+                    ViewBag.ErrorMsg = "Mật khẩu chưa đúng!";
+                    return View();
+                }
+                else
                 {
                     string newpass = StringUtils.MD5(tNPassWord);
                     us.Password = newpass;
                     using (var ctx = new QuanLyDauGiaEntities())
                     {
                         ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                        ctx.SaveChanges();
-                        
+                        ctx.SaveChanges();                       
                     }
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Cập nhật thành công!!')</script>");                    
                 }
-                else
-                {
-                    ViewBag.ErrorMsg = "Mật khẩu chưa đúng!";
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('Mật khẩu sai!!')</script>");
-                }
-
-
                 return RedirectToAction("Profile", "User");
             }
         }

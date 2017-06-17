@@ -6,6 +6,60 @@
 @{ 
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
+@section js{
+    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    $("#form_register").validate({
+        rules: {
+            tOPassWord: {
+                required: true,
+                minlength: 6,
+            },
+            tNPassWord: {
+                required: true,
+                minlength: 6,
+            },
+            CPassWord: {
+                required: true,
+                equalTo: "#txtPassWord2",
+            },
+        },
+        messages: {
+            tOPassWord: {
+                required: "Chỗ này không được để trống.",
+                minlength: "Mật khẩu ít nhất 6 ký tự",
+            },
+            tNPassWord: {
+                required: "Chỗ này không được để trống.",
+                minlength: "Mật khẩu ít nhất 6 ký tự",
+            },
+            CPassWord: {
+                required: "Chỗ này không được để trống.",
+                equalTo: "Mật khẩu không khớp"
+            },
+        },
+        //errorelement: 'span',
+        //errorClass: 'help-block',
+        //highlight: function (element, errorClass, validClass) {
+        //    $(element).addClass(errorClass).removeClass(validClass);
+        //    $(element).closest('.form-group')
+        //      .addClass('has-error');
+        //},
+        ////unhighlight: function (element, errorClass, validClass) {
+        ////    $(element).removeClass(errorClass).addClass(validClass);
+        ////    $(element).closest('.form-group')
+        ////      .removeClass('has-error');
+        ////},
+        //success: function (label) {
+        //    $(label).closest('.form-group')
+        //      .removeClass('has-error').addClass('has-success');
+        //    label.remove;
+        //}
+
+    });
+</script>
+
+}
 @if (ViewBag.ErrorMsg != null)
 {
     <div class="alert alert-warning alert-dismissible" role="alert">
@@ -22,45 +76,34 @@
             <p class="category">Danh sáchaaa </p>
         </div>
         <div class="card-content table-responsive">
-
-
-
-            <form class="form-horizontal" method="post" action="/User/ChangePass">
-
-
+            <form id="form_register" class="form-horizontal" method="post" action="/User/ChangePass">
                 <div class="col-xs-12 col-sm-8">
+                    @{
+                        User us = (User)Session["user"];
+                    }
+                    <input type="hidden" name="un" value="@us.UserName" />
                     <div class="form-group">
-                        <label class="col-sm-4 control-label no-padding-right" for="form-field-username" style="font-size:15px;color:black">Nhập mật khẩu cũ </label>
-                        @{
-                            User us = (User)Session["user"];
-                        }
-                        <input type="hidden" name="UserName" value="@us.UserName" />
+                        <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:15px;color:black">Mật khẩu cũ</label>
                         <div class="col-sm-8">
-                            <input class="col-xs-12 col-sm-10" type="password" id="tOPassWord" placeholder="Mật khẩu cũ" name="tOPassWord" />
+                            <input type="password" class="form-control" id="txtPassWord" name="tOPassWord" placeholder="Nhập mật khẩu cũ" />
                         </div>
                     </div>
-
                     <div class="space-4"></div>
-
                     <div class="form-group">
-                        <label class="col-sm-4 control-label no-padding-right" for="form-field-first" style="font-size:15px;color:black">Nhập mật khẩu mới</label>
-
+                        <label for="txtPassWord2" class="col-sm-4 control-label" style="font-size:15px;color:black">Mật khẩu mới</label>
                         <div class="col-sm-8">
-                            <input class="col-xs-12 col-sm-10" type="password" id="tNPassWord" placeholder="Mật khẩu mới" name="tNPassWord" />
+                            <input type="password" class="form-control" id="txtPassWord2" name="tNPassWord" placeholder="Nhập mật khẩu mới" />
                         </div>
                     </div>
-
                     <div class="space-4"></div>
-
                     <div class="form-group">
-                        <label class="col-sm-4 control-label no-padding-right" for="form-field-first" style="font-size:15px;color:black">Xác nhận mật khẩu mới</label>
-
+                        <label for="txtCPassWord" class="col-sm-4 control-label" style="font-size:15px;color:black">Xác nhận mật khẩu mới</label>
                         <div class="col-sm-8">
-                            <input class="col-xs-12 col-sm-10" type="password" id="form-field-name" placeholder="Xác nhận mật khẩu mới" name="ReNewPassWord" />
+                            <input type="password" class="form-control" id="txtCPassWord" name="CPassWord" placeholder="Xác nhận mật khẩu mới" />
+                            <span id="re_password_error"></span>
                         </div>
                     </div>
                 </div>
-
                 <div class="clearfix form-actions">
                     <div class="col-md-offset-3 col-md-9">
 
@@ -78,8 +121,8 @@
                     </div>
                 </div>
 
+            
             </form>
-
         </div>
     </div>
 </div>
