@@ -12,57 +12,6 @@
     @*<link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
 }
 @section js{
-    @*<script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>*@
-    @*<script type="text/javascript">
-        $("#form_changepass").validate({
-            rules: {
-                OldPassWord: {
-                    required: true,
-                },
-                NewPassWord: {
-                    required: true,
-                    minlength: 6,
-                },
-                ReNewPassWord: {
-                    required: true,
-                    minlength: 6,
-                    equalTo: "#txtPassWord",
-                },
-            },
-            messages: {
-                OldPassWord: {
-                    required: "Chỗ này không được để trống.",
-                },
-                NewPassWord: {
-                    required: "Chỗ này không được để trống.",
-                    minlength: "Mật khẩu ít nhất 6 ký tự",
-                },
-                ReNewPassWord: {
-                    required: "Mật khẩu nhập lại chưa đúng.",
-                },
-            },
-            errorelement: 'span',
-            errorClass: 'help-block',
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass(errorClass).removeClass(validClass);
-                $(element).closest('.form-group')
-                  .addClass('has-error');
-            },
-            //unhighlight: function (element, errorClass, validClass) {
-            //    $(element).removeClass(errorClass).addClass(validClass);
-            //    $(element).closest('.form-group')
-            //      .removeClass('has-error');
-            //},
-            success: function (label) {
-                $(label).closest('.form-group')
-                  .removeClass('has-error').addClass('has-success');
-                label.remove;
-            }
-
-        });
-<<<<<<< HEAD
-    </script>*@
-@*=======>>>>>>> origin/master*@
 <script type="text/javascript">
     function XinBan(name) {
         if (name != null) {
