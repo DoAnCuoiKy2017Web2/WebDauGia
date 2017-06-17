@@ -179,7 +179,7 @@
         <label for="StartTime" class="col-sm-2 control-label">Bắt đầu:</label>
         <div class="col-sm-4">
             <input type="text" class="form-control datepicker" id="time1"
-                   name="StartTime" value="@DateTime.Now"/>
+                   name="StartTime" value="@String.Format("{0:d/M/yyyy hh:mm tt}", DateTime.Now)" />
         </div>
         <script type="text/javascript">
             $(function () {
@@ -191,7 +191,7 @@
         <label for="EndTime" class="col-sm-2 control-label">Kết thúc:</label>
         <div class="col-sm-4">
             <input type="text" class="form-control datepicker" id="time2"
-                   name="EndTime" value="@DateTime.Now.AddDays(7)"/>
+                   name="EndTime" value="@String.Format("{0:d/M/yyyy hh:mm tt}", DateTime.Now.AddDays(7))" />
         </div>
         <script type="text/javascript">
             $(function () {
