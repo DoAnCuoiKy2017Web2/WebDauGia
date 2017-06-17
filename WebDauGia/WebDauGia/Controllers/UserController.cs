@@ -74,7 +74,8 @@ namespace WebDauGia.Controllers
                 using (var ctx = new QuanLyDauGiaEntities())
                 {
                     var check = ctx.Requests.Where(r => r.UserName == name).FirstOrDefault();
-                    if (check != null)
+                    //neu da ton tai và trong luc duyet thi thong bao
+                    if (check != null && check.Expire == null)
                     {
                         return Json("Gửi Yêu Cầu Thất Bại! Đơn Của Bạn Đang Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
                     }
@@ -82,8 +83,20 @@ namespace WebDauGia.Controllers
                     rq.UserName = name;
                     rq.TimeRequest = DateTime.Now;
                     rq.Request1 = "sale";
-                    ctx.Requests.Add(rq);
-                    ctx.SaveChanges();
+                    rq.Expire = null;
+                    //nếu chưa tồn tại  thì add
+                    if (check == null)
+                    {
+                        ctx.Requests.Add(rq);
+                        ctx.SaveChanges();
+                    }
+                    //nếu đã tồn tại nhưng hết hạn thì update
+                    else if (check != null)
+                    {
+                        check.Expire = null;
+                        ctx.Entry(check).State = System.Data.Entity.EntityState.Modified;
+                        ctx.SaveChanges();
+                    }
                     return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
                 }
             }
