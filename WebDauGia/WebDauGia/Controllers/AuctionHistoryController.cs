@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using WebDauGia.Models;
@@ -99,6 +100,8 @@ namespace WebDauGia.Controllers
                 //van con giữ giá
                 if(giatra >=pro.Price)
                 {
+                    //luu tên 
+                    var nameold = pro.Owner;
                     TH = 3;//chiến thắng tuyệt đối
                     //update Product
                     pro.OwnerPrice = pro.Price;
@@ -107,6 +110,40 @@ namespace WebDauGia.Controllers
                     pro.EndTime = DateTime.Now;
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
+                    //gửi gmail
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add("Dragonblue789@gmail.com");
+                    mail.From = new MailAddress("admiweb2nhom5@gmail.com");
+                    mail.Subject = "Thông Báo Đấu Giá Thành Công Sản Phẩm " + pro.ProName;
+                    mail.Body = Function.GmailTBChienThang(pro, username).ToString();
+                    mail.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                    //gửi gmail cho người thua nếu có
+                    if(nameold != ((User)Session["user"]).UserName)
+                    {
+                        MailMessage mail1 = new MailMessage();
+                        mail1.To.Add("Dragonblue789@gmail.com");
+                        mail1.From = new MailAddress("admiweb2nhom5@gmail.com");
+                        mail1.Subject = "Thông Báo Bị Cướp Quyền Giá Sản Phẩm " + pro.ProName;
+                        mail1.Body = Function.GmailMatQuyenGiuGia(pro,username).ToString();
+                        mail1.IsBodyHtml = true;
+                        SmtpClient smtp1 = new SmtpClient();
+                        smtp1.Host = "smtp.gmail.com";
+                        smtp1.Port = 587;
+                        smtp1.UseDefaultCredentials = true;
+                        smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");// tài khoản Gmail của bạn
+                        smtp1.EnableSsl = true;
+                        smtp1.Send(mail);
+                    }
+                    //gửi gmail cho người bán
+
+
                 }
                 else if(giatra > pro.OwnerPrice)
                 {
