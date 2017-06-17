@@ -1227,6 +1227,9 @@
     <Compile Include="Models\Admin.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Apprais.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AuctionHistory.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -1315,7 +1318,6 @@
     <Content Include="Views\User\Test.cshtml" />
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\AHistoryProduct.cshtml" />
-    <Content Include="Views\User\SoldProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
