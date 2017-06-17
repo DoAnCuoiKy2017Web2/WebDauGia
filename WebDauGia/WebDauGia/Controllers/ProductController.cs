@@ -253,8 +253,8 @@ namespace WebDauGia.Controllers
                 model.Price = double.Parse(pro.Price);
                 model.TinyDes = pro.TinyDes;
                 model.FullDes = pro.FullDes;
-                model.StartTime = DateTime.ParseExact(pro.StartTime, "d/M/yyyy", null);
-                model.EndTime = DateTime.ParseExact(pro.EndTime, "d/M/yyyy", null);
+                model.StartTime = DateTime.ParseExact(pro.StartTime, "d/M/yyyy hh:mm tt", null);
+                model.EndTime = DateTime.ParseExact(pro.EndTime, "d/M/yyyy hh:mm tt", null);
 
                 ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
                 ctx.SaveChanges();

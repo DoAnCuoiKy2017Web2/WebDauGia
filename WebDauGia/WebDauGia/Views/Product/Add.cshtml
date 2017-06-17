@@ -185,7 +185,9 @@
         </div>
         <script type="text/javascript">
             $(function () {
-                $('#time1').datetimepicker();
+                $('#time1').datetimepicker({
+                    format: 'DD/MM/YYYY hh:mm A'
+                });
             });
         </script>
         <label for="EndTime" class="col-sm-2 control-label">Kết thúc:</label>
@@ -195,7 +197,9 @@
         </div>
         <script type="text/javascript">
             $(function () {
-                $('#time2').datetimepicker();
+                $('#time2').datetimepicker({
+                    format: 'DD/MM/YYYY hh:mm A'
+                });
             });
         </script>
     </div>
