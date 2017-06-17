@@ -73,30 +73,28 @@ namespace WebDauGia.Controllers
             {
                 using (var ctx = new QuanLyDauGiaEntities())
                 {
-                    var check = ctx.Requests.Where(r => r.UserName == name).FirstOrDefault();
-                    //neu da ton tai và trong luc duyet thi thong bao
-                    if (check != null && check.Expire == null)
-                    {
-                        return Json("Gửi Yêu Cầu Thất Bại! Đơn Của Bạn Đang Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
-                    }
-                    var rq = new Request();
-                    rq.UserName = name;
-                    rq.TimeRequest = DateTime.Now;
-                    rq.Request1 = "sale";
-                    rq.Expire = null;
+                    var check = ctx.Requests.Where(r => r.UserName == name && r.Request1 == "sale").FirstOrDefault();
                     //nếu chưa tồn tại  thì add
                     if (check == null)
                     {
+                        var rq = new Request();
+                        rq.UserName = name;
+                        rq.TimeRequest = DateTime.Now;
+                        rq.Request1 = "sale";
+                        rq.Expire = null;
                         ctx.Requests.Add(rq);
                         ctx.SaveChanges();
+                        return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
+                    }
+                    //neu da ton tai và trong luc duyet thi thong bao
+                    if (check.Expire == null)
+                    {
+                        return Json("Gửi Yêu Cầu Thất Bại! Yêu Của Bạn Đang Chờ Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
                     }
                     //nếu đã tồn tại nhưng hết hạn thì update
-                    else if (check != null)
-                    {
-                        check.Expire = null;
-                        ctx.Entry(check).State = System.Data.Entity.EntityState.Modified;
-                        ctx.SaveChanges();
-                    }
+                    check.Expire = null;
+                    ctx.Entry(check).State = System.Data.Entity.EntityState.Modified;
+                    ctx.SaveChanges();
                     return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
                 }
             }
