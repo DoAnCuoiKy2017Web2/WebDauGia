@@ -1,5 +1,7 @@
 ﻿@using WebDauGia.Models
 @using WebDauGia.Helper
+@using BotDetect.Web.Mvc
+
 @model User
 @section view_title{
     Cập nhật thông tin
@@ -8,6 +10,8 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
+
+
 @*@if (ViewBag.ErrorMsg != null)
     {
         <div class="alert alert-warning alert-dismissible" role="alert">
@@ -15,6 +19,18 @@
             <strong>Lỗi!</strong> @ViewBag.ErrorMsg
         </div>
     }*@
+@section css{
+    <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+}
+@section js{
+    <script src="~/Content/DatePicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            format: 'd/mm/yyyy',
+            autoclose: true,
+        });
+    </script>
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header" data-background-color="blue">
@@ -24,7 +40,7 @@
             <p class="category">Danh sách bbb </p>
         </div>
         <div class="card-content table-responsive">
-            
+
 
             <form class="form-horizontal" method="post" action="">
                 <h4 class="header blue bolder smaller">Thông tin chung</h4>
@@ -65,53 +81,26 @@
                         <div class="col-sm-8">
                             <div class="input-medium">
                                 <div class="input-group">
-                                    <input type="text" class="form-control datepicker" id="txtDateOfBirth" name="DateOfBirth" placeholder="chọn" readonly value="@Model.DateOfBirth.ToShortDateString()" />
+                                    <input type="text" class="form-control datepicker" id="txtDateOfBirth" name="DateOfBirth" placeholder="chọn" readonly value="@String.Format("{0:d/M/yyyy}", Model.DateOfBirth)" />
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-4"></div>
-
                     <div class="form-group">
-                        <label class="col-sm-4 control-label no-padding-right" style="font-size:15px;color:black">Giới tính</label>
+                        <label for="@Model.Gender" class="col-sm-4 control-label no-padding-right" style="font-size:15px;color:black">Giới tính</label>
 
                         <div class="col-sm-8">
-
-                            @* chưa xử lý radiobutton nam nữ*@
-                            @if (Model.Gender == "Nam")
-            {
-                                <label class="inline">
-                                    <input name="form-field-radio" type="radio" class="ace" checked />
-                                    <span class="lbl middle"> Nam</span>
-                                </label>
-
-
-                                <label class="inline">
-                                    <input name="form-field-radio" type="radio" class="ace" />
-                                    <span class="lbl middle"> Nữ</span>
-                                </label>
-                            }
-                            else if (Model.Gender == "Nữ")
-                            {
-                                <label class="inline">
-                                    <input name="form-field-radio" type="radio" class="ace" />
-                                    <span class="lbl middle"> Nam</span>
-                                </label>
-
-
-                                <label class="inline">
-                                    <input name="form-field-radio" type="radio" class="ace" checked />
-                                    <span class="lbl middle"> Nữ</span>
-                                </label>
-                            }
-                            else
-                            {
-                                <i>Khac</i>
-                            }
+                            <div class="editor-field">
+                            @Html.RadioButtonFor(model => model.Gender, "Nam", Model.Gender == "Nam"?true:false) Nam
+                            @Html.RadioButtonFor(model => model.Gender, "Nữ", Model.Gender == "Nữ" ? true : false) Nữ
+                            @Html.RadioButtonFor(model => model.Gender, "Khác", Model.Gender == "Khác" ? true : false) Khác
+                            @Html.ValidationMessageFor(model => model.Gender)<br />
+                            </div>
                         </div>
                     </div>
-
                     <div class="space-4"></div>
 
 
@@ -148,7 +137,7 @@
 
                 </div>
 
-                @*<hr />*@
+                            @*<hr />*@
 
 
 

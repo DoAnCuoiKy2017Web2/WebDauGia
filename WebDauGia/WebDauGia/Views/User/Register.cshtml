@@ -32,14 +32,14 @@
         });
         $("#form_register").validate({
             rules: {
-                Username: {
+                UserName: {
                     required: true,
                 },
-                Password: {
+                PassWord: {
                     required: true,
                     minlength: 6,
                 },
-                CPasswword: {
+                CPassWord: {
                     required: true,
                     equalTo: "#txtPassWord",
                 },
@@ -58,14 +58,14 @@
                 },
             },
             messages: {
-                Username: {
+                UserName: {
                     required: "Chỗ này không được để trống.",
                 },
-                Password: {
+                PassWord: {
                     required: "Chỗ này không được để trống.",
                     minlength: "Mật khẩu ít nhất 6 ký tự",
                 },
-                CPasswword: {
+                CPassWord: {
                     required: "Chỗ này không được để trống.",
                     equalTo: "Mật khẩu không khớp"
                 },
@@ -119,21 +119,21 @@
 }
 <form class="form-horizontal" method="post" action="" id="form_register">
     <div class="form-group">
-        <label for="txtUsername" class="col-sm-3 control-label">Tên đăng nhập</label>
+        <label for="txtUserName" class="col-sm-3 control-label">Tên đăng nhập</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="txtUsername" name="Username" placeholder="Tên đăng nhập" value="@Model.Username" />
+            <input type="text" class="form-control" id="txtUserName" name="UserName" placeholder="Tên đăng nhập" value="@Model.UserName" />
         </div>
     </div>
     <div class="form-group">
         <label for="txtPassWord" class="col-sm-3 control-label">Mật khẩu</label>
         <div class="col-sm-9">
-            <input type="password" class="form-control" id="txtPassWord" name="Password" placeholder="Nhập mật khẩu" />
+            <input type="password" class="form-control" id="txtPassWord" name="PassWord" placeholder="Nhập mật khẩu" />
         </div>
     </div>
     <div class="form-group">
         <label for="txtCPassWord" class="col-sm-3 control-label">Nhập lại mật khẩu</label>
         <div class="col-sm-9">
-            <input type="password" class="form-control" id="txtCPassWord" name="CPasswword" placeholder="Nhập lại mật khẩu" />
+            <input type="password" class="form-control" id="txtCPassWord" name="CPassWord" placeholder="Nhập lại mật khẩu" />
             <span id="re_password_error"></span>
         </div>
     </div>

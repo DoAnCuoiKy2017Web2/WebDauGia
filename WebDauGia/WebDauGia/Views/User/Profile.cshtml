@@ -9,11 +9,11 @@
 }
 
 @section css{
-    <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    @*<link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
 }
 @section js{
-    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
-    <script type="text/javascript">
+    @*<script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>*@
+    @*<script type="text/javascript">
         $("#form_changepass").validate({
             rules: {
                 OldPassWord: {
@@ -60,6 +60,9 @@
             }
 
         });
+<<<<<<< HEAD
+    </script>*@
+=======
         function XinBan(name) {
             if (name != null) {
                 var url = "/User/Sale";
@@ -87,6 +90,7 @@
             }
         }
 </script>
+>>>>>>> origin/master
 }
 
 @if (ViewBag.ErrorMsg != null)
@@ -103,7 +107,6 @@
             <h4 class="title">
                 Thông tin người dùng
             </h4>
-            <p class="category">Danh sáchaaa </p>
         </div>
         <div class="card-content table-responsive">
 

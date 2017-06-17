@@ -10,6 +10,17 @@
             <PropertyRef Name="UserName" />
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Appraises">
+          <Key>
+            <PropertyRef Name="Assessor" />
+            <PropertyRef Name="BeAsssessed" />
+          </Key>
+          <Property Name="Assessor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BeAsssessed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Remark" Type="ntext" />
+          <Property Name="TimeAppraise" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="AuctionHistorys">
           <Key>
@@ -67,6 +78,7 @@
           <Property Name="OwnerPrice" Type="float" />
           <Property Name="Status" Type="bit" />
           <Property Name="NumOfAuction" Type="int" Nullable="false" />
+          <Property Name="AutoRenewal" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
@@ -75,7 +87,8 @@
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TimeRequest" Type="datetime" />
-          <Property Name="Request" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Request" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="Expire" Type="datetime" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -105,6 +118,7 @@
         </EntityType>
         <EntityContainer Name="QuanLyDauGiaModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appraises" EntityType="Self.Appraises" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuctionHistorys" EntityType="Self.AuctionHistorys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
@@ -120,6 +134,7 @@
       <Schema Namespace="QuanLyDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="QuanLyDauGiaModel.Admin" />
+          <EntitySet Name="Appraises" EntityType="QuanLyDauGiaModel.Apprais" />
           <EntitySet Name="AuctionHistorys" EntityType="QuanLyDauGiaModel.AuctionHistory" />
           <EntitySet Name="Categories" EntityType="QuanLyDauGiaModel.Category" />
           <EntitySet Name="Comments" EntityType="QuanLyDauGiaModel.Comment" />
@@ -134,6 +149,17 @@
             <PropertyRef Name="UserName" />
           </Key>
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Apprais">
+          <Key>
+            <PropertyRef Name="Assessor" />
+            <PropertyRef Name="BeAsssessed" />
+          </Key>
+          <Property Name="Assessor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BeAsssessed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TimeAppraise" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="AuctionHistory">
           <Key>
@@ -191,6 +217,7 @@
           <Property Name="OwnerPrice" Type="Double" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="NumOfAuction" Type="Int32" Nullable="false" />
+          <Property Name="AutoRenewal" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -199,7 +226,8 @@
           </Key>
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeRequest" Type="DateTime" Precision="3" />
-          <Property Name="Request1" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Request1" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="Expire" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -236,7 +264,18 @@
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="QuanLyDauGiaModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appraises">
+            <EntityTypeMapping TypeName="QuanLyDauGiaModel.Apprais">
+              <MappingFragment StoreEntitySet="Appraises">
+                <ScalarProperty Name="TimeAppraise" ColumnName="TimeAppraise" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="BeAsssessed" ColumnName="BeAsssessed" />
+                <ScalarProperty Name="Assessor" ColumnName="Assessor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -282,6 +321,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="AutoRenewal" ColumnName="AutoRenewal" />
                 <ScalarProperty Name="NumOfAuction" ColumnName="NumOfAuction" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
@@ -304,6 +344,7 @@
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="QuanLyDauGiaModel.Request">
               <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Expire" ColumnName="Expire" />
                 <ScalarProperty Name="Request1" ColumnName="Request" />
                 <ScalarProperty Name="TimeRequest" ColumnName="TimeRequest" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />

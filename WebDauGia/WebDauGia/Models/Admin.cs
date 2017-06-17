@@ -15,5 +15,6 @@ namespace WebDauGia.Models
     public partial class Admin
     {
         public string UserName { get; set; }
+        public string PassWord { get; set; }
     }
 }

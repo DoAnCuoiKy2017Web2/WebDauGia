@@ -4,7 +4,18 @@
     <EntitySetMapping Name="Admins">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Admin">
         <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appraises">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Apprais">
+        <MappingFragment StoreEntitySet="Appraises">
+          <ScalarProperty Name="TimeAppraise" ColumnName="TimeAppraise" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BeAsssessed" ColumnName="BeAsssessed" />
+          <ScalarProperty Name="Assessor" ColumnName="Assessor" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -50,6 +61,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Product">
         <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="AutoRenewal" ColumnName="AutoRenewal" />
           <ScalarProperty Name="NumOfAuction" ColumnName="NumOfAuction" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="OwnerPrice" ColumnName="OwnerPrice" />
@@ -72,6 +84,7 @@
     <EntitySetMapping Name="Requests">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Request">
         <MappingFragment StoreEntitySet="Requests">
+          <ScalarProperty Name="Expire" ColumnName="Expire" />
           <ScalarProperty Name="Request1" ColumnName="Request" />
           <ScalarProperty Name="TimeRequest" ColumnName="TimeRequest" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />

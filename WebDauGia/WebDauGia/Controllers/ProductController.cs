@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebDauGia.Filters;
 using WebDauGia.Models;
 
 namespace WebDauGia.Controllers
 {
+    
     public class ProductController : Controller
     {
         // GET: Product
@@ -207,9 +210,10 @@ namespace WebDauGia.Controllers
                 return View(model);
             }
         }
-        
+
 
         //Get : Produc/Add
+        [CheckLogin]
         public ActionResult Add()
         {
             using (var ctx = new QuanLyDauGiaEntities())
@@ -221,9 +225,10 @@ namespace WebDauGia.Controllers
         }
 
         //Post : Produc/Add
+        [CheckLogin]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Add(ProductVM pro)
+        public ActionResult Add(ProductVM pro, HttpPostedFileBase fuMain, HttpPostedFileBase fuThumbs_1, HttpPostedFileBase fuThumbs_2)
         {
             Product model = new Product();
             if (model.Salesman == null)
@@ -255,6 +260,25 @@ namespace WebDauGia.Controllers
                 List<Category> list = ctx.Categories.ToList();
                 @ViewBag.DanhSachDanhMuc = list;
             }
+            if(fuMain != null && fuMain.ContentLength > 0 && fuThumbs_1 != null && fuThumbs_1.ContentLength > 0 && fuThumbs_2 != null && fuThumbs_2.ContentLength > 0)
+            {
+                //tạo foder chứa hình
+                string spDirPath = Server.MapPath("~/Images/sp");
+                string targetDirPath = Path.Combine(spDirPath, model.ProID.ToString());
+                Directory.CreateDirectory(targetDirPath);
+
+                //copy hình
+                string mainFileName = Path.Combine(targetDirPath, "main.jpg");
+                fuMain.SaveAs(mainFileName);
+
+                string thumbs_1FileName = Path.Combine(targetDirPath, "main_thumbs_1.jpg");
+                fuThumbs_1.SaveAs(thumbs_1FileName);
+
+                string thumbs_2FileName = Path.Combine(targetDirPath, "main_thumbs_2.jpg");
+                fuThumbs_2.SaveAs(thumbs_2FileName);
+
+            }
+
             return View();
         }
 

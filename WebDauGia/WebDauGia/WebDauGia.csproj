@@ -282,6 +282,7 @@
     <Content Include="Content\bootstrap-3.3.7-dist\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\js\npm.js" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.file-input.js" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\adapters\jquery.js" />
     <Content Include="Content\ckeditor_4.6.2_full\ckeditor\build-config.js" />
@@ -1036,6 +1037,7 @@
       <DependentUpon>QuanLyDauGia.edmx</DependentUpon>
       <LastGenOutput>QuanLyDauGia.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\bootstrap.file-input.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
@@ -1227,6 +1229,9 @@
     <Compile Include="Models\Admin.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Apprais.cs">
+      <DependentUpon>QuanLyDauGia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AuctionHistory.cs">
       <DependentUpon>QuanLyDauGia.tt</DependentUpon>
     </Compile>
@@ -1315,8 +1320,11 @@
     <Content Include="Views\User\Test.cshtml" />
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\AHistoryProduct.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\User\SoldProducts.cshtml" />
     <Content Include="Views\User\WinProducts.cshtml" />
+=======
+>>>>>>> 5f1d64a4083c88ac8ecc5a277773c1dcf439e2c5
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
