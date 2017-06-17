@@ -426,5 +426,11 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+
+        [CheckLogin]
+        public ActionResult SoldProducts()
+        {
+            return View();
+        }
     }
 }
