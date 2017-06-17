@@ -26,7 +26,8 @@
 <link rel="stylesheet" href="assets/css/ace-ie.min.css" />*@
 
     <link href="~/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
+    @*<link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
 }
 @section js{
 @*<script src="assets/js/html5shiv.min.js"></script>
@@ -34,10 +35,17 @@
 <script src="assets/js/ace-extra.min.js"></script>*@
 
     @*<script src="//cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>*@
-    <script src="~/Content/DatePicker/js/bootstrap-datepicker.min.js"></script>
+    @*<script src="~/Content/DatePicker/js/bootstrap-datepicker.min.js"></script>*@
     <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
     <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
     <script src="~/Content/bootstrap.file-input.js"></script>
+
+
+    <script type="text/javascript" src="~/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/scripts/moment.min.js"></script>
+    <script type="text/javascript" src="~/scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/scripts/bootstrap-datetimepicker.js"></script>
+
     <script>
         $('input[type=file]').bootstrapFileInput();
 
@@ -168,17 +176,28 @@
             <textarea name="FullDes" id="FullDes"></textarea>
         </div>
     </div>
+
     <div class="form-group">
         <label for="StartTime" class="col-sm-2 control-label">Bắt đầu:</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control datepicker"
-                   name="StartTime" value="@DateTime.Now" readonly/>
+            <input type="text" class="form-control datepicker" id="time1"
+                   name="StartTime" value="@DateTime.Now"/>
         </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#time1').datetimepicker();
+            });
+        </script>
         <label for="EndTime" class="col-sm-2 control-label">Kết thúc:</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control datepicker"
-                   name="EndTime" value="@DateTime.Now.AddDays(7)" readonly/>
+            <input type="text" class="form-control datepicker" id="time2"
+                   name="EndTime" value="@DateTime.Now.AddDays(7)"/>
         </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#time2').datetimepicker();
+            });
+        </script>
     </div>
     <div class="form-group">
         <label for="StepPrice" class="col-sm-2 control-label">Bước tăng:</label>
