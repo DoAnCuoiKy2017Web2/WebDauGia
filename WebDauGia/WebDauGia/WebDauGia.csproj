@@ -1320,11 +1320,8 @@
     <Content Include="Views\User\Test.cshtml" />
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\AHistoryProduct.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\User\SoldProducts.cshtml" />
     <Content Include="Views\User\WinProducts.cshtml" />
-=======
->>>>>>> 5f1d64a4083c88ac8ecc5a277773c1dcf439e2c5
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
