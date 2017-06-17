@@ -64,12 +64,12 @@ namespace WebDauGia.Models
             StringBuilder Body = new StringBuilder();
             Body.Append("<h3>Chào: <b>" + username + "<b></h3>");
             Body.Append("<p>Vào Lúc " + DateTime.Now.ToString() + " Bạn Đã Trở Thành Người Giữ Giá Sản Phẩm:" + pro.ProName + "</p>");
-            Body.Append("<p>Giá Bạn Trả Cho Sản Phẩm Này Là: " + pro.OwnerPrice + "</p>");
-            Body.Append("<p style='color:red'>Lưu ý: giá bạn trả cho sản phẩm này sẻ là giá hiện tại của sản phẩm khi phiên đấu giá kết thúc!</p>");
+            Body.Append("<p>Giá Bạn Trả Cho Sản Phẩm Này Là: " + string.Format("{0:N0}",pro.OwnerPrice) + " VNĐ</p>");
+            Body.Append("<p style='color:red'>Lưu ý: giá bạn phải trả cho sản phẩm này sẻ là giá hiện tại của sản phẩm khi phiên đấu giá kết thúc!</p>");
             Body.Append("<table>");
             Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
             Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "/td></tr>");
-            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + pro.AucPrice.ToString() + "</td></tr>");
+            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}",pro.AucPrice) + " VNĐ</td></tr>");
             Body.Append("<tr><td>Thời Gian Kết Thúc Đấu Giá: </td><td>" + pro.EndTime.ToString() + "</td></tr>");
             Body.Append("</table>");
             return Body;
@@ -95,7 +95,7 @@ namespace WebDauGia.Models
             Body.Append("<table>");
             Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
             Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "/td></tr>");
-            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + pro.AucPrice.ToString() + "</td></tr>");
+            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}",pro.AucPrice) + " VNĐ</td></tr>");
             Body.Append("<tr><td>Thời Gian Kết Thúc Đấu Giá: </td><td>" + pro.EndTime.ToString() + "</td></tr>");
             Body.Append("</table>");
             return Body;
@@ -121,7 +121,7 @@ namespace WebDauGia.Models
             Body.Append("<table>");
             Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
             Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "/td></tr>");
-            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + pro.AucPrice.ToString() + "</td></tr>");
+            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}",pro.AucPrice)+ " VNĐ</td></tr>");
             Body.Append("</table>");
             return Body;
             //MailMessage mail = new MailMessage();
@@ -138,7 +138,46 @@ namespace WebDauGia.Models
             //smtp.EnableSsl = true;
             //smtp.Send(mail);
         }
-
+        public static StringBuilder GmailCoNgTraGia(Product pro, string username)
+        {
+            StringBuilder Body = new StringBuilder();
+            Body.Append("<h3>Chào: <b>" + username + "<b></h3>");
+            Body.Append("<p>Đã Có Người Trả Giá Lúc " + DateTime.Now.ToString() + "</p>");
+            Body.Append("<p>Người Mua : " + pro.Owner + " Đã Trả " + string.Format("{0:N0}", pro.AucPrice) + " VNĐ Cho Sản Phẩm"+pro.ProName+" Của Bạn</p>");
+            Body.Append("<table>");
+            Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
+            Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "/td></tr>");
+            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}", pro.AucPrice) + " VNĐ</td></tr>");
+            Body.Append("<tr><td>Thời Gian Kết Thúc Đấu Giá: </td><td>" + pro.EndTime.ToString() + "</td></tr>");
+            Body.Append("</table>");
+            return Body;
+        }
+        public static StringBuilder GmailBanTC(Product pro, string username)
+        {
+            StringBuilder Body = new StringBuilder();
+            Body.Append("<h3>Chào: <b>" + username + "<b></h3>");
+            Body.Append("<p>Phiên Đấu Giá Của Bạn Đã Kết Thúc Lúc " + DateTime.Now.ToString()+ "</p>");
+            Body.Append("<p>Người Mua : "+pro.Owner+" Đã Chiến Thắng Trong Phiên Đấu Giá Của Bạn Với Số Tiền "+string.Format("{0:N0}",pro.AucPrice)+" VNĐ</p>");
+            Body.Append("<table>");
+            Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
+            Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "/td></tr>");
+            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}",pro.AucPrice) + " VNĐ</td></tr>");
+            Body.Append("</table>");
+            return Body;
+        }
+        public static StringBuilder GmailBanTB(Product pro, string username)
+        {
+            StringBuilder Body = new StringBuilder();
+            Body.Append("<h3>Chào: <b>" + username + "<b></h3>");
+            Body.Append("<p>Phiên Đấu Giá Của Bạn Đã Kết Thúc Lúc " + DateTime.Now.ToString() + "</p>");
+            Body.Append("<p>Rất Tiếc Không Ai Trả Giá Cho Sản Phẩm Của Bạn !!!</p>");
+            Body.Append("<table>");
+            Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
+            Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "/td></tr>");
+            Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}", pro.AucPrice) + " VNĐ</td></tr>");
+            Body.Append("</table>");
+            return Body;
+        }
     }
     
 
