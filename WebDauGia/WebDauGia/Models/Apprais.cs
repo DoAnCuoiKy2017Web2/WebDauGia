@@ -12,9 +12,11 @@ namespace WebDauGia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Admin
+    public partial class Apprais
     {
-        public string UserName { get; set; }
-        public string PassWord { get; set; }
+        public string Assessor { get; set; }
+        public string BeAsssessed { get; set; }
+        public string Remark { get; set; }
+        public System.DateTime TimeAppraise { get; set; }
     }
 }

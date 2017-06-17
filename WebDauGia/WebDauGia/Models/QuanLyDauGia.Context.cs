@@ -26,6 +26,7 @@ namespace WebDauGia.Models
         }
     
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Apprais> Appraises { get; set; }
         public virtual DbSet<AuctionHistory> AuctionHistorys { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
