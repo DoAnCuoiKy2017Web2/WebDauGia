@@ -83,9 +83,10 @@
                 //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
             });
             }
+            else{
+            }
         }
-
-    </script>
+</script>
 }
 
 @if (ViewBag.ErrorMsg != null)
@@ -253,9 +254,18 @@
                                                 <div class="col-xs-12 col-sm-9">
                                                     @*Xin được đăng đấu giá*@
                                                     <div class="profile-info-row">
-                                                        <button type="button" class="btn btn-success" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
-                                                            Xin được đăng sản phẩm đấu giá
-                                                        </button>
+                                                        @if (Model.AllowSales == true)
+                                                        {
+                                                            <a href="@Url.Action("Add", "Product")" style="color:green;font-size:15px">
+                                                                Đăng Bán Sản Phẩm!
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="button" class="btn btn-success" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
+                                                                Xin được đăng sản phẩm đấu giá
+                                                            </button>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div><!-- /.col -->
