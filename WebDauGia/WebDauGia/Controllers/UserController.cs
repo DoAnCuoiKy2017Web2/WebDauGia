@@ -521,68 +521,131 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult RemoveUserFromAuc(string proId, string user)
+        public ActionResult RemoveUserFromAuc(string proId,string user)
         {
             int t = int.Parse(proId);
             try
             {
                 using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                    User us = dt.Users
-                        .Where(p => p.UserName == user)
-                        .FirstOrDefault();
-                    AuctionHistory au = dt.AuctionHistorys.Where(p => p.ProID == t && p.UserName == user).OrderBy(p => p.AucPrice).FirstOrDefault();
-                    var AllAu = dt.AuctionHistorys.Where(p => p.ProID == t).ToList();
-                    if (us != null)
+                     //xử lý lịch sử
+                    //lấy danh các khách hàng tham gia đấu giá sản phẩm có proid như trên.
+                    var ListAuhis = dt.AuctionHistorys.Where(auhis => auhis.ProID == t).OrderBy(auhis=>auhis.AucPrice).ToList();
+                    //Xóa Các Dòng Có tên Người Bị Xóa
+                    foreach(var a in ListAuhis)
                     {
-                        int countdel = 0;
-                        foreach (var c in AllAu)
+                        if(a.UserName==user)
                         {
-                            if (c.Time >= au.Time)
+                            ListAuhis.Remove(a);
+                        }
+                    }
+                    //sau khi xoa các dòng thì ta có danh sách còn lại
+                    //xoa user giống nhau xóa cái ở đằng sau
+                    for(int i=0;i>ListAuhis.Count-1;i++)
+                    {
+                        for (int j = i + 1; j > ListAuhis.Count; j++)
+                        {
+                            if(ListAuhis[i].UserName==ListAuhis[j].UserName)
                             {
-                                dt.Entry(c).State = System.Data.Entity.EntityState.Deleted;
-                                dt.SaveChanges();
-                                countdel++;
-                            }
-                            else
-                            {
-                                //khong lam gi ca
+                                ListAuhis.Remove(ListAuhis[i]);
+                                i--;
+                                break;
                             }
                         }
-                        //lấy người đấu giá cuối cùng sau khi chặn người đấu giá trước đó
-                        AuctionHistory newau = dt.AuctionHistorys.Where(p => p.ProID == t).OrderByDescending(p => p.AucPrice).FirstOrDefault();
-                        //lấy ra sản phẩm sẽ cập nhật lại giá
-                        Product lpro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
-                        if (newau != null)
+                    }
+                    //xóa từ user này 
+                    AuctionHistory userchose = null;
+                    if (ListAuhis.Count>0)
+                    {
+                        userchose = ListAuhis[ListAuhis.Count - 1];
+                    }
+                    //lay product
+                    var pro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
+                    //kiem tra neu user bị kic là owner thì update
+                    if(pro.Owner==user)
+                    {
+                        if(userchose==null)
                         {
-                            lpro.Owner = newau.UserName;
-                            lpro.OwnerPrice = newau.AucPrice;
-                            lpro.NumOfAuction -= countdel;
+                            pro.Owner =null;
+                            pro.OwnerPrice = 0;
+                            pro.AucPrice = 0;
                         }
                         else
                         {
-                            lpro.Owner = null;
-                            lpro.OwnerPrice = 0;
+                            pro.Owner = userchose.UserName;
+                            pro.OwnerPrice = userchose.AucPrice;
+                            pro.AucPrice = userchose.AucPrice;
                         }
-                        dt.Entry(lpro).State = System.Data.Entity.EntityState.Modified;
+                        dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                         dt.SaveChanges();
-
-                        var l = new LimitedList();
-                        l.ProID = int.Parse(proId);
-                        l.UserName = user;
-
-                        dt.Entry(l).State = System.Data.Entity.EntityState.Added;
-                        dt.SaveChanges();
-                        TempData["rcheck"] = 1;
                     }
+                    //xoa lich sử của người bị kíc
+                    var list = dt.AuctionHistorys.Where(li => li.UserName == user && li.ProID == t).ToList();
+                    dt.AuctionHistorys.RemoveRange(list);
+                    dt.SaveChanges();
+                    //xóa những lịch sử thừa
+                    if(pro.Owner !=user && userchose!=null)
+                    {
+                        var list1 = dt.AuctionHistorys.Where(li => li.ProID == t && li.AucID > userchose.AucID).ToList();
+                        if(list1 !=null)
+                        {
+                            dt.AuctionHistorys.RemoveRange(list1);
+                            dt.SaveChanges();
+                        }    
+                    }                  
+                    //thêm user vào danh sách cấm
+                    var l = new LimitedList();
+                    l.ProID = int.Parse(proId);
+                    l.UserName = user;
+                    dt.Entry(l).State = System.Data.Entity.EntityState.Added;
+                    dt.SaveChanges();
+                    TempData["rcheck"] = 1;
+                    //User us = dt.Users
+                    //    .Where(p => p.UserName == user)
+                    //    .FirstOrDefault();
+                    //AuctionHistory au = dt.AuctionHistorys.Where(p => p.ProID == t && p.UserName == user).OrderBy(p => p.AucPrice).FirstOrDefault();
+                    //var AllAu = dt.AuctionHistorys.Where(p=>p.ProID==t).ToList();
+                    //if (us != null)
+                    //{
+                    //    foreach(var c in AllAu)
+                    //    {
+                    //        if (c.Time >= au.Time)
+                    //        {
+                    //            dt.Entry(c).State = System.Data.Entity.EntityState.Deleted;
+                    //            dt.SaveChanges();
+                    //        }
+                    //        else
+                    //        {
+                    //            //khong lam gi ca
+                    //        }
+                    //    }
+                    //    //lấy người đấu giá cuối cùng sau khi chặn người đấu giá trước đó
+                    //    AuctionHistory newau = dt.AuctionHistorys.Where(p => p.ProID == t).OrderByDescending(p => p.AucPrice).FirstOrDefault();
+                    //    //lấy ra sản phẩm sẽ cập nhật lại giá
+                    //    Product lpro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
+                    //    if (newau != null)
+                    //    {
+                    //        lpro.Owner = newau.UserName;
+                    //        lpro.OwnerPrice = newau.AucPrice;
+                    //    }
+                    //    else
+                    //    {
+                    //        lpro.Owner = null;
+                    //        lpro.OwnerPrice = 0;
+                    //    }
+                    //    dt.Entry(lpro).State = System.Data.Entity.EntityState.Modified;
+                    //    dt.SaveChanges();
+
+                    //    var l = new LimitedList();
+                    //    l.ProID = int.Parse(proId);
+                    //    l.UserName = user;
+
+                    //    dt.Entry(l).State = System.Data.Entity.EntityState.Added;
+                    //    dt.SaveChanges();
+                    //    TempData["rcheck"] = 1;
+                    //}
                 }
             }
-            catch (Exception)
-            {
-                TempData["rcheck"] = -1;
-            }
-            return RedirectToAction("AHistoryProduct", "User", new { ID = proId });
-        }
 
         [CheckLogin]
         public ActionResult IsBidding()
