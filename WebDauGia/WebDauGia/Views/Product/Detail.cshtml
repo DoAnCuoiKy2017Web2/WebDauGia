@@ -198,7 +198,6 @@
             var month = date.getMonth() + 1;
             return date.getDate() + "/" + month + "/" + date.getFullYear() + " " + hour + ":" + mins + " " + time;
         }
-
         //Lich Su Dau Giá
         function showhistory(proid) {
             var showlistlove = $('#list-history');
@@ -220,8 +219,10 @@
                     else {
 
                         $.each(data, function (idx, p) {
+                            var i=p.UserName.length;
                             var html =
-                                '<li> <b>UserName: </b> ' + p.UserName + " <b>Tiền Cược: </b> " + p.AucPrice + "VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
+                                '<li> <b>UserName: </b> ' +"*****"+ p.UserName.toString().substr(6,i)+" <b>Tiền Cược: </b> " + p.AucPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+ + " VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
                             $('#list-history').append(html);
                         });
                     }
