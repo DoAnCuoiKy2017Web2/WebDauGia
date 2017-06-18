@@ -150,7 +150,7 @@ namespace WebDauGia.Controllers
                     ctx.SaveChanges();
 
                 }
-                else if (giatra > pro.OwnerPrice)
+                else if (giatra > pro.OwnerPrice  || pro.OwnerPrice ==null)
                 {
                     TH = 1;// 1 là chiến thắng trờ thành người giữ giá
                     int RestTime = Function.Rest(pro.EndTime);

@@ -7,6 +7,8 @@ using BotDetect.Web.Mvc;
 using WebDauGia.Helper;
 using WebDauGia.Models;
 using WebDauGia.Filters;
+using System.Text;
+using System.Net.Mail;
 
 namespace WebDauGia.Controllers
 {
@@ -532,26 +534,24 @@ namespace WebDauGia.Controllers
                     //lấy danh các khách hàng tham gia đấu giá sản phẩm có proid như trên.
                     var ListAuhis = dt.AuctionHistorys.Where(auhis => auhis.ProID == t).OrderBy(auhis => auhis.AucPrice).ToList();
                     //Xóa Các Dòng Có tên Người Bị Xóa
-                    foreach (var a in ListAuhis)
+                    for (int i=0; i<ListAuhis.Count;i++)
                     {
-                        if (a.UserName == user)
+                        if (ListAuhis[i].UserName == user)
                         {
-                            ListAuhis.Remove(a);
+                            ListAuhis.RemoveAt(i);
+                            i--;
                         }
                     }
                     //sau khi xoa các dòng thì ta có danh sách còn lại
                     //xoa user giống nhau xóa cái ở đằng sau
-                    for (int i = 0; i > ListAuhis.Count - 1; i++)
+                    for (int i = 0, j=i+1; i <ListAuhis.Count - 1; i++,j=i+1)
                     {
-                        for (int j = i + 1; j > ListAuhis.Count; j++)
-                        {
+                                
                             if (ListAuhis[i].UserName == ListAuhis[j].UserName)
                             {
-                                ListAuhis.Remove(ListAuhis[i]);
+                                ListAuhis.Remove(ListAuhis[j]);
                                 i--;
-                                break;
                             }
-                        }
                     }
                     //xóa từ user này 
                     AuctionHistory userchose = null;
@@ -568,7 +568,7 @@ namespace WebDauGia.Controllers
                         {
                             pro.Owner = null;
                             pro.OwnerPrice = 0;
-                            pro.AucPrice = 0;
+                            pro.AucPrice = pro.StepPrice;
                         }
                         else
                         {
@@ -600,6 +600,41 @@ namespace WebDauGia.Controllers
                     dt.Entry(l).State = System.Data.Entity.EntityState.Added;
                     dt.SaveChanges();
                     TempData["rcheck"] = 1;
+                    //update lại so luot dau
+                    var au = dt.AuctionHistorys.Where(a => a.ProID == t).ToList();
+                    int sl = 0;
+                    if(au.Count >0)
+                    {
+                        sl = au.Count;
+                    }
+                    pro.NumOfAuction = sl;
+                    dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                    dt.SaveChanges();
+                    //gửi gmail thông báo
+                    StringBuilder Body = new StringBuilder();
+                    Body.Append("<h3>Chào: <b>" + user + "<b></h3>");
+                    Body.Append("<p>Vào Lúc " + DateTime.Now.ToString() + " Bạn Đã Bị Chủ Sản Phẩm Loại Khỏi Phiên Đấu Giá Sản Phẩm: "+pro.ProName+"</p>");
+                    Body.Append("<p style='color:blue'>Chúng Tôi Rất Tiếc Về Điều Này! Còn Rất Nhiều Sản Phẩm Bạn Có Thê Tham Gia Ở Web Của Chúng Tôi!</p>");
+                    Body.Append("<table>");
+                    Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
+                    Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "</td></tr>");
+                    Body.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}", pro.AucPrice) + " VNĐ</td></tr>");
+                    Body.Append("<tr><td>Thời Gian Kết Thúc Đấu Giá: </td><td>" + pro.EndTime.ToString() + "</td></tr>");
+                    Body.Append("</table>");
+                    var Use = dt.Users.Where(us => us.UserName == user).FirstOrDefault();
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(Use.Email);
+                    mail.From = new MailAddress("admiweb2nhom5@gmail.com");
+                    mail.Subject = "Thông Báo Bị Loại Khỏi Phiên Đấu Giá Sản Phẩm: " + pro.ProName;
+                    mail.Body = Body.ToString();// phần thân của mail ở trên
+                    mail.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
                     //User us = dt.Users
                     //    .Where(p => p.UserName == user)
                     //    .FirstOrDefault();
