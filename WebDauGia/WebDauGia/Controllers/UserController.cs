@@ -535,12 +535,14 @@ namespace WebDauGia.Controllers
                     var AllAu = dt.AuctionHistorys.Where(p=>p.ProID==t).ToList();
                     if (us != null)
                     {
+                        int countdel = 0;
                         foreach(var c in AllAu)
                         {
                             if (c.Time >= au.Time)
                             {
                                 dt.Entry(c).State = System.Data.Entity.EntityState.Deleted;
                                 dt.SaveChanges();
+                                countdel++;
                             }
                             else
                             {
@@ -555,6 +557,7 @@ namespace WebDauGia.Controllers
                         {
                             lpro.Owner = newau.UserName;
                             lpro.OwnerPrice = newau.AucPrice;
+                            lpro.NumOfAuction -= countdel;
                         }
                         else
                         {
