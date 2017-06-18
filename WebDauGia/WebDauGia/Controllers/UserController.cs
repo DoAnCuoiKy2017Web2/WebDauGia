@@ -21,17 +21,17 @@ namespace WebDauGia.Controllers
         [CheckLogin]
         public ActionResult Test()
         {
-            string ID = CurrentContext.GetCurUser().UserName;
-            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
-            {
-                User us = dt.Users
-                    .Where(p => p.UserName == ID.ToString())
-                    .FirstOrDefault();
-                if (us != null)
-                {
-                    return View(us);
-                }
-            }
+            //string ID = CurrentContext.GetCurUser().UserName;
+            //using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            //{
+            //    User us = dt.Users
+            //        .Where(p => p.UserName == ID.ToString())
+            //        .FirstOrDefault();
+            //    if (us != null)
+            //    {
+            //        return View(us);
+            //    }
+            //}
             return View();
         }
         // GET: User/Login
@@ -663,6 +663,29 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        [CheckLogin]
+        public ActionResult Review(string rec)
+        {
+            @ViewBag.Receiver = rec;
+            return View();
+        }
+        [CheckLogin]
+        [HttpPost]
+        public ActionResult Review(string Sender, string Receiver, string Content)
+        {
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                var nx = new Apprais();
+                nx.Assessor = Sender;
+                nx.BeAsssessed = Receiver;
+                nx.Remark = Content;
+                nx.TimeAppraise = DateTime.Now;
 
+                dt.Entry(nx).State = System.Data.Entity.EntityState.Added;
+                dt.SaveChanges();
+            }
+
+            return View();
+        }
     }
 }
