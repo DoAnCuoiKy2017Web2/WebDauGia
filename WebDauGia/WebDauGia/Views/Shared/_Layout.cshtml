@@ -1,13 +1,5 @@
 ﻿@using WebDauGia.Helper
-@section js{
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script>
 
-        $('#myCarousel').carousel({
-            interval: 4000
-        });
-    </script>
-}
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,25 +68,35 @@
                     else
                     {
                         <li>
-                            <a href="@Url.Action("Add","Product")">
-                                <i class="fa fa-shopping-cart"></i>
-                                Đăng sản phẩm
-                            </a>
-                        </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-user" aria-hidden="true"></i>@CurrentContext.GetCurUser().UserName
-                                    <span class="caret"></span>
+                            @if (CurrentContext.GetCurUser().AllowSales == true)
+                            {
+                                <a href="@Url.Action("Add", "Product")">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Đăng sản phẩm
                                 </a>
-                                <ul class="dropdown-menu">
-                                    @*<li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>*@
-                                    <li><a href="@Url.Action("Profile", "User")"><i class="fa fa-address-book-o" aria-hidden="true"></i>Quản lý tài khoản</a></li>
-                                    @*<li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>*@
-                                    <li role="separator" class="divider"></li>
-                                    <li><a id="logoutLink" href="javascript:;"><i class="fa fa-sign-out" aria-hidden="true"></i>Thoát</a></li>
-                                </ul>
-                            </li>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Profile", "User")">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Bạn cần xin phép để đăng sản phẩm đấu giá
+                                </a>
+                            }
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>@CurrentContext.GetCurUser().UserName
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @*<li><a href="@Url.Action("Profile","Account")">Thông tin cá nhân</a></li>*@
+                                <li><a href="@Url.Action("Profile", "User")"><i class="fa fa-address-book-o" aria-hidden="true"></i>Quản lý tài khoản</a></li>
+                                @*<li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>*@
+                                <li role="separator" class="divider"></li>
+                                <li><a id="logoutLink" href="javascript:;"><i class="fa fa-sign-out" aria-hidden="true"></i>Thoát</a></li>
+                            </ul>
+                        </li>
                     }
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -225,6 +227,7 @@
             interval: 4000
         });
     </script>
+    <script src="js/jquery-1.11.1.min.js"></script>
     @RenderSection("js", false)
 </body>
 </html>

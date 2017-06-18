@@ -21,21 +21,31 @@ namespace WebDauGia.Helper
                     {
                         var user = ctx.Users.Where(u => u.UserName == userIdCookie).FirstOrDefault();
 
-
                         HttpContext.Current.Session["isLogin"] = 1;
                         HttpContext.Current.Session["user"] = user;
-                        
+
                     }
                     return true;
                 }
                 return false;
             }
-            return true;    
+            return true;
         }
 
         public static User GetCurUser()
         {
-            return (Models.User)HttpContext.Current.Session["user"];
+
+            string id = ((User)HttpContext.Current.Session["user"]).UserName;
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                var user = ctx.Users.Where(u => u.UserName == id).FirstOrDefault();
+                HttpContext.Current.Session["user"] = null;
+                HttpContext.Current.Session["user"] = user;
+
+            }
+            return (User)HttpContext.Current.Session["user"];
+            // usser được lấy 1 lần duy nhất. 
+            //sửa chỗ này là đươck
         }
 
         public static void Destroy()
@@ -79,5 +89,6 @@ namespace WebDauGia.Helper
         {
             return (Admin)HttpContext.Current.Session["admin"];
         }
+        
     }
 }
