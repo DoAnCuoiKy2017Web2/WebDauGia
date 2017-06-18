@@ -221,7 +221,7 @@
                         $.each(data, function (idx, p) {
                             var i=p.UserName.length;
                             var html =
-                                '<li> <b>UserName: </b> ' +"*****"+ p.UserName.toString().substr(6,i)+" <b>Tiền Cược: </b> " + p.AucPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                '<li> <b>UserName: </b> ' +"*****"+ p.UserName.toString().substr(4,i)+" <b>Tiền Cược: </b> " + p.AucPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
  + " VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
                             $('#list-history').append(html);
                         });
@@ -231,7 +231,6 @@
                           console.log(jqXHR);
                           alert('fail');
                       });
-
         }
     </script>
 }
