@@ -521,7 +521,7 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult RemoveUserFromAuc(string proId,string user)
+        public ActionResult RemoveUserFromAuc(string proId, string user)
         {
             int t = int.Parse(proId);
             try
@@ -532,11 +532,11 @@ namespace WebDauGia.Controllers
                         .Where(p => p.UserName == user)
                         .FirstOrDefault();
                     AuctionHistory au = dt.AuctionHistorys.Where(p => p.ProID == t && p.UserName == user).OrderBy(p => p.AucPrice).FirstOrDefault();
-                    var AllAu = dt.AuctionHistorys.Where(p=>p.ProID==t).ToList();
+                    var AllAu = dt.AuctionHistorys.Where(p => p.ProID == t).ToList();
                     if (us != null)
                     {
                         int countdel = 0;
-                        foreach(var c in AllAu)
+                        foreach (var c in AllAu)
                         {
                             if (c.Time >= au.Time)
                             {
@@ -589,5 +589,12 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+
+        [CheckLogin]
+        public ActionResult UnexpiredProducts()
+        {
+            return View();
+        }
+
     }
 }

@@ -1,10 +1,16 @@
 ﻿@using WebDauGia.Models
 @using WebDauGia.Helper
 @section view_title{
-    Sản phẩm bán thành công
+    Sản phẩm đấu giá thắng
 }
 @{
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+@{
+    User us = (User)Session["user"];
+    var ctx = new QuanLyDauGiaEntities();
+    var lprooutdate = ctx.Products.Where(p => p.EndTime < DateTime.Now && p.NumOfAuction > 0 && p.Salesman == us.UserName).ToList();
+    int t = lprooutdate.Count();
 }
 <div class="col-md-12">
     <div class="card">
@@ -12,58 +18,38 @@
             <h4 class="title">
                 Danh sách sản phẩm bán thành công
             </h4>
-            <p class="category">Danh sáchaaa </p>
+            <p class="category">Bạn có @t sản phẩm bán thành công</p>
         </div>
         <div class="card-content table-responsive">
             <table class="table">
                 <thead class="text-primary">
                     <tr>
-                        <th>Mã lượt đấu</th>
                         <th>Mã sản phẩm</th>
-                        <th class="text-right">Người đấu</th>
-                        <th class="text-right">Giá tiền đấu</th>
-                        <th class="text-right">Thời điểm</th>
+                        <th>Tên sản phẩm</th>
+                        <th class="text-right">Người chiến thắng</th>
+                        <th class="text-right">Giá tiền thắng</th>
                         <th class="text-right">Đánh giá</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @*@{
-                        User us = (User)Session["user"];
-                        var ctx = new QuanLyDauGiaEntities();
-                        var lpro = ctx.Products.Where(p => p.Salesman == us.UserName && p.EndTime<DateTime.Now);
-                        List<AuctionHistory> lsold = new List<AuctionHistory>();
-                        foreach(var c in lpro)
-                        {
-                            AuctionHistory t = ctx.AuctionHistorys.Where(p => p.ProID == c.ProID).OrderByDescending(p => p.AucPrice).First();
-                            if (t!=null)
-                            {
-                                lsold.Add(t);
-                            }
-                        }
-
-                        //var ctx = new QuanLyDauGiaEntities();
-                        //List<Product> myAL = (from n in ctx.Products
-                        //                      where n.Salesman == us.UserName
-                        //                      select n).ToList();
-
-                    }
-                    @foreach (var cim in lsold)
+                   
+                    @foreach (var cim in lprooutdate)
                     {
                         <tr>
-                            <td>@cim.AucID</td>
                             <td>@cim.ProID</td>
-                            <td class="text-right">@cim.UserName</td>
+                            <td>@cim.ProName</td>
+                            <td class="text-right">@cim.Owner</td>
                             <td class="text-right">@cim.AucPrice</td>
-                            <td class="text-right">@cim.Time</td>
                             <td class="text-right">
                                 <a class="btn btn-info btn-xs updateItem" href="#" role="button" title="Xem thêm">
                                     Đánh giá
                                 </a>
                             </td>
                         </tr>
-                    }*@
-                </tbody>
 
+                    }
+                </tbody>
+                Cập nhật code cho hiện người thắng ở bảng product
             </table>
 
         </div>
