@@ -34,7 +34,7 @@ namespace WebDauGia.Controllers
                     return Json("Phiên Đấu Giá Đã Kết Thúc Lúc " + pro.EndTime.ToString(), JsonRequestBehavior.AllowGet);
                 }
                 //trường hợp thây đổi giá đề mua luôn sản phẩm
-                if (giatra >= pro.Price)
+                if (giatra >= pro.Price && pro.Price!=0 && pro.Price!=null)
                 {
                     string GmNgMua = (ctx.Users.Where(us => us.UserName == username).FirstOrDefault()).Email;
                     string GmNgBan = (ctx.Users.Where(us => us.UserName == pro.Salesman).FirstOrDefault()).Email;
@@ -138,7 +138,7 @@ namespace WebDauGia.Controllers
                 //tang lượt đâu giá lên 1
                 pro.NumOfAuction += 1;
                 //van con giữ giá
-                if (giatra >= pro.Price)
+                if (giatra >= pro.Price && pro.Price!=0 && pro.Price!=null)
                 {
                     TH = 3;//chiến thắng tuyệt đối
                     //update Product
@@ -154,7 +154,7 @@ namespace WebDauGia.Controllers
                 {
                     TH = 1;// 1 là chiến thắng trờ thành người giữ giá
                     int RestTime = Function.Rest(pro.EndTime);
-                    if (0 < RestTime && RestTime <= 5 * 60)
+                    if (0 < RestTime && RestTime <= 5 * 60 && pro.AutoRenewal==true)
                     {
                         pro.EndTime = pro.EndTime.AddMinutes(10);
                     }
