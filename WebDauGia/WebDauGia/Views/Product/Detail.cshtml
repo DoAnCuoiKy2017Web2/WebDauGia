@@ -1,4 +1,5 @@
 ﻿@using WebDauGia.Models
+@using WebDauGia.Helper
 @model Product
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
@@ -31,13 +32,14 @@
         .padding {
             padding-top: 8px;
         }
-        .Butan{
-                font-size: 18px;
-                margin-left: 15px;
-                margin-top: 0px;
-                width: 94px;
-                height: 45px;
-                padding-top: 8px;
+
+        .Butan {
+            font-size: 18px;
+            margin-left: 15px;
+            margin-top: 0px;
+            width: 94px;
+            height: 45px;
+            padding-top: 8px;
         }
     </style>
 }
@@ -88,96 +90,88 @@
         });
     </script>
     <script>
-    function UpdateBid(proid) {
-        var GiaTra = parseFloat($('#ragia').val());
-        var GiaGoc = parseFloat($('#giagoc').val());
-        var buocgia = parseFloat($('#buocgia').val());
-        var tiendenghi = GiaGoc+buocgia;
-        if(GiaTra==null)
-        {
-            alert("Vui Lòng Nhập Số Tiền");
-        }
-        else if (GiaTra < tiendenghi)
-        {
-            alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
-        }
-        else if (GiaTra >= tiendenghi) {
-            var url = "/AuctionHistory/UpdateBid";
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: { giatra: GiaTra, proid: proid },
-                dataType: "json",
-                timeout: 30 * 1000,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Error - ' + errorThrown);
-                }
-            })
-                        .done(function (data) {
-                            alert(data);
-                            window.location = "/Product/Detail/" + proid;
-                        })
-                .fail(function (jqXHR, status, error) {
-                    console.log(jqXHR);
-                    alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
-                });
-        }
-    }
-    function Bid(proid) {
-        $(function () {
+        function UpdateBid(proid) {
             var GiaTra = parseFloat($('#ragia').val());
             var GiaGoc = parseFloat($('#giagoc').val());
             var buocgia = parseFloat($('#buocgia').val());
-            var tiendenghi = GiaGoc+buocgia;
-            if(GiaTra==null)
-            {
+            var tiendenghi = GiaGoc + buocgia;
+            if (GiaTra == null) {
                 alert("Vui Lòng Nhập Số Tiền");
             }
-            else if (GiaTra < tiendenghi)
-            {
-                alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: "+tiendenghi)
+            else if (GiaTra < tiendenghi) {
+                alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: " + tiendenghi)
             }
-            else if (GiaTra >=tiendenghi)
-            {
-                if (confirm("Số Tiền Bạn Đưa Ra Là "+GiaTra+" VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
-                    var url = "/AuctionHistory/Add";
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: { giatra: GiaTra, proid:proid},
-                        dataType: "json",
-                        timeout: 30 * 1000,
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert('Error - ' + errorThrown);
-                        }
-                    })
-                        .done(function (data) {
-                            if (typeof (data) == 'string') {
+            else if (GiaTra >= tiendenghi) {
+                var url = "/AuctionHistory/UpdateBid";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { giatra: GiaTra, proid: proid },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
+                    }
+                })
+                            .done(function (data) {
                                 alert(data);
-                            }
-                            else if(data==1)
-                            {
-                                alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền " + GiaTra + " VNĐ");
-                            }
-                            else if(data==2)
-                            {
-                                alert("Đã Có Người Đặt Giá Cao Hơn Ban! Vui Lòng Đặt  Giá Cao Hơn!");
-                            }
-                            else if(data ==3)
-                            {
-                                alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ") 
-                            }
-                            window.location = "/Product/Detail/" + proid;
-                        })
+                                window.location = "/Product/Detail/" + proid;
+                            })
                     .fail(function (jqXHR, status, error) {
                         console.log(jqXHR);
                         alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
                     });
+            }
+        }
+        function Bid(proid) {
+            $(function () {
+                var GiaTra = parseFloat($('#ragia').val());
+                var GiaGoc = parseFloat($('#giagoc').val());
+                var buocgia = parseFloat($('#buocgia').val());
+                var tiendenghi = GiaGoc + buocgia;
+                if (GiaTra == null) {
+                    alert("Vui Lòng Nhập Số Tiền");
+                }
+                else if (GiaTra < tiendenghi) {
+                    alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: " + tiendenghi)
+                }
+                else if (GiaTra >= tiendenghi) {
+                    if (confirm("Số Tiền Bạn Đưa Ra Là " + GiaTra + " VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
+                        var url = "/AuctionHistory/Add";
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: { giatra: GiaTra, proid: proid },
+                            dataType: "json",
+                            timeout: 30 * 1000,
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('Error - ' + errorThrown);
+                            }
+                        })
+                            .done(function (data) {
+                                if (typeof (data) == 'string') {
+                                    alert(data);
+                                }
+                                else if (data == 1) {
+                                    alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền " + GiaTra + " VNĐ");
+                                }
+                                else if (data == 2) {
+                                    alert("Đã Có Người Đặt Giá Cao Hơn Ban! Vui Lòng Đặt  Giá Cao Hơn!");
+                                }
+                                else if (data == 3) {
+                                    alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ")
+                                }
+                                window.location = "/Product/Detail/" + proid;
+                            })
+                        .fail(function (jqXHR, status, error) {
+                            console.log(jqXHR);
+                            alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+                        });
                     } else {
                     }
                 }
             });
-    }
+        }
         function formatDate(ms) {
 
             var date = new Date(parseInt(ms.replace("/Date(", "").replace(")/", ""), 10));
@@ -206,8 +200,7 @@
         }
 
         //Lich Su Dau Giá
-        function showhistory(proid)
-        {
+        function showhistory(proid) {
             var showlistlove = $('#list-history');
             showlistlove.children().remove();
 
@@ -215,7 +208,7 @@
             $.ajax({
                 url: url,
                 type: "POST",
-                data: {proid: proid },
+                data: { proid: proid },
                 dataType: "json",
                 timeout: 30 * 1000,
             })
@@ -228,7 +221,7 @@
 
                         $.each(data, function (idx, p) {
                             var html =
-                                '<li> <b>UserName: </b> ' + p.UserName + " <b>Tiền Cược: </b> " + p.AucPrice+ "VNĐ "+ "<b>Thờì Điểm Cược: </b>"+formatDate(p.Time)+'</li>';
+                                '<li> <b>UserName: </b> ' + p.UserName + " <b>Tiền Cược: </b> " + p.AucPrice + "VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
                             $('#list-history').append(html);
                         });
                     }
@@ -251,9 +244,9 @@ else
     <div class="row">
         <div class="col-md-12 caption-lg-orange">
             @*<div class="col-md-4">
-                <img src="~/Images/sp/@Model.ProID/main.jpg" width="200" height="150" title="@Model.ProID"
-                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-            </div>*@
+                    <img src="~/Images/sp/@Model.ProID/main.jpg" width="200" height="150" title="@Model.ProID"
+                         onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                </div>*@
             <div class="col-md-4">
 
                 <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" title="@Model.ProID"
@@ -263,11 +256,10 @@ else
                 @*<img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" title="@Model.ProID"
 
                 *@<img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" width="200" height="150" title="@Model.ProID"
-                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                       onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
             <div class="col-md-4">
                 <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" width="200" height="150" title="@Model.ProID"
-
                      onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
         </div>
@@ -275,8 +267,10 @@ else
 
 
         <div class="col-md-12 caption-lg-orange">
-            <h2>@Model.ProName <a style="font-size: 25px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
-   class="fa fa-heart" onclick="love(@Model.ProID)" aria-hidden="true"></a></h2>
+            <h2>
+                @Model.ProName <a style="font-size: 25px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
+                                  class="fa fa-heart" onclick="love(@Model.ProID)" aria-hidden="true"></a>
+            </h2>
         </div>
         <br />
         <hr width="100%" align="center" />
@@ -311,15 +305,37 @@ else
         <div class="col-md-12 padding">
             <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
         </div>
-         @*Dau Gia ở Day*@
-            @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
+        @*Dau Gia ở Day*@
+        @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
+        {
+            int check = 0;
+            if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName == Model.Salesman)
             {
-                if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName == Model.Salesman)
+                <div class="alert alert-default" style="color:green">
+                    <h3 class="fa fa-exclamation" aria-hidden="true">  Bạn Đang Rao Bán Sản Phẩm Này!!!</h3>
+                </div>
+            }
+            else if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName != Model.Salesman)
+            {
+                @* Kiểm tra có bị cấm đấu giá sản phẩm này*@
+        {
+            var ctx = new QuanLyDauGiaEntities();
+
+            foreach (var cim in ctx.LimitedLists)
+            {
+                if (cim.ProID == Model.ProID && cim.UserName == CurrentContext.GetCurUser().UserName)
                 {
-                    <div class="alert alert-default" style="color:green">
-                        <h5 class="fa fa-exclamation" aria-hidden="true">  Bạn Đang Rao Bán Sản Phẩm Này!!!</h5></div>
+                    check = 1;
                 }
-                else if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName != Model.Salesman)
+            }
+        }
+        if (check == 1)
+        {
+            <div class="alert alert-default" style="color:red">
+                <h5 class="fa fa-exclamation" aria-hidden="true">  Bạn Bị Cấm Đấu Giá Sản Phẩm Này!!!</h5>
+            </div>
+                }
+                else
                 {
                     <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate"*@>
                         <div class="col-md-12 caption-lg-green">
@@ -327,12 +343,12 @@ else
                             {
                                 if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
                                 {
-                                    <h3 style="color:darkblue">
-                                        Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}", Model.OwnerPrice) VNĐ!!!
-                                    </h3>
-                                    <div style="color:red">
-                                        <h5 class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</h5>
-                                    </div>
+                            <h3 style="color:darkblue">
+                                Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}", Model.OwnerPrice) VNĐ!!!
+                            </h3>
+                            <div style="color:red">
+                                <h5 class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</h5>
+                            </div>
                                 }
                             }
                             <h3>
@@ -357,30 +373,32 @@ else
                             {
                                 if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
                                 {
-                                    <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
-                                        Đổi Giá
-                                    </a>
+                            <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
+                                Đổi Giá
+                            </a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
-                                        Đấu giá
-                                    </a>
+                            <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                                Đấu giá
+                            </a>
                                 }
                             }
                             else
                             {
-                                <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
-                                    Đấu giá
-                                </a>
+                            <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                                Đấu giá
+                            </a>
                             }
 
                         </div>
                     </form>
                 }
+
             }
-            else if (WebDauGia.Helper.CurrentContext.IsLogged() == false)
-            {
+        }
+        else if (WebDauGia.Helper.CurrentContext.IsLogged() == false)
+        {
             <div class="alert alert-default" style="color:green">
                 Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login", "User")">đăng nhập</a> Nếu chưa có tài khoản hãy
                 <a href="@Url.Action("Register", "User")">đăng ký</a> Để Đấu Giá.
@@ -567,4 +585,4 @@ else
                         </div>
                     </form>
                 }*@
-}
+                                                                                }

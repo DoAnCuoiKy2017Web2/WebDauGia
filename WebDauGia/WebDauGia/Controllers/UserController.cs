@@ -476,6 +476,19 @@ namespace WebDauGia.Controllers
         [CheckLogin]
         public ActionResult AHistoryProduct(int? id)
         {
+            int t = Convert.ToInt32(TempData["rcheck"]);
+            if (t == 1)
+            {
+                ViewBag.Message = "yes";
+            }
+            else if (t == -1)
+            {
+                ViewBag.Message = "no";
+            }
+            else
+            {
+
+            }
             if (id.HasValue == false)
             {
                 return RedirectToAction("MyProducts", "User");
@@ -506,5 +519,35 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        [CheckLogin]
+        [HttpPost]
+        public ActionResult RemoveUserFromAuc(string proId,string user)
+        {
+            try
+            {
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+                {
+                    User us = dt.Users
+                        .Where(p => p.UserName == user)
+                        .FirstOrDefault();
+                    if (us != null)
+                    {
+                        var l = new LimitedList();
+                        l.ProID = int.Parse(proId);
+                        l.UserName = user;
+
+                        dt.Entry(l).State = System.Data.Entity.EntityState.Added;
+                        dt.SaveChanges();
+                        TempData["rcheck"] = 1;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                TempData["rcheck"] = -1;
+            }
+            return RedirectToAction("AHistoryProduct", "User", new { ID = proId });
+        }
+        
     }
 }
