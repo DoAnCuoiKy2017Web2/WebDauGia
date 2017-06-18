@@ -521,31 +521,31 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult RemoveUserFromAuc(string proId,string user)
+        public ActionResult RemoveUserFromAuc(string proId, string user)
         {
             int t = int.Parse(proId);
             try
             {
                 using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
-                     //xử lý lịch sử
+                    //xử lý lịch sử
                     //lấy danh các khách hàng tham gia đấu giá sản phẩm có proid như trên.
-                    var ListAuhis = dt.AuctionHistorys.Where(auhis => auhis.ProID == t).OrderBy(auhis=>auhis.AucPrice).ToList();
+                    var ListAuhis = dt.AuctionHistorys.Where(auhis => auhis.ProID == t).OrderBy(auhis => auhis.AucPrice).ToList();
                     //Xóa Các Dòng Có tên Người Bị Xóa
-                    foreach(var a in ListAuhis)
+                    foreach (var a in ListAuhis)
                     {
-                        if(a.UserName==user)
+                        if (a.UserName == user)
                         {
                             ListAuhis.Remove(a);
                         }
                     }
                     //sau khi xoa các dòng thì ta có danh sách còn lại
                     //xoa user giống nhau xóa cái ở đằng sau
-                    for(int i=0;i>ListAuhis.Count-1;i++)
+                    for (int i = 0; i > ListAuhis.Count - 1; i++)
                     {
                         for (int j = i + 1; j > ListAuhis.Count; j++)
                         {
-                            if(ListAuhis[i].UserName==ListAuhis[j].UserName)
+                            if (ListAuhis[i].UserName == ListAuhis[j].UserName)
                             {
                                 ListAuhis.Remove(ListAuhis[i]);
                                 i--;
@@ -555,18 +555,18 @@ namespace WebDauGia.Controllers
                     }
                     //xóa từ user này 
                     AuctionHistory userchose = null;
-                    if (ListAuhis.Count>0)
+                    if (ListAuhis.Count > 0)
                     {
                         userchose = ListAuhis[ListAuhis.Count - 1];
                     }
                     //lay product
                     var pro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
                     //kiem tra neu user bị kic là owner thì update
-                    if(pro.Owner==user)
+                    if (pro.Owner == user)
                     {
-                        if(userchose==null)
+                        if (userchose == null)
                         {
-                            pro.Owner =null;
+                            pro.Owner = null;
                             pro.OwnerPrice = 0;
                             pro.AucPrice = 0;
                         }
@@ -584,15 +584,15 @@ namespace WebDauGia.Controllers
                     dt.AuctionHistorys.RemoveRange(list);
                     dt.SaveChanges();
                     //xóa những lịch sử thừa
-                    if(pro.Owner !=user && userchose!=null)
+                    if (pro.Owner != user && userchose != null)
                     {
                         var list1 = dt.AuctionHistorys.Where(li => li.ProID == t && li.AucID > userchose.AucID).ToList();
-                        if(list1 !=null)
+                        if (list1 != null)
                         {
                             dt.AuctionHistorys.RemoveRange(list1);
                             dt.SaveChanges();
-                        }    
-                    }                  
+                        }
+                    }
                     //thêm user vào danh sách cấm
                     var l = new LimitedList();
                     l.ProID = int.Parse(proId);
@@ -646,7 +646,12 @@ namespace WebDauGia.Controllers
                     //}
                 }
             }
-
+            catch (Exception)
+            {
+                TempData["rcheck"] = -1;
+            }
+            return RedirectToAction("AHistoryProduct", "User", new { ID = proId });
+        }
         [CheckLogin]
         public ActionResult IsBidding()
         {
