@@ -11,6 +11,35 @@
     var ctx = new QuanLyDauGiaEntities();
     var proname = ctx.Products.Where(p => p.ProID == t).Select(p => p.ProName);
 }
+@section js{
+    <script src="~/Content/jquery-3.2.0.min.js"></script>
+}
+
+@if (@ViewBag.Message == "yes")
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Thông báo: </strong> Thao tác thành công.
+    </div>
+}
+else if (@ViewBag.Message == "no")
+{
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Lỗi!</strong> Thao tác thất bại!
+    </div>
+}
+else
+{
+
+}
+
+<form id="frmR" method="post" action="@Url.Action("RemoveUserFromAuc","User")">
+    <input id="txtRProId" type="hidden" name="proId" />
+    <input id="txtRUser" type="hidden" name="user" />
+</form>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header" data-background-color="blue">
@@ -44,7 +73,7 @@
                             <td class="text-right">@cim.AucPrice</td>
                             <td class="text-right">@cim.Time</td>
                             <td class="text-right">
-                                <a class="btn btn-danger btn-xs updateItem" href="#" role="button" title="Chặn">
+                                <a class="btn btn-danger btn-xs removeItem" href="#" role="button" title="Chặn" data-user="@cim.UserName" data-proid="@cim.ProID">
                                    Không cho đấu giá sản phẩm này
                                 </a>
                             </td>
@@ -58,3 +87,23 @@
         </div>
     </div>
 </div>
+
+<script language="javascript">
+
+    $('.removeItem').on('click', function () {
+
+        if (confirm("Xác nhận xóa?")) {
+            var id = $(this).data('proid');
+            $('#txtRProId').val(id);
+
+
+            var us = $(this).data('user');
+            $('#txtRUser').val(us);
+
+            $('#frmR').submit();
+        }
+        else {
+            return false;
+        }
+    });
+</script>

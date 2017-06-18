@@ -18,8 +18,20 @@ namespace WebDauGia.Controllers
             return View();
         }
         // GET: Test
+        [CheckLogin]
         public ActionResult Test()
         {
+            string ID = CurrentContext.GetCurUser().UserName;
+            using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+            {
+                User us = dt.Users
+                    .Where(p => p.UserName == ID.ToString())
+                    .FirstOrDefault();
+                if (us != null)
+                {
+                    return View(us);
+                }
+            }
             return View();
         }
         // GET: User/Login
@@ -66,6 +78,7 @@ namespace WebDauGia.Controllers
             return RedirectToAction("Index", "Home");
         }
         //Post: User/Sale
+        [CheckLogin]
         [HttpPost]
         public ActionResult Sale(string name)
         {
@@ -113,7 +126,7 @@ namespace WebDauGia.Controllers
                 PassWord = "",
                 Name = "",
                 Gender = "",
-                DateOfBirth = DateTime.Now.Day + "/" + DateTime.Now.Month +"/" + DateTime.Now.Year,
+                DateOfBirth = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year,
                 Email = "",
                 Phone = "",
                 Address = "",
@@ -161,7 +174,7 @@ namespace WebDauGia.Controllers
                             u.DateCreate = DateTime.Now;
                             ctx.Users.Add(u);
                             ctx.SaveChanges();
-                            
+
                             @ViewBag.Error = false;
 
                             LoginVM lvm = new LoginVM();
@@ -178,7 +191,7 @@ namespace WebDauGia.Controllers
                         }
                     }
                 }
-                
+
             }
             return View(model);
         }
@@ -213,7 +226,20 @@ namespace WebDauGia.Controllers
         [CheckLogin]
         public ActionResult Update()
         {
-            string ID= CurrentContext.GetCurUser().UserName;
+            int t = Convert.ToInt32(TempData["ucheck"]);
+            if (t == 1)
+            {
+                ViewBag.Message = "yes";
+            }
+            else if (t == -1)
+            {
+                ViewBag.Message = "no";
+            }
+            else
+            {
+
+            }
+            string ID = CurrentContext.GetCurUser().UserName;
 
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -222,40 +248,49 @@ namespace WebDauGia.Controllers
                     .FirstOrDefault();
                 return View(us);
             }
-            return View();
         }
         //Post: User/Update
+        [CheckLogin]
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult Update(RegisterVM model)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-                User us = dt.Users
-                .Where(p => p.UserName == model.UserName)
-                .FirstOrDefault();
-
-                if (us != null)
+                try
                 {
-                    us.Name = model.Name;
-                    us.Address = model.Address;
-                    us.Email = model.Email;
-                    us.Phone = model.Phone;
-                    us.Gender = model.Gender;
-                    us.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
-                    using (var ctx = new QuanLyDauGiaEntities())
+                    User us = dt.Users
+               .Where(p => p.UserName == model.UserName)
+               .FirstOrDefault();
+
+                    if (us != null)
                     {
-                        ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                        ctx.SaveChanges();
-                        @ViewBag.Message = "Cập nhật thành công.";
+                        us.Name = model.Name;
+                        us.Address = model.Address;
+                        us.Email = model.Email;
+                        us.Phone = model.Phone;
+                        us.Gender = model.Gender;
+                        us.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
+                        using (var ctx = new QuanLyDauGiaEntities())
+                        {
+                            ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                            ctx.SaveChanges();
+                            @ViewBag.Message = "yes";
+                            TempData["ucheck"] = 1;
+                        }
                     }
+                    return RedirectToAction("Update", "User", new { ID = model.UserName });
+                }
+                catch (Exception)
+                {
+                    TempData["ucheck"] = -1;
                 }
                 return RedirectToAction("Update", "User", new { ID = model.UserName });
-
             }
         }
 
         //Get : User/Delete
+        [CheckLogin]
         public ActionResult Delete(string ID)
         {
             if (ID == "")
@@ -300,17 +335,18 @@ namespace WebDauGia.Controllers
         }
         //Get : User/Profile
         [CheckLogin]
-        public ActionResult Profile(string ID)
+        public ActionResult Profile()
         {
-            if (ID == "" || ID == null)
+            string ID;
+            if (CurrentContext.IsLogged() == false)
             {
-                if (CurrentContext.IsLogged() == false)
-                    return RedirectToAction("Index", "User");
-                else
-                {
-                    ID = CurrentContext.GetCurUser().UserName;
-                }
+                return RedirectToAction("Login", "User");
             }
+            else
+            {
+                ID = CurrentContext.GetCurUser().UserName;
+            }
+
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
                 User us = dt.Users
@@ -328,38 +364,59 @@ namespace WebDauGia.Controllers
         [CheckLogin]
         public ActionResult ChangePass()
         {
+            int t = Convert.ToInt32(TempData["ccheck"]);
+            if (t == 1)
+            {
+                ViewBag.Message = "yes";
+            }
+            else if (t == -1)
+            {
+                ViewBag.Message = "no";
+            }
+            else
+            {
+
+            }
             return View();
         }
         // Post: User/ChangePass
-       
+
         [HttpPost]
         [CheckLogin]
         public ActionResult ChangePass(string un, string tOPassWord, string tNPassWord)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-                string pass =StringUtils.MD5(tOPassWord);
-                User us = dt.Users
-                    .Where(p => p.UserName == un && p.Password == pass)
-                    .FirstOrDefault();
+                try
+                {
+                    string pass = StringUtils.MD5(tOPassWord);
+                    User us = dt.Users
+                        .Where(p => p.UserName == un && p.Password == pass)
+                        .FirstOrDefault();
 
-                if(us == null)
-                {
-                    ViewBag.ErrorMsg = "Mật khẩu chưa đúng!";
-                    return View();
-                }
-                else
-                {
-                    string newpass = StringUtils.MD5(tNPassWord);
-                    us.Password = newpass;
-                    using (var ctx = new QuanLyDauGiaEntities())
+                    if (us == null)
                     {
-                        ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                        ctx.SaveChanges();                       
+                        TempData["ccheck"] = -1;
+                        RedirectToAction("ChangePass", "User");
                     }
-                    Response.Write("<script LANGUAGE='JavaScript' >alert('Cập nhật thành công!!')</script>");                    
+                    else
+                    {
+                        string newpass = StringUtils.MD5(tNPassWord);
+                        us.Password = newpass;
+                        using (var ctx = new QuanLyDauGiaEntities())
+                        {
+                            ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                            ctx.SaveChanges();
+                        }
+                        TempData["ccheck"] = 1;
+                    }
+                    return RedirectToAction("ChangePass", "User");
                 }
-                return RedirectToAction("Profile", "User");
+                catch (Exception)
+                {
+                    TempData["ccheck"] = -1;
+                }
+                return RedirectToAction("ChangePass", "User");
             }
         }
         // GET: User/SanPhamDangBan
@@ -378,6 +435,7 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        [CheckLogin]
         public ActionResult Favorite()
         {
             string username = ((User)Session["user"]).UserName;
@@ -408,6 +466,7 @@ namespace WebDauGia.Controllers
         }
 
         // GET: Test
+        [CheckLogin]
         [HttpPost]
         public ActionResult MyProducts(string s)
         {
@@ -417,6 +476,19 @@ namespace WebDauGia.Controllers
         [CheckLogin]
         public ActionResult AHistoryProduct(int? id)
         {
+            int t = Convert.ToInt32(TempData["rcheck"]);
+            if (t == 1)
+            {
+                ViewBag.Message = "yes";
+            }
+            else if (t == -1)
+            {
+                ViewBag.Message = "no";
+            }
+            else
+            {
+
+            }
             if (id.HasValue == false)
             {
                 return RedirectToAction("MyProducts", "User");
@@ -424,12 +496,13 @@ namespace WebDauGia.Controllers
 
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                var model = ctx.AuctionHistorys.Where(p => p.ProID == id).OrderBy(p=>p.AucPrice).ToList();
+                var model = ctx.AuctionHistorys.Where(p => p.ProID == id).OrderBy(p => p.AucPrice).ToList();
                 @ViewBag.proidd = id;
                 return View();
             }
         }
 
+        [CheckLogin]
         [HttpPost]
         public ActionResult AHistoryProduct(string s)
         {
@@ -446,5 +519,35 @@ namespace WebDauGia.Controllers
         {
             return View();
         }
+        [CheckLogin]
+        [HttpPost]
+        public ActionResult RemoveUserFromAuc(string proId,string user)
+        {
+            try
+            {
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+                {
+                    User us = dt.Users
+                        .Where(p => p.UserName == user)
+                        .FirstOrDefault();
+                    if (us != null)
+                    {
+                        var l = new LimitedList();
+                        l.ProID = int.Parse(proId);
+                        l.UserName = user;
+
+                        dt.Entry(l).State = System.Data.Entity.EntityState.Added;
+                        dt.SaveChanges();
+                        TempData["rcheck"] = 1;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                TempData["rcheck"] = -1;
+            }
+            return RedirectToAction("AHistoryProduct", "User", new { ID = proId });
+        }
+        
     }
 }
