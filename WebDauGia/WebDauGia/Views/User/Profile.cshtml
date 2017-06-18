@@ -12,34 +12,34 @@
     @*<link href="~/Content/DatePicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
 }
 @section js{
-<script type="text/javascript">
-    function XinBan(name) {
-        if (name != null) {
-            var url = "/User/Sale";
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: { name: name },
-                dataType: "json",
-                timeout: 30 * 1000,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Error - ' + errorThrown);
-                }
-            })
-                .done(function (data) {
-                    if (typeof (data) == 'string') {
-                        alert(data);
+    <script type="text/javascript">
+        function XinBan(name) {
+            if (name != null) {
+                var url = "/User/Sale";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { name: name },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
                     }
                 })
-        .fail(function (jqXHR, status, error) {
-            //console.log(jqXHR);
-            //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
-        });
+                    .done(function (data) {
+                        if (typeof (data) == 'string') {
+                            alert(data);
+                        }
+                    })
+            .fail(function (jqXHR, status, error) {
+                //console.log(jqXHR);
+                //alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+            });
+            }
+            else {
+            }
         }
-        else {
-        }
-    }
-</script>
+    </script>
 }
 
 @if (ViewBag.ErrorMsg != null)
@@ -73,264 +73,218 @@
                         <div>
                             <div id="user-profile-1" class="user-profile">
                                 <div class="tabbable">
-                                    @*<ul class="nav nav-tabs padding-18">
-                                            <li class="active">
-                                                <a data-toggle="tab" href="#userprofile">
-                                                    <i class="green ace-icon fa fa-user bigger-120"></i>
-                                                    Thông tin cá nhân
-                                                </a>
-                                            </li>
 
-                                            <li>
-                                                <a data-toggle="tab" href="#userupdate">
-                                                    <i class="orange ace-icon fa fa-rss bigger-120"></i>
-                                                    Cập nhật thông tin
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#changepassword">
-                                                    <i class="blue ace-icon fa fa-users bigger-120"></i>
-                                                    Thay đổi mật khẩu
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#watchlist">
-                                                    <i class="pink ace-icon fa fa-heart bigger-120"></i>
-                                                    Sản phẩm yêu thích
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#aucting">
-                                                    <i class="black ace-icon fa fa-arrow-circle-up bigger-120"></i>
-                                                    Sản phẩm đang đấu giá
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#winner">
-                                                    <i class="black ace-icon fa fa-check-square bigger-120"></i>
-                                                    Sản phẩm đấu giá thắng
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href="#pictures">
-                                                    <i class="black ace-icon fa fa-cart-plus bigger-120"></i>
-                                                    Sản phẩm đang bán
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href="#pictures">
-                                                    <i class="black ace-icon fa fa-cart-arrow-down bigger-120"></i>
-                                                    Sản phẩm bán thành công
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href="#pictures">
-                                                    <i class="black ace-icon fa fa-history bigger-120"></i>
-                                                    Lịch sử đấu giá sản phẩm bán
-                                                </a>
-                                            </li>
-                                        </ul>*@
                                     <div id="userprofile" class="tab-pane in active">
                                         <div class="row">
-                                            <div class="col-xs-12 col-sm-3 center">
-                                                <span class="profile-picture">
-                                                    <img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="~/assets/images/avatars/profile-pic.jpg" />
-                                                </span>
-
-                                                <div class="space space-4"></div>
+                                            <div class="col-xs-12 col-sm-2 center">
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Họ tên: </h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Tên đăng nhập:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Giới tính:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Ngày sinh: </h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Địa chỉ:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Email:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Số điện thoại:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Điểm đánh giá:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name text-right">
+                                                        <h4>Trạng thái:</h4>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="space-4"></div>
                                             </div><!-- /.col -->
-
-                                            <div class="col-xs-12 col-sm-9">
+                                            <div class="space-4"></div>
+                                            <div class="col-xs-12 col-sm-4">
                                                 <h4 class="blue">
                                                     <span class="middle">@Model.Name</span>
                                                 </h4>
 
-                                                <div class="profile-user-info">
-                                                    <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Tên người dùng: @Model.UserName </div>
-
-                                                        @*<div class="profile-info-value">
-                                                            <span>@Model.UserName</span>
-                                                        </div>*@
-                                                    </div>
-
-                                                    <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Địa chỉ:
-                                                            <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                                            <span>@Model.Address</span>
-                                                        </div>
-
-                                                        @*<div class="profile-info-value">
-                                                            <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                                            <span>@Model.Address</span>
-                                                        </div>*@
-                                                    </div>
-
-                                                    <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Ngày sinh: @String.Format("{0:d/M/yyyy}", Model.DateOfBirth) </div>
-
-                                                        @*<div class="profile-info-value">
-                                                            <span>@Model.DateOfBirth.ToShortDateString()</span>
-                                                        </div>*@
-                                                    </div>
-
-                                                    <div class="profile-info-row">
-                                                        <div class="profile-info-name"> Giới tính: 
-
-                                                        
-                                                                @if (Model.Gender == "Nam")
+                                                <h4 class="blue">
+                                                    <span class="middle" style="color:lawngreen;">@Model.UserName</span>
+                                                </h4>
+                                                <h4 class="blue">
+                                                    @if (Model.Gender == "Nam")
                                                     {
-                                                                <i>Nam</i>
+                                                        <span class="middle">Nam</span>
                                                     }
                                                     else if (Model.Gender == "Nữ")
                                                     {
-                                                                <i>Nữ</i>
+                                                        <span class="middle">Nữ</span>
                                                     }
                                                     else
                                                     {
-                                                                <i>Khac</i>
+                                                        <span class="middle">Khác</span>
                                                     }
-                                                            
-
-                                                        </div>
-                                                    </div>
-
-                                                    
-                                                </div>
-                                                <br /><br /><br />
+                                                </h4>
+                                                <h4 class="blue">
+                                                    <span class="middle">@Model.DateOfBirth.ToShortDateString()</span>
+                                                </h4>
+                                                <h4 class="blue">
+                                                    <span class="middle">@Model.Address</span>
+                                                </h4>
+                                                <h4 class="blue">
+                                                    <span class="middle">@Model.Email</span>
+                                                </h4>
+                                                <h4 class="blue">
+                                                    <span class="middle">@Model.Phone</span>
+                                                </h4>
+                                                <h4 class="blue">
+                                                    <span class="middle">Chưa biết lấy dữ liệu từ đâu</span>
+                                                </h4>
+                                                <h4 class="blue">
+                                                    <span class="middle">Bạn được phép đăng bán.. hay ko</span>
+                                                </h4>
+                                                <br />
                                                 <div class="hr hr-8 dotted"></div>
-                                                <div class="col-xs-12 col-sm-9">
-                                                    @*Xin được đăng đấu giá*@
-                                                    <div class="profile-info-row">
-                                                        @if (Model.AllowSales == true)
-                                                        {
-                                                            <a href="@Url.Action("Add", "Product")" style="color:green;font-size:15px">
-                                                                Đăng Bán Sản Phẩm!
-                                                            </a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <button type="button" class="btn btn-success" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
-                                                                Xin được đăng sản phẩm đấu giá
-                                                            </button>
-                                                        }
-                                                    </div>
+                                                @*Xin được đăng đấu giá*@
+                                                <div class="profile-info-row">
+                                                    @if (Model.AllowSales == true)
+                                                    {
+                                                        <a href="@Url.Action("Add", "Product")" style="color:green;font-size:15px">
+                                                            Đăng Bán Sản Phẩm!
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-success" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
+                                                            Xin được đăng sản phẩm đấu giá
+                                                        </button>
+                                                    }
                                                 </div>
                                             </div><!-- /.col -->
-
+                                            <div class="space-4"></div>
+                                            <div class="col-xs-12 col-sm-4">
+                                                <p class="one" style="border:solid;">Nên để cái gì ở đây.</p>
+                                                <p class="one" style="border:solid;">Nên để cái gì ở đây.</p>
+                                                <p class="one" style="border:solid;">Nên để cái gì ở đây.</p>
+                                                <p class="one" style="border:solid;">Nên để cái gì ở đây.</p>
+                                                <p class="one" style="border:solid;">Nên để cái gì ở đây.</p>
+                                            </div>
                                         </div><!-- /.row -->
                                         <div class="space-20"></div>
 
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-6">
-                                                <div class="widget-box transparent">
-                                                    <div class="widget-header widget-header-small">
-                                                        <h4 class="widget-title smaller">
-                                                            <i class="ace-icon fa fa-check-square-o bigger-110"></i>
-                                                            Đánh giá
-                                                        </h4>
-                                                    </div>
-
-                                                    <div class="widget-body">
-                                                        <div class="widget-main">
-                                                            <p>
-                                                                Đấu đấu cái coin card. ahihi
-                                                            </p>
-                                                            <p>
-                                                                Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
-                                                            </p>
-                                                            <p>
-                                                                The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
-                                                            </p>
-                                                            <p>
-                                                                Thanks for visiting my profile.
-                                                            </p>
+                                        @*<div class="row">
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="widget-box transparent">
+                                                        <div class="widget-header widget-header-small">
+                                                            <h4 class="widget-title smaller">
+                                                                <i class="ace-icon fa fa-check-square-o bigger-110"></i>
+                                                                Đánh giá
+                                                            </h4>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-xs-12 col-sm-6">
-                                                <div class="widget-box transparent">
-                                                    <div class="widget-header widget-header-small header-color-blue2">
-                                                        <h4 class="widget-title smaller">
-                                                            <i class="ace-icon fa fa-lightbulb-o bigger-120"></i>
-                                                            Độ tin cậy
-                                                        </h4>
-                                                    </div>
-
-                                                    <div class="widget-body">
-                                                        <div class="widget-main padding-16">
-                                                            <div class="clearfix">
-                                                                <div class="grid3 center">
-                                                                    <div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
-                                                                        <span class="percent">45</span>%
-                                                                    </div>
-
-                                                                    <div class="space-2"></div>
-                                                                    Graphic Design
-                                                                </div>
-
-                                                                <div class="grid3 center">
-                                                                    <div class="center easy-pie-chart percentage" data-percent="90" data-color="#59A84B">
-                                                                        <span class="percent">90</span>%
-                                                                    </div>
-
-                                                                    <div class="space-2"></div>
-                                                                    HTML5 & CSS3
-                                                                </div>
-
-                                                                <div class="grid3 center">
-                                                                    <div class="center easy-pie-chart percentage" data-percent="80" data-color="#9585BF">
-                                                                        <span class="percent">80</span>%
-                                                                    </div>
-
-                                                                    <div class="space-2"></div>
-                                                                    Javascript/jQuery
-                                                                </div>
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <p>
+                                                                    Đấu đấu cái coin card. ahihi
+                                                                </p>
+                                                                <p>
+                                                                    Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
+                                                                </p>
+                                                                <p>
+                                                                    The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus eget urna mollis ornare.
+                                                                </p>
+                                                                <p>
+                                                                    Thanks for visiting my profile.
+                                                                </p>
                                                             </div>
-
-                                                            <div class="hr hr-16"></div>
-
-
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="widget-box transparent">
+                                                        <div class="widget-header widget-header-small header-color-blue2">
+                                                            <h4 class="widget-title smaller">
+                                                                <i class="ace-icon fa fa-lightbulb-o bigger-120"></i>
+                                                                Độ tin cậy
+                                                            </h4>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main padding-16">
+                                                                <div class="clearfix">
+                                                                    <div class="grid3 center">
+                                                                        <div class="easy-pie-chart percentage" data-percent="45" data-color="#CA5952">
+                                                                            <span class="percent">45</span>%
+                                                                        </div>
+
+                                                                        <div class="space-2"></div>
+                                                                        Graphic Design
+                                                                    </div>
+
+                                                                    <div class="grid3 center">
+                                                                        <div class="center easy-pie-chart percentage" data-percent="90" data-color="#59A84B">
+                                                                            <span class="percent">90</span>%
+                                                                        </div>
+
+                                                                        <div class="space-2"></div>
+                                                                        HTML5 & CSS3
+                                                                    </div>
+
+                                                                    <div class="grid3 center">
+                                                                        <div class="center easy-pie-chart percentage" data-percent="80" data-color="#9585BF">
+                                                                            <span class="percent">80</span>%
+                                                                        </div>
+
+                                                                        <div class="space-2"></div>
+                                                                        Javascript/jQuery
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="hr hr-16"></div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
                                     </div><!-- /#userprofile -->
 
                                     <div class="tab-content no-border padding-24">
 
 
-                                        @*<div id="userupdate" class="tab-pane">
-                                                                        @RenderPage("Update.cshtml")
-                                                                    </div><!-- /#userupdate -->
-
-                                                                    <div id="changepassword" class="tab-pane">
-
-                                                                        @RenderPage("ChangePass.cshtml")
-                                                                    </div><!-- /#changepassword -->
-                                            //Danh Sach Yeu Thich O Day
-                                                                    <div id="watchlist" class="tab-pane">
-                                                                        <ul class="ace-thumbnails">
-                                                                            @Html.Action("List", "WatchList")
-                                                                        </ul>
-                                                                    </div><!-- /#pictures -->
-                                                                    <div id="aucting" class="tab-pane">
-                                                                        <ul class="ace-thumbnails">
-                                                                            @Html.Action("ListDangThamGia", "WatchList")
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div id="winner" class="tab-pane">
-                                                                        <ul class="ace-thumbnails">
-                                                                            @Html.Action("ListDaThang", "WatchList")
-                                                                        </ul>
-                                                                    </div>*@
                                     </div>
                                 </div>
                             </div>
