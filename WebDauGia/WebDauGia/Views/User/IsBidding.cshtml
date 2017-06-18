@@ -1,0 +1,75 @@
+﻿@using WebDauGia.Models
+@using WebDauGia.Helper
+@section view_title{
+    Sản phẩm đăng bán
+}
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header" data-background-color="blue">
+            <h4 class="title">
+                Danh sách sản phẩm đăng bán của tôi
+            </h4>
+
+            <p class="text-right">
+                <a class="btn btn-link btn-xs updateItem" href="@Url.Action("Add", "Product")" role="button" title="Cập nhật">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </p>
+        </div>
+        <div class="card-content table-responsive">
+            <table class="table">
+                <thead class="text-primary">
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th class="text-right">Loại danh mục</th>
+                        <th class="text-right">Giá đăng bán</th>
+                        <th class="text-right">Số lượt đấu giá</th>
+                        <th class="text-right">Xem chi tiết</th>
+                        <th class="text-right">Xem lịch sử đấu giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        User us = (User)Session["user"];
+
+                        var ctx = new QuanLyDauGiaEntities();
+                        List<Product> myAL = (from n in ctx.Products
+                                              where n.Salesman == us.UserName && n.EndTime>DateTime.Now
+                                              select n).ToList();
+
+                    }
+                    @foreach (var cim in myAL)
+                    {
+                        int s = (from n in ctx.AuctionHistorys
+                                 where n.ProID == cim.ProID
+                                 select n).ToList().Count();                       
+                        <tr>
+                            <td>@cim.ProID</td>
+                            <td>@cim.ProName</td>
+                            <td class="text-right">@cim.CatID</td>
+                            <td class="text-right">@cim.Price</td>
+                            <td class="text-right">@s</td>
+                            <td class="text-right">
+                                <a class="btn btn-info btn-xs updateItem" href="@Url.Action("Detail", "Product", new { id = @cim.ProID})" role="button" title="Xem thêm" data-proid="@cim.CatID">
+                                    Xem
+                                </a>
+                            </td>
+                            <td class="text-right">
+                                <a class="btn btn-danger btn-xs updateItem" href="@Url.Action("AHistoryProduct", "User", new { id = @cim.ProID})" role="button" title="Cập nhật" data-proid="@cim.CatID">
+                                    Xem
+                                </a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>

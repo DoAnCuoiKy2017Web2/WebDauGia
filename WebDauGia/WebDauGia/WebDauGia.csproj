@@ -1415,6 +1415,7 @@
     <Content Include="Views\User\AHistoryProduct.cshtml" />
     <Content Include="Views\User\SoldProducts.cshtml" />
     <Content Include="Views\User\WinProducts.cshtml" />
+    <Content Include="Views\User\IsBidding.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

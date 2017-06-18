@@ -523,6 +523,7 @@ namespace WebDauGia.Controllers
         [HttpPost]
         public ActionResult RemoveUserFromAuc(string proId,string user)
         {
+            int t = int.Parse(proId);
             try
             {
                 using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
@@ -530,8 +531,39 @@ namespace WebDauGia.Controllers
                     User us = dt.Users
                         .Where(p => p.UserName == user)
                         .FirstOrDefault();
+                    AuctionHistory au = dt.AuctionHistorys.Where(p => p.ProID == t && p.UserName == user).OrderBy(p => p.AucPrice).FirstOrDefault();
+                    var AllAu = dt.AuctionHistorys.Where(p=>p.ProID==t).ToList();
                     if (us != null)
                     {
+                        foreach(var c in AllAu)
+                        {
+                            if (c.Time >= au.Time)
+                            {
+                                dt.Entry(c).State = System.Data.Entity.EntityState.Deleted;
+                                dt.SaveChanges();
+                            }
+                            else
+                            {
+                                //khong lam gi ca
+                            }
+                        }
+                        //lấy người đấu giá cuối cùng sau khi chặn người đấu giá trước đó
+                        AuctionHistory newau = dt.AuctionHistorys.Where(p => p.ProID == t).OrderByDescending(p => p.AucPrice).First();
+                        //lấy ra sản phẩm sẽ cập nhật lại giá
+                        Product lpro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
+                        if (newau != null)
+                        {
+                            lpro.Owner = newau.UserName;
+                            lpro.OwnerPrice = newau.AucPrice;
+                        }
+                        else
+                        {
+                            lpro.Owner = null;
+                            lpro.OwnerPrice = 0;
+                        }
+                        dt.Entry(lpro).State = System.Data.Entity.EntityState.Modified;
+                        dt.SaveChanges();
+
                         var l = new LimitedList();
                         l.ProID = int.Parse(proId);
                         l.UserName = user;
@@ -548,6 +580,11 @@ namespace WebDauGia.Controllers
             }
             return RedirectToAction("AHistoryProduct", "User", new { ID = proId });
         }
-        
+
+        [CheckLogin]
+        public ActionResult IsBidding()
+        {
+            return View();
+        }
     }
 }

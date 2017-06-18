@@ -180,9 +180,12 @@
                                                 <div class="profile-info-row">
                                                     @if (Model.AllowSales == true)
                                                     {
-                                                        <a href="@Url.Action("Add", "Product")" style="color:green;font-size:15px">
-                                                            Đăng Bán Sản Phẩm!
-                                                        </a>
+                                                        <button type="button" class="btn btn-success">
+                                                            <a href="@Url.Action("Add", "Product")" style="color:white;font-size:15px">
+                                                                Đăng Bán Sản Phẩm!
+                                                            </a>
+                                                        </button>
+                                                        
                                                     }
                                                     else
                                                     {
