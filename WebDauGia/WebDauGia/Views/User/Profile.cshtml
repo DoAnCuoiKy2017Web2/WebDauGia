@@ -1,7 +1,6 @@
 ﻿@using WebDauGia.Models
 
 @model User
-
 @section view_title{
 }
 @{
@@ -69,13 +68,12 @@
                         </div>
 
                         <div class="hr dotted"></div>
+
+
                         <div>
                             <div id="user-profile-1" class="user-profile">
                                 <div class="tabbable">
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
                                     <div id="userprofile" class="tab-pane in active">
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-2 center">
@@ -178,26 +176,6 @@
                                                 </h4>
                                                 <br />
                                                 <div class="hr hr-8 dotted"></div>
-<<<<<<< HEAD
-                                                <div class="col-xs-12 col-sm-9">
-                                                    @*Xin được đăng đấu giá*@
-                                                    <div class="profile-info-row">
-                                                        @if (Model.AllowSales == true)
-                                                        {
-                                                            
-                                                                <a class="btn btn-success fa fa-shopping-cart" href="@Url.Action("Add", "Product")">
-                                                                    Đăng Bán Sản Phẩm!
-                                                                </a>
-                                                            
-                                                        }
-                                                        else
-                                                        {
-                                                            <button type="button" class="btn btn-success fa fa-envelope-o" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
-                                                                Xin được đăng sản phẩm đấu giá
-                                                            </button>
-                                                        }
-                                                    </div>
-=======
                                                 @*Xin được đăng đấu giá*@
                                                 <div class="profile-info-row">
                                                     @if (Model.AllowSales == true)
@@ -207,7 +185,7 @@
                                                                 Đăng Bán Sản Phẩm!
                                                             </a>
                                                         </button>
-                                                        
+
                                                     }
                                                     else
                                                     {
@@ -215,7 +193,6 @@
                                                             Xin được đăng sản phẩm đấu giá
                                                         </button>
                                                     }
->>>>>>> origin/master
                                                 </div>
                                             </div><!-- /.col -->
                                             <div class="space-4"></div>

@@ -93,7 +93,7 @@
                                     <a href="@Url.Action("SoldProducts", "User")"> Sản phẩm bán thành công</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("SanPhamDangDauGia", "User")">  Sản phẩm đang đấu giá</a>
+                                    <a href="@Url.Action("IsBidding", "User")">  Sản phẩm đang đấu giá</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("WinProducts", "User")"> Sản phẩm đấu giá thắng</a>
@@ -135,24 +135,29 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>                                
-
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                   @CurrentContext.GetCurUser().UserName
+                            @*<li>
+                                <a href="@Url.Action("Add", "Product")">
+                                    Thêm sản phẩm<i class="material-icons">shopping</i>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a id="logoutLink" href="javascript:;">
-                                            <i class="ace-icon fa fa-power-off"></i>
-                                            Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                            </li>*@
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="material-icons">person</i>
+
+                                        <p class="hidden-lg hidden-md">Profile</p>
+                                        @CurrentContext.GetCurUser().UserName
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a id="logoutLink" href="javascript:;">
+                                                <i class="ace-icon fa fa-power-off"></i>
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            
+</ul>
 
                     </div>
                 </div>
