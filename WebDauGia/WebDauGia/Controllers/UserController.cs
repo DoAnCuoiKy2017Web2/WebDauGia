@@ -148,51 +148,59 @@ namespace WebDauGia.Controllers
             }
             else
             {
-                using (QuanLyDauGiaEntities ctx = new QuanLyDauGiaEntities())
+                if (CheckExistEmail.isChecked(model.Email) == 0) {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Email không hợp lệ!!')</script>");
+                    View(model);
+                }
+                else
                 {
-                    User us = ctx.Users.Where(p => p.Email == model.Email.ToString()).FirstOrDefault();
-                    if (us != null)
+                    using (QuanLyDauGiaEntities ctx = new QuanLyDauGiaEntities())
                     {
-                        Response.Write("<script LANGUAGE='JavaScript' >alert('Email đã tồn tại.')</script>");
-                    }
-                    else
-                    {
-                        // TODO: Captcha validation passed, proceed with protected action
-                        User u = new User();
-                        u.UserName = model.UserName;
-                        u.Password = StringUtils.MD5(model.PassWord);
-                        u.Name = model.Name;
-                        u.Gender = model.Gender;
-                        u.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
-                        u.Email = model.Email;
-                        u.Phone = model.Phone;
-                        u.Address = model.Address;
-                        u.DateCreate = DateTime.Now;
-                        u.AllowAuction = false;
-                        u.AllowSales = false;
-                        u.Reliability = "10/10";
-                        try
+                        User us = ctx.Users.Where(p => p.Email == model.Email.ToString()).FirstOrDefault();
+                        if (us != null)
                         {
-                            u.DateCreate = DateTime.Now;
-                            ctx.Users.Add(u);
-                            ctx.SaveChanges();
-
-                            @ViewBag.Error = false;
-
-                            LoginVM lvm = new LoginVM();
-                            lvm.UserName = model.UserName;
-                            lvm.PassWord = model.PassWord;
-                            Login(lvm);
-
-                            Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng ký thành công. Đang chuyển về trang chủ')</script>");
-                            return RedirectToAction("Index", "Home");
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Email đã tồn tại.')</script>");
                         }
-                        catch (Exception)
+                        else
                         {
-                            Response.Write("<script LANGUAGE='JavaScript' >alert('Username đã tồn tại.')</script>");
+                            // TODO: Captcha validation passed, proceed with protected action
+                            User u = new User();
+                            u.UserName = model.UserName;
+                            u.Password = StringUtils.MD5(model.PassWord);
+                            u.Name = model.Name;
+                            u.Gender = model.Gender;
+                            u.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
+                            u.Email = model.Email;
+                            u.Phone = model.Phone;
+                            u.Address = model.Address;
+                            u.DateCreate = DateTime.Now;
+                            u.AllowAuction = false;
+                            u.AllowSales = false;
+                            u.Reliability = "10/10";
+                            try
+                            {
+                                u.DateCreate = DateTime.Now;
+                                ctx.Users.Add(u);
+                                ctx.SaveChanges();
+
+                                @ViewBag.Error = false;
+
+                                LoginVM lvm = new LoginVM();
+                                lvm.UserName = model.UserName;
+                                lvm.PassWord = model.PassWord;
+                                Login(lvm);
+
+                                Response.Write("<script LANGUAGE='JavaScript' >alert('Đăng ký thành công. Đang chuyển về trang chủ')</script>");
+                                return RedirectToAction("Index", "Home");
+                            }
+                            catch (Exception)
+                            {
+                                Response.Write("<script LANGUAGE='JavaScript' >alert('Username đã tồn tại.')</script>");
+                            }
                         }
                     }
                 }
+                
 
             }
             return View(model);

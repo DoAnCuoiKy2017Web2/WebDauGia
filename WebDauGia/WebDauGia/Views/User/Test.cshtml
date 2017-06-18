@@ -31,29 +31,30 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header" data-background-color="purple">
-                    <h4 class="title">Quản lý người dùng</h4>
+                    <h4 class="title">Gửi nhận xét</h4>
                     <p class="category">Danh sách người dùng</p>
                 </div>
                 <div class="card-content table-responsive">
                     <table class="table">
                         <thead class="text-primary">
                             <tr>
-                                <th>Mã người dùng</th>
-                                <th>Tên người dùng</th>
-                                <th>Tên đăng nhập</th>
+                                <th>UserName</th>
+                                <th>Mã sản phẩm</th>
                                 <th class="text-right">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @{
                                 var ctx = new QuanLyDauGiaEntities();
+
+                                //lấy danh sách đấu giá
+                                var list = ctx.AuctionHistorys.ToList();
                             }
-                            @foreach (var cim in ctx.Users)
+                            @foreach (var cim in list)
                             {
                                 <tr>
-                                    <td>ko co id</td>
-                                    <td class="text-primary">@cim.Name</td>
-                                    <td>@cim.UserName</td>
+                                    <td class="text-primary">@cim.UserName</td>
+                                    <td>@cim.ProID</td>
                                     <td class="text-right">
                                         <a class="btn btn-success btn-xs removeItem" href="javascript:;" role="button" title="Gửi mail cho người này" data-proid="@cim.UserName">
                                             <i class="fa fa-send"></i>
