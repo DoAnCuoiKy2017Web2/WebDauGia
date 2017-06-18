@@ -164,7 +164,6 @@ namespace WebDauGia.Controllers
                     pro.Owner = ((User)Session["user"]).UserName;
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
-                    
                 }
                 else if (giatra <= pro.OwnerPrice)
                 {
@@ -239,6 +238,10 @@ namespace WebDauGia.Controllers
                         smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                         smtp2.EnableSsl = true;
                         smtp2.Send(mail2);
+                        //
+                        pro.Status = true;
+                        ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                        ctx.SaveChanges();
                     }
                     if (TH == 1)
                     {
