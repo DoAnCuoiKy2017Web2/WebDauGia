@@ -1,4 +1,6 @@
 ﻿@using WebDauGia.Models
+
+
 @model Product
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
@@ -165,7 +167,7 @@
                             }
                             else if(data ==3)
                             {
-                                alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ") 
+                                alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ")
                             }
                             window.location = "/Product/Detail/" + proid;
                         })
@@ -205,6 +207,15 @@
             return date.getDate() + "/" + month + "/" + date.getFullYear() + " " + hour + ":" + mins + " " + time;
         }
 
+        function formatUser(ams) {
+            //cái cho che tên
+            @*var a = @WebDauGia.Helper.CurrentContext.GetCurUser().UserName;
+            return a;*@
+            if (ams.length <= 3)
+                return ams.replace(ams.substr(0, 1), "*****");
+            return ams.replace(ams.substr(0, ams.length - 3), "*****");
+        }
+
         //Lich Su Dau Giá
         function showhistory(proid)
         {
@@ -225,10 +236,10 @@
                         window.location = "@Url.Action("Login","User")";
                     }
                     else {
-
-                        $.each(data, function (idx, p) {
+                         @*@string.Format(WebDauGia.Helper.StringUtils.Replace(p.UserName))*@
+                        $.each(data, function (idx, p) {                            
                             var html =
-                                '<li> <b>UserName: </b> ' + p.UserName + " <b>Tiền Cược: </b> " + p.AucPrice+ "VNĐ "+ "<b>Thờì Điểm Cược: </b>"+formatDate(p.Time)+'</li>';
+                                '<li> <b>UserName: </b> ' + formatUser(p.UserName) + " <b>Tiền Cược: </b> " + p.AucPrice + "VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
                             $('#list-history').append(html);
                         });
                     }
@@ -547,24 +558,4 @@ else
             </div>
         </div>
     </div>
-
-    @*if (CurrentContext.IsLogged())
-                {
-                    <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action("Add","Cart")">
-                        <div class="form-group">
-                            <div class="col-sm-4">
-                                <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
-                                <div class="input-group" style="margin-left: 24px;">
-                                    <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="fa fa-cart-plus"></i>
-                                        </button>
-                                    </span>
-        <<<<<<< HEAD
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                }*@
 }

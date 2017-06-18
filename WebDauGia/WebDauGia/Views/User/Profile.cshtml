@@ -1,6 +1,7 @@
 ﻿@using WebDauGia.Models
 
 @model User
+
 @section view_title{
 }
 @{
@@ -68,72 +69,9 @@
                         </div>
 
                         <div class="hr dotted"></div>
-
-
                         <div>
                             <div id="user-profile-1" class="user-profile">
                                 <div class="tabbable">
-                                    @*<ul class="nav nav-tabs padding-18">
-                                            <li class="active">
-                                                <a data-toggle="tab" href="#userprofile">
-                                                    <i class="green ace-icon fa fa-user bigger-120"></i>
-                                                    Thông tin cá nhân
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#userupdate">
-                                                    <i class="orange ace-icon fa fa-rss bigger-120"></i>
-                                                    Cập nhật thông tin
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#changepassword">
-                                                    <i class="blue ace-icon fa fa-users bigger-120"></i>
-                                                    Thay đổi mật khẩu
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#watchlist">
-                                                    <i class="pink ace-icon fa fa-heart bigger-120"></i>
-                                                    Sản phẩm yêu thích
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#aucting">
-                                                    <i class="black ace-icon fa fa-arrow-circle-up bigger-120"></i>
-                                                    Sản phẩm đang đấu giá
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a data-toggle="tab" href="#winner">
-                                                    <i class="black ace-icon fa fa-check-square bigger-120"></i>
-                                                    Sản phẩm đấu giá thắng
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href="#pictures">
-                                                    <i class="black ace-icon fa fa-cart-plus bigger-120"></i>
-                                                    Sản phẩm đang bán
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href="#pictures">
-                                                    <i class="black ace-icon fa fa-cart-arrow-down bigger-120"></i>
-                                                    Sản phẩm bán thành công
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href="#pictures">
-                                                    <i class="black ace-icon fa fa-history bigger-120"></i>
-                                                    Lịch sử đấu giá sản phẩm bán
-                                                </a>
-                                            </li>
-                                        </ul>*@
                                     <div id="userprofile" class="tab-pane in active">
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-3 center">
@@ -208,13 +146,15 @@
                                                     <div class="profile-info-row">
                                                         @if (Model.AllowSales == true)
                                                         {
-                                                            <a href="@Url.Action("Add", "Product")" style="color:green;font-size:15px">
-                                                                Đăng Bán Sản Phẩm!
-                                                            </a>
+                                                            
+                                                                <a class="btn btn-success fa fa-shopping-cart" href="@Url.Action("Add", "Product")">
+                                                                    Đăng Bán Sản Phẩm!
+                                                                </a>
+                                                            
                                                         }
                                                         else
                                                         {
-                                                            <button type="button" class="btn btn-success" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
+                                                            <button type="button" class="btn btn-success fa fa-envelope-o" onclick="XinBan(@WebDauGia.Helper.CurrentContext.GetCurUser().UserName)">
                                                                 Xin được đăng sản phẩm đấu giá
                                                             </button>
                                                         }
