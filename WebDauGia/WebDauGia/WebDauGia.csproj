@@ -1005,6 +1005,9 @@
     <Content Include="Images\sp\30\main.jpg" />
     <Content Include="Images\sp\30\main_thumbs.jpg" />
     <Content Include="Images\sp\30\main_thumbs_1.jpg" />
+    <Content Include="Images\sp\33\main.jpg" />
+    <Content Include="Images\sp\33\main_thumbs_1.jpg" />
+    <Content Include="Images\sp\33\main_thumbs_2.jpg" />
     <Content Include="Images\sp\3\main.jpg" />
     <Content Include="Images\sp\3\main_thumbs_1.jpg" />
     <Content Include="Images\sp\4\1.jpg" />
