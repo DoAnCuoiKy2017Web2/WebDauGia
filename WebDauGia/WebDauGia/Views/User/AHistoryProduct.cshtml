@@ -44,9 +44,21 @@ else
     <div class="card">
         <div class="card-header" data-background-color="blue">
             <h4 class="title">
-                Lịch sử đấu giá của sản phẩm có 
+                Lịch sử đấu giá của sản phẩm
             </h4>
-            <p class="category">Danh sáchaaa </p>
+            @{               
+                var myAL = ctx.AuctionHistorys.Where(p => p.ProID == t).OrderBy(p => p.Time);
+                int sl = myAL.Count();
+            }
+            @if (sl == 0)
+            {
+                <p class="category">Không có lượt đấu giá nào.</p>
+            }
+            else
+            {
+                <p class="category">Có tổng cộng @sl lượt đấu giá</p>
+            }
+            
         </div>
         <div class="card-content table-responsive">
             <table class="table">
@@ -60,11 +72,7 @@ else
                     </tr>
                 </thead>
                 <tbody>
-                    @{
-                        
-                        
-                        var myAL = ctx.AuctionHistorys.Where(p => p.ProID == t).OrderBy(p => p.Time);
-                    }
+                    
                     @foreach (var cim in myAL)
                     {
                         <tr>

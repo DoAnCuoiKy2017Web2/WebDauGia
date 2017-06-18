@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{
+                    @*@{
                         User us = (User)Session["user"];
                         var ctx = new QuanLyDauGiaEntities();
                         var lpro = ctx.Products.Where(p => p.Salesman == us.UserName && p.EndTime<DateTime.Now);
@@ -61,8 +61,7 @@
                                 </a>
                             </td>
                         </tr>
-
-                    }
+                    }*@
                 </tbody>
 
             </table>

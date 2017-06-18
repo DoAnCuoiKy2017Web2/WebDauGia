@@ -548,7 +548,7 @@ namespace WebDauGia.Controllers
                             }
                         }
                         //lấy người đấu giá cuối cùng sau khi chặn người đấu giá trước đó
-                        AuctionHistory newau = dt.AuctionHistorys.Where(p => p.ProID == t).OrderByDescending(p => p.AucPrice).First();
+                        AuctionHistory newau = dt.AuctionHistorys.Where(p => p.ProID == t).OrderByDescending(p => p.AucPrice).FirstOrDefault();
                         //lấy ra sản phẩm sẽ cập nhật lại giá
                         Product lpro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
                         if (newau != null)
