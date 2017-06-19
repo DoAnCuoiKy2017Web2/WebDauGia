@@ -17,4 +17,4 @@
             //console.log(jqXHR);
             //alert('fail');
         });
-}, 8000);
+}, 5000);

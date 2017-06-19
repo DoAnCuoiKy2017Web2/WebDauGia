@@ -764,7 +764,11 @@ namespace WebDauGia.Controllers
                 index = pro;
                 if (pro.Count > 0)
                 {
+<<<<<<< HEAD
                     for (int i = 0; i < pro.Count; i++)
+=======
+                    for(int i=0;i<pro.Count;i++)
+>>>>>>> ad6f28ff97a7348e44f55ab79cc7cf0aa9d5af0f
                     {
                         try
                         {
