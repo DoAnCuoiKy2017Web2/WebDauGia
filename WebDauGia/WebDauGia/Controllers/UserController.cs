@@ -17,7 +17,7 @@ namespace WebDauGia.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Profile", "User");
         }
         // GET: Test
         [CheckLogin]
@@ -148,7 +148,8 @@ namespace WebDauGia.Controllers
             }
             else
             {
-                if (CheckExistEmail.isChecked(model.Email) == 0) {
+                if (CheckExistEmail.isChecked(model.Email) == 0)
+                {
                     Response.Write("<script LANGUAGE='JavaScript' >alert('Email không hợp lệ!!')</script>");
                     View(model);
                 }
@@ -200,7 +201,7 @@ namespace WebDauGia.Controllers
                         }
                     }
                 }
-                
+
 
             }
             return View(model);
@@ -542,7 +543,7 @@ namespace WebDauGia.Controllers
                     //lấy danh các khách hàng tham gia đấu giá sản phẩm có proid như trên.
                     var ListAuhis = dt.AuctionHistorys.Where(auhis => auhis.ProID == t).OrderBy(auhis => auhis.AucPrice).ToList();
                     //Xóa Các Dòng Có tên Người Bị Xóa
-                    for (int i=0; i<ListAuhis.Count;i++)
+                    for (int i = 0; i < ListAuhis.Count; i++)
                     {
                         if (ListAuhis[i].UserName == user)
                         {
@@ -552,14 +553,14 @@ namespace WebDauGia.Controllers
                     }
                     //sau khi xoa các dòng thì ta có danh sách còn lại
                     //xoa user giống nhau xóa cái ở đằng sau
-                    for (int i = 0, j=i+1; i <ListAuhis.Count - 1; i++,j=i+1)
+                    for (int i = 0, j = i + 1; i < ListAuhis.Count - 1; i++, j = i + 1)
                     {
-                                
-                            if (ListAuhis[i].UserName == ListAuhis[j].UserName)
-                            {
-                                ListAuhis.Remove(ListAuhis[j]);
-                                i--;
-                            }
+
+                        if (ListAuhis[i].UserName == ListAuhis[j].UserName)
+                        {
+                            ListAuhis.Remove(ListAuhis[j]);
+                            i--;
+                        }
                     }
                     //xóa từ user này 
                     AuctionHistory userchose = null;
@@ -611,7 +612,7 @@ namespace WebDauGia.Controllers
                     //update lại so luot dau
                     var au = dt.AuctionHistorys.Where(a => a.ProID == t).ToList();
                     int sl = 0;
-                    if(au.Count >0)
+                    if (au.Count > 0)
                     {
                         sl = au.Count;
                     }
@@ -621,7 +622,7 @@ namespace WebDauGia.Controllers
                     //gửi gmail thông báo
                     StringBuilder Body = new StringBuilder();
                     Body.Append("<h3>Chào: <b>" + user + "<b></h3>");
-                    Body.Append("<p>Vào Lúc " + DateTime.Now.ToString() + " Bạn Đã Bị Chủ Sản Phẩm Loại Khỏi Phiên Đấu Giá Sản Phẩm: "+pro.ProName+"</p>");
+                    Body.Append("<p>Vào Lúc " + DateTime.Now.ToString() + " Bạn Đã Bị Chủ Sản Phẩm Loại Khỏi Phiên Đấu Giá Sản Phẩm: " + pro.ProName + "</p>");
                     Body.Append("<p style='color:blue'>Chúng Tôi Rất Tiếc Về Điều Này! Còn Rất Nhiều Sản Phẩm Bạn Có Thê Tham Gia Ở Web Của Chúng Tôi!</p>");
                     Body.Append("<table>");
                     Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
@@ -707,14 +708,22 @@ namespace WebDauGia.Controllers
             return View();
         }
         [CheckLogin]
-        public ActionResult Review(string rec)
+        public ActionResult Review(string rec, string proid)
         {
-            @ViewBag.Receiver = rec;
+            if (rec == null || rec == "")
+            {
+                return RedirectToAction("Profile", "User");
+            }
+            else
+            {
+                @ViewBag.Receiver = rec;
+                @ViewBag.ProId = proid;
+            }
             return View();
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult Review(string Sender, string Receiver, string Content)
+        public ActionResult Review(string Sender, string Receiver, string Content,string ProID)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -723,11 +732,26 @@ namespace WebDauGia.Controllers
                 nx.BeAsssessed = Receiver;
                 nx.Remark = Content;
                 nx.TimeAppraise = DateTime.Now;
+                // cột id product
+                //nx.ProID = ProID;
+                //xử lý radio button
 
                 dt.Entry(nx).State = System.Data.Entity.EntityState.Added;
                 dt.SaveChanges();
             }
 
+            return View();
+        }
+
+        [CheckLogin]
+        public ActionResult PurchasedProducts()
+        {
+            return View();
+        }
+
+        [CheckLogin]
+        public ActionResult AboutMe()
+        {
             return View();
         }
         [HttpPost]
@@ -738,13 +762,13 @@ namespace WebDauGia.Controllers
             {
                 var pro = ctx.Products.Where(p => p.EndTime <= DateTime.Now && (p.Status == false || p.Status == null)).ToList();
                 index = pro;
-                if(pro.Count>0)
+                if (pro.Count > 0)
                 {
-                    for(int i=0;i<pro.Count-1;i++)
+                    for (int i = 0; i < pro.Count; i++)
                     {
                         try
                         {
-                            
+
                             if (pro[i].Owner == null)
                             {
                                 string use = pro[i].Salesman;
@@ -769,8 +793,8 @@ namespace WebDauGia.Controllers
                             }
                             else if (pro[i].Owner != null)
                             {
-                                string useNM=pro[i].Owner;
-                                string useNB=pro[i].Salesman;
+                                string useNM = pro[i].Owner;
+                                string useNB = pro[i].Salesman;
                                 string GmNgMua = (ctx.Users.Where(us => us.UserName == useNM).FirstOrDefault()).Email;
                                 string GmNgBan = (ctx.Users.Where(us => us.UserName == useNB).FirstOrDefault()).Email;
                                 //gui ngươi ban
@@ -814,7 +838,7 @@ namespace WebDauGia.Controllers
                     }
                 }
             }
-            
+
             return Json("", JsonRequestBehavior.AllowGet);
         }
     }

@@ -10,6 +10,15 @@
     <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
 }
 
+@*Kiểm tra đã đánh giá chưa*@
+@*@if ()
+{
+    <i>Bạn đã đánh giá người dùng này</i>
+}
+else
+{
+
+}*@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header" data-background-color="blue">
@@ -25,10 +34,11 @@
                         User us = (User)Session["user"];
                     }
                     <input type="hidden" name="Sender" value="@us.UserName" />
+                    <input type="hidden" name="ProID" value="@ViewBag.ProId" />
                     <div class="form-group">
                         <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Gửi tới :</label>
                         <div class="col-sm-8">
-                            <input type="text" id="txtPassWord" name="Receiver" placeholder="người nhận" value="@ViewBag.Receiver" />
+                            <input type="text" id="txtPassWord" name="Receiver" placeholder="người nhận" readonly value="@ViewBag.Receiver" />
                         </div>
                         <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Nội dung :</label>
                         <div class="col-sm-8">

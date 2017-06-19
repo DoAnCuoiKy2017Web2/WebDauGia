@@ -78,45 +78,55 @@
                     </li>
                     <li>
                         <a data-toggle="collapse" href="#pages2">
-                            <i class="material-icons">image</i>
+                            <i class="material-icons">shop_two</i>
                             <p>
-                                Lịch sử đấu giá
+                                Bán
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="pages2">
                             <ul class="nav">
                                 <li>
-                                    <a href="@Url.Action("MyProducts", "User")">Sản phẩm của tôi</a>
+                                    <a href="@Url.Action("MyProducts", "User")">Sản phẩm của tôi (xem vui thôi, sẽ xóa lần cuối test)</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("UnexpiredProducts", "User")">Sản phẩm đang đăng và còn hạn</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("SoldProducts", "User")"> Sản phẩm bán thành công</a>
+                                    <a href="@Url.Action("SoldProducts", "User")"> Sản phẩm đã có người mua</a>
                                 </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#pages3">
+                            <i class="material-icons">shop</i>
+                            <p>
+                                Mua
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="pages3">
+                            <ul class="nav">
                                 <li>
-                                    <a href="@Url.Action("IsBidding", "User")">  Sản phẩm đang đấu giá</a>
+                                    <a href="@Url.Action("IsBidding", "User")"> Sản phẩm đang tham gia đấu giá</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("WinProducts", "User")"> Sản phẩm đấu giá thắng</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "User")"> Lịch sử đấu giá sản phẩm bán</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li>
                         <a href="@Url.Action("Favorite", "User")">
-                            <i class="material-icons">bubble_chart</i>
+                            <i class="material-icons">shopping_cart</i>
                             <p>Sản phẩm ưa thích</p>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Profile", "User")">
-                            <i class="material-icons">bubble_chart</i>
-                            <p>Khác</p>
+                        <a href="@Url.Action("AboutMe", "User")">
+                            <i class="material-icons">perm_identity</i>
+                            <p>Đánh giá về tôi</p>
                         </a>
                     </li>
                 </ul>

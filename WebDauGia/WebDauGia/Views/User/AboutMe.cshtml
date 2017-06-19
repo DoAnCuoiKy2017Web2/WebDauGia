@@ -1,16 +1,19 @@
 ﻿@using WebDauGia.Models
 @using WebDauGia.Helper
 @section view_title{
-    Sản phẩm đấu giá thắng
+    Đánh giá về tôi
 }
 @{
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 @{
     User us = (User)Session["user"];
+
     var ctx = new QuanLyDauGiaEntities();
-    var lprooutdate = ctx.Products.Where(p => p.EndTime < DateTime.Now && p.NumOfAuction > 0 && p.Salesman == us.UserName).ToList();
-    int t = lprooutdate.Count();
+    var l = ctx.Appraises
+        .Where(p =>p.BeAsssessed == us.UserName)
+        .ToList();
+    int t = l.Count();
 }
 
 <form id="frmS" method="get" action="@Url.Action("Review","User")">
@@ -21,32 +24,37 @@
     <div class="card">
         <div class="card-header" data-background-color="blue">
             <h4 class="title">
-                Danh sách sản phẩm bán thành công
+                Đánh giá về tôi
             </h4>
-            <p class="category">Bạn có @t sản phẩm bán thành công</p>
+            <p class="category">Bạn có @t đánh giá từ người dùng</p>
         </div>
         <div class="card-content table-responsive">
             <table class="table">
                 <thead class="text-primary">
                     <tr>
-                        <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th class="text-right">Người chiến thắng</th>
-                        <th class="text-right">Giá tiền thắng</th>
-                        <th class="text-right">Đánh giá</th>
+                        <th>ID</th>
+                        <th>Người đánh giá</th>
+                        <th class="text-right">Mã sản phẩm</th>
+                        <th>Nội dung</th>
+                        <th class="text-right">Điểm đánh giá</th>
+                        <th class="text-right">Đánh giá người này</th>
                     </tr>
                 </thead>
                 <tbody>
-                   
-                    @foreach (var cim in lprooutdate)
+
+                    @foreach (var cim in l)
                     {
                         <tr>
-                            <td>@cim.ProID</td>
-                            <td>@cim.ProName</td>
-                            <td class="text-right">@cim.Owner</td>
-                            <td class="text-right">@cim.AucPrice</td>
+                            <td>chưa có db</td>
+                            <td>@cim.Assessor</td>
+                            <td class="text-right">chưa</td>
+                            <td >@cim.Remark</td>
+                            <td class="text-right">chưa</td>
                             <td class="text-right">
-                                <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Owner" >
+                                @*<a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Assessor">
+        Đánh giá
+    </a>*@ chưa có db chưa chạy
+                                <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" >
                                     Đánh giá
                                 </a>
                             </td>

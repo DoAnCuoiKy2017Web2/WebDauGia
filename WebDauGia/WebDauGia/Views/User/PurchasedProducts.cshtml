@@ -9,7 +9,7 @@
 @{
     User us = (User)Session["user"];
     var ctx = new QuanLyDauGiaEntities();
-    var lprooutdate = ctx.Products.Where(p => p.EndTime < DateTime.Now && p.NumOfAuction > 0 && p.Salesman == us.UserName).ToList();
+    var lprooutdate = ctx.Products.Where(p => p.EndTime < DateTime.Now && p.NumOfAuction > 0 && p.Owner == us.UserName).ToList();
     int t = lprooutdate.Count();
 }
 
@@ -21,9 +21,9 @@
     <div class="card">
         <div class="card-header" data-background-color="blue">
             <h4 class="title">
-                Danh sách sản phẩm bán thành công
+                Danh sách sản phẩm đấu giá thành công
             </h4>
-            <p class="category">Bạn có @t sản phẩm bán thành công</p>
+            <p class="category">Bạn có @t sản phẩm đấu giá thành công</p>
         </div>
         <div class="card-content table-responsive">
             <table class="table">
@@ -31,22 +31,22 @@
                     <tr>
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
-                        <th class="text-right">Người chiến thắng</th>
-                        <th class="text-right">Giá tiền thắng</th>
+                        <th class="text-right">Giá tiền cược</th>
+                        <th class="text-right">Người bán</th>
                         <th class="text-right">Đánh giá</th>
                     </tr>
                 </thead>
                 <tbody>
-                   
+
                     @foreach (var cim in lprooutdate)
                     {
                         <tr>
                             <td>@cim.ProID</td>
                             <td>@cim.ProName</td>
-                            <td class="text-right">@cim.Owner</td>
                             <td class="text-right">@cim.AucPrice</td>
+                            <td class="text-right">@cim.Salesman</td>
                             <td class="text-right">
-                                <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Owner" >
+                                <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Salesman">
                                     Đánh giá
                                 </a>
                             </td>

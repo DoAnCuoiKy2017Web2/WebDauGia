@@ -1423,6 +1423,8 @@
     <Content Include="Views\User\IsBidding.cshtml" />
     <Content Include="Views\User\UnexpiredProducts.cshtml" />
     <Content Include="Views\User\Review.cshtml" />
+    <Content Include="Views\User\PurchasedProducts.cshtml" />
+    <Content Include="Views\User\AboutMe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
