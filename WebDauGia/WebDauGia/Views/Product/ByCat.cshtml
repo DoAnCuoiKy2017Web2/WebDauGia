@@ -83,19 +83,15 @@ else
                         {
                             <p style="color:navy">Giá mua ngay: không có</p>
                         }
-                        <p style="color:red" class="fa fa-hourglass-half">
+                        <p style="color:red;text-align:center" class="fa fa-hourglass-half">
                             : @Function.DateTimeToString(p.EndTime)
                             <a style="font-size: 19px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
                                class="fa fa-heart" onclick="love(@p.ProID)" aria-hidden="true"></a>
                         </p>
                         <p style="overflow:hidden;text-overflow:ellipsis; white-space:nowrap"></p>
-                        <p>
-                            <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="btn btn-default" role="button">
-                                Chi tiết
-                            </a>
-                            <a href="#" class="btn btn-success" role="button">
-                                <i class="fa fa-cart-plus"></i>
-                                Đấu giá
+                        <p style="text-align:center">
+                            <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="btn btn-success" role="button">
+                                Đấu Giá
                             </a>
                         </p>
                     </div>

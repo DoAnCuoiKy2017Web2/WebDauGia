@@ -11,7 +11,7 @@
         }
     })
         .done(function (data) {
-            alert(data); 
+            //alert(data); 
         })
         .fail(function (jqXHR, status, error) {
             //console.log(jqXHR);
