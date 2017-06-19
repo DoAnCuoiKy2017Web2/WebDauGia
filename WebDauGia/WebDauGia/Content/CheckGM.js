@@ -7,7 +7,7 @@
         dataType: "json",
         timeout: 30 * 1000,
         error: function (jqXHR, textStatus, errorThrown) {
-            alert('Error - ' + errorThrown);
+            //alert('Error - ' + errorThrown);
         }
     })
         .done(function (data) {
@@ -17,4 +17,4 @@
             //console.log(jqXHR);
             //alert('fail');
         });
-}, 8000);
+}, 5000);

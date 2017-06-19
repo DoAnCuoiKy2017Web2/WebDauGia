@@ -310,8 +310,11 @@ else
     int check = 0;
     if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName == Model.Salesman)
     {
+            <button style="margin-left:15px;margin-top:15px" class="btn btn-info">
+                Thêm Mô Tả
+            </button>
     <div class="alert alert-default" style="color:green">
-        <h3 class="fa fa-exclamation" aria-hidden="true">  Bạn Đang Rao Bán Sản Phẩm Này!!!</h3>
+        <h3 class="fa fa-exclamation" aria-hidden="true">  Sản phầm này bạn đăng bán!!!</h3>
     </div>
     }
     else if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName != Model.Salesman)

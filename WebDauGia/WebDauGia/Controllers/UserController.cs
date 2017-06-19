@@ -740,7 +740,7 @@ namespace WebDauGia.Controllers
                 index = pro;
                 if(pro.Count>0)
                 {
-                    for(int i=0;i<pro.Count-1;i++)
+                    for(int i=0;i<pro.Count;i++)
                     {
                         try
                         {
