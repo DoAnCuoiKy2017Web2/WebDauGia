@@ -16,6 +16,6 @@ namespace WebDauGia.Models
     {
         public int CatID { get; set; }
         public string CatName { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public bool Status { get; set; }
     }
 }

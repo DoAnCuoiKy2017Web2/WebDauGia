@@ -18,5 +18,6 @@ namespace WebDauGia.Models
         public string BeAsssessed { get; set; }
         public string Remark { get; set; }
         public System.DateTime TimeAppraise { get; set; }
+        public int ProID { get; set; }
     }
 }
