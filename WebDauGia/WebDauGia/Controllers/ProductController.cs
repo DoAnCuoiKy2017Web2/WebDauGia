@@ -17,7 +17,7 @@ namespace WebDauGia.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
         //Top 5 Theo Gia
         public ActionResult Top5Price()
