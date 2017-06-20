@@ -12,6 +12,7 @@
     <EntitySetMapping Name="Appraises">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.Apprais">
         <MappingFragment StoreEntitySet="Appraises">
+          <ScalarProperty Name="ProID" ColumnName="ProID" />
           <ScalarProperty Name="TimeAppraise" ColumnName="TimeAppraise" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
           <ScalarProperty Name="BeAsssessed" ColumnName="BeAsssessed" />

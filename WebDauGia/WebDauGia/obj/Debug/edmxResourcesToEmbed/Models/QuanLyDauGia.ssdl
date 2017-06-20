@@ -5,17 +5,19 @@
       <PropertyRef Name="UserName" />
     </Key>
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="PassWord" Type="nvarchar" MaxLength="255" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="255" Nullable="false" />
   </EntityType>
   <EntityType Name="Appraises">
     <Key>
       <PropertyRef Name="Assessor" />
       <PropertyRef Name="BeAsssessed" />
+      <PropertyRef Name="ProID" />
     </Key>
     <Property Name="Assessor" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="BeAsssessed" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Remark" Type="ntext" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="50" />
     <Property Name="TimeAppraise" Type="datetime" Nullable="false" />
+    <Property Name="ProID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="AuctionHistorys">
     <Key>
@@ -32,8 +34,8 @@
       <PropertyRef Name="CatID" />
     </Key>
     <Property Name="CatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CatName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Status" Type="bit" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Comments">
     <Key>
@@ -61,17 +63,17 @@
     <Property Name="ProName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CatID" Type="int" Nullable="false" />
     <Property Name="FullDes" Type="ntext" />
-    <Property Name="TinyDes" Type="nvarchar" MaxLength="80" />
+    <Property Name="TinyDes" Type="nvarchar" MaxLength="80" Nullable="false" />
     <Property Name="Salesman" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Price" Type="float" Nullable="false" />
     <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="StartTime" Type="datetime" Nullable="false" />
     <Property Name="EndTime" Type="datetime" Nullable="false" />
     <Property Name="StepPrice" Type="int" Nullable="false" />
-    <Property Name="AucPrice" Type="float" />
+    <Property Name="AucPrice" Type="float" Nullable="false" />
     <Property Name="Owner" Type="nvarchar" MaxLength="50" />
     <Property Name="OwnerPrice" Type="float" />
-    <Property Name="Status" Type="bit" />
+    <Property Name="Status" Type="bit" Nullable="false" />
     <Property Name="NumOfAuction" Type="int" Nullable="false" />
     <Property Name="AutoRenewal" Type="bit" Nullable="false" />
   </EntityType>
@@ -92,7 +94,7 @@
     <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Gender" Type="nvarchar" MaxLength="4" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="4" Nullable="false" />
     <Property Name="DateOfBirth" Type="date" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Phone" Type="nchar" MaxLength="14" />

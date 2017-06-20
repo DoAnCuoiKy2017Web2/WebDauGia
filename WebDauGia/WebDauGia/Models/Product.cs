@@ -20,7 +20,7 @@ namespace WebDauGia.Models
         public string FullDes { get; set; }
         public string TinyDes { get; set; }
         public string Salesman { get; set; }
-        public Nullable<double> Price { get; set; }
+        public double Price { get; set; }
         public int Quantity { get; set; }
         public System.DateTime StartTime { get; set; }
         public System.DateTime EndTime { get; set; }
