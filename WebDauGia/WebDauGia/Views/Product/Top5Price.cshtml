@@ -3,14 +3,6 @@
 
 @model List<Product>
 
-<style>
-    p {
-        font-size: 11px;
-    }
-
-    img {
-    }
-</style>
 <script>
     $(document).ready(function () {
         $('[data-toggle="love"]').tooltip();
@@ -67,7 +59,7 @@ else
         @foreach (var p in Model)
         {
 
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="thumbnail">
                     <a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
                         <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"

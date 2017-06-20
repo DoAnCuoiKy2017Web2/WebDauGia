@@ -7,35 +7,14 @@
     Trang chủ
 }
 <div class="row">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Top 5 Sản Phẩm Có Giá Cao Nhất</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <p style="text-align:center; color:green; font-weight:bold; font-size:15px">Top 5 Sản Phẩm Có Giá Cao Nhất</p>
     @Html.Action("Top5Price", "Product")
 </div>
 <div class="row">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Top 5 Sản Phẩm Có Nhiều Lượt Đấu Nhất</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <p style="text-align:center; color:green; font-weight:bold; font-size:15px">Top 5 Sản Phẩm Có Nhiều Lượt Đấu Nhất</p>
     @Html.Action("Top5NumAuction", "Product")
 </div>
 <div class="row">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Top 5 Sản Phẩm Gần Kết Thúc</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <p style="text-align:center; color:green; font-weight:bold; font-size:15px">Top 5 Sản Phẩm Gần Kết Thúc</p>
     @Html.Action("Top5MinTime", "Product")
 </div>

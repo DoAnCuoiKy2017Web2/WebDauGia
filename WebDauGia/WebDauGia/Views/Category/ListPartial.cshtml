@@ -7,11 +7,11 @@
 <div class="list-group">
     @foreach (var c in Model)
     {
-        <a href="@Url.Action("ByCat", "Product", new { id = @c.CatID})" class="list-group-item">
+        <a href="@Url.Action("ByCat", "Product", new { id = @c.CatID})" class="list-group-item" style="color:green">
             @c.CatName
         </a>
     }
-    <a href="@Url.Action("ByCat", "Product", new { id = -1})" class="list-group-item">
+    <a href="@Url.Action("ByCat", "Product", new { id = -1})" class="list-group-item" style="color:green">
         Tất cả
     </a>
 </div>
