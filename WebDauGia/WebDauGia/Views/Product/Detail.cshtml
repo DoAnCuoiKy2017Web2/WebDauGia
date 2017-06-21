@@ -18,15 +18,18 @@
         }
 
         .caption-lg-red {
-            
+            font-size: 11pt;
+            color: #f00;
+        }
+
+        .caption-lg-blue {
             font-size: 11pt;
             color: #f00;
         }
 
         .caption-lg-green {
-            font-weight: bold;
             font-size: 11pt;
-            color: #00FF00;
+            color: #008000;
         }
 
         .padding {
@@ -275,34 +278,34 @@ else
         <hr width="100%" align="center" />
 
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Giá hiện tại: @string.Format("{0:N0}", Model.AucPrice)</span>
+            <span class="caption-lg-green">Giá hiện tại: @string.Format("{0:N0}", Model.AucPrice)</span>
         </div>
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Giá mua ngay: @string.Format("{0:N0}", Model.Price)</span>
+            <span class="caption-lg-green">Giá mua ngay: @string.Format("{0:N0}", Model.Price)</span>
         </div>
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Người bán: @string.Format("{0} [{1:0.00}/100 điểm]", WebDauGia.Helper.StringUtils.Replace(Model.Salesman), WebDauGia.Models.Function.GetReliability(Model.Salesman))</span>
+            <span class="caption-lg-green">Người bán: @string.Format("{0} [{1:0.00}/100 điểm]", WebDauGia.Helper.StringUtils.Replace(Model.Salesman), WebDauGia.Models.Function.GetReliability(Model.Salesman))</span>
         </div>
         @if (Model.Owner != null && Model.Owner != "")
         {
             <div class="col-md-12 padding">
-                <span class="caption-lg-red">Người đang giữ giá cao nhất @string.Format("{0} điểm đánh giá: {1:0.00}/100", WebDauGia.Helper.StringUtils.Replace(Model.Owner), WebDauGia.Models.Function.GetReliability(Model.Owner))</span>
+                <span class="caption-lg-green">Người đang giữ giá cao nhất @string.Format("{0} điểm đánh giá: {1:0.00}/100", WebDauGia.Helper.StringUtils.Replace(Model.Owner), WebDauGia.Models.Function.GetReliability(Model.Owner))</span>
             </div>
         }
         else
         {
             <div class="col-md-12 padding">
-                <span class="caption-lg-red">Người đang giữ giá cao nhất : chưa có </span>
+                <span class="caption-lg-green">Người đang giữ giá cao nhất : chưa có </span>
             </div>
         }
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Bắt đầu: @String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", Model.StartTime)</span>
+            <span class="caption-lg-green">Bắt đầu: @String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", Model.StartTime)</span>
         </div>
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Kết thúc: @String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", Model.EndTime)</span>
+            <span class="caption-lg-green">Kết thúc: @String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", Model.EndTime)</span>
         </div>
         <div class="col-md-12 padding">
-            <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
+            <span class="caption-lg-green">Số lượng: @Model.Quantity</span>
         </div>
         @*Dau Gia ở Day*@
         @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
@@ -328,6 +331,7 @@ else
                         if (cim.ProID == Model.ProID && cim.UserName == CurrentContext.GetCurUser().UserName)
                         {
                             check = 1;
+                            break;
                         }
                     }
                 }
@@ -339,45 +343,62 @@ else
                 }
                 else
                 {
-                    <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate" *@>
-                        <div class="col-md-12 caption-lg-green">
-                            @if (Model.Owner != null)
-                            {
-                                if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                    <!--Kiem tra diem danh gia tren 80%-->
+                    string diem = WebDauGia.Helper.CurrentContext.GetCurUser().Reliability;
+                    if (double.Parse(diem.Split('/')[0]) / (double.Parse(diem.Split('/')[1]) + double.Parse(diem.Split('/')[0])) < 0.8)
+                    {
+                        <div class="alert alert-default" style="color:red">
+                            <h5 class="fa fa-exclamation" aria-hidden="true" style="font-size: 20px">  Bạn không đủ tiêu chuẩn để đấu giá!!!</h5>
+                        </div>
+                    }
+                    else
+                    {
+                        <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate" *@>
+                            <div class="col-md-12 caption-lg-green">
+                                @if (Model.Owner != null)
                                 {
-                                    <h3 style="color:darkblue">
-                                        Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}", Model.OwnerPrice) VNĐ!!!
-                                    </h3>
-                                    <div style="color:red">
-                                        <h5 class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</h5>
-                                    </div>
+                                    if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                                    {
+                                        <h3 style="color:darkblue">
+                                            Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}", Model.OwnerPrice) VNĐ!!!
+                                        </h3>
+                                        <div style="color:red">
+                                            <h5 class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</h5>
+                                        </div>
+                                    }
                                 }
-                            }
-                            <h3>
-                                Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
-                            </h3>
-                            <input id="giagoc" type="hidden" value="@Model.AucPrice">
-                            <input id="buocgia" type="hidden" value="@Model.StepPrice">
-                            <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number" step="@Model.StepPrice" min="@(Model.AucPrice + Model.StepPrice)">
-                            @*@{
+                                <h3>
+                                    Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
+                                </h3>
+                                <input id="giagoc" type="hidden" value="@Model.AucPrice">
+                                <input id="buocgia" type="hidden" value="@Model.StepPrice">
+                                <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number" step="@Model.StepPrice" min="@(Model.AucPrice + Model.StepPrice)">
+                                @*@{
 
-                                User us = (User)Session["user"];
-                                AuctionHistory ah = new AuctionHistory();
-                                ah.ProID = Model.ProID;
-                                ah.UserName = us.UserName;
-                                ah.Time = DateTime.Now;
-                                }
-                                @Html.Hidden("proid", @Model.ProID)
-                                @Html.Hidden("uname", @us.UserName)
-                                @Html.Hidden("time", @DateTime.Now)*@
-                            @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
-                            @if (Model.Owner != null)
-                            {
-                                if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                                    User us = (User)Session["user"];
+                                    AuctionHistory ah = new AuctionHistory();
+                                    ah.ProID = Model.ProID;
+                                    ah.UserName = us.UserName;
+                                    ah.Time = DateTime.Now;
+                                    }
+                                    @Html.Hidden("proid", @Model.ProID)
+                                    @Html.Hidden("uname", @us.UserName)
+                                    @Html.Hidden("time", @DateTime.Now)*@
+                                @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
+                                @if (Model.Owner != null)
                                 {
-                                    <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
-                                        Đổi Giá
-                                    </a>
+                                    if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                                    {
+                                        <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
+                                            Đổi Giá
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                                            Đấu giá
+                                        </a>
+                                    }
                                 }
                                 else
                                 {
@@ -385,16 +406,10 @@ else
                                         Đấu giá
                                     </a>
                                 }
-                            }
-                            else
-                            {
-                                <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
-                                    Đấu giá
-                                </a>
-                            }
 
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    }
                 }
 
             }
