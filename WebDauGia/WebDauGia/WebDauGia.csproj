@@ -907,6 +907,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Helper\GhiChu.txt" />
+    <Content Include="Images\background-site.jpg" />
     <Content Include="Images\Home\2.jpg" />
     <Content Include="Images\Home\3.jpg" />
     <Content Include="Images\Home\4.jpg" />
