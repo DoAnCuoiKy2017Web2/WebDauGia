@@ -6,6 +6,16 @@
 @section view_title{
 <i class="fa fa-product-hunt" aria-hidden="true"></i>
     Danh sách sản phẩm: @ViewBag.CatName
+    @if (Model.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <a class="fa fa-sort-down btn btn-primary" aria-hidden="true" id="btnsoftdownTime" href="?Command=1&page=@(ViewBag.curPage) ">  Hạn Kết Thúc </a>
+                <a class="fa fa-sort-up btn btn-primary" aria-hidden="true" id="btnsoftupPrice" href="?Command=2&page=@(ViewBag.curPage) ">  Giá Sản Phẩm </a>
+            </div>
+        </div>
+    }
 }
 @section css{
     @*<link href="~/Content/LightBox/Hinh.css" rel="stylesheet" />*@
@@ -112,7 +122,7 @@ else
             else
             {
                 <li>
-                    <a href="?page=@(ViewBag.curPage - 1)" aria-label="Previous">
+                    <a href="?Command=@ViewBag.Command&page=@(ViewBag.curPage - 1)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -121,11 +131,11 @@ else
             {
                 if (i == ViewBag.curPage)
                 {
-                    <li class="active"><a href="?page=@i">@i</a></li>
+                    <li class="active"><a href="?Command=@ViewBag.Command&page=@i">@i</a></li>
                 }
                 else
                 {
-                    <li><a href="?page=@i">@i</a></li>
+                    <li><a href="?Command=@ViewBag.Command&page=@i">@i</a></li>
                 }
             }
             @if (@ViewBag.curPage == @ViewBag.Pages)
@@ -139,7 +149,7 @@ else
             else
             {
                 <li>
-                    <a href="?page=@(ViewBag.curPage + 1)" aria-label="Next">
+                    <a href="?Command=@ViewBag.Command&page=@(ViewBag.curPage + 1)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

@@ -80,8 +80,9 @@ namespace WebDauGia.Controllers
             }
         }
         //GET: Product/ByCat//chinh sua ngày 4/6/2017
-        public ActionResult ByCat(int? id, int page = 1)
+        public ActionResult ByCat(int? id, int Command = 0, int page = 1)
         {
+
             if (id.HasValue == false)
             {
                 return RedirectToAction("Index", "Home");
@@ -99,14 +100,36 @@ namespace WebDauGia.Controllers
                     int nPages = n / recordsPerPage + (n % recordsPerPage == 0 ? 0 : 1);
 
                     @ViewBag.Pages = nPages;
-
-                    List<Product> list = ctx.Products
+                    if (Command == 1)
+                    {
+                        List<Product> list = ctx.Products
+                       .Where(p => p.EndTime > DateTime.Now)
+                       .OrderByDescending(p => p.EndTime)
+                       .Skip((page - 1) * recordsPerPage)
+                       .Take(recordsPerPage)
+                       .ToList();
+                        return View(list);
+                    }
+                    else if (Command == 2)
+                    {
+                        List<Product> list = ctx.Products
+                        .Where(p => p.EndTime > DateTime.Now)
+                        .OrderBy(p => p.Price)
+                        .Skip((page - 1) * recordsPerPage)
+                        .Take(recordsPerPage)
+                        .ToList();
+                        return View(list);
+                    }
+                    else
+                    {
+                        List<Product> list = ctx.Products
                         .Where(p => p.EndTime > DateTime.Now)
                         .OrderBy(p => p.ProID)
                         .Skip((page - 1) * recordsPerPage)
                         .Take(recordsPerPage)
                         .ToList();
-                    return View(list);
+                        return View(list);
+                    }
                 }
             }
             using (var ctx = new QuanLyDauGiaEntities())
@@ -126,23 +149,36 @@ namespace WebDauGia.Controllers
 
                 @ViewBag.Pages = nPages;
 
-                List<Product> list = ctx.Products
-                    .Where(p => p.CatID == id && p.EndTime>DateTime.Now)
-                    .OrderBy(p => p.ProID)
-                    //.Select(l => new SubProduct
-                    //{
-                    //    ProID = l.ProID,
-                    //    ProName = l.ProName,
-                    //    Price = l.Price,
-                    //    Buyer = l.Owner.Replace(l.Owner.Substring(0, 3), "***"),
-                    //    StartTime = l.StartTime,
-                    //    EndTime = l.EndTime,
-                    //    NumOfAuction = l.NumOfAuction
-                    //})
+                if (Command == 1)
+                {
+                    List<Product> list = ctx.Products
+                    .Where(p => p.CatID == id && p.EndTime > DateTime.Now)
+                    .OrderByDescending(p => p.EndTime)
                     .Skip((page - 1) * recordsPerPage)
                     .Take(recordsPerPage)
                     .ToList();
-                return View(list);
+                    return View(list);
+                }
+                else if (Command == 2)
+                {
+                    List<Product> list = ctx.Products
+                   .Where(p => p.CatID == id && p.EndTime > DateTime.Now)
+                   .OrderBy(p => p.Price)
+                   .Skip((page - 1) * recordsPerPage)
+                   .Take(recordsPerPage)
+                   .ToList();
+                    return View(list);
+                }
+                else
+                {
+                    List<Product> list = ctx.Products
+                    .Where(p =>p.CatID == id && p.EndTime > DateTime.Now)
+                    .OrderBy(p => p.ProID)
+                    .Skip((page - 1) * recordsPerPage)
+                    .Take(recordsPerPage)
+                    .ToList();
+                    return View(list);
+                }
             }
         }
         //GET:Product/Search
