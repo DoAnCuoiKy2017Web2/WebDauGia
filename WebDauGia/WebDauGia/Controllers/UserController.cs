@@ -177,7 +177,7 @@ namespace WebDauGia.Controllers
                             u.DateCreate = DateTime.Now;
                             u.AllowAuction = false;
                             u.AllowSales = false;
-                            u.Reliability = "10/10";
+                            u.Reliability = "1/0";
                             try
                             {
                                 u.DateCreate = DateTime.Now;

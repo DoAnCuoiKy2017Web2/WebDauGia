@@ -82,7 +82,7 @@ namespace WebDauGia.Controllers
         //GET: Product/ByCat//chinh sua ngày 4/6/2017
         public ActionResult ByCat(int? id, int Command = 0, int page = 1)
         {
-
+            @ViewBag.Command = Command;
             if (id.HasValue == false)
             {
                 return RedirectToAction("Index", "Home");
@@ -294,6 +294,7 @@ namespace WebDauGia.Controllers
                 model.FullDes = pro.FullDes;
                 model.StartTime = DateTime.ParseExact(pro.StartTime, "dd/MM/yyyy", null);
                 model.EndTime = DateTime.ParseExact(pro.EndTime, "dd/MM/yyyy hh:mm tt", null);
+                model.Status = false;
                 if (model.StartTime <= DateTime.Now)
                     model.StartTime = DateTime.Now;
                 ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
