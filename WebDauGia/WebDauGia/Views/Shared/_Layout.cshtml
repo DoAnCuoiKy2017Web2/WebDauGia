@@ -15,7 +15,7 @@
     <script src="~/Content/jquery-3.2.0.min.js"></script>
     @RenderSection("css", false)
 </head>
-<body>
+<body background="~/Images/background-site.jpg">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -93,11 +93,11 @@
                                 <li>
                                     <a href="@Url.Action("Profile", "User")" style="color:green">
                                         <i class="fa fa-address-book-o" aria-hidden="true"></i>
-                                         Quản lý tài khoản
+                                        Quản lý tài khoản
                                     </a>
                                 </li>
                                 @*<li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>*@
+                                    <li><a href="#">Something else here</a></li>*@
                                 <li role="separator" class="divider"></li>
                                 <li>
                                     <a id="logoutLink" href="javascript:;" style="color:green">
@@ -203,7 +203,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 paddingtop-bottom ">
                     <div class="logofooter">
-                        <img src="~/Images/Home/logo.png" />
+                        <img src="~/Images/Home/logo.png" width="160" height="40" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 footerleft ">

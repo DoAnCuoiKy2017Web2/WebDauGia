@@ -21,7 +21,7 @@
 
     @RenderSection("css", false)
 </head>
-<body>
+<body background="~/Images/background-site.jpg">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -40,15 +40,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <!--Đăng ký đăng nhập thì không cần hiện-->
                 @*<form class="navbar-form navbar-left" method="get" action="@Url.Action("Search", "Product")">
-                    <div class="form-group">
-                        <input type="text" name="txtkey" class="form-control" placeholder="Search">
-                        <input type="hidden" name="txtcommand" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        Tìm kiếm
-                    </button>
-                </form>*@
+                        <div class="form-group">
+                            <input type="text" name="txtkey" class="form-control" placeholder="Search">
+                            <input type="hidden" name="txtcommand" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            Tìm kiếm
+                        </button>
+                    </form>*@
                 <ul class="nav navbar-nav navbar-right">
                     @*<li><a href="#">Link</a></li>*@
                     @if (CurrentContext.IsLogged() == false)
@@ -74,7 +74,7 @@
                                 <li>
                                     <a href="@Url.Action("Profile", "User")" style="color:green">
                                         <i class="fa fa-address-book-o" aria-hidden="true"></i>
-                                         Quản lý tài khoản
+                                        Quản lý tài khoản
                                     </a>
                                 </li>
                                 <li role="separator" class="divider"></li>
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 paddingtop-bottom ">
                     <div class="logofooter">
-                        <img src="~/Images/Home/logo.png" />
+                        <img src="~/Images/Home/logo.png" width="160" height="40"/>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 footerleft ">
@@ -132,7 +132,8 @@
                     <div class="fb-page" data-href="https://www.facebook.com/thihatrang.phan?hc_ref=NEWSFEED" data-tabs="timeline" data-height="300" data-small-header="false" style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                         <div class="fb-xfbml-parse-ignore">
                             <p><a href="https://www.facebook.com/groups/433984043618085/">Facebook</a></p>
-                            <p><a href="https://github.com/DoAnCuoiKy2017Web2/">GitHub-Source</a></p>                        </div>
+                            <p><a href="https://github.com/DoAnCuoiKy2017Web2/">GitHub-Source</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
