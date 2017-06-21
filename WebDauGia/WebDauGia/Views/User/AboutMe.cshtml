@@ -14,6 +14,10 @@
         .Where(p =>p.BeAsssessed == us.UserName)
         .ToList();
     int t = l.Count();
+    var l2 = ctx.Products
+        .Where(p => p.Owner == us.UserName && p.EndTime <= DateTime.Now)
+        .Select(x => new{ x.Salesman, x.ProID})
+        .ToList();
 }
 
 <form id="frmS" method="get" action="@Url.Action("Review","User")">
@@ -45,24 +49,49 @@
                     @foreach (var cim in l)
                     {
                         <tr>
-                            <td>chưa có db</td>
-                            <td>@cim.Assessor</td>
-                            <td class="text-right">chưa</td>
+                            <td>@cim.AppID</td>
+                            <td>@WebDauGia.Helper.StringUtils.Replace(cim.Assessor)</td>
+                            <td class="text-right">@cim.ProID</td>
                             <td >@cim.Remark</td>
-                            <td class="text-right">chưa</td>
+                            @if (cim.Scores == true)
+                            {
+                                <td class="text-right">+1</td>
+                            }
+                            else
+                            {
+                                <td class="text-right">-1</td>
+                            }                               
                             <td class="text-right">
                                 @*<a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Assessor">
         Đánh giá
-    </a>*@ chưa có db chưa chạy
+    </a>*@ Đã có db nhé Nam(chưa có view đánh giá.)
                                 <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" >
                                     Đánh giá
                                 </a>
                             </td>
                         </tr>
-
                     }
+                    @*@foreach (var cim in l2)
+                    {
+                        <tr>
+                            <td>#123</td>
+                            <td>@WebDauGia.Helper.StringUtils.Replace(cim.Salesman)</td>
+                            <td class="text-right">@cim.ProID</td>
+                            <td></td>
+                            <td class="text-right"></td>
+                            <td class="text-right">
+                                @*<a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Assessor">
+                        Đánh giá
+                    </a>*@ Đã có db nhé Nam(chưa có view đánh giá)
+                                <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá">
+                                    Đánh giá
+                                </a>
+                            </td>
+                        </tr>
+                    }*@
                 </tbody>
-                Cập nhật code cho hiện người thắng ở bảng product
+                Cập nhật code cho hiện người thắng ở bảng product(đã cập nhưng chưa biết thể hiện ntn L2 chứa danh sách này.)
+                Theo yêu cầu thì view này chỉ xem trong bảng Appraise. Nên cái l2 không cần hiển thị.
             </table>
 
         </div>

@@ -752,6 +752,7 @@ namespace WebDauGia.Controllers
         [CheckLogin]
         public ActionResult AboutMe()
         {
+
             return View();
         }
         [HttpPost]

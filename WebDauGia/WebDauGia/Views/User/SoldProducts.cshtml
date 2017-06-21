@@ -43,7 +43,7 @@
                         <tr>
                             <td>@cim.ProID</td>
                             <td>@cim.ProName</td>
-                            <td class="text-right">@cim.Owner</td>
+                            <td class="text-right">@WebDauGia.Helper.StringUtils.Replace(cim.Owner)</td>
                             <td class="text-right">@cim.AucPrice</td>
                             <td class="text-right">
                                 <a class="btn btn-info btn-xs sendReview" href="#" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Owner" >

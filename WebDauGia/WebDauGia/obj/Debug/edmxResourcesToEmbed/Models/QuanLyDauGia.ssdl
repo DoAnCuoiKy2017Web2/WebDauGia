@@ -18,6 +18,8 @@
     <Property Name="Remark" Type="nvarchar" MaxLength="50" />
     <Property Name="TimeAppraise" Type="datetime" Nullable="false" />
     <Property Name="ProID" Type="int" Nullable="false" />
+    <Property Name="Scores" Type="bit" Nullable="false" />
+    <Property Name="AppID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="AuctionHistorys">
     <Key>
@@ -104,6 +106,7 @@
     <Property Name="AllowAuction" Type="bit" Nullable="false" />
     <Property Name="AllowSales" Type="bit" Nullable="false" />
     <Property Name="Reliability" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="WatchList">
     <Key>

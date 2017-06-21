@@ -2,7 +2,6 @@
 <Schema Namespace="QuanLyDauGiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="QuanLyDauGiaEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Admins" EntityType="QuanLyDauGiaModel.Admin" />
-    <EntitySet Name="Appraises" EntityType="QuanLyDauGiaModel.Apprais" />
     <EntitySet Name="AuctionHistorys" EntityType="QuanLyDauGiaModel.AuctionHistory" />
     <EntitySet Name="Categories" EntityType="QuanLyDauGiaModel.Category" />
     <EntitySet Name="Comments" EntityType="QuanLyDauGiaModel.Comment" />
@@ -11,6 +10,7 @@
     <EntitySet Name="Requests" EntityType="QuanLyDauGiaModel.Request" />
     <EntitySet Name="Users" EntityType="QuanLyDauGiaModel.User" />
     <EntitySet Name="WatchLists" EntityType="QuanLyDauGiaModel.WatchList" />
+    <EntitySet Name="Appraises" EntityType="QuanLyDauGiaModel.Apprais" />
   </EntityContainer>
   <EntityType Name="Admin">
     <Key>
@@ -18,18 +18,6 @@
     </Key>
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PassWord" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Apprais">
-    <Key>
-      <PropertyRef Name="Assessor" />
-      <PropertyRef Name="BeAsssessed" />
-      <PropertyRef Name="ProID" />
-    </Key>
-    <Property Name="Assessor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="BeAsssessed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TimeAppraise" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ProID" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="AuctionHistory">
     <Key>
@@ -116,6 +104,7 @@
     <Property Name="AllowAuction" Type="Boolean" Nullable="false" />
     <Property Name="AllowSales" Type="Boolean" Nullable="false" />
     <Property Name="Reliability" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="WatchList">
     <Key>
@@ -124,5 +113,19 @@
     </Key>
     <Property Name="ProID" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Apprais">
+    <Key>
+      <PropertyRef Name="Assessor" />
+      <PropertyRef Name="BeAsssessed" />
+      <PropertyRef Name="ProID" />
+    </Key>
+    <Property Name="Assessor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BeAsssessed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TimeAppraise" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProID" Type="Int32" Nullable="false" />
+    <Property Name="Scores" Type="Boolean" Nullable="false" />
+    <Property Name="AppID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
 </Schema>
