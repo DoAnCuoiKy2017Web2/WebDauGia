@@ -9,21 +9,23 @@
 }
 
 @section css{
+     <style type="text/css">
+        label {
+            font-weight: normal !important;
+        }
+    </style>
     <link href="~/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
 }
 @section js{
-    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
-    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
+    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>    
     <script src="~/Content/bootstrap.file-input.js"></script>
-
-
     @*<script type="text/javascript" src="~/scripts/jquery.min.js"></script>*@
     <script type="text/javascript" src="~/scripts/moment.min.js"></script>
     <!--Cái này bị đè nên nó mới không chạy được cái quản lý.-->
     @*<script type="text/javascript" src="~/scripts/bootstrap.min.js"></script>*@
     <script type="text/javascript" src="~/scripts/bootstrap-datetimepicker.js"></script>
-
+    <script src="~/Content/Jquery-Valid/jquery.validate.min.js"></script>
     <script>
         $('input[type=file]').bootstrapFileInput();
 
@@ -38,31 +40,47 @@
     </script>
 
     <script type="text/javascript">
-        $('.datepicker').datepicker({
-            format: 'd/mm/yyyy',
-            autoclose: true,
-        });
         $("#Form-Add").validate({
             rules: {
                 ProName: {
                     required: true,
                 },
-                Price: {
+                AucPrice: {
                     required: true,
+                    step: 1000,
+                    min: 1000
+                },
+                Price:{
+                    step: 1000,
+                    min: 1000,
                 },
                 Quantity: {
                     required: true,
+                    min: 1,
                 },
+                TinyDes: {
+                    required: true,
+                },               
             },
             messages: {
                 ProName: {
                     required: "Chỗ này không được để trống.",
                 },
-                Price: {
+                AucPrice: {
                     required: "Chỗ này không được để trống.",
+                    step: "Nhập số chia hết cho 1000",
+                    min: "nhập số lớn hơn 999",
                 },
                 Quantity: {
                     required: "Chỗ này không được để trống.",
+                    min: "nhập số lớn hơn 0"
+                },
+                TinyDes: {
+                    required: "Chỗ này không được để trống.",
+                },
+                Price: {
+                    step: "Nhập số chia hết 1000.",
+                    min: "nhập số lớn hơn 999"
                 },
             },
             errorelement: 'span',
@@ -110,78 +128,105 @@
         
     </div>
     <div class="form-group">
-        <label for="ProName" class="col-sm-2 control-label">Tên sản phẩm:</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" name="ProName" />
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtProName" class="col-sm-4 control-label">Tên sản phẩm:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtProName" name="ProName" placeholder="tên sản phẩm" />
+            </div>
         </div>
-        <label for="CatId" class="col-sm-2 control-label">Danh mục:</label>
-        <div class="col-sm-4">
-            <select name="CatId" class="form-control">
-                @foreach (var c in @ViewBag.DanhSachDanhMuc)
-                {
-                    <option value="@c.CatID">@c.CatName</option>
-                }
-            </select>
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtCatId" class="col-sm-4 control-label">Danh mục:</label>
+            <div class="col-sm-8">
+                <select name="CatId" class="form-control" id="txtCatID">
+                    @foreach (var c in @ViewBag.DanhSachDanhMuc)
+                    {
+                        <option value="@c.CatID">@c.CatName</option>
+                    }
+                </select>
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <label for="Quantity" class="col-sm-2 control-label">Số lượng:</label>
-        <div class="col-sm-1">
-            <input type="number" class="form-control" name="Quantity" />
+        <div class="form-group col-sm-8" style="margin:0; padding:0">
+            <label for="txtTinyDes" class="col-sm-3 control-label">Mô tả sản phẩm:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtTinyDes" name="TinyDes" />
+            </div>
         </div>
-        <label for="Price" class="col-sm-2 control-label">Giá mua ngay:</label>
-        <div class="col-sm-3">
-            <input type="number" class="form-control" name="Price" />
+        <div class="form-group col-sm-4" style="margin:0; padding:0">
+            <label for="txtQuantity" class="col-sm-4 control-label">Số lượng:</label>
+            <div class="col-sm-8">
+                <input type="number" step="1" class="form-control" id="txtQuantity" name="Quantity" />
+            </div>
         </div>
-        <label for="Price" class="col-sm-2 control-label">Giá khởi điểm:</label>
-        <div class="col-sm-2">
-            <input type="number" class="form-control" name="AucPrice" />
+    </div>
+    <div class="form-group">
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtPrice" class="control-label col-sm-4">Giá mua ngay:</label>
+            <div class="col-sm-8">
+                <input type="number" step="1000" class="form-control" id="txtPrice" name="Price" />
+            </div>
+        </div>
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtAucPrice" class="col-sm-4 control-label">Giá khởi điểm:</label>
+            <div class="col-sm-8">
+                <input type="number" step="1000" class="form-control" id="txtAucPrice" name="AucPrice" />
+            </div>
         </div>
     </div>
     
     <div class="form-group">
-        <label for="TinyDes" class="col-sm-2 control-label">Mô tả sản phẩm:</label>
+        <label for="txtFullDes" class="col-sm-2 control-label">Mô tả chi tiết:</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="TinyDes" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="FullDes" class="col-sm-2 control-label">Mô tả chi tiết:</label>
-        <div class="col-sm-10">
-            <textarea name="FullDes" id="FullDes"></textarea>
+            <textarea name="FullDes" id="txtFullDes"></textarea>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="StartTime" class="col-sm-2 control-label">Bắt đầu:</label>
+        <label for="dtStartTime" class="col-sm-2 control-label">Bắt đầu:</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control datepicker" id="time1"
+            <input type="text" class="form-control datepicker" id="dtStartTime"
                    name="StartTime" value="@String.Format("{0:d/M/yyyy}", DateTime.Now)" />
         </div>
         <script type="text/javascript">
             $(function () {
-                $('#time1').datetimepicker({
+                $('#dtStartTime').datetimepicker({
                     format: 'DD/MM/YYYY'
                 });
             });
         </script>
-        <label for="EndTime" class="col-sm-2 control-label">Kết thúc:</label>
+        <label for="dtEndTime" class="col-sm-2 control-label">Kết thúc:</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control datepicker" id="time2"
+            <input type="text" class="form-control datepicker" id="dtEndTime"
                    name="EndTime" value="@String.Format("{0:d/M/yyyy hh:mm tt}", DateTime.Now.AddDays(7))" />
         </div>
         <script type="text/javascript">
             $(function () {
-                $('#time2').datetimepicker({
+                $('#dtEndTime').datetimepicker({
                     format: 'DD/MM/YYYY hh:mm A'
                 });
             });
         </script>
     </div>
     <div class="form-group">
-        <label for="StepPrice" class="col-sm-2 control-label">Bước tăng:</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" name="StepPrice" />
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtStepPrice" class="col-sm-4 control-label">Bước tăng:</label>
+            <div class="col-sm-8">
+                <input type="number" pattern="(d{3})([.])" step="1000" class="form-control" id="txtStepPrice" name="StepPrice" />
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="rdoAutoRenewal" class="col-sm-6 control-label">Tự động gia hạn thời gian</label>
+            <div class="col-sm-6">
+                <div class="editor-field">
+                    <div class="col-sm-6" style="margin:0; padding:0; margin-top:5px">
+                        <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" value="True"> Có<br>
+                    </div>
+                    <div class="col-sm-6" style="margin:0; padding:0; margin-top:5px">
+                        <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" value="False" checked> Không<br>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group">

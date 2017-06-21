@@ -233,25 +233,27 @@ namespace WebDauGia.Controllers
         public ActionResult Add(ProductVM pro, HttpPostedFileBase fuMain, HttpPostedFileBase fuThumbs_1, HttpPostedFileBase fuThumbs_2)
         {
             Product model = new Product();
-            if (model.Salesman == null)
-                model.Salesman = CurrentContext.GetCurUser().UserName;
-            
-            if (model.StepPrice == 0)
-            {
-                int price =(int)(double.Parse(pro.Price));
-                model.StepPrice = price / 100 * 10; // 10% giá gốc
-            }
+            model.Salesman = CurrentContext.GetCurUser().UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                //model.AucPrice = 0;
-                //model.OwnerPrice = 100;
-                //model.Owner = "admin";
 
                 model.ProName = pro.ProName;
                 model.CatID = int.Parse(pro.CatId);
                 model.Quantity = int.Parse(pro.Quantity);
-                model.Price = double.Parse(pro.Price);
+                if(pro.Price != null && pro.Price != "")
+                {
+                    model.Price = double.Parse(pro.Price);
+                }
                 model.AucPrice = double.Parse(pro.AucPrice);
+                if (pro.StepPrice == null || pro.StepPrice == "")
+                {
+                    model.StepPrice = ((int)model.AucPrice/100 * 10)/1000 * 1000; // 10% giá khởi điểm.
+                }
+                else
+                {
+                    model.StepPrice = (int)(double.Parse(pro.StepPrice));
+                }
+                model.AutoRenewal = pro.AutoRenewal == "True" ? true : false ;
                 model.TinyDes = pro.TinyDes;
                 model.FullDes = pro.FullDes;
                 model.StartTime = DateTime.ParseExact(pro.StartTime, "dd/MM/yyyy", null);

@@ -18,5 +18,6 @@ namespace WebDauGia.Models
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string StepPrice { get; set; }
+        public string AutoRenewal { get; set; }
     }
 }
