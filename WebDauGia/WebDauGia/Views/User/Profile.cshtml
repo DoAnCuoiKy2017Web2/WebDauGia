@@ -157,7 +157,7 @@
                                                     }
                                                 </h4>
                                                 <h4 class="blue">
-                                                    <span class="middle">@Model.DateOfBirth.ToShortDateString()</span>
+                                                    <span class="middle">@string.Format("{0:d/M/yyyy}", Model.DateOfBirth)</span>
                                                 </h4>
                                                 <h4 class="blue">
                                                     <span class="middle">@Model.Address</span>
@@ -166,10 +166,10 @@
                                                     <span class="middle">@Model.Email</span>
                                                 </h4>
                                                 <h4 class="blue">
-                                                    <span class="middle">@Model.Phone</span>
+                                                    <span class="middle">+@Model.Phone</span>
                                                 </h4>
                                                 <h4 class="blue">
-                                                    <span class="middle">Chưa biết lấy dữ liệu từ đâu</span>
+                                                    <span class="middle">@Model.Reliability.Split('/')[0] (+) @Model.Reliability.Split('/')[1] (-)</span>
                                                 </h4>
                                                 <h4 class="blue">
                                                     <span class="middle">Bạn được phép đăng bán.. hay ko</span>
@@ -180,12 +180,9 @@
                                                 <div class="profile-info-row">
                                                     @if (Model.AllowSales == true)
                                                     {
-                                                        <button type="button" class="btn btn-success">
-                                                            <a href="@Url.Action("Add", "Product")" style="color:white;font-size:15px">
-                                                                Đăng Bán Sản Phẩm!
-                                                            </a>
+                                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Add", "Product")'">
+                                                            Đăng Bán Sản Phẩm!
                                                         </button>
-
                                                     }
                                                     else
                                                     {
