@@ -24,7 +24,7 @@ namespace WebDauGia.Controllers
         {
             using (var ctx = new QuanLyDauGiaEntities())
             {
-                List<Product> list = ctx.Products.OrderByDescending(l => l.Price).Where(l => l.EndTime > DateTime.Now)
+                List<Product> list = ctx.Products.OrderByDescending(l => l.AucPrice).Where(l => l.EndTime > DateTime.Now)
                 //    .Select(l => new SubProduct
                 //{
                 //    ProID = l.ProID,
@@ -80,6 +80,7 @@ namespace WebDauGia.Controllers
             }
         }
         //GET: Product/ByCat//chinh sua ngày 4/6/2017
+        [HttpGet, ValidateInput(false)]
         public ActionResult ByCat(int? id, int Command = 0, int page = 1)
         {
             @ViewBag.Command = Command;
@@ -114,7 +115,7 @@ namespace WebDauGia.Controllers
                     {
                         List<Product> list = ctx.Products
                         .Where(p => p.EndTime > DateTime.Now)
-                        .OrderBy(p => p.Price)
+                        .OrderBy(p => p.AucPrice)
                         .Skip((page - 1) * recordsPerPage)
                         .Take(recordsPerPage)
                         .ToList();
@@ -163,7 +164,7 @@ namespace WebDauGia.Controllers
                 {
                     List<Product> list = ctx.Products
                    .Where(p => p.CatID == id && p.EndTime > DateTime.Now)
-                   .OrderBy(p => p.Price)
+                   .OrderBy(p => p.AucPrice)
                    .Skip((page - 1) * recordsPerPage)
                    .Take(recordsPerPage)
                    .ToList();
@@ -182,7 +183,7 @@ namespace WebDauGia.Controllers
             }
         }
         //GET:Product/Search
-        [HttpGet, ValidateInput(false)]
+        //[HttpGet, ValidateInput(false)]
         public ActionResult Search(string txtkey, int Command = 0, int page = 1)
         {
             @ViewBag.key = txtkey;
@@ -221,7 +222,7 @@ namespace WebDauGia.Controllers
                 }
                 else if (Command == 2)
                 {
-                    LSP = LSP.OrderBy(l => l.Price).ToList();
+                    LSP = LSP.OrderBy(l => l.AucPrice).ToList();
                 }
                 int n =LSP.Count();
                 int recordsPerPage = 3;
