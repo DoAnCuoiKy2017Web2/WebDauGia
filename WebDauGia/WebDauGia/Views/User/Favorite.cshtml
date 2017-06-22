@@ -7,4 +7,17 @@
 @{
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-@Html.Action("List", "WatchList")
+<div class="col-md-12">
+    <div class="card" style="height:58px">
+        <form style="margin-top: -9px;margin-left:350px" class="navbar-form navbar-left" method="get" action="@Url.Action("Favorite", "User")">
+            <div class="form-group">
+                <input style="width:100px;width:300px" type="text" name="txtkey" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Tìm kiếm
+            </button>
+        </form>
+    </div>
+</div>
+        @Html.Action("List", "WatchList")
