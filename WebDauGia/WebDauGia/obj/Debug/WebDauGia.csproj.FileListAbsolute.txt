@@ -70,7 +70,6 @@ C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.
 C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
 C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
-D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll.config
