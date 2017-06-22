@@ -10,7 +10,15 @@
 }
 
 @section css{
-     <style type="text/css">
+    <style type="text/css">
+        .btn span.glyphicon {
+            opacity: 0;
+        }
+
+        .btn.active span.glyphicon {
+            opacity: 1;
+        }
+
         label {
             font-weight: normal !important;
         }
@@ -19,7 +27,7 @@
     <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
 }
 @section js{
-    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>    
+    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
     <script src="~/Content/bootstrap.file-input.js"></script>
     @*<script type="text/javascript" src="~/scripts/jquery.min.js"></script>*@
     <script type="text/javascript" src="~/scripts/moment.min.js"></script>
@@ -203,20 +211,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="form-group col-sm-8" style="margin:0; padding:0">
-            <label for="txtTinyDes" class="col-sm-3 control-label">Mô tả sản phẩm:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="txtTinyDes" name="TinyDes" />
-            </div>
-        </div>
-        <div class="form-group col-sm-4" style="margin:0; padding:0">
-            <label for="txtQuantity" class="col-sm-4 control-label">Số lượng:</label>
-            <div class="col-sm-8">
-                <input type="number" step="1" class="form-control" id="txtQuantity" name="Quantity" />
-            </div>
-        </div>
-    </div>
+
     <div class="form-group">
         <div class="form-group col-sm-6" style="margin:0; padding:0">
             <label for="txtPrice" class="control-label col-sm-4">Giá mua ngay:</label>
@@ -233,14 +228,21 @@
             </div>
         </div>
     </div>
-    
     <div class="form-group">
-        <label for="txtFullDes" class="col-sm-2 control-label">Mô tả chi tiết:</label>
-        <div class="col-sm-10">
-            <textarea name="FullDes" id="txtFullDes"></textarea>
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtQuantity" class="col-sm-4 control-label">Số lượng:</label>
+            <div class="col-sm-8">
+                <input type="number" step="1" class="form-control" id="txtQuantity" name="Quantity" />
+            </div>
+        </div>
+        <div class="form-group col-sm-6" style="margin:0; padding:0">
+            <label for="txtStepPrice" class="col-sm-4 control-label">Bước tăng:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="txtStepPrice" name="StepPrice"
+                       onkeyup="this.value=FormatNumber(this.value);" />
+            </div>
         </div>
     </div>
-
     <div class="form-group">
         <label for="dtStartTime" class="col-sm-2 control-label">Bắt đầu:</label>
         <div class="col-sm-4">
@@ -268,24 +270,43 @@
         </script>
     </div>
     <div class="form-group">
-        <div class="form-group col-sm-6" style="margin:0; padding:0">
-            <label for="txtStepPrice" class="col-sm-4 control-label">Bước tăng:</label>
-            <div class="col-sm-8">
-                <input type="text" class="form-control" id="txtStepPrice" name="StepPrice"
-                       onkeyup="this.value=FormatNumber(this.value);" />
+        <div class="form-group col-sm-12" style="margin:0; padding:0">
+            <label for="txtTinyDes" class="col-sm-2 control-label">Mô tả sản phẩm:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="txtTinyDes" name="TinyDes" />
             </div>
         </div>
-        <div class="form-group col-sm-6">
-            <label for="rdoAutoRenewal" class="col-sm-6 control-label">Tự động gia hạn thời gian</label>
-            <div class="col-sm-6">
+    </div>
+    <div class="form-group">
+        <label for="txtFullDes" class="col-sm-2 control-label">Mô tả chi tiết:</label>
+        <div class="col-sm-10">
+            <textarea name="FullDes" id="txtFullDes"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-group col-sm-12">
+            <label for="rdoAutoRenewal" class="col-sm-3 control-label">Tự động gia hạn thời gian</label>
+            <div class="col-sm-9">
                 <div class="editor-field">
-                    <div class="col-sm-6" style="margin:0; padding:0; margin-top:5px">
-                        <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" value="True"> Có<br>
-                    </div>
-                    <div class="col-sm-6" style="margin:0; padding:0; margin-top:5px">
-                        <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" value="False" checked> Không<br>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-info">
+                            <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" autocomplete="off" value="True">
+                            <span class="glyphicon glyphicon-ok">Có</span>
+                        </label>
+                        <label class="btn btn-warning active">
+                            <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" autocomplete="off" chacked value="False">
+                            <span class="glyphicon glyphicon-ok">Không</span>
+                        </label>
                     </div>
                 </div>
+                @*<div class="editor-field">
+                    <div class="col-sm-3" style="margin:0; padding:0; margin-top:5px">
+                        <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" value="True"> Có<br>
+                    </div>
+                    <div class="col-sm-3" style="margin:0; padding:0; margin-top:5px">
+                        <input type="radio" id="rdoAutoRenewal" name="AutoRenewal" value="False" checked> Không<br>
+                    </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -299,5 +320,6 @@
             </a>
         </div>
     </div>
+    
     <h1 style="text-align:center">@ViewBag.Message</h1>
 </form>

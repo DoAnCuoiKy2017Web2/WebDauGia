@@ -93,7 +93,6 @@ D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\S
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.xml
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.xml
 D:\HOC-KY-II-2016-2017\Do an web 2\WebDauGia\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
-D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll.config
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.pdb
@@ -119,3 +118,4 @@ C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mv
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
