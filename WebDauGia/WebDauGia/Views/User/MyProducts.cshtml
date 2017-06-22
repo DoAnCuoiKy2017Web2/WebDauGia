@@ -47,7 +47,7 @@
                                  where n.ProID == cim.ProID
                                  select n).ToList().Count();
                         string s1;
-                        if (cim.EndTime < DateTime.Now)
+                        if (cim.EndTime > DateTime.Now)
                         {
                             s1 = "Còn hạn đấu giá";
                         }

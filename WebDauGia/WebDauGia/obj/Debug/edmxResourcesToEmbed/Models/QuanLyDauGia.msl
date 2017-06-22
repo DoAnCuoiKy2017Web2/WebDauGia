@@ -9,17 +9,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Appraises">
-      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Apprais">
-        <MappingFragment StoreEntitySet="Appraises">
-          <ScalarProperty Name="ProID" ColumnName="ProID" />
-          <ScalarProperty Name="TimeAppraise" ColumnName="TimeAppraise" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="BeAsssessed" ColumnName="BeAsssessed" />
-          <ScalarProperty Name="Assessor" ColumnName="Assessor" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AuctionHistorys">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.AuctionHistory">
         <MappingFragment StoreEntitySet="AuctionHistorys">
@@ -95,6 +84,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="QuanLyDauGiaModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Reliability" ColumnName="Reliability" />
           <ScalarProperty Name="AllowSales" ColumnName="AllowSales" />
           <ScalarProperty Name="AllowAuction" ColumnName="AllowAuction" />
@@ -116,6 +106,19 @@
         <MappingFragment StoreEntitySet="WatchList">
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="ProID" ColumnName="ProID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appraises">
+      <EntityTypeMapping TypeName="QuanLyDauGiaModel.Apprais">
+        <MappingFragment StoreEntitySet="Appraises">
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="Scores" ColumnName="Scores" />
+          <ScalarProperty Name="ProID" ColumnName="ProID" />
+          <ScalarProperty Name="TimeAppraise" ColumnName="TimeAppraise" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="BeAsssessed" ColumnName="BeAsssessed" />
+          <ScalarProperty Name="Assessor" ColumnName="Assessor" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

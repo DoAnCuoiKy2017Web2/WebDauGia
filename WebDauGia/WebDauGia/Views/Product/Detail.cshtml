@@ -9,123 +9,92 @@
     Chi tiết sản phẩm
 }
 @section css{
-<link href="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
     @*<link href="~/assets/css/style.css" rel="stylesheet" />*@
-<style type="text/css">
-    .caption-lg-orange {
-        font-weight: bold;
-        font-size: 12pt;
-        color: #fc6e04;
-    }
+    <style type="text/css">
+        .caption-lg-orange {
+            font-weight: bold;
+            font-size: 12pt;
+            color: #fc6e04;
+        }
 
-    .caption-lg-red {
-        font-weight: bold;
-        font-size: 11pt;
-        color: #f00;
-    }
+        .caption-lg-red {
+            font-size: 11pt;
+            color: #f00;
+        }
 
-    .caption-lg-green {
-        font-weight: bold;
-        font-size: 11pt;
-        color: #00FF00;
-    }
+        .caption-lg-blue {
+            font-size: 11pt;
+            color: #f00;
+        }
 
-    .padding {
-        padding-top: 8px;
-    }
+        .caption-lg-green {
+            font-size: 11pt;
+            color: #008000;
+        }
 
-    .Butan {
-        font-size: 18px;
-        margin-left: 15px;
-        margin-top: 0px;
-        width: 94px;
-        height: 45px;
-        padding-top: 8px;
-    }
-</style>
+        .padding {
+            padding-top: 8px;
+        }
+
+        .Butan {
+            font-size: 18px;
+            margin-left: 15px;
+            margin-top: 0px;
+            width: 94px;
+            height: 45px;
+            padding-top: 8px;
+        }
+    </style>
 }
 
 @section js{
-<script src="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
     @*yeu thich*@
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="love"]').tooltip();
-    });
-    function love(proid) {
-        $(function () {
-            var url = "/WatchList/Add";
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: { ProID: proid },
-                dataType: "json",
-                timeout: 30 * 1000,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Error - ' + errorThrown);
-                }
-            })
-                .done(function (data) {
-                    if (data == "1") {
-                        if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yêu Thích Của Bạn???") == true) {
-                            window.location = "@Url.Action("Login","User")";
-                        } else {
-
-                        }
-                    }
-                    else { alert(data); }
-                })
-                .fail(function (jqXHR, status, error) {
-                    console.log(jqXHR);
-                    alert('fail');
-                });
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="love"]').tooltip();
         });
-    }
-</script>
+        function love(proid) {
+            $(function () {
+                var url = "/WatchList/Add";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { ProID: proid },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
+                    }
+                })
+                    .done(function (data) {
+                        if (data == "1") {
+                            if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yêu Thích Của Bạn???") == true) {
+                                window.location = "@Url.Action("Login","User")";
+                            } else {
+
+                            }
+                        }
+                        else { alert(data); }
+                    })
+                    .fail(function (jqXHR, status, error) {
+                        console.log(jqXHR);
+                        alert('fail');
+                    });
+            });
+        }
+    </script>
     @*xu ly dau gia*@
-<script type="text/javascript">
-    $('#txtQ').TouchSpin({
-        min: 1,
-        max: 50,
-        verticalbuttons: true
-    });
-</script>
-<script>
-    function UpdateBid(proid) {
-        var GiaTra = parseFloat($('#ragia').val());
-        var GiaGoc = parseFloat($('#giagoc').val());
-        var buocgia = parseFloat($('#buocgia').val());
-        var tiendenghi = GiaGoc + buocgia;
-        if (GiaTra == null) {
-            alert("Vui Lòng Nhập Số Tiền");
-        }
-        else if (GiaTra < tiendenghi) {
-            alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: " + tiendenghi)
-        }
-        else if (GiaTra >= tiendenghi) {
-            var url = "/AuctionHistory/UpdateBid";
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: { giatra: GiaTra, proid: proid },
-                dataType: "json",
-                timeout: 30 * 1000,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Error - ' + errorThrown);
-                }
-            })
-                        .done(function (data) {
-                            alert(data);
-                            window.location = "/Product/Detail/" + proid;
-                        })
-                .fail(function (jqXHR, status, error) {
-                    console.log(jqXHR);
-                    alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
-                });
-        }
-    }
-    function Bid(proid) {
-        $(function () {
+    <script type="text/javascript">
+        $('#txtQ').TouchSpin({
+            min: 1,
+            max: 50,
+            verticalbuttons: true
+        });
+    </script>
+    <script>
+        function UpdateBid(proid) {
             var GiaTra = parseFloat($('#ragia').val());
             var GiaGoc = parseFloat($('#giagoc').val());
             var buocgia = parseFloat($('#buocgia').val());
@@ -137,348 +106,394 @@
                 alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: " + tiendenghi)
             }
             else if (GiaTra >= tiendenghi) {
-                if (confirm("Số Tiền Bạn Đưa Ra Là " + GiaTra + " VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
-                    var url = "/AuctionHistory/Add";
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: { giatra: GiaTra, proid: proid },
-                        dataType: "json",
-                        timeout: 30 * 1000,
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert('Error - ' + errorThrown);
-                        }
-                    })
-                        .done(function (data) {
-                            if (typeof (data) == 'string') {
+                var url = "/AuctionHistory/UpdateBid";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: { giatra: GiaTra, proid: proid },
+                    dataType: "json",
+                    timeout: 30 * 1000,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('Error - ' + errorThrown);
+                    }
+                })
+                            .done(function (data) {
                                 alert(data);
-                            }
-                            else if (data == 1) {
-                                alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền " + GiaTra + " VNĐ");
-                            }
-                            else if (data == 2) {
-                                alert("Đã Có Người Đặt Giá Cao Hơn Ban! Vui Lòng Đặt  Giá Cao Hơn!");
-                            }
-                            else if (data == 3) {
-                                alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ")
-                            }
-                            window.location = "/Product/Detail/" + proid;
-                        })
+                                window.location = "/Product/Detail/" + proid;
+                            })
                     .fail(function (jqXHR, status, error) {
                         console.log(jqXHR);
                         alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
                     });
-                } else {
-                }
             }
-        });
-    }
-    function formatDate(ms) {
-
-        var date = new Date(parseInt(ms.replace("/Date(", "").replace(")/", ""), 10));
-        var hour = date.getHours();
-        var mins = date.getMinutes() + '';
-        var time = "AM";
-
-        // find time
-        if (hour >= 12) {
-            time = "PM";
         }
-        // fix hours format
-        if (hour > 12) {
-            hour -= 12;
-        }
-        else if (hour == 0) {
-            hour = 12;
-        }
-        // fix minutes format
-        if (mins.length == 1) {
-            mins = "0" + mins;
-        }
-        // return formatted date time string
-        var month = date.getMonth() + 1;
-        return date.getDate() + "/" + month + "/" + date.getFullYear() + " " + hour + ":" + mins + " " + time;
-    }
-    //Lich Su Dau Giá
-    function showhistory(proid) {
-        var showlistlove = $('#list-history');
-        showlistlove.children().remove();
-
-        var url = "/AuctionHistory/Show";
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: { proid: proid },
-            dataType: "json",
-            timeout: 30 * 1000,
-        })
-            .done(function (data) {
-                if (typeof (data) == 'string') {
-                    alert("Chức Năng Yêu Cầu Đăng Nhập");
-                    window.location = "@Url.Action("Login","User")";
+        function Bid(proid) {
+            $(function () {
+                var GiaTra = parseFloat($('#ragia').val());
+                var GiaGoc = parseFloat($('#giagoc').val());
+                var buocgia = parseFloat($('#buocgia').val());
+                var tiendenghi = GiaGoc + buocgia;
+                if (GiaTra == null) {
+                    alert("Vui Lòng Nhập Số Tiền");
                 }
-                else {
-
-                    $.each(data, function (idx, p) {
-                        var i=p.UserName.length;
-                        var html =
-                            '<li> <b>UserName: </b> ' +"*****"+ p.UserName.toString().substr(4,i)+" <b>Tiền Cược: </b> " + p.AucPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-+ " VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
-                        $('#list-history').append(html);
-                    });
+                else if (GiaTra < tiendenghi) {
+                    alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: " + tiendenghi)
                 }
+                else if (GiaTra >= tiendenghi) {
+                    if (confirm("Số Tiền Bạn Đưa Ra Là " + GiaTra + " VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
+                        var url = "/AuctionHistory/Add";
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: { giatra: GiaTra, proid: proid },
+                            dataType: "json",
+                            timeout: 30 * 1000,
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('Error - ' + errorThrown);
+                            }
+                        })
+                            .done(function (data) {
+                                if (typeof (data) == 'string') {
+                                    alert(data);
+                                }
+                                else if (data == 1) {
+                                    alert("Chúc Mừng Bạn Đã Trở Thành Người Giữ Giá Với Số Tiền " + GiaTra + " VNĐ");
+                                }
+                                else if (data == 2) {
+                                    alert("Đã Có Người Đặt Giá Cao Hơn Ban! Vui Lòng Đặt  Giá Cao Hơn!");
+                                }
+                                else if (data == 3) {
+                                    alert("Chúc Mừng Bạn Đã Chiến Thắng Trong Phiên Đấu Giá Này Với Số Tiền @string.Format("{0:N0}",Model.Price) VNĐ")
+                                }
+                                window.location = "/Product/Detail/" + proid;
+                            })
+                        .fail(function (jqXHR, status, error) {
+                            console.log(jqXHR);
+                            alert('Hệ Thống Quá Tải! Vui Lòng Thử Lại');
+                        });
+                    } else {
+                    }
+                }
+            });
+        }
+        function formatDate(ms) {
+
+            var date = new Date(parseInt(ms.replace("/Date(", "").replace(")/", ""), 10));
+            var hour = date.getHours();
+            var mins = date.getMinutes() + '';
+            var time = "AM";
+
+            // find time
+            if (hour >= 12) {
+                time = "PM";
+            }
+            // fix hours format
+            if (hour > 12) {
+                hour -= 12;
+            }
+            else if (hour == 0) {
+                hour = 12;
+            }
+            // fix minutes format
+            if (mins.length == 1) {
+                mins = "0" + mins;
+            }
+            // return formatted date time string
+            var month = date.getMonth() + 1;
+            return date.getDate() + "/" + month + "/" + date.getFullYear() + " " + hour + ":" + mins + " " + time;
+        }
+        //Lich Su Dau Giá
+        function showhistory(proid) {
+            var showlistlove = $('#list-history');
+            showlistlove.children().remove();
+
+            var url = "/AuctionHistory/Show";
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: { proid: proid },
+                dataType: "json",
+                timeout: 30 * 1000,
             })
-                  .fail(function (jqXHR, status, error) {
-                      console.log(jqXHR);
-                      alert('fail');
-                  });
-    }
-</script>
+                .done(function (data) {
+                    if (typeof (data) == 'string') {
+                        alert("Chức Năng Yêu Cầu Đăng Nhập");
+                        window.location = "@Url.Action("Login","User")";
+                    }
+                    else {
+
+                        $.each(data, function (idx, p) {
+                            var i = p.UserName.length;
+                            var html =
+                                '<li> <b>UserName: </b> ' + "*****" + p.UserName.toString().substr(4, i) + " <b>Tiền Cược: </b> " + p.AucPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    + " VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
+                            $('#list-history').append(html);
+                        });
+                    }
+                })
+                      .fail(function (jqXHR, status, error) {
+                          console.log(jqXHR);
+                          alert('fail');
+                      });
+        }
+    </script>
 }
 
 @if (Model == null)
 {
-<text>Sản phẩm không tồn tại!</text>
+    <text>Sản phẩm không tồn tại!</text>
 }
 else
 {
-<div class="row">
-    <div class="col-md-12 caption-lg-orange">
-        @*<div class="col-md-4">
-            <img src="~/Images/sp/@Model.ProID/main.jpg" width="200" height="150" title="@Model.ProID"
-                 onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-        </div>*@
-        <div class="col-md-4">
+    <div class="row">
+        <div class="col-md-12 caption-lg-orange">
+            @*<div class="col-md-4">
+                    <img src="~/Images/sp/@Model.ProID/main.jpg" width="200" height="150" title="@Model.ProID"
+                         onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                </div>*@
+            <div class="col-md-4">
 
-            <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" title="@Model.ProID"
-                 onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-        </div>
-        <div class="col-md-4">
-            @*<img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" title="@Model.ProID"
-                   *@<img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" width="200" height="150" title="@Model.ProID"
-                          onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-        </div>
-        <div class="col-md-4">
-            <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" width="200" height="150" title="@Model.ProID"
-                 onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-        </div>
-    </div>
-
-
-
-    <div class="col-md-12 caption-lg-orange">
-        <h2>
-            @Model.ProName <a style="font-size: 25px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
-                              class="fa fa-heart" onclick="love(@Model.ProID)" aria-hidden="true"></a>
-        </h2>
-    </div>
-    <br />
-    <hr width="100%" align="center" />
-
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Giá hiện tại: @string.Format("{0:N0}", Model.AucPrice)</span>
-    </div>
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Giá mua ngay: @string.Format("{0:N0}", Model.Price)</span>
-    </div>
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Người bán: @string.Format("{0} [{1:0.00}/100 điểm]", WebDauGia.Helper.StringUtils.Replace(Model.Salesman), WebDauGia.Models.Function.GetReliability(Model.Salesman))</span>
-    </div>
-    @if (Model.Owner != null && Model.Owner != "")
-    {
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Người đang giữ giá cao nhất @string.Format("{0} điểm đánh giá: {1:0.00}/100", WebDauGia.Helper.StringUtils.Replace(Model.Owner), WebDauGia.Models.Function.GetReliability(Model.Owner))</span>
-    </div>
-    }
-    else
-    {
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Người đang giữ giá cao nhất : chưa có </span>
-    </div>
-    }
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Thời điểm đăng: @Model.StartTime</span>
-    </div>
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Thời điểm kết thúc: @Model.EndTime</span>
-    </div>
-    <div class="col-md-12 padding">
-        <span class="caption-lg-red">Số lượng: @Model.Quantity</span>
-    </div>
-    @*Dau Gia ở Day*@
-    @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
-    {
-    int check = 0;
-    if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName == Model.Salesman)
-    {
-            <button style="margin-left:15px;margin-top:15px" class="btn btn-info">
-                Thêm Mô Tả
-            </button>
-    <div class="alert alert-default" style="color:green">
-        <h3 class="fa fa-exclamation" aria-hidden="true">  Sản phầm này bạn đăng bán!!!</h3>
-    </div>
-    }
-    else if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName != Model.Salesman)
-    {
-    @* Kiểm tra có bị cấm đấu giá sản phẩm này*@
-    {
-    var ctx = new QuanLyDauGiaEntities();
-
-    foreach (var cim in ctx.LimitedLists)
-    {
-    if (cim.ProID == Model.ProID && cim.UserName == CurrentContext.GetCurUser().UserName)
-    {
-    check = 1;
-    }
-    }
-    }
-    if (check == 1)
-    {
-    <div class="alert alert-default" style="color:red">
-        <h5 class="fa fa-exclamation" aria-hidden="true">  Bạn Bị Cấm Đấu Giá Sản Phẩm Này!!!</h5>
-    </div>
-    }
-    else
-    {
-    <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate" *@>
-        <div class="col-md-12 caption-lg-green">
-            @if (Model.Owner != null)
-            {
-            if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
-            {
-            <h3 style="color:darkblue">
-                Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}", Model.OwnerPrice) VNĐ!!!
-            </h3>
-            <div style="color:red">
-                <h5 class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</h5>
+                <img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" title="@Model.ProID"
+                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
             </div>
-            }
-            }
-            <h3>
-                Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
-            </h3>
-            <input id="giagoc" type="hidden" value="@Model.AucPrice">
-            <input id="buocgia" type="hidden" value="@Model.StepPrice">
-            <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number">
-            @*@{
-
-            User us = (User)Session["user"];
-            AuctionHistory ah = new AuctionHistory();
-            ah.ProID = Model.ProID;
-            ah.UserName = us.UserName;
-            ah.Time = DateTime.Now;
-            }
-            @Html.Hidden("proid", @Model.ProID)
-            @Html.Hidden("uname", @us.UserName)
-            @Html.Hidden("time", @DateTime.Now)*@
-            @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
-            @if (Model.Owner != null)
-            {
-            if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
-            {
-            <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
-                Đổi Giá
-            </a>
-            }
-            else
-            {
-            <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
-                Đấu giá
-            </a>
-            }
-            }
-            else
-            {
-            <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
-                Đấu giá
-            </a>
-            }
-
+            <div class="col-md-4">
+                @*<img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" title="@Model.ProID"
+                *@<img src="~/Images/sp/@Model.ProID/main_thumbs_1.jpg" width="200" height="150" title="@Model.ProID"
+                       onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+            </div>
+            <div class="col-md-4">
+                <img src="~/Images/sp/@Model.ProID/main_thumbs_2.jpg" width="200" height="150" title="@Model.ProID"
+                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+            </div>
         </div>
-    </form>
-    }
 
-    }
-    }
-    else if (WebDauGia.Helper.CurrentContext.IsLogged() == false)
-    {
-    <div class="alert alert-default" style="color:green">
-        Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login","User" )">đăng nhập</a> Nếu chưa có tài khoản hãy
-        <a href="@Url.Action(" Register", "User" )">đăng ký</a> Để Đấu Giá.
-    </div>
-    }
-    <br />
-    <div class="col-md-12 padding">
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-18">
-                <li class="active">
-                    <a data-toggle="tab" href="#thongtinsanpham">
-                        <i class="green ace-icon fa fa-product-hunt bigger-120"></i>
-                        Thông tin sản phẩm
-                    </a>
-                </li>
 
-                <li>
-                    <a data-toggle="tab" href="#lichsu" onclick="showhistory(@Model.ProID)">
-                        <i class="orange ace-icon fa fa-history bigger-120"></i>
-                        Lịch sử đấu giá sản phẩm
-                    </a>
-                </li>
 
-                <li>
-                    <a data-toggle="tab" href="#binhluan">
-                        <i class="green ace-icon fa fa-comments bigger-120"></i>
-                        Bình luận
-                    </a>
-                </li>
-            </ul>
+        <div class="col-md-12 caption-lg-orange">
+            <h2>
+                @Model.ProName <a style="font-size: 25px; color: red" data-toggle="love" data-placement="bottom" title="Thêm vào danh sách yêu thích!"
+                                  class="fa fa-heart" onclick="love(@Model.ProID)" aria-hidden="true"></a>
+            </h2>
+        </div>
+        <br />
+        <hr width="100%" align="center" />
 
-            <div class="tab-content no-border padding-24">
-                <div id="thongtinsanpham" class="tab-pane in active">
-                    <div class="row">
-                        <div class="col-md-8 padding">
-                            @Html.Raw(HttpUtility.HtmlDecode(Model.FullDes))
+        <div class="col-md-12 padding">
+            <span class="caption-lg-green">Giá hiện tại: @string.Format("{0:N0}", Model.AucPrice)</span>
+        </div>
+        <div class="col-md-12 padding">
+            <span class="caption-lg-green">Giá mua ngay: @string.Format("{0:N0}", Model.Price)</span>
+        </div>
+        <div class="col-md-12 padding">
+            <span class="caption-lg-green">Người bán: @string.Format("{0} [{1:0.00}/100 điểm]", WebDauGia.Helper.StringUtils.Replace(Model.Salesman), WebDauGia.Models.Function.GetReliability(Model.Salesman))</span>
+        </div>
+        @if (Model.Owner != null && Model.Owner != "")
+        {
+            <div class="col-md-12 padding">
+                <span class="caption-lg-green">Người đang giữ giá cao nhất @string.Format("{0} điểm đánh giá: {1:0.00}/100", WebDauGia.Helper.StringUtils.Replace(Model.Owner), WebDauGia.Models.Function.GetReliability(Model.Owner))</span>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12 padding">
+                <span class="caption-lg-green">Người đang giữ giá cao nhất : chưa có </span>
+            </div>
+        }
+        <div class="col-md-12 padding">
+            <span class="caption-lg-green">Bắt đầu: @String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", Model.StartTime)</span>
+        </div>
+        <div class="col-md-12 padding">
+            <span class="caption-lg-green">Kết thúc: @String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", Model.EndTime)</span>
+        </div>
+        <div class="col-md-12 padding">
+            <span class="caption-lg-green">Số lượng: @Model.Quantity</span>
+        </div>
+        @*Dau Gia ở Day*@
+        @if (WebDauGia.Helper.CurrentContext.IsLogged() == true)
+        {
+            int check = 0;
+            if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName == Model.Salesman)
+            {
+                <button style="margin-left:15px;margin-top:15px" class="btn btn-info">
+                    Thêm Mô Tả
+                </button>
+                <div class="alert alert-default" style="color:green">
+                    <h3 class="fa fa-exclamation" aria-hidden="true">  Sản phầm này bạn đăng bán!!!</h3>
+                </div>
+            }
+            else if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName != Model.Salesman)
+            {
+                @* Kiểm tra có bị cấm đấu giá sản phẩm này*@
+                {
+                    var ctx = new QuanLyDauGiaEntities();
+
+                    foreach (var cim in ctx.LimitedLists)
+                    {
+                        if (cim.ProID == Model.ProID && cim.UserName == CurrentContext.GetCurUser().UserName)
+                        {
+                            check = 1;
+                            break;
+                        }
+                    }
+                }
+                if (check == 1)
+                {
+                    <div class="alert alert-default" style="color:red">
+                        <h5 class="fa fa-exclamation" aria-hidden="true">  Bạn Bị Cấm Đấu Giá Sản Phẩm Này!!!</h5>
+                    </div>
+                }
+                else
+                {
+                    <!--Kiem tra diem danh gia tren 80%-->
+                    string diem = WebDauGia.Helper.CurrentContext.GetCurUser().Reliability;
+                    if (double.Parse(diem.Split('/')[0]) / (double.Parse(diem.Split('/')[1]) + double.Parse(diem.Split('/')[0])) < 0.8)
+                    {
+                        <div class="alert alert-default" style="color:red">
+                            <h5 class="fa fa-exclamation" aria-hidden="true" style="font-size: 20px">  Bạn không đủ tiêu chuẩn để đấu giá!!!</h5>
                         </div>
-                    </div><!-- /.row -->
-
-                </div><!-- /#thongtinsanpham -->
-
-                <div id="lichsu" class="tab-pane">
-
-                    <div class="tabbable">
-                        <div class="tab-content profile-edit-tab-content">
-                            <div id="edit-basic" class="tab-pane in active">
-                                <div class="col-md-8 padding">
-                                    @if (Session["user"] == null)
+                    }
+                    else
+                    {
+                        <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate" *@>
+                            <div class="col-md-12 caption-lg-green">
+                                @if (Model.Owner != null)
+                                {
+                                    if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
                                     {
-                                    <div class="alert alert-success">
-                                        Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login","User" )">đăng nhập</a> hoặc
-                                        <a href="@Url.Action("Register","User" )">đăng ký</a> để viết xem lịch sử.
-                                    </div>
+                                        <h3 style="color:darkblue">
+                                            Bạn Đang Giữ Giá Sản Phẩm Này Với Giá @string.Format("{0:N0}", Model.OwnerPrice) VNĐ!!!
+                                        </h3>
+                                        <div style="color:red">
+                                            <h5 class="fa fa-exclamation" aria-hidden="true"> Bạn có thể thay đổi giá của bạn bằng cách đấu Đổi Giá mới (phải lớn hơn giá đề nghị)</h5>
+                                        </div>
+                                    }
+                                }
+                                <h3>
+                                    Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
+                                </h3>
+                                <input id="giagoc" type="hidden" value="@Model.AucPrice">
+                                <input id="buocgia" type="hidden" value="@Model.StepPrice">
+                                <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number" step="@Model.StepPrice" min="@(Model.AucPrice + Model.StepPrice)">
+                                @*@{
+
+                                    User us = (User)Session["user"];
+                                    AuctionHistory ah = new AuctionHistory();
+                                    ah.ProID = Model.ProID;
+                                    ah.UserName = us.UserName;
+                                    ah.Time = DateTime.Now;
+                                    }
+                                    @Html.Hidden("proid", @Model.ProID)
+                                    @Html.Hidden("uname", @us.UserName)
+                                    @Html.Hidden("time", @DateTime.Now)*@
+                                @*<i>></i>@ah.ProID , @ah.UserName,@ah.Time*@
+                                @if (Model.Owner != null)
+                                {
+                                    if (Model.Owner == WebDauGia.Helper.CurrentContext.GetCurUser().UserName)
+                                    {
+                                        <a class="btn btn-success Butan" onclick="UpdateBid(@Model.ProID)">
+                                            Đổi Giá
+                                        </a>
                                     }
                                     else
                                     {
-                                    <ul style="list-style-type:none;font-size:15px;color:darkblue" id="list-history"></ul>
+                                        <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                                            Đấu giá
+                                        </a>
                                     }
+                                }
+                                else
+                                {
+                                    <a class="btn btn-success Butan" onclick="Bid(@Model.ProID)">
+                                        Đấu giá
+                                    </a>
+                                }
+
+                            </div>
+                        </form>
+                    }
+                }
+
+            }
+        }
+        else if (WebDauGia.Helper.CurrentContext.IsLogged() == false)
+        {
+            <div class="alert alert-default" style="color:green">
+                Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login","User" )">đăng nhập</a> Nếu chưa có tài khoản hãy
+                <a href="@Url.Action(" Register", "User" )">đăng ký</a> Để Đấu Giá.
+            </div>
+        }
+        <br />
+        <div class="col-md-12 padding">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-18">
+                    <li class="active">
+                        <a data-toggle="tab" href="#thongtinsanpham">
+                            <i class="green ace-icon fa fa-product-hunt bigger-120"></i>
+                            Thông tin sản phẩm
+                        </a>
+                    </li>
+
+                    <li>
+                        <a data-toggle="tab" href="#lichsu" onclick="showhistory(@Model.ProID)">
+                            <i class="orange ace-icon fa fa-history bigger-120"></i>
+                            Lịch sử đấu giá sản phẩm
+                        </a>
+                    </li>
+
+                    <li>
+                        <a data-toggle="tab" href="#binhluan">
+                            <i class="green ace-icon fa fa-comments bigger-120"></i>
+                            Bình luận
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content no-border padding-24">
+                    <div id="thongtinsanpham" class="tab-pane in active">
+                        <div class="row">
+                            <div class="col-md-8 padding">
+                                @Html.Raw(HttpUtility.HtmlDecode(Model.FullDes))
+                            </div>
+                        </div><!-- /.row -->
+
+                    </div><!-- /#thongtinsanpham -->
+
+                    <div id="lichsu" class="tab-pane">
+
+                        <div class="tabbable">
+                            <div class="tab-content profile-edit-tab-content">
+                                <div id="edit-basic" class="tab-pane in active">
+                                    <div class="col-md-8 padding">
+                                        @if (Session["user"] == null)
+                                        {
+                                            <div class="alert alert-success">
+                                                Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login","User" )">đăng nhập</a> hoặc
+                                                <a href="@Url.Action("Register","User" )">đăng ký</a> để viết xem lịch sử.
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <ul style="list-style-type:none;font-size:15px;color:darkblue" id="list-history"></ul>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /#lichsu -->
+                    </div><!-- /#lichsu -->
 
-                <div id="binhluan" class="tab-pane">
-                    <div class="tabbable">
-                        <div class="tab-content profile-edit-tab-content">
-                            <div id="edit-basic" class="tab-pane in active">
-                                <div class="col-md-12 padding">
-                                    @{
-                                    List<Comment>
-                                        list;
+                    <div id="binhluan" class="tab-pane">
+                        <div class="tabbable">
+                            <div class="tab-content profile-edit-tab-content">
+                                <div id="edit-basic" class="tab-pane in active">
+                                    <div class="col-md-12 padding">
+                                        @{
+                                        List<Comment>
+                                            list;
                                         User user = (User)Session["user"];
                                         string Uname;
                                         using (var ctx = new QuanLyDauGiaEntities())
                                         {
-                                        list = ctx.Comments.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.CmtID).ToList();
+                                            list = ctx.Comments.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.CmtID).ToList();
                                         }
                                         <div id="comments" class="clearfix">
                                             <span class="arr"></span>
@@ -487,34 +502,34 @@ else
                                             <ul class="comment-list unstyled clearfix" id="pn_list_comment" style="opacity: 1;">
                                                 @if (list.Count() == 0)
                                                 {
-                                                <li>
-                                                    Chưa có bình luận nào, bạn hãy tham gia nhé !
-                                                </li>
+                                                    <li>
+                                                        Chưa có bình luận nào, bạn hãy tham gia nhé !
+                                                    </li>
                                                 }
                                                 else
                                                 {
-                                                foreach (var item in list)
-                                                {
-                                                <li>
-                                                    <div class="comment-content">
-                                                        <div class="user-picture">
-                                                            <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title=""><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"></a>
-                                                        </div>
-                                                        <div class="meta-user-comment clearfix">
-                                                            <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
-                                                                @{
-                                                                var ct = new QuanLyDauGiaEntities();
-                                                                var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
-                                                                Uname = ten.UserName;
-                                                                }
-                                                                @Uname
-                                                            </a>
-                                                            <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
-                                                        </div>
-                                                        <div class="comment-body">@item.Comment1</div>
-                                                    </div>
-                                                </li>
-                                                }
+                                                    foreach (var item in list)
+                                                    {
+                                                        <li>
+                                                            <div class="comment-content">
+                                                                <div class="user-picture">
+                                                                    <a href="../../SanPham/DSTheoThanhVien/@item.UserName" title=""><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@item.UserName"></a>
+                                                                </div>
+                                                                <div class="meta-user-comment clearfix">
+                                                                    <a href="../../SanPham/DSTheoThanhVien/@item.UserName" class="username">
+                                                                        @{
+                                                        var ct = new QuanLyDauGiaEntities();
+                                                        var ten = ct.Users.Where(us => us.UserName == item.UserName).Single();
+                                                        Uname = ten.UserName;
+                                                                        }
+                                                                        @Uname
+                                                                    </a>
+                                                                    <small> - <time datetime="<%=item.NgayDang_BL %>"><span> @item.TimeCmt</span></time></small>
+                                                                </div>
+                                                                <div class="comment-body">@item.Comment1</div>
+                                                            </div>
+                                                        </li>
+                                                    }
                                                 }
 
                                             </ul>
@@ -522,71 +537,71 @@ else
                                             <h5 class="head-title-box">Gửi bình luận</h5>
                                             @if (Session["user"] == null)
                                             {
-                                            <div class="alert alert-success">
-                                                Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login","User" )">đăng nhập</a> hoặc
-                                                <a href="@Url.Action("Register","User" )">đăng ký</a> để viết bình luận.
-                                            </div>
+                                                <div class="alert alert-success">
+                                                    Bạn chưa đăng nhập !<br>Hãy <a href="@Url.Action("Login","User" )">đăng nhập</a> hoặc
+                                                    <a href="@Url.Action("Register","User" )">đăng ký</a> để viết bình luận.
+                                                </div>
                                             }
                                             else
                                             {
-                                            //User s;
-                                            //using (var ctx = new QuanLyDauGiaEntities())
-                                            //{
-                                            //    s = ctx.Users.Where(us => us.UserName == Session["username"].ToString()).Single();
-                                            //}
-                                            //string us = Session["username"].ToString();
+                                                //User s;
+                                                //using (var ctx = new QuanLyDauGiaEntities())
+                                                //{
+                                                //    s = ctx.Users.Where(us => us.UserName == Session["username"].ToString()).Single();
+                                                //}
+                                                //string us = Session["username"].ToString();
 
-                                            string us = user.UserName;
-                                            <ul class="comment-list form-comment unstyled clearfix">
-                                                <li>
-                                                    <div class="comment-content">
-                                                        <div class="user-picture">
-                                                            <a href="../../SanPham/DSTheoThanhVien/@us"><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"></a>
-                                                        </div>
-                                                        <form id="comment" action="/Comment/Add/" method="post" novalidate="novalidate">
-                                                            @Html.Hidden("proid", @Model.ProID)
-                                                            @Html.Hidden("usname", us)
-
-                                                            <textarea id="noidung" class="col-md-12 required" name="noidung"></textarea>
-                                                            <div class="controls">
-                                                                <input type="submit" name="comment" id="comment">
-                                                                <input name="action" type="hidden" value="comment">
-
+                                                string us = user.UserName;
+                                                <ul class="comment-list form-comment unstyled clearfix">
+                                                    <li>
+                                                        <div class="comment-content">
+                                                            <div class="user-picture">
+                                                                <a href="../../SanPham/DSTheoThanhVien/@us"><img src="../../images/avatardefault.png" width="50" height="50" border="0" alt="@us"></a>
                                                             </div>
-                                                        </form>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                            <form id="comment" action="/Comment/Add/" method="post" novalidate="novalidate">
+                                                                @Html.Hidden("proid", @Model.ProID)
+                                                                @Html.Hidden("usname", us)
+
+                                                                <textarea id="noidung" class="col-md-12 required" name="noidung"></textarea>
+                                                                <div class="controls">
+                                                                    <input type="submit" name="comment" id="comment">
+                                                                    <input name="action" type="hidden" value="comment">
+
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             }
                                         </div>
                                         }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /#binhluan -->
+                    </div><!-- /#binhluan -->
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     @*if (CurrentContext.IsLogged())
-                {
-<form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action(" Add","Cart")">
-    <div class="form-group">
-        <div class="col-sm-4">
-            <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
-            <div class="input-group" style="margin-left: 24px;">
-                <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fa fa-cart-plus"></i>
-                    </button>
-                </span>
-                <<<<<<< HEAD
+                        {
+        <form class="form-horizontal" id="frmAddItem" method="post" action="@Url.Action(" Add","Cart")">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <input type="hidden" id="txtP" name="proId" value="@Model.ProID" />
+                    <div class="input-group" style="margin-left: 24px;">
+                        <input id="txtQ" type="text" name="quantity" class="form-control" placeholder="Slg" value="1" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-cart-plus"></i>
+                            </button>
+                        </span>
+                        <<<<<<< HEAD
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</form>
-                }*@
-                                                                                }
+        </form>
+                        }*@
+}

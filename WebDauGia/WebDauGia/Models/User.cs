@@ -27,5 +27,6 @@ namespace WebDauGia.Models
         public bool AllowAuction { get; set; }
         public bool AllowSales { get; set; }
         public string Reliability { get; set; }
+        public int UserID { get; set; }
     }
 }
