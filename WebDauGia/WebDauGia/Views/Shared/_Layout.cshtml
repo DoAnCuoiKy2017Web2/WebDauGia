@@ -67,7 +67,7 @@
                     else
                     {
                         <li>
-                            @if (CurrentContext.GetCurUser().AllowSales == true)
+                            @if (CurrentContext.GetCurUser() != null && CurrentContext.GetCurUser().AllowSales == true)
                             {
                                 <a href="@Url.Action("Add", "Product")" style="color:green">
                                     <i class="fa fa-shopping-cart" style="color:green"></i>
