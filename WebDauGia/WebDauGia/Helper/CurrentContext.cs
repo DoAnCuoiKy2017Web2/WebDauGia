@@ -34,14 +34,15 @@ namespace WebDauGia.Helper
 
         public static User GetCurUser()
         {
-
             string id = ((User)HttpContext.Current.Session["user"]).UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
                 var user = ctx.Users.Where(u => u.UserName == id).FirstOrDefault();
                 HttpContext.Current.Session["user"] = null;
-                HttpContext.Current.Session["user"] = user;
-
+                if (user != null)
+                {
+                    HttpContext.Current.Session["user"] = user;
+                }
             }
             return (User)HttpContext.Current.Session["user"];
             // usser được lấy 1 lần duy nhất. 
