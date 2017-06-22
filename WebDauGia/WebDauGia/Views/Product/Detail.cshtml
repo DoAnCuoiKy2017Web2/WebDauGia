@@ -86,10 +86,10 @@
         }
     </script>
 <script>
-    $('#ragia').change(function () {
-        var a = $(this).val();
-            $('#TT').html(Money(a) );
-    });
+    //$('#ragia').change(function () {
+    //    var a = $(this).val();
+    //        $('#TT').html(Money(a) );
+    //});
     $('#ragia').keypress(function () {
         var a = $(this).val();
             $('#TT').html(Money(a));
@@ -401,7 +401,6 @@ else
                                 <h3>
                                     Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
                                 </h3>
-                                <p id="TT"></p>
                                 <input id="giagoc" type="hidden" value="@Model.AucPrice">
                                 <input id="buocgia" type="hidden" value="@Model.StepPrice">
                                 <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number" step="@Model.StepPrice" min="@(Model.AucPrice + Model.StepPrice)">
@@ -438,8 +437,12 @@ else
                                         Đấu giá
                                     </a>
                                 }
-
                             </div>
+                            <div class="col-md-12 caption-lg-green">
+                                <div>
+                                    <p id="TT">0</p>
+                                </div>
+                            </div>                           
                         </form>
                     }
                 }
