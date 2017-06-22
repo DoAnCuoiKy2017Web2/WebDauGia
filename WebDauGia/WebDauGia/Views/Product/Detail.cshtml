@@ -85,6 +85,31 @@
             });
         }
     </script>
+<script>
+    $('#ragia').change(function () {
+        var a = $(this).val();
+            $('#TT').html(Money(a) );
+    });
+    $('#ragia').keypress(function () {
+        var a = $(this).val();
+            $('#TT').html(Money(a));
+    });
+    $('#ragia').keydown(function () {
+        var a = $(this).val();
+        $('#TT').html(Money(a));
+    });
+    //$('#ragia').on('input', function () {
+    //    var a = $(this).val();
+    //    //alert(Money(a) + " VNĐ"); di
+    //    //alert(Money(a)+" VNĐ");
+    //    //$(this).val() // get the current value of the input field.
+    //    // cai lol gi the nay. chay thu coi. tiep
+    //    // on('input') là sự kiện gì ? th
+
+    //});
+
+</script>
+
     @*xu ly dau gia*@
     <script type="text/javascript">
         $('#txtQ').TouchSpin({
@@ -202,6 +227,11 @@
             var month = date.getMonth() + 1;
             return date.getDate() + "/" + month + "/" + date.getFullYear() + " " + hour + ":" + mins + " " + time;
         }
+        function Money(val)
+        {
+            var s = val.toString();
+            return s.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         //Lich Su Dau Giá
         function showhistory(proid) {
             var showlistlove = $('#list-history');
@@ -225,7 +255,7 @@
                         $.each(data, function (idx, p) {
                             var i = p.UserName.length;
                             var html =
-                                '<li> <b>UserName: </b> ' + "*****" + p.UserName.toString().substr(4, i) + " <b>Tiền Cược: </b> " + p.AucPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                '<li> <b>UserName: </b> ' + "*****" + p.UserName.toString().substr(4, i) + " <b>Tiền Cược: </b> " + Money(p.AucPrice)
     + " VNĐ " + "<b>Thờì Điểm Cược: </b>" + formatDate(p.Time) + '</li>';
                             $('#list-history').append(html);
                         });
@@ -371,6 +401,7 @@ else
                                 <h3>
                                     Bạn muốn ra giá ? (Giá đề nghị: @(string.Format("{0:N0}", Model.AucPrice + Model.StepPrice)) VNĐ)
                                 </h3>
+                                <p id="TT"></p>
                                 <input id="giagoc" type="hidden" value="@Model.AucPrice">
                                 <input id="buocgia" type="hidden" value="@Model.StepPrice">
                                 <input class="col-md-4 orm-control input-lg caption-lg-red" id="ragia" name="ragia" type="number" step="@Model.StepPrice" min="@(Model.AucPrice + Model.StepPrice)">
