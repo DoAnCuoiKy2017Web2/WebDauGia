@@ -347,7 +347,7 @@ namespace WebDauGia.Controllers
             List<AuctionHistory> hisau;
             using (var ctx= new QuanLyDauGiaEntities())
             {
-                hisau = ctx.AuctionHistorys.Where(his => his.ProID == proid).ToList();
+                hisau = ctx.AuctionHistorys.Where(his => his.ProID == proid).OrderByDescending(his=>his.Time).ToList();
             }
             return Json(hisau, JsonRequestBehavior.AllowGet);
         }
