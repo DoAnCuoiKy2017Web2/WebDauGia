@@ -17,24 +17,10 @@
     <link href="~/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
 }
-@section js{
-    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
+@section js{    
     <script src="~/Content/bootstrap.file-input.js"></script>
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script>
-        $('input[type=file]').bootstrapFileInput();
-
-        CKEDITOR.replace('FullDes', {
-            toolbar: [
-                ['Font', 'FontSize', '-', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Undo', 'Redo', '-', 'Cut', 'Copy', 'Paste', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
-                '/',
-                ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-                ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
-            ]
-        });
-    </script>
 }
 
 @{
@@ -121,8 +107,20 @@
                     <button type="button" class="modal-footer close" data-dismiss="modal">&times;</button>
                     <h3>Thêm mô tả</h3>
                     <div class="col-sm-12">
-                        <textarea name="FullDes" id="txtFullDes"></textarea>
-                    </div>
+                        <textarea name="FullDes" id="txtFullDes"></textarea>                       
+                    </div> 
+                    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
+                    <script>
+                        CKEDITOR.replace('FullDes', {
+                            toolbar: [
+                                ['Font', 'FontSize', '-', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Undo', 'Redo', '-', 'Cut', 'Copy', 'Paste', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
+                                '/',
+                                ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                                ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
+                            ]
+                        });
+                    </script>
+                  
                 </div>
                 <!-- dialog buttons -->
                 <div class="modal-footer"><button type="button" class="btn btn-primary">OK</button></div>
