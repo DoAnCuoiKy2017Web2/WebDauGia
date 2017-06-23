@@ -143,7 +143,7 @@ namespace WebDauGia.Models
             StringBuilder Body = new StringBuilder();
             Body.Append("<h3>Chào: <b>" + username + "<b></h3>");
             Body.Append("<p>Đã Có Người Trả Giá Lúc " + DateTime.Now.ToString() + "</p>");
-            Body.Append("<p>Người Mua : " + pro.Owner + " Đã Trả " + string.Format("{0:N0}", pro.AucPrice) + " VNĐ Cho Sản Phẩm " + pro.ProName + " Của Bạn</p>");
+            Body.Append("<p>Người Mua : " + Helper.StringUtils.Replace(pro.Owner) + " Đã Trả " + string.Format("{0:N0}", pro.AucPrice) + " VNĐ Cho Sản Phẩm " + pro.ProName + " Của Bạn</p>");
             Body.Append("<table>");
             Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
             Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "</td></tr>");
@@ -157,7 +157,7 @@ namespace WebDauGia.Models
             StringBuilder Body = new StringBuilder();
             Body.Append("<h3>Chào: <b>" + username + "<b></h3>");
             Body.Append("<p>Phiên Đấu Giá Của Bạn Đã Kết Thúc Lúc " + DateTime.Now.ToString() + "</p>");
-            Body.Append("<p>Người Mua : " + pro.Owner + " Đã Chiến Thắng Trong Phiên Đấu Giá Của Bạn Với Số Tiền " + string.Format("{0:N0}", pro.AucPrice) + " VNĐ</p>");
+            Body.Append("<p>Người Mua : " + Helper.StringUtils.Replace(pro.Owner) + " Đã Chiến Thắng Trong Phiên Đấu Giá Của Bạn Với Số Tiền " + string.Format("{0:N0}", pro.AucPrice) + " VNĐ</p>");
             Body.Append("<table>");
             Body.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
             Body.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "</td></tr>");
