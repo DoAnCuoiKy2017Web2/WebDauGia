@@ -11,60 +11,70 @@
 }
 
 @*Kiểm tra đã đánh giá chưa*@
-@*@if ()
+@{
+    User us = (User)Session["user"];
+    string r = ViewBag.Receiver;
+    int pr = int.Parse(ViewBag.ProId);
+    var ctx = new QuanLyDauGiaEntities();
+    var l = ctx.Appraises
+        .Where(p =>p.BeAsssessed == r && p.Assessor == us.UserName && p.ProID == pr)
+        .ToList();
+    int t = l.Count();
+}
+@if (t==1)
 {
-    <i>Bạn đã đánh giá người dùng này</i>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>!!! </strong> Bạn đã đánh giá người dùng này
+    </div>
 }
 else
 {
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="blue">
+                <h4 class="title">
+                    Gửi nhận xét
+                </h4>
+                @*<p class="category">Danh sáchaaa </p>*@
+            </div>
+            <div class="card-content table-responsive">
+                <form id="form_nx" class="form-horizontal" method="post" action="/User/Review">
+                    <div class="col-xs-12 col-sm-8">
 
-}*@
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header" data-background-color="blue">
-            <h4 class="title">
-                Gửi nhận xét
-            </h4>
-            @*<p class="category">Danh sáchaaa </p>*@
-        </div>
-        <div class="card-content table-responsive">
-            <form id="form_nx" class="form-horizontal" method="post" action="/User/Review">
-                <div class="col-xs-12 col-sm-8">
-                    @{
-                        User us = (User)Session["user"];
-                    }
-                    <input type="hidden" name="Sender" value="@us.UserName" />
-                    <input type="hidden" name="ProID" value="@ViewBag.ProId" />
-                    <div class="form-group">
-                        <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Gửi tới :</label>
-                        <div class="col-sm-8">
-                            <input type="text" id="txtPassWord" name="Receiver" placeholder="người nhận" readonly value="@ViewBag.Receiver" />
+                        <input type="hidden" name="Sender" value="@us.UserName" />
+                        <input type="hidden" name="ProID" value="@ViewBag.ProId" />
+                        <div class="form-group">
+                            <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Gửi tới :</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="txtPassWord" name="Receiver" placeholder="người nhận" readonly value="@ViewBag.Receiver" />
+                            </div>
+                            <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Nội dung :</label>
+                            <div class="col-sm-8">
+                                <textarea name="Content" style="height:200px;width:400px"></textarea>
+                            </div>
+                            <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Đánh giá :</label>
+
+                            @*2 radio button đây, nằm trong form sẵn rồi*@
+                            <div class="col-sm-8">
+                                <input type="radio" name="danhgia" />Tốt(+1) &nbsp; &nbsp; &nbsp;
+                                <input type="radio" name="danhgia" />Tệ(-1)
+
+                            </div>
                         </div>
-                        <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Nội dung :</label>
-                        <div class="col-sm-8">
-                            <textarea name="Content" style="height:200px;width:400px"></textarea>
-                        </div>
-                        <label for="txtPassWord" class="col-sm-4 control-label" style="font-size:14px;color:black">Đánh giá :</label>
+                        <div class="space-4"></div>
+                    </div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
 
-                        @*2 radio button đây, nằm trong form sẵn rồi*@
-                        <div class="col-sm-8">
-                            <input type="radio" name="danhgia" />Tốt(+1) &nbsp; &nbsp; &nbsp;
-                            <input type="radio" name="danhgia" />Tệ(-1)
-
+                            <button class="btn btn-info" type="submit">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                Gửi
+                            </button>
                         </div>
                     </div>
-                    <div class="space-4"></div>
-                </div>
-                <div class="clearfix form-actions">
-                    <div class="col-md-offset-3 col-md-9">
-
-                        <button class="btn btn-info" type="submit">
-                            <i class="ace-icon fa fa-check bigger-110"></i>
-                            Gửi
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+}

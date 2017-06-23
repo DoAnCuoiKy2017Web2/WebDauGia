@@ -12,6 +12,10 @@
     var lprooutdate = ctx.Products.Where(p => p.EndTime < DateTime.Now && p.NumOfAuction > 0 && p.Owner == us.UserName);
     int t = lprooutdate.Count();
 }
+<form id="frmS" method="get" action="@Url.Action("Review","User")">
+    <input id="txtReceiver" type="hidden" name="rec" />
+    <input id="txtProId" type="hidden" name="proid" />
+</form>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header" data-background-color="blue">
@@ -41,7 +45,7 @@
                             <td class="text-right">@cim.AucPrice</td>
                             <td class="text-right">@cim.Salesman</td>
                             <td class="text-right">
-                                <a class="btn btn-info btn-xs updateItem" href="#" role="button" title="Xem thêm">
+                                <a class="btn btn-info btn-xs sendReview" href="javascript:;" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Salesman">
                                     Đánh giá
                                 </a>
                             </td>
@@ -49,9 +53,23 @@
 
                     }
                 </tbody>
-                Cập nhật code cho hiện người thắng ở bảng product
             </table>
 
         </div>
     </div>
 </div>
+
+
+<script language="javascript">
+
+    $('.sendReview').on('click', function () {
+        var id = $(this).data('proid');
+        $('#txtProId').val(id);
+
+        var us = $(this).data('username');
+        $('#txtReceiver').val(us);
+
+            $('#frmS').submit();
+
+    })
+</script>
