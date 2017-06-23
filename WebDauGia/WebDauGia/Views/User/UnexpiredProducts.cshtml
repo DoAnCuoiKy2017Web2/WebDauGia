@@ -102,36 +102,37 @@
     <div id="my1Modal" style="display:none" class="modal fade in">
         <div class="modal-dialog">
             <div class="modal-content">
-                <!-- dialog body -->
-                <div class="modal-body">
-                    <button type="button" class="modal-footer close" data-dismiss="modal">&times;</button>
-                    <h3>Thêm mô tả</h3>
-                    <div class="col-sm-12">
-                        <textarea name="FullDes" id="txtFullDes"></textarea>                       
-                    </div> 
-                    <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
-                    <script>
-                        CKEDITOR.replace('FullDes', {
-                            toolbar: [
-                                ['Font', 'FontSize', '-', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Undo', 'Redo', '-', 'Cut', 'Copy', 'Paste', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
-                                '/',
-                                ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-                                ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
-                            ]
-                        });
-                    </script>
-                  
-                </div>
-                <!-- dialog buttons -->
-                <div class="modal-footer"><button type="button" class="btn btn-primary">OK</button></div>
+                <form action="@Url.Action("UpdateFullDes", "Product")" method="post" enctype="multipart/form-data">
+                    <!-- dialog body -->
+                    <div class="modal-body">
+                        <button type="button" class="modal-footer close" data-dismiss="modal">&times;</button>
+                        <h4>Thêm mô tả</h4>
+                        <div class="col-sm-12">
+                            <textarea name="FullDes" id="txtFullDes"></textarea>
+                        </div>
+                        <script src="~/Content/ckeditor_4.6.2_full/ckeditor/ckeditor.js"></script>
+                        <script>
+                            CKEDITOR.replace('FullDes', {
+                                toolbar: [
+                                    ['Font', 'FontSize', '-', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Undo', 'Redo', '-', 'Cut', 'Copy', 'Paste', 'Find', 'Replace', '-', 'Outdent', 'Indent', '-', 'Print'],
+                                    '/',
+                                    ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                                    ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
+                                ]
+                            });
+                        </script>
+                        <input type="text" id="txtProID" name="ProID" value="abc" hidden />
+                    </div>
+                    <!-- dialog buttons -->
+                    <div class="modal-footer"><button type="submit" class="btn btn-primary">OK</button></div>
+                </form>               
             </div>
         </div>
     </div>
 </div>
 <script>
-
     function openModal(ProID) {
-        //$("#txtFullDes").text(ProID); lay ID San pham
+        $("#txtProID").attr('value', ProID); //lay ID San pham
         $("#my1Modal").attr('class', 'modal fade in');
         $("#my1Modal").attr('style', 'display: inline;');
     }

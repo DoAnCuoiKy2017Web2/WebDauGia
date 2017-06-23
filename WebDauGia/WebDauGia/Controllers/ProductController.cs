@@ -398,6 +398,23 @@ namespace WebDauGia.Controllers
             }
             return RedirectToAction("Index", "Produc");
         }
-
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult UpdateFullDes(string ProID, String FullDes)
+        {
+            int ID = int.Parse(ProID);
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                Product sp = ctx.Products
+                    .Where(p => p.ProID == ID)
+                    .FirstOrDefault();
+                sp.FullDes = sp.FullDes + "\n\n EDIT (" + String.Format("{0:d/M/yyyy}", DateTime.Now) + ")\n" + FullDes;
+                ctx.Entry(sp).State = System.Data.Entity.EntityState.Modified;
+                ctx.SaveChanges();
+            }
+            Response.Write("<script LANGUAGE='JavaScript' >alert('Đã cập nhật.')</script>");
+            return RedirectToAction("UnexpiredProducts", "User");
+        }
+        
     }
 }
