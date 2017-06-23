@@ -723,7 +723,7 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult Review(string Sender, string Receiver, string Content,string ProID)
+        public ActionResult Review(string Sender, string Receiver, string Content, string ProID)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -733,7 +733,7 @@ namespace WebDauGia.Controllers
                 nx.Remark = Content;
                 nx.TimeAppraise = DateTime.Now;
                 // cột id product
-                //nx.ProID = ProID;
+                nx.ProID = int.Parse(ProID);
                 //xử lý radio button
 
                 dt.Entry(nx).State = System.Data.Entity.EntityState.Added;
@@ -765,7 +765,7 @@ namespace WebDauGia.Controllers
                 index = pro;
                 if (pro.Count > 0)
                 {
-                    for(int i=0;i<pro.Count;i++)
+                    for (int i = 0; i < pro.Count; i++)
                     {
                         try
                         {
