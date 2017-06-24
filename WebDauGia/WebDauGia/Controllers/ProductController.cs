@@ -260,7 +260,21 @@ namespace WebDauGia.Controllers
                 List<Category> list = ctx.Categories.ToList();
                 @ViewBag.DanhSachDanhMuc = list;
             }
-            return View();
+            ProductVM model = new ProductVM()
+            {
+                ProName = "",
+                CatId = "",
+                Quantity="",
+                Price="",
+                AucPrice="",
+                TinyDes="",
+                FullDes="",
+                StartTime = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year,
+                EndTime = String.Format("{0:d/M/yyyy hh:mm tt}", DateTime.Now.AddDays(7)),
+                StepPrice = "",
+                AutoRenewal = "True",
+            };
+            return View(model);
         }
 
         //Post : Produc/Add
@@ -269,67 +283,118 @@ namespace WebDauGia.Controllers
         [ValidateInput(false)]
         public ActionResult Add(ProductVM pro, HttpPostedFileBase fuMain, HttpPostedFileBase fuThumbs_1, HttpPostedFileBase fuThumbs_2)
         {
-            Product model = new Product();
-            model.Salesman = CurrentContext.GetCurUser().UserName;
             using (var ctx = new QuanLyDauGiaEntities())
             {
-
-                model.ProName = pro.ProName;
-                model.CatID = int.Parse(pro.CatId);
-                model.Quantity = int.Parse(pro.Quantity);
-                if(pro.Price != null && pro.Price != "")
-                {
-                    model.Price = double.Parse(pro.Price);
-                }
-                model.AucPrice = double.Parse(pro.AucPrice);
-                if (pro.StepPrice == null || pro.StepPrice == "")
-                {
-                    model.StepPrice = ((int)model.AucPrice/100 * 10)/1000 * 1000; // 10% giá khởi điểm.
-                }
-                else
-                {
-                    model.StepPrice = (int)(double.Parse(pro.StepPrice));
-                }
-                model.AutoRenewal = pro.AutoRenewal == "True" ? true : false ;
-                model.TinyDes = pro.TinyDes;
-                model.FullDes = pro.FullDes;
-                model.StartTime = DateTime.ParseExact(pro.StartTime, "dd/MM/yyyy", null);
-                model.EndTime = DateTime.ParseExact(pro.EndTime, "dd/MM/yyyy hh:mm tt", null);
-                model.Status = false;
-                if (model.StartTime <= DateTime.Now)
-                    model.StartTime = DateTime.Now;
-                ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
-                ctx.SaveChanges();
-                @ViewBag.Message = "Đã thêm thành công.";
                 List<Category> list = ctx.Categories.ToList();
                 @ViewBag.DanhSachDanhMuc = list;
             }
-            //tạo foder chứa hình
-            string spDirPath = Server.MapPath("~/Images/sp");
-            string targetDirPath = Path.Combine(spDirPath, model.ProID.ToString());
-            Directory.CreateDirectory(targetDirPath);
-            if(fuMain != null && fuMain.ContentLength > 0)
-            {               
-                //copy hình
-                string mainFileName = Path.Combine(targetDirPath, "main.jpg");
-                WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 400, 300, mainFileName);
-                //fuMain.SaveAs(mainFileName);
-                
-            }
-            if(fuThumbs_1 != null && fuThumbs_1.ContentLength > 0)
+            if (double.Parse(pro.AucPrice) % 1000 != 0 || double.Parse(pro.AucPrice) == 0)
             {
-                string thumbs_1FileName = Path.Combine(targetDirPath, "main_thumbs_1.jpg");
-                WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 200, 150, thumbs_1FileName);
-                //fuThumbs_1.SaveAs(thumbs_1FileName);
+                if (double.Parse(pro.AucPrice) < 1000)
+                {                  
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Giá khởi điểm phải lớn hơn 1000!!')</script>");
+                }
+                else
+                {
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Giá khởi điểm phải chia hết cho 1000!!')</script>");
+                }               
+                View(pro);
             }
-            if(fuThumbs_2 != null && fuThumbs_2.ContentLength > 0)
+            else
             {
-                string thumbs_2FileName = Path.Combine(targetDirPath, "main_thumbs_2.jpg");
-                WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 200, 150, thumbs_2FileName);
-                //fuThumbs_2.SaveAs(thumbs_2FileName);
-            }
+                Product model = new Product();
+                model.Salesman = CurrentContext.GetCurUser().UserName;
+                using (var ctx = new QuanLyDauGiaEntities())
+                {
 
-            return View();
+                    model.ProName = pro.ProName;
+                    model.CatID = int.Parse(pro.CatId);
+                    model.Quantity = int.Parse(pro.Quantity);
+                    model.AucPrice = double.Parse(pro.AucPrice);
+                    if (pro.Price != null && pro.Price != "")
+                    {
+                        model.Price = double.Parse(pro.Price);
+                        if (model.Price <= model.AucPrice)
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Giá mua ngay phải lớn hơn giá khởi điểm!!')</script>");
+                            View(pro);
+                            return View(pro);
+                        }
+                        if (model.Price % 1000 != 0)
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Giá mua ngay phải chia hết cho 1000!!')</script>");
+                            View(pro);
+                            return View(pro);
+                        }
+                    }
+                    if (pro.StepPrice == null || pro.StepPrice == "")
+                    {
+                        if (model.AucPrice < 10000)
+                        {
+                            model.StepPrice = 1000;
+                        }
+                        else
+                        {
+                            model.StepPrice = ((int)model.AucPrice / 100 * 10) / 1000 * 1000; // 10% giá khởi điểm.
+                        }
+                    }
+                    else
+                    {
+                        model.StepPrice = (int)(double.Parse(pro.StepPrice));
+                        if (model.StepPrice < 1000)
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Bước tăng phải lớn hơn 1000!!')</script>");
+                            View(pro);
+                            return View(pro);
+                        }
+                        else
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Bước tăng phải chia hết cho 1000!!')</script>");
+                            View(pro);
+                            return View(pro);
+                        }
+                    }
+                    model.AutoRenewal = pro.AutoRenewal == "True" ? true : false;
+                    model.TinyDes = pro.TinyDes;
+                    model.FullDes = pro.FullDes;
+                    model.StartTime = DateTime.ParseExact(pro.StartTime, "dd/MM/yyyy", null);
+                    model.EndTime = DateTime.ParseExact(pro.EndTime, "dd/MM/yyyy hh:mm tt", null);
+                    model.Status = false;
+                    model.OwnerPrice = 0;
+                    if (model.StartTime <= DateTime.Now)
+                        model.StartTime = DateTime.Now;
+                    ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
+                    ctx.SaveChanges();
+                    @ViewBag.Message = "Đã thêm thành công.";
+                    List<Category> list = ctx.Categories.ToList();
+                    @ViewBag.DanhSachDanhMuc = list;
+                }
+                //tạo foder chứa hình
+                string spDirPath = Server.MapPath("~/Images/sp");
+                string targetDirPath = Path.Combine(spDirPath, model.ProID.ToString());
+                Directory.CreateDirectory(targetDirPath);
+                if (fuMain != null && fuMain.ContentLength > 0)
+                {
+                    //copy hình
+                    string mainFileName = Path.Combine(targetDirPath, "main.jpg");
+                    WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 400, 300, mainFileName);
+                    //fuMain.SaveAs(mainFileName);
+
+                }
+                if (fuThumbs_1 != null && fuThumbs_1.ContentLength > 0)
+                {
+                    string thumbs_1FileName = Path.Combine(targetDirPath, "main_thumbs_1.jpg");
+                    WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 200, 150, thumbs_1FileName);
+                    //fuThumbs_1.SaveAs(thumbs_1FileName);
+                }
+                if (fuThumbs_2 != null && fuThumbs_2.ContentLength > 0)
+                {
+                    string thumbs_2FileName = Path.Combine(targetDirPath, "main_thumbs_2.jpg");
+                    WebDauGia.Helper.Picture.SaveResizeImage(Image.FromStream(fuMain.InputStream), 200, 150, thumbs_2FileName);
+                    //fuThumbs_2.SaveAs(thumbs_2FileName);
+                }
+            }
+            return View(pro);
         }
 
         //Get : Produc/Edit
@@ -398,6 +463,23 @@ namespace WebDauGia.Controllers
             }
             return RedirectToAction("Index", "Produc");
         }
-
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult UpdateFullDes(string ProID, String FullDes)
+        {
+            int ID = int.Parse(ProID);
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                Product sp = ctx.Products
+                    .Where(p => p.ProID == ID)
+                    .FirstOrDefault();
+                sp.FullDes = sp.FullDes + "\n\n EDIT (" + String.Format("{0:d/M/yyyy}", DateTime.Now) + ")\n" + FullDes;
+                ctx.Entry(sp).State = System.Data.Entity.EntityState.Modified;
+                ctx.SaveChanges();
+            }
+            Response.Write("<script LANGUAGE='JavaScript' >alert('Đã cập nhật.')</script>");
+            return RedirectToAction("UnexpiredProducts", "User");
+        }
+        
     }
 }

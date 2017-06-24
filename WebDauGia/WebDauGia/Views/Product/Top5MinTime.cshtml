@@ -10,15 +10,24 @@
 }
 else
 {
-    <div class="row">
+    <div class="class=" panel-body"">
         @foreach (var p in Model)
         {
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
+                    @if (WebDauGia.Models.Function.CheckNew(p.StartTime) == 1)
+                    {
+                        <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="item">
+                            <span class="nhan">NEW</span>
+                            <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
+                                 onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                        </a>
+                    }
+                    else
+                    {<a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
                         <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
                              onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-                    </a>
+                    </a> }
                     <div class="caption">
                         <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
 
@@ -28,7 +37,7 @@ else
 
                         <p style="color:navy">Giá hiện tại: @string.Format("{0:N0}", p.AucPrice) VNĐ</p>
 
-                        @if(p.Price != null && p.Price != 0)
+                        @if (p.Price != null && p.Price != 0)
                         {
                             <p style="color:navy">Giá mua ngay: @string.Format("{0:N0}", p.Price) VNĐ</p>
                         }

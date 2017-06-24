@@ -159,8 +159,15 @@ namespace WebDauGia.Controllers
                         pro.EndTime = pro.EndTime.AddMinutes(10);
                     }
                     //update Product
+                    if (pro.Owner==null)
+                    {
+                        pro.AucPrice += pro.StepPrice;
+                    }
+                    else
+                    {
+                        pro.AucPrice = (double)pro.OwnerPrice + pro.StepPrice;
+                    }
                     pro.OwnerPrice = giatra;
-                    pro.AucPrice += pro.StepPrice;
                     pro.Owner = ((User)Session["user"]).UserName;
                     ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();

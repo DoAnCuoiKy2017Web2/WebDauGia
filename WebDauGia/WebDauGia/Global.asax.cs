@@ -15,7 +15,7 @@ namespace WebDauGia
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            System.Timers.Timer aTimer = new System.Timers.Timer(10 * 1000);
+            System.Timers.Timer aTimer = new System.Timers.Timer(60 * 1000);
             aTimer.Elapsed += new System.Timers.ElapsedEventHandler(EventGuiMail);
             aTimer.AutoReset = true;
             aTimer.Enabled = true;

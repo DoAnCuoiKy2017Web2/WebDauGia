@@ -535,6 +535,7 @@ namespace WebDauGia.Controllers
         public ActionResult RemoveUserFromAuc(string proId, string user)
         {
             int t = int.Parse(proId);
+            int xs = 0;
             try
             {
                 using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
@@ -550,6 +551,11 @@ namespace WebDauGia.Controllers
                             ListAuhis.RemoveAt(i);
                             i--;
                         }
+                    }
+                    double aucprice = 0;
+                    if (ListAuhis.Count > 0)
+                    {
+                        aucprice = ListAuhis[ListAuhis.Count - 1].AucPrice;
                     }
                     //sau khi xoa các dòng thì ta có danh sách còn lại
                     //xoa user giống nhau xóa cái ở đằng sau
@@ -567,9 +573,18 @@ namespace WebDauGia.Controllers
                     if (ListAuhis.Count > 0)
                     {
                         userchose = ListAuhis[ListAuhis.Count - 1];
+
                     }
                     //lay product
                     var pro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
+                    //
+                    if (ListAuhis.Count > 0)
+                    {
+                        if (userchose.UserName == pro.Owner)
+                        {
+                            xs = 2;
+                        }
+                    }
                     //kiem tra neu user bị kic là owner thì update
                     if (pro.Owner == user)
                     {
@@ -581,20 +596,38 @@ namespace WebDauGia.Controllers
                         }
                         else
                         {
+                            xs = 1;
                             pro.Owner = userchose.UserName;
                             pro.OwnerPrice = userchose.AucPrice;
                             pro.AucPrice = userchose.AucPrice;
+
                         }
                         dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
                         dt.SaveChanges();
+                    }
+                    else
+                    {
+                        if (xs == 2)
+                        {
+                            pro.AucPrice = userchose.AucPrice;
+                            dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                            dt.SaveChanges();
+                        }
+                        //nếu người bị kic không là ngươi giữ giá thì update lại hiện tại cho sản phẩm
+                        else if (aucprice != 0 && aucprice != pro.AucPrice)
+                        {
+                            pro.AucPrice = aucprice;
+                            dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                            dt.SaveChanges();
+                        }
                     }
                     //xoa lich sử của người bị kíc
                     var list = dt.AuctionHistorys.Where(li => li.UserName == user && li.ProID == t).ToList();
                     dt.AuctionHistorys.RemoveRange(list);
                     dt.SaveChanges();
-                    //xóa những lịch sử thừa
-                    if (pro.Owner != user && userchose != null)
+                    if (xs == 1 || xs == 2)
                     {
+                        //xoa lịch sử từ dòng của người giữ giá tiếp theo.
                         var list1 = dt.AuctionHistorys.Where(li => li.ProID == t && li.AucID > userchose.AucID).ToList();
                         if (list1 != null)
                         {
@@ -602,6 +635,16 @@ namespace WebDauGia.Controllers
                             dt.SaveChanges();
                         }
                     }
+                    //xóa những lịch sử thừa(chi xét khi user bị xóa không là owner)
+                    //if (pro.Owner != user && userchose != null)
+                    //{
+                    //    var list1 = dt.AuctionHistorys.Where(li => li.ProID == t && li.AucID > userchose.AucID).ToList();
+                    //    if (list1 != null)
+                    //    {
+                    //        dt.AuctionHistorys.RemoveRange(list1);
+                    //        dt.SaveChanges();
+                    //    }
+                    //}
                     //thêm user vào danh sách cấm
                     var l = new LimitedList();
                     l.ProID = int.Parse(proId);
@@ -635,7 +678,7 @@ namespace WebDauGia.Controllers
                     mail.To.Add(Use.Email);
                     mail.From = new MailAddress("admiweb2nhom5@gmail.com");
                     mail.Subject = "Thông Báo Bị Loại Khỏi Phiên Đấu Giá Sản Phẩm: " + pro.ProName;
-                    mail.Body = Body.ToString();// phần thân của mail ở trên
+                    mail.Body = Body.ToString();
                     mail.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
@@ -644,6 +687,35 @@ namespace WebDauGia.Controllers
                     smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
+                    if (xs == 1)
+                    {
+                        //gửi mail cho người giữ giá tiếp theo
+                        StringBuilder Body1 = new StringBuilder();
+                        Body1.Append("<h3>Chào: <b>" + user + "<b></h3>");
+                        Body1.Append("<p>Vào Lúc " + DateTime.Now.ToString() + "Bạn Đã Được Nhượng Quyền Giữ Giá Sản Phẩm : " + pro.ProName + "</p>");
+                        Body1.Append("<p>Số Tiền Bạn Trả Cho Sản Phẩm Này Là: " + string.Format("{0:N0}", pro.AucPrice) + " </p>");
+                        Body1.Append("<table>");
+                        Body1.Append("<tr><td colspan='2'><h4>Thông tin Sản Phẩm</h4></td></tr>");
+                        Body1.Append("<tr><td>Tên Sản Phẩm: </td><td>" + pro.ProName + "</td></tr>");
+                        Body1.Append("<tr><td>Giá Hiện Tại: </td><td>" + string.Format("{0:N0}", pro.AucPrice) + " VNĐ</td></tr>");
+                        Body1.Append("<tr><td>Thời Gian Kết Thúc Đấu Giá: </td><td>" + pro.EndTime.ToString() + "</td></tr>");
+                        Body1.Append("</table>");
+                        string owner = pro.Owner;
+                        var Use1 = dt.Users.Where(us => us.UserName == owner).FirstOrDefault();
+                        MailMessage mail1 = new MailMessage();
+                        mail1.To.Add(Use1.Email);
+                        mail1.From = new MailAddress("admiweb2nhom5@gmail.com");
+                        mail1.Subject = "Thông Báo Bạn Được Nhượng Quyền Giữ  Giá Sản Phẩm: " + pro.ProName;
+                        mail1.Body = Body1.ToString();
+                        mail1.IsBodyHtml = true;
+                        SmtpClient smtp1 = new SmtpClient();
+                        smtp1.Host = "smtp.gmail.com";
+                        smtp1.Port = 587;
+                        smtp1.UseDefaultCredentials = true;
+                        smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                        smtp1.EnableSsl = true;
+                        smtp1.Send(mail1);
+                    }
                     //User us = dt.Users
                     //    .Where(p => p.UserName == user)
                     //    .FirstOrDefault();
@@ -723,7 +795,7 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult Review(string Sender, string Receiver, string Content,string ProID)
+        public ActionResult Review(string Sender, string Receiver, string Content, string ProID)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -733,7 +805,7 @@ namespace WebDauGia.Controllers
                 nx.Remark = Content;
                 nx.TimeAppraise = DateTime.Now;
                 // cột id product
-                //nx.ProID = ProID;
+                nx.ProID = int.Parse(ProID);
                 //xử lý radio button
 
                 dt.Entry(nx).State = System.Data.Entity.EntityState.Added;
@@ -765,7 +837,7 @@ namespace WebDauGia.Controllers
                 index = pro;
                 if (pro.Count > 0)
                 {
-                    for(int i=0;i<pro.Count;i++)
+                    for (int i = 0; i < pro.Count; i++)
                     {
                         try
                         {
