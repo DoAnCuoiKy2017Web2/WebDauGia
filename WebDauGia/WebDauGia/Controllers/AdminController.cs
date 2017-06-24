@@ -241,7 +241,8 @@ namespace WebDauGia.Controllers
                         .FirstOrDefault();
                     if (us != null)
                     {
-                        dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
+                        us.Status = false;
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                         dt.SaveChanges();
                         TempData["ccheck"] = 1;
                     }

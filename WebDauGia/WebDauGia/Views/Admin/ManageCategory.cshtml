@@ -111,21 +111,9 @@ else
                                         <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.CatID">
                                             <i class="fa fa-check"></i>
                                         </a>
-
-                                        @if (@cim.Status == true)
-                                        {
-                                            <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.CatID">
-                                                <i class="fa fa-remove"></i>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a class="btn btn-btn btn-xs cancel" href="javascript:;" role="button" title="Xóa">
-                                                <i class="fa fa-remove"></i>
-                                            </a>
-                                        }
-                                        
-
+                                        <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.CatID">
+                                            <i class="fa fa-remove"></i>
+                                        </a>
                                     </td>
                                 </tr>
 
