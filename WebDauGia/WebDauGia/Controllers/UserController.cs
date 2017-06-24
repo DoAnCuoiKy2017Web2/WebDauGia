@@ -573,9 +573,18 @@ namespace WebDauGia.Controllers
                     if (ListAuhis.Count > 0)
                     {
                         userchose = ListAuhis[ListAuhis.Count - 1];
+
                     }
                     //lay product
                     var pro = dt.Products.Where(p => p.ProID == t).FirstOrDefault();
+                    //
+                    if (ListAuhis.Count > 0)
+                    {
+                        if (userchose.UserName == pro.Owner)
+                        {
+                            xs = 2;
+                        }
+                    }
                     //kiem tra neu user bị kic là owner thì update
                     if (pro.Owner == user)
                     {
@@ -598,8 +607,14 @@ namespace WebDauGia.Controllers
                     }
                     else
                     {
+                        if (xs == 2)
+                        {
+                            pro.AucPrice = userchose.AucPrice;
+                            dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                            dt.SaveChanges();
+                        }
                         //nếu người bị kic không là ngươi giữ giá thì update lại hiện tại cho sản phẩm
-                        if (aucprice != 0 && aucprice != pro.AucPrice)
+                        else if (aucprice != 0 && aucprice != pro.AucPrice)
                         {
                             pro.AucPrice = aucprice;
                             dt.Entry(pro).State = System.Data.Entity.EntityState.Modified;
@@ -610,7 +625,7 @@ namespace WebDauGia.Controllers
                     var list = dt.AuctionHistorys.Where(li => li.UserName == user && li.ProID == t).ToList();
                     dt.AuctionHistorys.RemoveRange(list);
                     dt.SaveChanges();
-                    if (xs == 1)
+                    if (xs == 1 || xs == 2)
                     {
                         //xoa lịch sử từ dòng của người giữ giá tiếp theo.
                         var list1 = dt.AuctionHistorys.Where(li => li.ProID == t && li.AucID > userchose.AucID).ToList();
