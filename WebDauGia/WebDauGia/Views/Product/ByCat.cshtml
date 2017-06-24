@@ -4,7 +4,7 @@
     ViewBag.Title = @ViewBag.CatName;
 }
 @section view_title{
-<i class="fa fa-product-hunt" aria-hidden="true"></i>
+    <i class="fa fa-product-hunt" aria-hidden="true"></i>
     Danh sách sản phẩm: @ViewBag.CatName
     @if (Model.Count > 0)
     {
@@ -19,6 +19,43 @@
 }
 @section css{
     @*<link href="~/Content/LightBox/Hinh.css" rel="stylesheet" />*@
+    <style type="text/css">
+        .product {
+            margin: 50px auto;
+            width: 280px;
+            height: 370px;
+            /*background: white;*/
+            border: 1px solid #333;
+            position: relative;
+            z-index: 90;
+        }
+
+        .ribbon-wrapper {
+            /*width: 85px;*/
+            /*height: 88px;*/
+            overflow: hidden;
+            position: absolute;
+            top: -3px;
+            left: -3px;
+        }
+
+        .ribbon {
+            font: bold 15px sans-serif;
+            color: #333;
+            text-align: center;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            position: relative;
+            padding: 7px 0;
+            top: 15px;
+            left: -30px;
+            width: 120px;
+            background-color: #ebb134;
+            color: #fff;
+        }
+    </style>
 }
 <script>
     $(document).ready(function () {
@@ -39,7 +76,7 @@
             })
                 .done(function (data) {
                     if (data == "1") {
-                        if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yếu Thích Của Bạn???") == true) {
+                        if (confirm("Đăng Nhập Để Thêm Sản Phẩm Vào List Yêu Thích Của Bạn???") == true) {
                             window.location = "@Url.Action("Login","User")";
                         } else {
 
@@ -68,18 +105,25 @@ else
                 <div class="thumbnail">
                     @if (WebDauGia.Models.Function.CheckNew(p.StartTime) == 1)
                     {
+
                         <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="item">
-                            <span class="nhan">NEW</span>
-                            <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
-                                 onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                            @*<span class="nhan">NEW</span>*@
+                            <div class="product">
+                                    <div class="ribbon-wrapper">
+                                        <div class="ribbon">NEW</div>
+                                        <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
+                                             onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                                    </div>
+                                </div>
+                            
                         </a>
                     }
                     else
                     {<a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
-                         <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
-                              onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                        <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
+                             onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
                     </a> }
-                    
+
                     <div class="caption">
                         <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
                         <p>Lượt đấu: (@p.NumOfAuction)</p>
@@ -157,4 +201,3 @@ else
         </ul>
     </nav>
 }
-
