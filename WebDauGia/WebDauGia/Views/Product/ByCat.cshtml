@@ -107,7 +107,7 @@ else
         @foreach (var p in Model)
         {
             <div class="col-md-4">
-                <div class="thumbnail product">
+                <div class="thumbnail">
                     @if (WebDauGia.Models.Function.CheckNew(p.StartTime) == 1)
                     {
                         <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="item">

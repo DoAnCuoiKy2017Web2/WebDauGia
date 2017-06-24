@@ -2,6 +2,51 @@
     ViewBag.Title = "Home";
 }
 
+@section css{
+<style type="text/css">
+    .product {
+        /*margin: 50px auto;*/
+        /*width: 280px;
+            height: 370px;*/
+        background: white;
+        border: 1px solid #333;
+        /*position: relative;*/
+        /*z-index: 90;*/
+    }
+
+    .ribbon-wrapper {
+        /*width: 400px;
+            height: 300px;*/
+        overflow: hidden;
+        /*position: absolute;*/
+        top: -3px;
+        left: -3px;
+    }
+
+    .ribbon {
+        font: bold 15px sans-serif;
+        color: #333;
+        text-align: center;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        position: relative;
+        padding: 7px 0;
+        top: 15px;
+        left: -30px;
+        width: 120px;
+        background-color: #ebb134;
+        color: #fff;
+    }
+
+    .ribbon-wrapper img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+}
 @section view_title{
     <i class="fa fa-home" aria-hidden="true"></i>
     Trang chủ

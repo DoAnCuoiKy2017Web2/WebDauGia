@@ -4,6 +4,11 @@
 
 @model List<Product>
 
+
+@section css{
+
+}
+
 @if (Model.Count == 0)
 {
     <text>Không có sản phẩm.</text>
@@ -18,9 +23,12 @@ else
                     @if (WebDauGia.Models.Function.CheckNew(p.StartTime) == 1)
                     {
                         <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="item">
-                            <span class="nhan">NEW</span>
-                            <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
-                                 onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon">NEW</div>
+                                <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
+                                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';"
+                                     max-width="100%" />
+                            </div>
                         </a>
                     }
                     else
