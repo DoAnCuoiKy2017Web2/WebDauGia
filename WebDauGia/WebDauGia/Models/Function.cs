@@ -54,6 +54,8 @@ namespace WebDauGia.Models
                 if(us != null)
                 {
                     String []diemdanhgiaArr = us.Reliability.Split('/');
+                    if (double.Parse(diemdanhgiaArr[0]) == 0)
+                        return 0;
                     diemdanhgia = double.Parse(diemdanhgiaArr[0]) / (double.Parse(diemdanhgiaArr[0]) + double.Parse(diemdanhgiaArr[1]));
                 }
             }
