@@ -349,9 +349,12 @@ namespace WebDauGia.Controllers
                         }
                         else
                         {
-                            Response.Write("<script LANGUAGE='JavaScript' >alert('Bước tăng phải chia hết cho 1000!!')</script>");
-                            View(pro);
-                            return View(pro);
+                            if (model.StepPrice % 1000 != 0)
+                            {
+                                Response.Write("<script LANGUAGE='JavaScript' >alert('Bước tăng phải chia hết cho 1000!!')</script>");
+                                View(pro);
+                                return View(pro);
+                            }
                         }
                     }
                     model.AutoRenewal = pro.AutoRenewal == "True" ? true : false;
