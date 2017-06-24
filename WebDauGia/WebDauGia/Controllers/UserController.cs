@@ -819,6 +819,10 @@ namespace WebDauGia.Controllers
             {
                 @ViewBag.Receiver = rec;
                 @ViewBag.ProId = proid;
+                if (Convert.ToInt32(TempData["scheck"]) == 1)
+                {
+                    ViewBag.success = "ok";
+                }
             }
             return View();
         }
@@ -859,9 +863,11 @@ namespace WebDauGia.Controllers
                 us.Reliability = cong + "/" + tru;
                 dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                 dt.SaveChanges();
+                TempData["scheck"] = 1;
+                ViewBag.success = "ok";
             }
-
-            return View();
+            return RedirectToAction("Review", "User", new { rec = Receiver,proid = ProID });
+            //return View();
         }
 
         [CheckLogin]
