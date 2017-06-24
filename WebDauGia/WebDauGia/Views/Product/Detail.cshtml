@@ -506,40 +506,6 @@ else
                                         }
                                         else
                                         {
-                                            List<AuctionHistory> AucHis;
-                                            using (var ctx = new QuanLyDauGiaEntities())
-                                            {
-                                                AucHis = ctx.AuctionHistorys.Where(bl => bl.ProID == Model.ProID).OrderByDescending(bl => bl.Time).ToList();
-                                            }
-                                            if(AucHis.Count == 0)
-                                            {
-                                                <p>Chưa có lịch sử</p>
-                                                    <table class="table table-hover">
-                                                        <tr>
-                                                            <td>Thời gian</td>
-                                                            <td>Người ra giá</td>
-                                                            <td>Giá</td>
-                                                        </tr>                                                       
-                                                   </table>
-                                            }
-                                            else
-                                            {
-                                                <table class="table table-hover">
-                                                    <tr>
-                                                        <td>Thời gian</td>
-                                                        <td>Người ra giá</td>
-                                                        <td>Giá</td>
-                                                    </tr>
-                                                    @foreach (var a in AucHis)
-                                                    {
-                                                        <tr>
-                                                            <td>@String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", @a.Time)</td>
-                                                            <td>@a.UserName</td>
-                                                            <td>@a.AucPrice</td>
-                                                        </tr>
-                                                    }
-                                                </table>
-                                            }
                                             <ul style="list-style-type:none;font-size:15px;color:darkblue" id="list-history"></ul>
                                         }
                                     </div>
