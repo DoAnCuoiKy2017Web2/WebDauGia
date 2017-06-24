@@ -360,6 +360,7 @@ namespace WebDauGia.Controllers
                     model.StartTime = DateTime.ParseExact(pro.StartTime, "dd/MM/yyyy", null);
                     model.EndTime = DateTime.ParseExact(pro.EndTime, "dd/MM/yyyy hh:mm tt", null);
                     model.Status = false;
+                    model.OwnerPrice = 0;
                     if (model.StartTime <= DateTime.Now)
                         model.StartTime = DateTime.Now;
                     ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
