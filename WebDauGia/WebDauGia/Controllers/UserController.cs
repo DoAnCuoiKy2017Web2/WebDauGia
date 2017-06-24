@@ -242,9 +242,21 @@ namespace WebDauGia.Controllers
             {
                 ViewBag.Message = "yes";
             }
-            else if (t == -1)
+            else if (t == -1 || t == -2||t== -3)
             {
                 ViewBag.Message = "no";
+                if (t == -2)
+                {
+                    ViewBag.Messagex = "Email đã tồn tại!!";
+                }
+                else if(t == -3)
+                {
+                    ViewBag.Messagex = "Email không hợp lệ!!";
+                }
+                else
+                {
+
+                }
             }
             else
             {
@@ -268,36 +280,53 @@ namespace WebDauGia.Controllers
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-                try
+                User us1 = dt.Users.Where(p => p.Email == model.Email.ToString()).FirstOrDefault();
+                if (us1 != null)
                 {
-                    User us = dt.Users
-               .Where(p => p.UserName == model.UserName)
-               .FirstOrDefault();
-
-                    if (us != null)
+                    TempData["ucheck"] = -2;
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Email đã tồn tại.')</script>");
+                    View(model);
+                }
+                else if (CheckExistEmail.isChecked(model.Email) == 0)
+                {
+                    TempData["ucheck"] = -3;
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Email không hợp lệ!!')</script>");
+                    View(model);
+                }
+                else
+                {
+                    try
                     {
-                        us.Name = model.Name;
-                        us.Address = model.Address;
-                        us.Email = model.Email;
-                        us.Phone = model.Phone;
-                        us.Gender = model.Gender;
-                        us.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
-                        using (var ctx = new QuanLyDauGiaEntities())
+                        User us = dt.Users
+                   .Where(p => p.UserName == model.UserName)
+                   .FirstOrDefault();
+
+                        if (us != null)
                         {
-                            ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                            ctx.SaveChanges();
-                            @ViewBag.Message = "yes";
-                            TempData["ucheck"] = 1;
+                            us.Name = model.Name;
+                            us.Address = model.Address;
+                            us.Email = model.Email;
+                            us.Phone = model.Phone;
+                            us.Gender = model.Gender;
+                            us.DateOfBirth = DateTime.ParseExact(model.DateOfBirth, "d/M/yyyy", null);
+                            using (var ctx = new QuanLyDauGiaEntities())
+                            {
+                                ctx.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                                ctx.SaveChanges();
+                                @ViewBag.Message = "yes";
+                                TempData["ucheck"] = 1;
+                            }
                         }
+                        return RedirectToAction("Update", "User", new { ID = model.UserName });
                     }
-                    return RedirectToAction("Update", "User", new { ID = model.UserName });
+                    catch (Exception)
+                    {
+                        TempData["ucheck"] = -1;
+                    }
                 }
-                catch (Exception)
-                {
-                    TempData["ucheck"] = -1;
-                }
-                return RedirectToAction("Update", "User", new { ID = model.UserName });
+
             }
+            return RedirectToAction("Update", "User", new { ID = model.UserName });
         }
 
         //Get : User/Delete
