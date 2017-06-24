@@ -676,7 +676,7 @@ namespace WebDauGia.Controllers
                     var Use = dt.Users.Where(us => us.UserName == user).FirstOrDefault();
                     MailMessage mail = new MailMessage();
                     mail.To.Add(Use.Email);
-                    mail.From = new MailAddress("admiweb2nhom5@gmail.com");
+                    mail.From = new MailAddress(Email.DCMail);
                     mail.Subject = "Thông Báo Bị Loại Khỏi Phiên Đấu Giá Sản Phẩm: " + pro.ProName;
                     mail.Body = Body.ToString();
                     mail.IsBodyHtml = true;
@@ -684,7 +684,7 @@ namespace WebDauGia.Controllers
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
                     smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                    smtp.Credentials = new System.Net.NetworkCredential(Email.DCMail, Email.Pass);
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                     if (xs == 1)
@@ -704,7 +704,7 @@ namespace WebDauGia.Controllers
                         var Use1 = dt.Users.Where(us => us.UserName == owner).FirstOrDefault();
                         MailMessage mail1 = new MailMessage();
                         mail1.To.Add(Use1.Email);
-                        mail1.From = new MailAddress("admiweb2nhom5@gmail.com");
+                        mail1.From = new MailAddress(Email.DCMail);
                         mail1.Subject = "Thông Báo Bạn Được Nhượng Quyền Giữ  Giá Sản Phẩm: " + pro.ProName;
                         mail1.Body = Body1.ToString();
                         mail1.IsBodyHtml = true;
@@ -712,7 +712,7 @@ namespace WebDauGia.Controllers
                         smtp1.Host = "smtp.gmail.com";
                         smtp1.Port = 587;
                         smtp1.UseDefaultCredentials = true;
-                        smtp1.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                        smtp1.Credentials = new System.Net.NetworkCredential(Email.DCMail, Email.Pass);
                         smtp1.EnableSsl = true;
                         smtp1.Send(mail1);
                     }
@@ -795,7 +795,7 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult Review(string Sender, string Receiver, string Content, string ProID)
+        public ActionResult Review(string Sender, string Receiver, string Content, string ProID, string danhgia)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -806,9 +806,29 @@ namespace WebDauGia.Controllers
                 nx.TimeAppraise = DateTime.Now;
                 // cột id product
                 nx.ProID = int.Parse(ProID);
-                //xử lý radio button
 
+                //Cập nhật điểm của Receiver.
+                User us = dt.Users
+                    .Where(p => p.UserName == Receiver)
+                    .FirstOrDefault();
+                int cong = int.Parse(us.Reliability.Split('/')[0]);
+                int tru = int.Parse(us.Reliability.Split('/')[1]);
+
+                //xử lý radio button
+                if (danhgia == "1")
+                {
+                    nx.Scores = true;
+                    cong += 1;
+                }
+                else
+                {
+                    nx.Scores = false;
+                    tru += 1;
+                }
                 dt.Entry(nx).State = System.Data.Entity.EntityState.Added;
+                dt.SaveChanges();
+                us.Reliability = cong + "/" + tru;
+                dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                 dt.SaveChanges();
             }
 
