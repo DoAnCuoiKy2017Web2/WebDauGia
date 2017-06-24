@@ -314,7 +314,7 @@ namespace WebDauGia.Controllers
                     if (pro.Price != null && pro.Price != "")
                     {
                         model.Price = double.Parse(pro.Price);
-                        if (model.Price < model.AucPrice)
+                        if (model.Price <= model.AucPrice)
                         {
                             Response.Write("<script LANGUAGE='JavaScript' >alert('Giá mua ngay phải lớn hơn giá khởi điểm!!')</script>");
                             View(pro);
