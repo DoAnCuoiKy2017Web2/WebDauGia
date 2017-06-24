@@ -795,7 +795,7 @@ namespace WebDauGia.Controllers
         }
         [CheckLogin]
         [HttpPost]
-        public ActionResult Review(string Sender, string Receiver, string Content, string ProID)
+        public ActionResult Review(string Sender, string Receiver, string Content, string ProID, string danhgia)
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
@@ -806,9 +806,29 @@ namespace WebDauGia.Controllers
                 nx.TimeAppraise = DateTime.Now;
                 // cột id product
                 nx.ProID = int.Parse(ProID);
-                //xử lý radio button
 
+                //Cập nhật điểm của Receiver.
+                User us = dt.Users
+                    .Where(p => p.UserName == Receiver)
+                    .FirstOrDefault();
+                int cong = int.Parse(us.Reliability.Split('/')[0]);
+                int tru = int.Parse(us.Reliability.Split('/')[1]);
+
+                //xử lý radio button
+                if (danhgia == "1")
+                {
+                    nx.Scores = true;
+                    cong += 1;
+                }
+                else
+                {
+                    nx.Scores = false;
+                    tru += 1;
+                }
                 dt.Entry(nx).State = System.Data.Entity.EntityState.Added;
+                dt.SaveChanges();
+                us.Reliability = cong + "/" + tru;
+                dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                 dt.SaveChanges();
             }
 
