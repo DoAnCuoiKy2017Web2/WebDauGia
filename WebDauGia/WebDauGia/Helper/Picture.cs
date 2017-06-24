@@ -15,7 +15,11 @@ namespace WebDauGia.Helper
             {
                 Bitmap b = new Bitmap(width, height);
                 Graphics g = Graphics.FromImage((Image)b);
-                g.InterpolationMode = InterpolationMode.Bicubic;    // Specify here
+                g.InterpolationMode = InterpolationMode.Bicubic;
+                if (img.Width < width)
+                    width = img.Width;
+                if (img.Height < height)
+                    height = img.Height;
                 g.DrawImage(img, 0, 0, width, height);
                 g.Dispose();
                 b.Save(path);
