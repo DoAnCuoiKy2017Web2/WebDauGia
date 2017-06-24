@@ -98,14 +98,33 @@ else
                                     <td >
                                     <input type="text" id="txtNCatName" class="numberic2" value="@cim.CatName" />
                                     </td>
-                                    <td>@cim.Status</td>
+                                    @if (@cim.Status == true)
+                                    {
+                                        <td>Được xóa</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Không được xóa</td>
+                                    }
+
                                     <td class="text-right">
                                         <a class="btn btn-primary btn-xs updateItem" href="javascript:;" role="button" title="Cập nhật" data-proid="@cim.CatID">
                                             <i class="fa fa-check"></i>
                                         </a>
-                                        <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.CatID">
-                                            <i class="fa fa-remove"></i>
-                                        </a>
+
+                                        @if (@cim.Status == true)
+                                        {
+                                            <a class="btn btn-danger btn-xs removeItem" href="javascript:;" role="button" title="Xóa" data-proid="@cim.CatID">
+                                                <i class="fa fa-remove"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-btn btn-xs cancel" href="javascript:;" role="button" title="Xóa">
+                                                <i class="fa fa-remove"></i>
+                                            </a>
+                                        }
+                                        
 
                                     </td>
                                 </tr>
@@ -121,6 +140,9 @@ else
 </div>
 
 <script language="javascript">
+    $('.cancel').on('click', function () {
+        alert("Bạn không thể xóa danh mục này!!!");
+    });
     $('.addItem').on('click', function () {
         var q = $(this).closest('tr').find('.numberic3').val();
         $('#txtAProId').val(q);
