@@ -767,6 +767,7 @@
     <Content Include="Content\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\imagesuser.png" />
     <Content Include="Content\jquery-3.2.0.min.js" />
     <Content Include="Content\Jquery-Valid\additional-methods.js" />
     <Content Include="Content\Jquery-Valid\additional-methods.min.js" />
