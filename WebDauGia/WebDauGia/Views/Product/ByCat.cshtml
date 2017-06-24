@@ -21,20 +21,20 @@
     @*<link href="~/Content/LightBox/Hinh.css" rel="stylesheet" />*@
     <style type="text/css">
         .product {
-            margin: 50px auto;
-            width: 280px;
-            height: 370px;
-            /*background: white;*/
+            /*margin: 50px auto;*/
+            /*width: 280px;
+            height: 370px;*/
+            background: white;
             border: 1px solid #333;
-            position: relative;
-            z-index: 90;
+            /*position: relative;*/
+            /*z-index: 90;*/
         }
 
         .ribbon-wrapper {
-            /*width: 85px;*/
-            /*height: 88px;*/
+            /*width: 400px;
+            height: 300px;*/
             overflow: hidden;
-            position: absolute;
+            /*position: absolute;*/
             top: -3px;
             left: -3px;
         }
@@ -54,6 +54,11 @@
             width: 120px;
             background-color: #ebb134;
             color: #fff;
+        }
+        .ribbon-wrapper img{
+                display: block;
+                max-width: 100%;
+                height: auto;
         }
     </style>
 }
@@ -105,24 +110,21 @@ else
                 <div class="thumbnail">
                     @if (WebDauGia.Models.Function.CheckNew(p.StartTime) == 1)
                     {
-
                         <a href="@Url.Action("Detail", "Product", new { id = p.ProID})" class="item">
-                            @*<span class="nhan">NEW</span>*@
-                            <div class="product">
-                                    <div class="ribbon-wrapper">
-                                        <div class="ribbon">NEW</div>
-                                        <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
-                                             onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-                                    </div>
-                                </div>
-                            
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon">NEW</div>
+                                <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
+                                     onerror="this.onerror=null;this.src='/Images/sp/main.jpg';"
+                                     max-width="100%" />
+                            </div>
                         </a>
                     }
                     else
                     {<a href="@Url.Action("Detail", "Product", new { id = p.ProID})">
                         <img src="~/Images/sp/@p.ProID/main.jpg" title="@p.ProName"
                              onerror="this.onerror=null;this.src='/Images/sp/main.jpg';" />
-                    </a> }
+                    </a>
+                    }
 
                     <div class="caption">
                         <p style="overflow:hidden;text-overflow:ellipsis">@p.ProName</p>
