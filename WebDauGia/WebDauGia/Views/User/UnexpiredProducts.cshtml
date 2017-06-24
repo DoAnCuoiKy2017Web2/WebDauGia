@@ -1,5 +1,6 @@
 ﻿@using WebDauGia.Models
 @using WebDauGia.Helper
+
 @section view_title{
     Sản phẩm đăng bán
 }
@@ -86,7 +87,7 @@
                                 </a>
                             </td>
                             <td class="text-right">
-                                <a class="btn btn-danger btn-xs updateItem" href="@Url.Action("AHistoryProduct", "User", new { id = @cim.ProID})" role="button" title="Cập nhật" data-proid="@cim.CatID">
+                                <a onclick="openModal2(@cim.ProID)" class="btn btn-info btn-xs updateItem">
                                     Xem
                                 </a>
                             </td>
@@ -129,6 +130,60 @@
             </div>
         </div>
     </div>
+
+    <div id="my2Modal" style="display:none" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <!-- dialog body -->
+                    <div class="modal-body">
+                        <button type="button" class="modal-footer close" data-dismiss="modal">&times;</button>
+                        <h4>Lịch sử đấu giá</h4>                        
+                        <input type="text" id="txtProID" name="ProID" value="abc" hidden />
+                        
+                        @{
+                            
+                            List<AuctionHistory> AucHis;
+                            using (var ctx2 = new QuanLyDauGiaEntities())
+                            {
+                                AucHis = ctx2.AuctionHistorys.Where(bl => bl.ProID == 1).OrderByDescending(bl => bl.Time).ToList();
+                            }
+                            if (AucHis.Count == 0)
+                            {
+                                <p>Chưa có lịch sử</p>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <td>Thời gian</td>
+                                        <td>Người ra giá</td>
+                                        <td>Giá</td>
+                                    </tr>
+                                </table>
+                            }
+                            else
+                            {
+                                <table class="table table-hover">
+                                    <tr>
+                                        <td>Thời gian</td>
+                                        <td>Người ra giá</td>
+                                        <td>Giá</td>
+                                    </tr>
+                                    @foreach (var a in AucHis)
+                                    {
+                                        <tr>
+                                            <td>@String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", @a.Time)</td>
+                                            <td>@a.UserName</td>
+                                            <td>@a.AucPrice</td>
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                            }
+
+</div>
+                    <!-- dialog buttons -->
+                    <div class="modal-footer"><button type="button">OK</button></div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     function openModal(ProID) {
@@ -136,15 +191,24 @@
         $("#my1Modal").attr('class', 'modal fade in');
         $("#my1Modal").attr('style', 'display: inline;');
     }
+    function openModal2(ProID) {
+        $("#txtProID").attr('value', ProID);
+        $("#my2Modal").attr('class', 'modal fade in');
+        $("#my2Modal").attr('style', 'display: inline;');
+    }
     //Tat popup
     $(".modal-footer").click(function (e) {
         $("#my1Modal").attr('class', 'modal fade');
         $("#my1Modal").attr('style', 'display: none;');
+        $("#my2Modal").attr('class', 'modal fade');
+        $("#my2Modal").attr('style', 'display: none;');
     });
 
     $("#openModal").click(function (e) {
         $("#my1Modal").attr('class', 'modal fade in');
         $("#my1Modal").attr('style', 'display: inline;');
+        $("#my2Modal").attr('class', 'modal fade');
+        $("#my2Modal").attr('style', 'display: none;');
     });
 
     //$("#my1Modal").on("show", function() {    // wire up the OK button to dismiss the modal when shown
