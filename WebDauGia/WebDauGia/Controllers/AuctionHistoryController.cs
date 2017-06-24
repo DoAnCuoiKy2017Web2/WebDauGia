@@ -128,6 +128,14 @@ namespace WebDauGia.Controllers
                 {
                     return Json("Đã Có Người Trả Giá Cao Hơn Bạn! Giá Hiện Tại Là " + string.Format("{0:N0}", pro.AucPrice), JsonRequestBehavior.AllowGet);
                 }
+                //tự động gia hạn
+                int RestTime = Function.Rest(pro.EndTime);
+                if (0 < RestTime && RestTime <= 5 * 60 && pro.AutoRenewal == true)
+                {
+                    pro.EndTime = pro.EndTime.AddMinutes(10);
+                    ctx.Entry(pro).State = System.Data.Entity.EntityState.Modified;
+                    ctx.SaveChanges();
+                }
                 string GmNgMua = (ctx.Users.Where(us => us.UserName == username).FirstOrDefault()).Email;
                 string GmNgBan = (ctx.Users.Where(us => us.UserName == pro.Salesman).FirstOrDefault()).Email;
                 string GmNgMuaCu = "";
@@ -153,11 +161,6 @@ namespace WebDauGia.Controllers
                 else if (giatra > pro.OwnerPrice  || pro.OwnerPrice ==null)
                 {
                     TH = 1;// 1 là chiến thắng trờ thành người giữ giá
-                    int RestTime = Function.Rest(pro.EndTime);
-                    if (0 < RestTime && RestTime <= 5 * 60 && pro.AutoRenewal==true)
-                    {
-                        pro.EndTime = pro.EndTime.AddMinutes(10);
-                    }
                     //update Product
                     if (pro.Owner==null)
                     {
