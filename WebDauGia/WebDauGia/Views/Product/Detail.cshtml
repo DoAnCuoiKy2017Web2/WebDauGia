@@ -124,7 +124,7 @@
             var GiaGoc = parseFloat($('#giagoc').val());
             var buocgia = parseFloat($('#buocgia').val());
             var tiendenghi = GiaGoc + buocgia;
-            if (GiaTra == null) {
+            if (isNaN(GiaTra) == true) {
                 alert("Vui Lòng Nhập Số Tiền");
             }
             else if (GiaTra < tiendenghi) {
@@ -158,7 +158,7 @@
                 var GiaGoc = parseFloat($('#giagoc').val());
                 var buocgia = parseFloat($('#buocgia').val());
                 var tiendenghi = GiaGoc + buocgia;
-                if (GiaTra == null) {
+                if (isNaN(GiaTra) == true) {
                     alert("Vui Lòng Nhập Số Tiền");
                 }
                 else if (GiaTra < tiendenghi) {
@@ -383,7 +383,7 @@ else
                     }
                     else
                     {
-                        <form id="auction" action="AuctionHistory/Add" method="post" @*novalidate="novalidate" *@>
+                        @*<form id="auction" action="AuctionHistory/Add" method="post" novalidate="novalidate">*@
                             <div class="col-md-12 caption-lg-green">
                                 @if (Model.Owner != null)
                                 {
@@ -442,7 +442,7 @@ else
                                     <p id="TT">0</p>
                                 </div>
                             </div>                           
-                        </form>
+                        @*</form>*@
                     }
                 }
 
