@@ -17,7 +17,7 @@
     <link href="~/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
 }
-@section js{    
+@section js{
     <script src="~/Content/bootstrap.file-input.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -125,14 +125,13 @@
                     </div>
                     <!-- dialog buttons -->
                     <div class="modal-footer"><button type="submit" class="btn btn-primary">OK</button></div>
-                </form>               
+                </form>
             </div>
         </div>
     </div>
 </div>
 <script>
     function openModal(ProID) {
-        $("#txtFullDes").text(ProID); l//ay ID San pham
         $("#txtProID").attr('value', ProID); //lay ID San pham
         $("#my1Modal").attr('class', 'modal fade in');
         $("#my1Modal").attr('style', 'display: inline;');
