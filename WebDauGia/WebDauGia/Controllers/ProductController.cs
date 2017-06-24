@@ -363,7 +363,7 @@ namespace WebDauGia.Controllers
                     if (model.StartTime <= DateTime.Now)
                         model.StartTime = DateTime.Now;
                     ctx.Entry(model).State = System.Data.Entity.EntityState.Added;
-                    //ctx.SaveChanges();
+                    ctx.SaveChanges();
                     @ViewBag.Message = "Đã thêm thành công.";
                     List<Category> list = ctx.Categories.ToList();
                     @ViewBag.DanhSachDanhMuc = list;
