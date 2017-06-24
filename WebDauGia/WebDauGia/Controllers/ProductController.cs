@@ -341,6 +341,18 @@ namespace WebDauGia.Controllers
                     else
                     {
                         model.StepPrice = (int)(double.Parse(pro.StepPrice));
+                        if (model.StepPrice < 1000)
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Bước tăng phải lớn hơn 1000!!')</script>");
+                            View(pro);
+                            return View(pro);
+                        }
+                        else
+                        {
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Bước tăng phải chia hết cho 1000!!')</script>");
+                            View(pro);
+                            return View(pro);
+                        }
                     }
                     model.AutoRenewal = pro.AutoRenewal == "True" ? true : false;
                     model.TinyDes = pro.TinyDes;
