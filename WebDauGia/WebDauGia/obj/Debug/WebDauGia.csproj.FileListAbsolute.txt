@@ -45,3 +45,4 @@ C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Help
 C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
 C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
+C:\Users\Asus\Documents\GitHub\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
