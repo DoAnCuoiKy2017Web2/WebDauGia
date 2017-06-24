@@ -1,0 +1,35 @@
+﻿@using WebDauGia.Models
+@using WebDauGia.Helper
+
+@model List<AuctionHistory>
+
+@if (Model.Count == 0)
+{
+    <p>Chưa có lịch sử</p>
+    <table class="table table-hover">
+        <tr>
+            <td>Thời gian</td>
+            <td>Người ra giá</td>
+            <td>Giá</td>
+        </tr>
+    </table>
+}
+else
+{
+    <table class="table table-hover">
+        <tr>
+            <td>Thời gian</td>
+            <td>Người ra giá</td>
+            <td>Giá</td>
+        </tr>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", @a.Time)</td>
+                <td>@a.UserName</td>
+                <td>@a.AucPrice</td>
+            </tr>
+        }
+    </table>
+}
+

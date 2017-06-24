@@ -138,47 +138,14 @@
                     <div class="modal-body">
                         <button type="button" class="modal-footer close" data-dismiss="modal">&times;</button>
                         <h4>Lịch sử đấu giá</h4>                        
-                        <input type="text" id="txtProID" name="ProID" value="abc" hidden />
-                        
+                        <input type="text" id="txtProID" name="ProID" value="1" hidden />
+                        getProID();
                         @{
-                            
-                            List<AuctionHistory> AucHis;
-                            using (var ctx2 = new QuanLyDauGiaEntities())
-                            {
-                                AucHis = ctx2.AuctionHistorys.Where(bl => bl.ProID == 1).OrderByDescending(bl => bl.Time).ToList();
-                            }
-                            if (AucHis.Count == 0)
-                            {
-                                <p>Chưa có lịch sử</p>
-                                <table class="table table-hover">
-                                    <tr>
-                                        <td>Thời gian</td>
-                                        <td>Người ra giá</td>
-                                        <td>Giá</td>
-                                    </tr>
-                                </table>
-                            }
-                            else
-                            {
-                                <table class="table table-hover">
-                                    <tr>
-                                        <td>Thời gian</td>
-                                        <td>Người ra giá</td>
-                                        <td>Giá</td>
-                                    </tr>
-                                    @foreach (var a in AucHis)
-                                    {
-                                        <tr>
-                                            <td>@String.Format("{0:d/M/yyyy lúc hh:mm:ss tt}", @a.Time)</td>
-                                            <td>@a.UserName</td>
-                                            <td>@a.AucPrice</td>
-                                        </tr>
-                                    }
-                                </table>
-                            }
-                            }
-
-</div>
+                           var a = Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "getproid();", true);
+                        }
+                        @Html.Action("History", "Product", new { ProID = 1})
+                        
+                    </div>
                     <!-- dialog buttons -->
                     <div class="modal-footer"><button type="button">OK</button></div>
             </div>
@@ -186,6 +153,9 @@
     </div>
 </div>
 <script>
+    function getproid() {
+        return document.getElementById("txtProID").value;
+    }
     function openModal(ProID) {
         $("#txtProID").attr('value', ProID); //lay ID San pham
         $("#my1Modal").attr('class', 'modal fade in');

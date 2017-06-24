@@ -484,5 +484,17 @@ namespace WebDauGia.Controllers
             return RedirectToAction("UnexpiredProducts", "User");
         }
         
+        public ActionResult History(string ProID)
+        {
+            int ss = int.Parse(ProID);
+            using (var ctx = new QuanLyDauGiaEntities())
+            {
+                List<AuctionHistory> list = ctx.AuctionHistorys
+                    .Where(l => l.ProID == ss)
+                    .ToList();
+                return PartialView("HistoryPartical", list);
+            }
+        }
+        
     }
 }
