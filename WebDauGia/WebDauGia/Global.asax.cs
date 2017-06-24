@@ -43,7 +43,7 @@ namespace WebDauGia
                                 //viet gmail Bán Thất Bại
                                 MailMessage mail2 = new MailMessage();
                                 mail2.To.Add(GmNgBan);
-                                mail2.From = new MailAddress("admiweb2nhom5@gmail.com");
+                                mail2.From = new MailAddress(Email.DCMail);
                                 mail2.Subject = "Thông Báo Sản Phẩm Của Bạn Không Có Người Đâu Giá " + pro[i].ProName;
                                 mail2.Body = Function.GmailBanTB(pro[i], pro[i].Salesman).ToString();
                                 mail2.IsBodyHtml = true;
@@ -51,7 +51,7 @@ namespace WebDauGia
                                 smtp2.Host = "smtp.gmail.com";
                                 smtp2.Port = 587;
                                 smtp2.UseDefaultCredentials = true;
-                                smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                                smtp2.Credentials = new System.Net.NetworkCredential(Email.DCMail, Email.Pass);
                                 smtp2.EnableSsl = true;
                                 smtp2.Send(mail2);
                                 pro[i].Status = true;
@@ -67,7 +67,7 @@ namespace WebDauGia
                                 //gui ngươi ban
                                 MailMessage mail2 = new MailMessage();
                                 mail2.To.Add(GmNgBan);
-                                mail2.From = new MailAddress("admiweb2nhom5@gmail.com");
+                                mail2.From = new MailAddress(Email.DCMail);
                                 mail2.Subject = "Thông Báo Đã Có Người Mua Thành Công Sản Phẩm Của Bạn " + pro[i].ProName;
                                 mail2.Body = Function.GmailBanTC(pro[i], pro[i].Salesman).ToString();
                                 mail2.IsBodyHtml = true;
@@ -75,13 +75,13 @@ namespace WebDauGia
                                 smtp2.Host = "smtp.gmail.com";
                                 smtp2.Port = 587;
                                 smtp2.UseDefaultCredentials = true;
-                                smtp2.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                                smtp2.Credentials = new System.Net.NetworkCredential(Email.DCMail, Email.Pass);
                                 smtp2.EnableSsl = true;
                                 smtp2.Send(mail2);
                                 //gui nguoi mua
                                 MailMessage mail = new MailMessage();
                                 mail.To.Add(GmNgMua);
-                                mail.From = new MailAddress("admiweb2nhom5@gmail.com");
+                                mail.From = new MailAddress(Email.DCMail);
                                 mail.Subject = "Thông Báo Thắng Cuộc Trong Phiên Đấu Giá Sản Phẩm " + pro[i].ProName;
                                 mail.Body = Function.GmailTBChienThang(pro[i], pro[i].Owner).ToString();
                                 mail.IsBodyHtml = true;
@@ -89,7 +89,7 @@ namespace WebDauGia
                                 smtp.Host = "smtp.gmail.com";
                                 smtp.Port = 587;
                                 smtp.UseDefaultCredentials = true;
-                                smtp.Credentials = new System.Net.NetworkCredential("admiweb2nhom5@gmail.com", "dakunchan");
+                                smtp.Credentials = new System.Net.NetworkCredential(Email.DCMail, Email.Pass);
                                 smtp.EnableSsl = true;
                                 smtp.Send(mail);
                                 //
