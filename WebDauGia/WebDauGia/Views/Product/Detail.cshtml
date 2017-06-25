@@ -165,7 +165,7 @@
                     alert("Bạn Phải Trả Cao Hơn Hoặc Bằng Giá Đề Nghị: " + tiendenghi)
                 }
                 else if (GiaTra >= tiendenghi) {
-                    if (confirm("Số Tiền Bạn Đưa Ra Là " + GiaTra + " VNĐ! Vui Lòng Xác Nhận!!! ") == true) {
+                    if (confirm("Số Tiền Bạn Đưa Ra Là " + GiaTra + " VNĐ! Vui Lòng Xác Nhận!!! Và Chờ Đợi Trong Vài giây nhé") == true) {
                         var url = "/AuctionHistory/Add";
                         $.ajax({
                             url: url,
