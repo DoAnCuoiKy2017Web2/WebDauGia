@@ -347,6 +347,12 @@ else
                     <h3 class="fa fa-exclamation" aria-hidden="true">  Sản phầm này bạn đăng bán!!!</h3>
                 </div>
             }
+            else if (Model.EndTime <= DateTime.Now)
+            {
+                <div class="alert alert-default" style="color:red">
+                    <h3 class="fa fa-exclamation" aria-hidden="true">Phiên Đâu Giá Đã Kết Thúc!!!</h3>
+                </div>
+            }
             else if (WebDauGia.Helper.CurrentContext.GetCurUser().UserName != Model.Salesman)
             {
                 @* Kiểm tra có bị cấm đấu giá sản phẩm này*@
