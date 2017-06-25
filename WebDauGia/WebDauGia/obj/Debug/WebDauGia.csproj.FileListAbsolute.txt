@@ -71,3 +71,28 @@ C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mv
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
 C:\Users\Admin\Desktop\WEB2\doan\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll.config
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\WebDauGia.pdb
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\BotDetect.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\BotDetect.Web.Mvc.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.SqlServer.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\Microsoft.Web.Infrastructure.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Razor.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Deployment.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\EntityFramework.SqlServer.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Razor.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Deployment.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Webpages.Razor.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Helpers.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\bin\System.Web.Mvc.xml
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.csprojResolveAssemblyReference.cache
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.dll
+D:\Public\LT Web2\WebDauGia\WebDauGia\WebDauGia\obj\Debug\WebDauGia.pdb

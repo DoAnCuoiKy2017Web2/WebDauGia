@@ -42,7 +42,7 @@
                         <tr>
                             <td>@cim.ProID</td>
                             <td>@cim.ProName</td>
-                            <td class="text-right">@cim.AucPrice</td>
+                            <td class="text-right">@string.Format("{0:N0}", cim.AucPrice) VNĐ</td>
                             <td class="text-right">@cim.Salesman</td>
                             <td class="text-right">
                                 <a class="btn btn-info btn-xs sendReview" href="javascript:;" role="button" title="Đánh giá" data-proid="@cim.ProID" data-username="@cim.Salesman">
