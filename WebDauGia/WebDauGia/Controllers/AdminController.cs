@@ -10,7 +10,7 @@ using WebDauGia.Filters;
 
 namespace WebDauGia.Controllers
 {
-   
+
     public class AdminController : Controller
     {
         // GET: Admin
@@ -97,25 +97,32 @@ namespace WebDauGia.Controllers
         [HttpPost]
         public ActionResult UpdateUserPassword(string proId, string newpass)
         {
-            try
-            {
-                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
-                {
-                    User us = dt.Users
-                        .Where(p => p.UserName == proId)
-                        .FirstOrDefault();
-                    if (us != null)
-                    {
-                        us.Password = StringUtils.MD5(newpass);
-                        dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
-                        dt.SaveChanges();
-                        TempData["ucheck"] = 1;
-                    }
-                }
-            }
-            catch (Exception)
+            if (newpass.Count() < 6)
             {
                 TempData["ucheck"] = -1;
+            }
+            else
+            {
+                try
+                {
+                    using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+                    {
+                        User us = dt.Users
+                            .Where(p => p.UserName == proId)
+                            .FirstOrDefault();
+                        if (us != null)
+                        {
+                            us.Password = StringUtils.MD5(newpass);
+                            dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                            dt.SaveChanges();
+                            TempData["ucheck"] = 1;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    TempData["ucheck"] = -1;
+                }
             }
             return RedirectToAction("ManageUser", "Admin");
         }
@@ -199,25 +206,33 @@ namespace WebDauGia.Controllers
         [HttpPost]
         public ActionResult AddCat(string proId)
         {
-            try
-            {
-                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
-                {
-                    Category us = new Category();
-                    us.CatName = proId;
-
-                    dt.Entry(us).State = System.Data.Entity.EntityState.Added;
-                    dt.SaveChanges();
-                    if (dt.SaveChanges() == 0)
-                    {
-                        TempData["ccheck"] = 1;
-                    }
-                }
-            }
-            catch (Exception)
+            if (proId == null || proId == "")
             {
                 TempData["ccheck"] = -1;
             }
+            else
+            {
+                try
+                {
+                    using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+                    {
+                        Category us = new Category();
+                        us.CatName = proId;
+
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Added;
+                        dt.SaveChanges();
+                        if (dt.SaveChanges() == 0)
+                        {
+                            TempData["ccheck"] = 1;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    TempData["ccheck"] = -1;
+                }
+            }
+
             return RedirectToAction("ManageCategory", "Admin");
         }
         // Get: Admin/RemoveCat
