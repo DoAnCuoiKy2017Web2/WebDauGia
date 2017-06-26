@@ -218,7 +218,7 @@ namespace WebDauGia.Controllers
                     {
                         Category us = new Category();
                         us.CatName = proId;
-
+                        us.Status = true;
                         dt.Entry(us).State = System.Data.Entity.EntityState.Added;
                         dt.SaveChanges();
                         if (dt.SaveChanges() == 0)
@@ -252,12 +252,12 @@ namespace WebDauGia.Controllers
                 using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
                     Category us = dt.Categories
-                        .Where(p => p.CatID == id)
+                        .Where(p => p.CatID == id && p.Status==true)
                         .FirstOrDefault();
+                    TempData["ccheck"] = -1;
                     if (us != null)
                     {
-                        us.Status = false;
-                        dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
+                        dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
                         dt.SaveChanges();
                         TempData["ccheck"] = 1;
                     }
