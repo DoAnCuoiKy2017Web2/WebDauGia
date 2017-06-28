@@ -99,7 +99,9 @@ namespace WebDauGia.Helper
                 using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
                 {
                     try {
-                        Request r = dt.Requests.Where(rr => rr.UserName == usname && rr.Expire <= DateTime.Now).FirstOrDefault();
+                        Request r = dt.Requests
+                            .Where(rr => rr.UserName == usname && rr.Expire > DateTime.Now && rr.Request1 == "sale")
+                            .FirstOrDefault();
                         if (r != null)
                         {
                             return true;

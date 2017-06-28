@@ -106,7 +106,7 @@ namespace WebDauGia.Controllers
                     {
                         return Json("Gửi Yêu Cầu Thất Bại! Yêu Cầu Của Bạn Đang Chờ Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
                     }
-                    //nếu đã tồn tại nhưng hết hạn thì update
+                    //nếu đã tồn tại nhưng hết hạn thì update thời gian request.
                     check.TimeRequest = DateTime.Now;
                     ctx.Entry(check).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
