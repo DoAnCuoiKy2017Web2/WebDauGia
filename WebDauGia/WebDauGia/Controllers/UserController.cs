@@ -280,7 +280,7 @@ namespace WebDauGia.Controllers
         {
             using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
             {
-                User us1 = dt.Users.Where(p => p.Email == model.Email.ToString()).FirstOrDefault();
+                User us1 = dt.Users.Where(p => p.Email == model.Email.ToString() && p.UserName != model.UserName).FirstOrDefault();
                 if (us1 != null)
                 {
                     TempData["ucheck"] = -2;
