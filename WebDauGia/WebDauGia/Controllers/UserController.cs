@@ -102,12 +102,12 @@ namespace WebDauGia.Controllers
                         return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
                     }
                     //neu da ton tai và trong luc duyet thi thong bao
-                    if (check.Expire == null)
+                    if (check.Expire == null || (check.TimeRequest > check.Expire))
                     {
-                        return Json("Gửi Yêu Cầu Thất Bại! Yêu Của Bạn Đang Chờ Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
+                        return Json("Gửi Yêu Cầu Thất Bại! Yêu Cầu Của Bạn Đang Chờ Duyệt, Vui Lòng Chờ Phản Hồi Từ Admin", JsonRequestBehavior.AllowGet);
                     }
                     //nếu đã tồn tại nhưng hết hạn thì update
-                    check.Expire = null;
+                    check.TimeRequest = DateTime.Now;
                     ctx.Entry(check).State = System.Data.Entity.EntityState.Modified;
                     ctx.SaveChanges();
                     return Json("Gửi Yêu Cầu Thành Công! Vui Lòng Chờ Phẩn Hồi Sớm Nhất Từ Admin", JsonRequestBehavior.AllowGet);
