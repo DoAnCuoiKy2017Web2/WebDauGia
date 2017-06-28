@@ -23,10 +23,25 @@ namespace WebDauGia.Helper
         {
             if (strinput == null)
                 return "";
-            if (strinput.Length <= 3)
-                return strinput.Replace(strinput.Substring(0, 1), "*****");
             else
-                return strinput.Replace(strinput.Substring(0, strinput.Length - 3), "*****");
+            {
+                string kq = "";
+                for(int i=0;i<strinput.Length;i++)
+                {
+                    if(i%2==0)
+                    {
+                        kq += "*";
+                    }
+                    else {
+                        kq += strinput[i];
+                    }
+                }
+                return kq;
+            }
+            //if (strinput.Length <= 3)
+            //    return strinput.Replace(strinput.Substring(0, 1), "*****");
+            //else
+            //    return strinput.Replace(strinput.Substring(0, strinput.Length - 3), "*****");
         }
     }
 }
