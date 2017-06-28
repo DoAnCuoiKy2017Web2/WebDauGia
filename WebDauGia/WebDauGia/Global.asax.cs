@@ -15,11 +15,11 @@ namespace WebDauGia
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //System.Timers.Timer aTimer = new System.Timers.Timer(10 * 1000);
-            //aTimer.Elapsed += new System.Timers.ElapsedEventHandler(EventGuiMail);
-            //aTimer.AutoReset = true;
-            //aTimer.Enabled = true;
-            //aTimer.Start();
+            System.Timers.Timer aTimer = new System.Timers.Timer(10 * 1000);
+            aTimer.Elapsed += new System.Timers.ElapsedEventHandler(EventGuiMail);
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+            aTimer.Start();
         }
         private static void EventGuiMail(object source, System.Timers.ElapsedEventArgs e)
         {

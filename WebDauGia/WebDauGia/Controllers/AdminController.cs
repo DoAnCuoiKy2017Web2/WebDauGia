@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using WebDauGia.Helper;
 using WebDauGia.Models;
 using WebDauGia.Filters;
+using System.Net.Mail;
+using System.Text;
 
 namespace WebDauGia.Controllers
 {
@@ -116,6 +118,27 @@ namespace WebDauGia.Controllers
                             dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                             dt.SaveChanges();
                             TempData["ucheck"] = 1;
+                            //gửi gmail cho người bị reser pass
+                            StringBuilder Body = new StringBuilder();
+                            Body.Append("<h3>Chào: <b>" + us.UserName + "<b></h3>");
+                            Body.Append("<p>Vào Lúc " + DateTime.Now.ToString() + " Chúng tôi đã Reset PassWork của bạn!</p>");
+                            Body.Append("<p>PassWork hiện tại của bạn là: <b>" + newpass + "</b></p>");
+                            Body.Append("<p style='color:blue'>Bạn Hãy Nhanh Chống Đổi Một PassWork Khác Mà Chỉ Mình Bạn Biết Nhé! </p>");
+                            string Gm = "";
+                            Gm = us.Email;
+                            MailMessage mail = new MailMessage();
+                            mail.To.Add(Gm);
+                            mail.From = new MailAddress(Email.DCMail);
+                            mail.Subject = "Thông Báo Reset PassWork của user " + us.UserName;
+                            mail.Body = Body.ToString();
+                            mail.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.Port = 587;
+                            smtp.UseDefaultCredentials = true;
+                            smtp.Credentials = new System.Net.NetworkCredential(Email.DCMail, Email.Pass);
+                            smtp.EnableSsl = true;
+                            smtp.Send(mail);
                         }
                     }
                 }
