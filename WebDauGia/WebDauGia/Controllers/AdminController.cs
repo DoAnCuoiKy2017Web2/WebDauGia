@@ -401,7 +401,8 @@ namespace WebDauGia.Controllers
                             dt.Entry(u).State = System.Data.Entity.EntityState.Modified;
                             dt.SaveChanges();
 
-                            dt.Entry(us).State = System.Data.Entity.EntityState.Deleted;
+                            us.Expire = DateTime.Now.AddDays(7);
+                            dt.Entry(us).State = System.Data.Entity.EntityState.Modified;
                             dt.SaveChanges();
 
                             TempData["rcheck"] = 1;

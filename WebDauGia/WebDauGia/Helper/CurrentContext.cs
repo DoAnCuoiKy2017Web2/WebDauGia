@@ -90,6 +90,33 @@ namespace WebDauGia.Helper
         {
             return (Admin)HttpContext.Current.Session["admin"];
         }
-        
+
+        public static bool AllowSalse()
+        {
+            string usname = ((User)HttpContext.Current.Session["user"]).UserName;
+            try
+            {
+                using (QuanLyDauGiaEntities dt = new QuanLyDauGiaEntities())
+                {
+                    try {
+                        Request r = dt.Requests.Where(rr => rr.UserName == usname && rr.Expire <= DateTime.Now).FirstOrDefault();
+                        if (r != null)
+                        {
+                            return true;
+                        }
+                        else
+                            return false;
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
     }
 }

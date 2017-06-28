@@ -62,7 +62,10 @@ else
                                 List<Request> myAL = new List<Request>();
                                 foreach (var cim in ctx.Requests)
                                 {
-                                    myAL.Add(cim);
+                                    if (cim.Expire.HasValue && cim.Expire < DateTime.Now)
+                                    {
+                                        myAL.Add(cim);
+                                    }
                                 }
                             }
                             @{

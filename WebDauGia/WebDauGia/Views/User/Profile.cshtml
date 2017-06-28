@@ -180,7 +180,7 @@
                                                 <div class="hr hr-8 dotted"></div>
                                                 @*Xin được đăng đấu giá*@
                                                 <div class="profile-info-row">
-                                                    @if (Model.AllowSales == true)
+                                                    @if (WebDauGia.Helper.CurrentContext.AllowSalse() == true)
                                                     {
                                                         <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Add", "Product")'">
                                                             Đăng Bán Sản Phẩm!
