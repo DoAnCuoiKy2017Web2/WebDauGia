@@ -10,13 +10,24 @@
     User us = (User)Session["user"];
 
     var ctx = new QuanLyDauGiaEntities();
-    var listx = from n in ctx.AuctionHistorys
+    var listx = (from n in ctx.AuctionHistorys
                 join m in ctx.Products on
                 n.ProID equals m.ProID
                 where n.UserName == us.UserName && m.EndTime>DateTime.Now
-                select new { m.ProID, m.ProName, n.AucPrice, m.NumOfAuction,n.Time,m.EndTime };
-
+                select new { m.ProID, m.ProName, n.AucPrice, m.NumOfAuction,n.Time,m.EndTime,m.Owner }).ToList();
     int t = listx.Count();
+    //
+    for (int i = 0; i < listx.Count() - 1; i++)
+    {
+        for (int j = i + 1; j < listx.Count(); j++)
+        {
+            if(listx[i].ProID == listx[j].ProID)
+            {
+                listx.RemoveAt(j);
+                j--;
+            }
+        }
+    }
 }
 <div class="col-md-12">
     <div class="card">
@@ -42,21 +53,39 @@
                 <tbody>
                    
                     @foreach (var cim in listx)
-                    {                     
-                        <tr>
-                            <td>@cim.ProID</td>
-                            <td>@cim.ProName</td>
-                            <td class="text-right">@string.Format("{0:N0}", cim.AucPrice) VNĐ</td>
-                            <td class="text-right">@cim.Time</td>
-                            <td class="text-right">@cim.NumOfAuction</td>
-                            <td class="text-right">@cim.EndTime</td>
-                            <td class="text-right">
-                                <a class="btn btn-info btn-xs updateItem" href="@Url.Action("Detail", "Product", new { id = @cim.ProID})" role="button" title="Xem chi tiết">
-                                    Xem
-                                </a>
-                            </td>
-                        </tr>
-
+                    {
+                        if (cim.Owner!=null && cim.Owner == us.UserName)
+                        {
+                            <tr style="color:blue">
+                                <td>@cim.ProID</td>
+                                <td>@cim.ProName</td>
+                                <td class="text-right">@string.Format("{0:N0}", cim.AucPrice) VNĐ</td>
+                                <td class="text-right">@cim.Time</td>
+                                <td class="text-right">@cim.NumOfAuction</td>
+                                <td class="text-right">@cim.EndTime</td>
+                                <td class="text-right">
+                                    <a class="btn btn-info btn-xs updateItem" href="@Url.Action("Detail", "Product", new { id = @cim.ProID})" role="button" title="Xem chi tiết">
+                                        Xem
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="color:red">
+                                <td>@cim.ProID</td>
+                                <td>@cim.ProName</td>
+                                <td class="text-right">@string.Format("{0:N0}", cim.AucPrice) VNĐ</td>
+                                <td class="text-right">@cim.Time</td>
+                                <td class="text-right">@cim.NumOfAuction</td>
+                                <td class="text-right">@cim.EndTime</td>
+                                <td class="text-right">
+                                    <a class="btn btn-info btn-xs updateItem" href="@Url.Action("Detail", "Product", new { id = @cim.ProID})" role="button" title="Xem chi tiết">
+                                        Xem
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
 
