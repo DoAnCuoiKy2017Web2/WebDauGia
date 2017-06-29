@@ -273,6 +273,7 @@
     <Content Include="Content\ad\js\jquery-3.1.0.min.js" />
     <Content Include="Content\ad\js\material-dashboard.js" />
     <Content Include="Content\ad\js\material.min.js" />
+    <Content Include="Content\bootstrap - layoutuser.css" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap-3.3.7-dist\css\bootstrap.css" />
