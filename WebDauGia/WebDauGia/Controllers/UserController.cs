@@ -88,12 +88,14 @@ namespace WebDauGia.Controllers
             {
                 using (var ctx = new QuanLyDauGiaEntities())
                 {
-                    var check = ctx.Requests.Where(r => r.UserName == name && r.Request1 == "sale").FirstOrDefault();
+                    int uid = int.Parse(name);
+                    var usx = ctx.Users.Where(u => u.UserID == uid).FirstOrDefault();
+                    var check = ctx.Requests.Where(r => r.UserName == usx.UserName && r.Request1 == "sale").FirstOrDefault();
                     //nếu chưa tồn tại  thì add
                     if (check == null)
                     {
                         var rq = new Request();
-                        rq.UserName = name;
+                        rq.UserName = usx.UserName;
                         rq.TimeRequest = DateTime.Now;
                         rq.Request1 = "sale";
                         rq.Expire = null;
