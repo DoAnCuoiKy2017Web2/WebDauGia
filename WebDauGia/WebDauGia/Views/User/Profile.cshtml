@@ -177,11 +177,11 @@
                                                         int st2 = Int32.Parse(Model.Reliability.Split('/')[1]);
                                                         double tb = ((double)st1 / (st2 + st1)) * 100;
                                                     }
-                                                    <span class="middle">@Model.Reliability.Split('/')[0] (+) @Model.Reliability.Split('/')[1] (-) (Điểm Tính Thành Phần Trăm: @tb %)</span>
+                                                    <span class="middle">@Model.Reliability.Split('/')[0] (+) @Model.Reliability.Split('/')[1] (-)</span>
                                                 </h4>
-                                                @*<h4 class="blue">
-                                                    <span class="middle">Bạn được phép đăng bán.. hay ko</span>
-                                                </h4>*@
+                                                <h4 class="blue">
+                                                    <span class="middle">Điểm Tính Thành Phần Trăm: @tb %</span>
+                                                </h4>
                                                 <br />
                                                 <div class="hr hr-8 dotted"></div>
                                                 @*Xin được đăng đấu giá*@
